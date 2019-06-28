@@ -125,6 +125,7 @@ namespace TestingCode
                 while (hasBlock < 4 && !hasMake)
                 {
                     hasBlock = 0;
+                    if(map[column])
                 }
 
                 //Console.Clear(); ShowMap(map); Console.ReadKey();
