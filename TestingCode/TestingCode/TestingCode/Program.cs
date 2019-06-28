@@ -9,7 +9,7 @@ namespace Test
     class Program
     {
         //程式狀態
-        enum State { getScale ,generateMap, ShowMap ,endProgram }
+        enum State { getScale, generateMap, ShowMap, endProgram }
         static State nowState;
 
         static ConsoleColor[,] map;
@@ -61,7 +61,7 @@ namespace Test
         {
             map[column, row] = ConsoleColor.Green;
             //Console.Clear(); ShowMap(map); Console.ReadKey();
-            
+
             if (mapScale > 0)
             {
                 int hasBlock = 0;
@@ -70,7 +70,7 @@ namespace Test
                 while (hasBlock < 4 && !hasMake)
                 {
                     hasBlock = 0;
-                    if(map[column + 1, row] == ConsoleColor.Green)
+                    if (map[column + 1, row] == ConsoleColor.Green)
                         hasBlock++;
                     else if (map[column + 1, row] == ConsoleColor.Black && random.Next(4) == 1)
                     {
@@ -120,7 +120,7 @@ namespace Test
 
         static void Main(string[] args)
         {
-            Console.SetWindowSize(160,80);
+            Console.SetWindowSize(160, 80);
 
 
             nowState = State.getScale;
