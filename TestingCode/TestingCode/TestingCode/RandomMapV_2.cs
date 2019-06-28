@@ -127,7 +127,7 @@ namespace TestingCode
                     hasBlock = 0;
                 }
 
-                Console.Clear(); ShowMap(map); Console.ReadKey();
+                //Console.Clear(); ShowMap(map); Console.ReadKey();
             }
         }
         #endregion
@@ -137,7 +137,26 @@ namespace TestingCode
 
     #region 地圖方塊
     //方向定義
-    enum Direction { Top, Bottom, Left, Right }
+    sealed class Direction
+    {
+        private int _x, _y, _id;
+
+        public int X { get => _x; }
+        public int Y { get => _y; }
+        public int Id { get => _id; }
+
+        private Direction(int x, int y, int id)
+        {
+            _x = x;
+            _y = y;
+            _id = id;
+        }
+        
+        public static readonly Direction Top = new Direction(0,1,0);
+        public static readonly Direction Bottom = new Direction(0, -1,1);
+        public static readonly Direction Left = new Direction(1, 0,2);
+        public static readonly Direction Right = new Direction(-1, 0,3);
+    }
 
     //地圖牆面
     abstract class WallType { }
@@ -160,17 +179,17 @@ namespace TestingCode
 
         public void SetWall(Direction direction, WallType type)
         {
-            myWalls[(int)direction] = type;
+            myWalls[direction.Id] = type;
         }
 
         public WallType GetWall(Direction direction)
         {
-            return myWalls[(int)direction];
+            return myWalls[direction.Id];
         }
 
         public bool HasWall(Direction direction)
         {
-            return !(myWalls[(int)direction] is Null);
+            return !(myWalls[direction.Id] is Null);
         }
 
         public bool IsSealed()
