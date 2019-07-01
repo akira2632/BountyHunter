@@ -41,5 +41,5 @@ namespace RandomMapV_2
         public static readonly Direction Right = new Direction(-1, 0, 3);
     }
 
-    enum WallType { Null = -1, Wall, Pass }
+    enum WallType { Null, Wall, Pass }
 }
