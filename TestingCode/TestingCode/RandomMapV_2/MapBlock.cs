@@ -2,11 +2,11 @@
 
 namespace RandomMapV_2
 {
-    public class MapBlcok
+    public class MapBlock
     {
         private WallType[] walls;
 
-        public MapBlcok()
+        public MapBlock()
         {
             walls = new WallType[4];
             for (int i = 0; i < 4; i++)

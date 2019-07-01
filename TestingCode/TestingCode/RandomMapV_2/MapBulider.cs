@@ -19,12 +19,12 @@ namespace RandomMapV_2
 
         public bool HasBlock(int column, int row)
         {
-                return map[column, row] != null;
+            return map[column, row] != null;
         }
 
         public bool HasWall(int column, int row, Direction d)
         {
-                return map[column, row].walls[(int)Direction] != WallType.Null;
+            return map[column, row].walls[(int)Direction] != WallType.Null;
         }
 
         public bool Passeble(int column, int row, Direction d)

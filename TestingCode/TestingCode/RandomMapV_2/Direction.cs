@@ -2,7 +2,7 @@
 
 namespace RandomMapV_2
 {
-    sealed class Direction
+    sealed public class Direction
     {
         private int _column, _row, _id;
 
@@ -31,7 +31,6 @@ namespace RandomMapV_2
                     return Right;
                 default:
                     throw new System.ArgumentException();
-                    break;
             }
         }
 
@@ -41,5 +40,5 @@ namespace RandomMapV_2
         public static readonly Direction Right = new Direction(-1, 0, 3);
     }
 
-    enum WallType { Null, Wall, Pass }
+    public enum WallType { Null, Wall, Pass }
 }
