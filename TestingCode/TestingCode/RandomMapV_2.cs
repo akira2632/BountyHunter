@@ -12,10 +12,21 @@ namespace TestingCode
         enum State { getScale, generateMap, ShowMap, endProgram }
         State nowState;
 
-        MapBlock[,] map;
+        struct Coordinate
+        {
+            public Coordinate(int column, int row)
+            {
+                this.column = column;
+                this.row = row;
+            }
+
+            public int column;
+            public int row;
+        }
+
+        ConsoleColor[,] map;
         int scale;
 
-        #region 控制器程式
         int GetScale()
         {
             string userInput;
@@ -39,29 +50,98 @@ namespace TestingCode
             }
         }
 
-        void ShowMap(MapBlock[,] map)
+        void GenerateMap(int mapScale, out ConsoleColor[,] map)
+        {
+            int maxSize = mapScale * 2 + 1;
+            map = new ConsoleColor[maxSize, maxSize];
+
+            //Initialze empty map
+            for (int column = 0; column < maxSize; column++)
+                for (int row = 0; row < maxSize; row++)
+                    map[column, row] = ConsoleColor.Black;
+
+            //Generate Map
+            Random random = new Random();
+            List<Coordinate> GeneratePoint = new List<Coordinate>();
+            GeneratePoint.Add(new Coordinate(mapScale, mapScale));
+
+            while (mapScale > 0)
+            {
+                for(int ctr = 0; ctr < GeneratePoint.Count; ctr++)
+                {
+                    bool hasMake = false;
+                    int hasBlock = 0;
+                    Coordinate target = GeneratePoint[ctr];
+
+                    while (!hasMake)
+                    {
+                        if (map[target.column + 1, target.row] == ConsoleColor.Green)
+                            hasBlock++;
+                        else if (random.Next(4) == 1)
+                        {
+                            map[target.column + 1, target.row] == ConsoleColor.Green;
+                            GeneratePoint.Add(new Coordinate(target.column + 1, target.row));
+                            hasMake = true;
+                        }
+
+                        if (map[target.column - 1, target.row] == ConsoleColor.Green)
+                            hasBlock++;
+                        else if (random.Next(4) == 1)
+                        {
+                            map[target.column - 1, target.row] == ConsoleColor.Green;
+                            GeneratePoint.Add(new Coordinate(target.column - 1, target.row));
+                            hasMake = true;
+                        }
+
+                        if (map[target.column, target.row + 1] == ConsoleColor.Green)
+                            hasBlock++;
+                        else if (random.Next(4) == 1)
+                        {
+                            map[target.column, target.row + 1] == ConsoleColor.Green;
+                            GeneratePoint.Add(new Coordinate(target.column, target.row + 1));
+                            hasMake = true;
+                        }
+
+                        if (map[target.column, target.row - 1] == ConsoleColor.Green)
+                            hasBlock++;
+                        else if (random.Next(4) == 1)
+                        {
+                            map[target.column, target.row - 1] == ConsoleColor.Green;
+                            GeneratePoint.Add(new Coordinate(target.column, target.row - 1));
+                            hasMake = true;
+                        }
+
+                        if (hasBlock >= 4)
+                            return;
+                    }
+                    GeneratePoint.Remove(GeneratePoint.FindIndex(target));
+                }
+
+                mapScale--;
+            }
+
+            map[mapScale, mapScale] = ConsoleColor.Blue;
+        }
+
+
+        void ShowMap(ConsoleColor[,] map)
         {
             for (int column = 0; column < map.GetLength(0); column++)
             {
                 for (int row = 0; row < map.GetLength(1); row++)
                 {
-                    if(map[column, row] != null)
-                        map[column,row].ShowMap();
-                    else
-                    {
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.WriteLine("  ");
-                    }
+                    Console.BackgroundColor = map[column, row];
+                    Console.Write("  ");
                 }
                 Console.WriteLine();
             }
         }
-        #endregion
 
         public void Run()
         {
             Console.SetWindowSize(160, 80);
-            
+
+
             nowState = State.getScale;
 
             while (true)
@@ -100,112 +180,5 @@ namespace TestingCode
                 }
             }
         }
-
-        #region 隨機生成演算法
-        void GenerateMap(int mapScale, out MapBlock[,] map)
-        {
-            int maxSize = mapScale * 2 - 1;
-            map = new MapBlock[maxSize, maxSize];
-            #region Generate Map
-            Random random = new Random();
-
-            MakeBlock(mapScale, mapScale, mapScale - 1, ref map, ref random);
-            #endregion
-        }
-
-        void MakeBlock(int column, int row, int mapScale, ref MapBlock[,] map, ref Random random)
-        {
-            map[column, row] = new MapBlock();
-
-            if (mapScale > 0)
-            {
-                int hasBlock = 0;
-                bool hasMake = false;
-
-                while (hasBlock < 4 && !hasMake)
-                {
-                    hasBlock = 0;
-                    if(map[column])
-                }
-
-                //Console.Clear(); ShowMap(map); Console.ReadKey();
-            }
-        }
-        #endregion
     }
-
-    enum State { getScale, generateMap, ShowMap, endProgram }
-
-    #region 地圖方塊
-    //方向定義
-    sealed class Direction
-    {
-        private int _x, _y, _id;
-
-        public int X { get => _x; }
-        public int Y { get => _y; }
-        public int Id { get => _id; }
-
-        private Direction(int x, int y, int id)
-        {
-            _x = x;
-            _y = y;
-            _id = id;
-        }
-        
-        public static readonly Direction Top = new Direction(0,1,0);
-        public static readonly Direction Bottom = new Direction(0, -1,1);
-        public static readonly Direction Left = new Direction(1, 0,2);
-        public static readonly Direction Right = new Direction(-1, 0,3);
-    }
-
-    //地圖牆面
-    abstract class WallType { }
-    class Null : WallType { }
-    class Open : WallType { }
-    class Close : WallType { }
-
-    //基本地圖區塊
-    class MapBlock
-    {
-        WallType[] myWalls;
-
-        public MapBlock()
-        {
-            myWalls = new WallType[4];
-        
-            for (int i = 0; i < 4; i++)
-                myWalls[i] = new Null();
-        }
-
-        public void SetWall(Direction direction, WallType type)
-        {
-            myWalls[direction.Id] = type;
-        }
-
-        public WallType GetWall(Direction direction)
-        {
-            return myWalls[direction.Id];
-        }
-
-        public bool HasWall(Direction direction)
-        {
-            return !(myWalls[direction.Id] is Null);
-        }
-
-        public bool IsSealed()
-        {
-            foreach (WallType type in myWalls)
-                if (type is Null)
-                    return false;
-
-            return true;
-        }
-
-        public void ShowMap()
-        {
-
-        }
-    }
-    #endregion
 }

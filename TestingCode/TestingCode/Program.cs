@@ -10,7 +10,7 @@ namespace TestingCode
     {
         public static void Main(string[] args)
         {
-            RandomMapV_1 test = new RandomMapV_1();
+            RandomMapV_2 test = new RandomMapV_2();
 
             test.Run();
         }

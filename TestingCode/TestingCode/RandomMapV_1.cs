@@ -43,18 +43,16 @@ namespace TestingCode
             int maxSize = mapScale * 2 - 1;
             map = new ConsoleColor[maxSize, maxSize];
 
-            #region Initialze empty map
+            //Initialze empty map
             for (int column = 0; column < maxSize; column++)
                 for (int row = 0; row < maxSize; row++)
                     map[column, row] = ConsoleColor.Black;
-            #endregion
 
-            #region Generate Map
+            //Generate Map
             Random random = new Random();
 
             MakeBlock(mapScale, mapScale, mapScale - 1, ref map, ref random);
             map[mapScale, mapScale] = ConsoleColor.Blue;
-            #endregion
         }
 
         void MakeBlock(int column, int row, int mapScale, ref ConsoleColor[,] map, ref Random random)
