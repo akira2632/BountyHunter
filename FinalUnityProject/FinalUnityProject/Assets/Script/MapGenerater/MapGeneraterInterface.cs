@@ -18,7 +18,7 @@ public interface IBlockBuilder
 public abstract class IAreaGenerater
 {
     protected IBlockBuilder blockBuilder;
-    protected List<Coordinate> GeneratePoint;
+    protected Coordinate startPoint;
 
     /// <summary>
     /// 取得區塊建造者與生成起點
@@ -28,8 +28,7 @@ public abstract class IAreaGenerater
     public IAreaGenerater(IBlockBuilder blockBuilder, Coordinate startPoint)
     {
         this.blockBuilder = blockBuilder;
-        GeneratePoint = new List<Coordinate>();
-        GeneratePoint.Add(startPoint);
+        this.startPoint = startPoint;
     }
 
     /// <summary>

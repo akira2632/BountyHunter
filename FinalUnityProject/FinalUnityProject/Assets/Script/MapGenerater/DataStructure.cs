@@ -2,7 +2,7 @@
 
 #region 座標
 /// <summary>
-/// 區塊座標
+/// 區塊座標 地圖區塊的區塊目錄
 /// </summary>
 public struct Coordinate
 {
@@ -17,6 +17,7 @@ public struct Coordinate
     public int Column { get => _column; }
     public int Row { get => _row; }
 
+    #region 讓編譯器閉嘴
     public override bool Equals(object obj)
     {
         return base.Equals(obj);
@@ -26,6 +27,7 @@ public struct Coordinate
     {
         return base.GetHashCode();
     }
+    #endregion
 
     #region 計算指定方向的座標
     public static Coordinate operator +(Coordinate c, Direction d)
@@ -71,12 +73,12 @@ public sealed class Direction
     public const int DirectionCount = 4;
 
     //固定方向定義
-    public static readonly Direction Top = new Direction(0, 1);
-    public static readonly Direction Bottom = new Direction(0, -1);
-    public static readonly Direction Left = new Direction(1, 0);
-    public static readonly Direction Right = new Direction(-1, 0);
+    public static readonly Direction Top = new Direction(1, 0);
+    public static readonly Direction Bottom = new Direction(-1, 0);
+    public static readonly Direction Left = new Direction(-1, 0);
+    public static readonly Direction Right = new Direction(0, 1);
 
-    #region 反向運算
+    #region 反方向運算
     /// <summary>
     /// 計算與原方向相反的方向
     /// </summary>
@@ -97,7 +99,7 @@ public sealed class Direction
     }
     #endregion
 
-    #region 整數方向轉換
+    #region 整數和方向轉換
     /// <summary>
     /// 將座標轉換為對應的整數
     /// 0 - Top
