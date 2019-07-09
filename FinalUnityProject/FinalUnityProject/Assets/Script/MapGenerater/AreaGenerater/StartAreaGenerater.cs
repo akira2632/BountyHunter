@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class StartAreaGenerater : IAreaGenerater
 {
-    public StartAreaGenerater(IBlockBuilder blockBuilder, Coordinate startPoint) : base(blockBuilder, startPoint)
-    {
-    }
+    public StartAreaGenerater(IBlockBuilder blockBuilder, Coordinate startPoint) : base(blockBuilder, startPoint) { }
 
     public override List<Coordinate> GenerateArea()
     {

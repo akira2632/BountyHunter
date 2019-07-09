@@ -5919,9 +5919,8 @@ GameObject:
   - component: {fileID: 1378744565}
   - component: {fileID: 1378744564}
   - component: {fileID: 1378744563}
-  - component: {fileID: 1378744562}
   - component: {fileID: 1378744561}
-  - component: {fileID: 1378744566}
+  - component: {fileID: 1378744562}
   m_Layer: 0
   m_Name: New Sprite
   m_TagString: Untagged
@@ -5942,8 +5941,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 0
---- !u!58 &1378744562
-CircleCollider2D:
+--- !u!70 &1378744562
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5956,8 +5955,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.1
+  m_Size: {x: 0.2, y: 0.2}
+  m_Direction: 0
 --- !u!50 &1378744563
 Rigidbody2D:
   serializedVersion: 4
@@ -6042,17 +6041,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!210 &1378744566
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1378744560}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
 --- !u!1 &1506929979
 GameObject:
   m_ObjectHideFlags: 0

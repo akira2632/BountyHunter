@@ -17,9 +17,9 @@ public class MoveItem : MonoBehaviour
     void Update()
     {
         if (Input.GetKey(KeyCode.UpArrow))
-            transform.Translate(Vector3.up * Speed * Time.deltaTime);
+            transform.Translate(Vector3.up * Speed * 0.5f * Time.deltaTime);
         else if (Input.GetKey(KeyCode.DownArrow))
-            transform.Translate(Vector3.down * Speed * Time.deltaTime);
+            transform.Translate(Vector3.down * Speed * 0.5f * Time.deltaTime);
 
         if (Input.GetKey(KeyCode.LeftArrow))
             transform.Translate(Vector3.left * Speed * Time.deltaTime);
