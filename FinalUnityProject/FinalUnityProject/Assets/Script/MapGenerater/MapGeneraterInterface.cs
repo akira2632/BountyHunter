@@ -18,17 +18,22 @@ public interface IBlockBuilder
 #endregion
 
 #region 建造流程控制
+//回乎函式
+public delegate void IsCompelet();
+
 //流程管理者
 public abstract class IGeneraterManager
 {
-    IGeneraterState generater;
-    Queue<IGeneraterState> taskQueue;
+    IGenerateState generater;
+    Queue<IGenerateState> taskQueue;
+    IsCompelet isCompelet;
     bool hasInitail;
 
-    void Start()
+    public IGeneraterManager(IsCompelet isCompelet)
     {
+        this.isCompelet = isCompelet;
         hasInitail = false;
-        taskQueue = new Queue<IGeneraterState>();
+        taskQueue = new Queue<IGenerateState>();
     }
 
     void Update()
@@ -42,28 +47,27 @@ public abstract class IGeneraterManager
             generater.Update();
     }
 
-    public bool SetNextTask()
+    public void SetNextTask()
     {
         if (taskQueue.Count > 0)
         {
             generater.End();
             generater = taskQueue.Dequeue();
-
-            return true;
+            hasInitail = false;
         }
         else
-            return false;
+            isCompelet.Invoke();
     }
 
     public abstract void AddTask(List<Coordinate> GeneratePoint);
 }
 
 //生成流程介面
-public abstract class IGeneraterState
+public abstract class IGenerateState
 {
     protected IGeneraterManager manager;
 
-    public IGeneraterState(IGeneraterManager manager)
+    public IGenerateState(IGeneraterManager manager)
     {
         this.manager = manager;
     }
