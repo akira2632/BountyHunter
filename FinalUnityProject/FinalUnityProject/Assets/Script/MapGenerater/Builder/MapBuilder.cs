@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockBuilder : IBlockBuilder
+public class MapBuilder : IBlockBuilder
 {
     private Dictionary<Coordinate, MapBlock> map;
 
-    public BlockBuilder()
+    public MapBuilder()
     {
         map = new Dictionary<Coordinate, MapBlock>();
     }

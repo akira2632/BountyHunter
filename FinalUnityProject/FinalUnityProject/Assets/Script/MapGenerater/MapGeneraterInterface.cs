@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+#region 建造者介面
 //區塊建造者介面
 public interface IBlockBuilder
 {
@@ -14,26 +15,61 @@ public interface IBlockBuilder
     void MakeBlock(Coordinate coordinate);
 }
 
-//生成規則介面
-public abstract class IAreaGenerater
-{
-    protected IBlockBuilder blockBuilder;
-    protected Coordinate startPoint;
+#endregion
 
-    /// <summary>
-    /// 取得區塊建造者與生成起點
-    /// </summary>
-    /// <param name="blockBuilder">區塊建造者</param>
-    /// <param name="startPoint">生成起點</param>
-    public IAreaGenerater(IBlockBuilder blockBuilder, Coordinate startPoint)
+#region 建造流程控制
+//流程管理者
+public abstract class IGeneraterManager
+{
+    IGeneraterState generater;
+    Queue<IGeneraterState> taskQueue;
+    bool hasInitail;
+
+    void Start()
     {
-        this.blockBuilder = blockBuilder;
-        this.startPoint = startPoint;
+        hasInitail = false;
+        taskQueue = new Queue<IGeneraterState>();
     }
 
-    /// <summary>
-    /// 生成區域並返回可繼續生成的生成點
-    /// </summary>
-    /// <returns>生成點列表</returns>
-    public abstract List<Coordinate> GenerateArea();
+    void Update()
+    {
+        if (!hasInitail)
+        {
+            hasInitail = true;
+            generater.Initail();
+        }
+        else
+            generater.Update();
+    }
+
+    public bool SetNextTask()
+    {
+        if (taskQueue.Count > 0)
+        {
+            generater.End();
+            generater = taskQueue.Dequeue();
+
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public abstract void AddTask(List<Coordinate> GeneratePoint);
 }
+
+//生成流程介面
+public abstract class IGeneraterState
+{
+    protected IGeneraterManager manager;
+
+    public IGeneraterState(IGeneraterManager manager)
+    {
+        this.manager = manager;
+    }
+
+    public abstract void Initail();
+    public abstract void Update();
+    public abstract void End();
+}
+#endregion
