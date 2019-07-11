@@ -3,7 +3,7 @@ using UnityEngine;
 
 #region 建造者介面
 //區塊建造者介面
-public interface IBlockBuilder
+public interface IAreaBuilder
 {
     bool HasCompleteBlock(Coordinate coordinate);
     bool HasBoundary(Coordinate coordinate, Direction direction);
@@ -14,66 +14,51 @@ public interface IBlockBuilder
     void MakePath(Coordinate coordinate, Direction direction);
     void MakeBlock(Coordinate coordinate);
 }
-
 #endregion
 
-#region 建造流程控制
-//回乎函式
-public delegate void IsCompelet();
-
+#region 簡單狀態機
 //流程管理者
-public abstract class IGeneraterManager
+public abstract class IStateManager
 {
-    IGenerateState generater;
-    Queue<IGenerateState> taskQueue;
-    IsCompelet isCompelet;
+    IState nowState;
     bool hasInitail;
 
-    public IGeneraterManager(IsCompelet isCompelet)
+    public IStateManager()
     {
-        this.isCompelet = isCompelet;
         hasInitail = false;
-        taskQueue = new Queue<IGenerateState>();
     }
 
-    void Update()
+    public void Update()
     {
         if (!hasInitail)
         {
             hasInitail = true;
-            generater.Initail();
+            nowState.Initail();
         }
         else
-            generater.Update();
+            nowState.Update();
     }
 
-    public void SetNextTask()
+    public void SetState(IState nextState)
     {
-        if (taskQueue.Count > 0)
-        {
-            generater.End();
-            generater = taskQueue.Dequeue();
-            hasInitail = false;
-        }
-        else
-            isCompelet.Invoke();
+        nowState.End();
+        nowState = nextState;
+        hasInitail = false;
     }
-
-    public abstract void AddTask(List<Coordinate> GeneratePoint);
 }
 
 //生成流程介面
-public abstract class IGenerateState
+public abstract class IState
 {
-    protected IGeneraterManager manager;
+    protected IStateManager manager;
 
-    public IGenerateState(IGeneraterManager manager)
+    public IState(IStateManager manager)
     {
         this.manager = manager;
     }
 
-    public abstract void Initail();
-    public abstract void Update();
-    public abstract void End();
+    public virtual void Initail() { }
+    public virtual void Update() { }
+    public virtual void End() { }
 }
 #endregion

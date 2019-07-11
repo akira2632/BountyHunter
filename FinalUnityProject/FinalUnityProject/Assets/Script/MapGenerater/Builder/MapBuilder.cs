@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class MapBuilder : IBlockBuilder
+public class MapBuilder : IAreaBuilder
 {
     private Dictionary<Coordinate, MapBlock> map;
 

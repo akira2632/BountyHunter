@@ -74,7 +74,7 @@ public sealed class Direction
 
     //固定方向定義
     public static readonly Direction Top = new Direction(1, 0);
-    public static readonly Direction Bottom = new Direction(-1, 0);
+    public static readonly Direction Down = new Direction(-1, 0);
     public static readonly Direction Left = new Direction(-1, 0);
     public static readonly Direction Right = new Direction(0, 1);
 
@@ -87,8 +87,8 @@ public sealed class Direction
     public static Direction operator !(Direction direction)
     {
         if (direction.Equals(Top))
-            return Bottom;
-        else if (direction.Equals(Bottom))
+            return Down;
+        else if (direction.Equals(Down))
             return Top;
         else if (direction.Equals(Left))
             return Right;
@@ -103,7 +103,7 @@ public sealed class Direction
     /// <summary>
     /// 將座標轉換為對應的整數
     /// 0 - Top
-    /// 1 - Bottom
+    /// 1 - Down
     /// 2 - Left
     /// 3 - Right
     /// </summary>
@@ -112,7 +112,7 @@ public sealed class Direction
     {
         if (direction.Equals(Top))
             return 0;
-        else if (direction.Equals(Bottom))
+        else if (direction.Equals(Down))
             return 1;
         else if (direction.Equals(Left))
             return 2;
@@ -125,7 +125,7 @@ public sealed class Direction
     /// <summary>
     /// 將整數轉換為對應的座標
     /// 0 - Top
-    /// 1 - Bottom
+    /// 1 - Down
     /// 2 - Left
     /// 3 - Right
     /// </summary>
@@ -137,7 +137,7 @@ public sealed class Direction
             case 0:
                 return Top;
             case 1:
-                return Bottom;
+                return Down;
             case 2:
                 return Left;
             case 3:
