@@ -150,10 +150,13 @@ public sealed class Direction
 }
 #endregion
 
-#region 地圖區塊、邊界
-internal enum Boundary { Null, Path, Wall}
+#region 區塊類型
+#endregion
 
-internal class MapBlock
+#region 地圖區塊、邊界
+public enum Boundary { Null, Path, Wall}
+
+public class MapBlock
 {
     public Boundary[] boundarys;
 
@@ -166,3 +169,4 @@ internal class MapBlock
     }
 }
 #endregion
+

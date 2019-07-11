@@ -20,8 +20,8 @@ public interface IAreaBuilder
 //流程管理者
 public abstract class IStateManager
 {
-    IState nowState;
-    bool hasInitail;
+    protected IState nowState;
+    protected bool hasInitail;
 
     public IStateManager()
     {
@@ -47,14 +47,14 @@ public abstract class IStateManager
     }
 }
 
-//生成流程介面
+//流程狀態
 public abstract class IState
 {
-    protected IStateManager manager;
+    protected IStateManager stateManager;
 
-    public IState(IStateManager manager)
+    public IState(IStateManager stateManager)
     {
-        this.manager = manager;
+        this.stateManager = stateManager;
     }
 
     public virtual void Initail() { }
