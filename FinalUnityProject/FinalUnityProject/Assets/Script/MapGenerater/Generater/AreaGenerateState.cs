@@ -2,40 +2,67 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#region 基底原件
 /// <summary>
 /// 區塊建造者基底類別、加入靜態共用參數
 /// </summary>
-public abstract class IAreaGenerateState : IState
+public abstract class IAreaGenerater : IState
 {
     public static IAreaBuilder areaBuilder;
-    public static AreaGenerateData generateData;
 
-    public IAreaGenerateState(
+    public IAreaGenerater(
         IStateManager stateManager)
         : base(stateManager) { }
 }
 
 /// <summary>
-/// 共用參數管理者
-/// </summary>
-public class AreaGenerateData
-{
-    public BasicAreaGenerater basicAreaGenerater;
-    public AreaSealder areaSealder;
-}
-
-/// <summary>
 /// 區域建造者參數介面
 /// </summary>
-public interface IAreaGenerateParms { }
+public abstract class IAreaGenerateParms
+{
+    public int mapScale;
+}
+#endregion
 
+/// <summary>
+/// 區域建造管理者
+/// 紀錄總體生成狀態、生成任務列表、並處理生成決策
+/// </summary>
 public class AreaGenerateManager : IState
 {
+    #region 基本資料欄位、初始化相關
+    readonly Queue<GenerateTask> GenerateList;
+    int mapScale;
+
+    /// <summary>
+    /// 管理者初始化
+    /// </summary>
+    /// <param name="areaBuilder">取得區塊建造者</param>
+    /// <param name="stateManager">取得流程管理者</param>
+    /// <param name="mapScale">取得目標地圖規模</param>
     public AreaGenerateManager(IAreaBuilder areaBuilder, IStateManager stateManager, int mapScale) : base(stateManager)
     {
-        IAreaGenerateState.generateData = new AreaGenerateData();
-        IAreaGenerateState.areaBuilder = areaBuilder;
+        IAreaGenerater.areaBuilder = areaBuilder;
+        this.mapScale = mapScale;
+
+        GenerateList = new Queue<GenerateTask>();
     }
+
+    /// <summary>
+    /// 管理用任務結構、紀錄生成用的策略與其參數
+    /// </summary>
+    struct GenerateTask
+    {
+        public IAreaGenerater generater;
+        public IAreaGenerateParms parms;
+
+        public GenerateTask(IAreaGenerater generater, IAreaGenerateParms parms)
+        {
+            this.generater = generater;
+            this.parms = parms;
+        }
+    }
+    #endregion
 }
 
 /// <summary>
