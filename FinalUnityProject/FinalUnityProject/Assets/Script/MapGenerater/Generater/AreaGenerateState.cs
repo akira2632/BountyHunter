@@ -34,6 +34,9 @@ public class AreaGenerateManager : IState
     readonly Queue<GenerateTask> GenerateList;
     int mapScale;
 
+    public static BasicAreaGenerater basicAreaGenerater;
+    public static AreaSealder areaSealder;
+
     /// <summary>
     /// 管理者初始化
     /// </summary>
@@ -42,10 +45,13 @@ public class AreaGenerateManager : IState
     /// <param name="mapScale">取得目標地圖規模</param>
     public AreaGenerateManager(IAreaBuilder areaBuilder, IStateManager stateManager, int mapScale) : base(stateManager)
     {
+        //有空的話用Factory重構、利用GeneraterManager
+        //(繼成自IStateManager、兼具流程管理權責)取得物件工廠
         IAreaGenerater.areaBuilder = areaBuilder;
         this.mapScale = mapScale;
-
         GenerateList = new Queue<GenerateTask>();
+
+
     }
 
     /// <summary>
@@ -63,14 +69,6 @@ public class AreaGenerateManager : IState
         }
     }
     #endregion
-}
-
-/// <summary>
-/// 迷宮起點建造者
-/// </summary>
-public class StartPointGenerater : IState
-{
-    public StartPointGenerater(IStateManager stateManager) : base(stateManager) { }
 }
 
 public class BasicAreaGenerater : IState
