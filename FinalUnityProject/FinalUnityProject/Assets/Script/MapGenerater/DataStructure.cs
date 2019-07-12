@@ -150,15 +150,17 @@ public sealed class Direction
 }
 #endregion
 
-#region 區塊類型
-#endregion
-
 #region 地圖區塊、邊界
+//邊界類型
 public enum Boundary { Null, Path, Wall}
+
+//區塊類型
+public enum BlockType { Normal, MapEntry, BossRoom, Treasure, Mechanism, Quest}
 
 public class MapBlock
 {
     public Boundary[] boundarys;
+    public BlockType blockType;
 
     public MapBlock()
     {
@@ -166,7 +168,8 @@ public class MapBlock
 
         for (int d = 0; d < Direction.DirectionCount; d++)
             boundarys[d] = Boundary.Null;
+
+        blockType = BlockType.Normal;
     }
 }
 #endregion
-

@@ -8,11 +8,14 @@ using UnityEngine;
 /// </summary>
 public abstract class IAreaGenerater : IState
 {
-    public static IAreaBuilder areaBuilder;
+    protected static IAreaBuilder areaBuilder;
+    protected IAreaGenerateParms myParms;
 
     public IAreaGenerater(
         IStateManager stateManager)
         : base(stateManager) { }
+
+    protected virtual void SetParameter(IAreaGenerateParms parms) { }
 }
 
 /// <summary>
@@ -28,14 +31,17 @@ public abstract class IAreaGenerateParms
 /// 區域建造管理者
 /// 紀錄總體生成狀態、生成任務列表、並處理生成決策
 /// </summary>
-public class AreaGenerateManager : IState
+public class AreaGenerateManager : IAreaGenerater
 {
     #region 基本資料欄位、初始化相關
     readonly Queue<GenerateTask> GenerateList;
     int mapScale;
 
-    public static BasicAreaGenerater basicAreaGenerater;
-    public static AreaSealder areaSealder;
+    protected static BasicAreaGenerater basicAreaGenerater;
+    protected static AreaSealder areaSealder;
+
+    //有空的話用Factory重構、利用GeneraterManager
+    //(繼成自IStateManager、兼具流程管理權責)取得物件工廠
 
     /// <summary>
     /// 管理者初始化
@@ -45,13 +51,12 @@ public class AreaGenerateManager : IState
     /// <param name="mapScale">取得目標地圖規模</param>
     public AreaGenerateManager(IAreaBuilder areaBuilder, IStateManager stateManager, int mapScale) : base(stateManager)
     {
-        //有空的話用Factory重構、利用GeneraterManager
-        //(繼成自IStateManager、兼具流程管理權責)取得物件工廠
         IAreaGenerater.areaBuilder = areaBuilder;
         this.mapScale = mapScale;
         GenerateList = new Queue<GenerateTask>();
 
-
+        basicAreaGenerater = new BasicAreaGenerater(stateManager);
+        areaSealder = new AreaSealder(stateManager);
     }
 
     /// <summary>
@@ -71,14 +76,22 @@ public class AreaGenerateManager : IState
     #endregion
 }
 
-public class BasicAreaGenerater : IState
+public class BasicAreaGenerater : IAreaGenerater
 {
     public BasicAreaGenerater(IStateManager stateManager) : base(stateManager) { }
+    protected override void SetParameter(IAreaGenerateParms parms)
+    {
+        base.SetParameter(parms);
+    }
 }
 
-public class AreaSealder : IState
+public class AreaSealder : IAreaGenerater
 {
     public AreaSealder(IStateManager stateManager) : base(stateManager) { }
+    protected override void SetParameter(IAreaGenerateParms parms)
+    {
+        base.SetParameter(parms);
+    }
 }
 
 #region 有空的話
