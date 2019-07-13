@@ -5,6 +5,7 @@ using UnityEngine;
 //區塊建造者介面
 public interface IAreaBuilder
 {
+    //bool HasCloseEmptyArea(Coordinate coordinate, int areaSize);
     bool HasCompleteBlock(Coordinate coordinate);
     bool HasBoundary(Coordinate coordinate, Direction direction);
 

@@ -2,25 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GeneraterManager : IStateManager
+public class GeneraterManager : IStateManager, IAreaGeneraterFactory
 {
+    static MapBuilder mapBuilder;
+
     public GeneraterManager() : base()
     {
-        nowState = new AreaGenerateInitail(this);
+        nowState = new AreaGenerateManager(this, 50);
+        mapBuilder = new MapBuilder();
     }
-}
-
-public class AreaGenerateInitail : IState
-{
-    public AreaGenerateInitail(IStateManager stateManager) : base(stateManager) { }
-
-    public override void Initail() { }
-
-    public override void Update()
+    
+    public IAreaBuilder GetAreaBuilder()
     {
-        AreaGenerateManager areaGenerateManager =
-            new AreaGenerateManager(new MapBuilder(), stateManager, 50);
-
-        stateManager.SetState(areaGenerateManager);
+        return mapBuilder;
     }
 }

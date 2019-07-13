@@ -38,6 +38,15 @@ public class MapBuilder : IAreaBuilder
     {
         return map[coordinate].boundarys[direction] != Boundary.Null;
     }
+
+    /*
+    public bool HasCloseEmptyArea(Coordinate coordinate, int areaSize)
+    {
+        for (int i = 0; i < length; i++)
+        {
+
+        }
+    }*/
     #endregion
 
     #region 建造區塊
