@@ -224,12 +224,13 @@ public class BasicAreaGenerater : IAreaGenerater
                     }
                 }
 
+                /*
                 for (int d= 0; d< Direction.DirectionCount; d++)
                 {
                     if (!areaBuilder.HasBoundary(target, d))
                         areaBuilder.MakeWall(target, d);
                     else if(areaBuilder.)
-                }
+                }*/
             }
             //完成一輪生成、清空生成清單並加入暫存清單
             else
