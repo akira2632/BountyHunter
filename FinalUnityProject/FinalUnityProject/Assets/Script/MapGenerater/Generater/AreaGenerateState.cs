@@ -110,6 +110,7 @@ public class AreaGenerateManager : IAreaGenerater
         if (GeneratePoint.Count > 0)
         {
             AreaGenerateParms temp = GeneratePoint.Dequeue();
+            //剩餘扣打大於8
             if (temp.mapQuota > 8)
             {
                 int newAreaScale = Random.Range(3, 5);
@@ -121,6 +122,7 @@ public class AreaGenerateManager : IAreaGenerater
                     startPoint = temp.startPoint
                 }));
             }
+            //若剩餘扣打不足8
             else if (temp.mapQuota > 0)
             {
                 GenerateList.Enqueue(new GenerateTask(basicAreaGenerater,
@@ -131,6 +133,7 @@ public class AreaGenerateManager : IAreaGenerater
                     startPoint = temp.startPoint
                 }));
             }
+            //扣打已用盡、閉鎖區域
             else
             {
                 GenerateList.Enqueue(new GenerateTask(areaSealder,
@@ -158,6 +161,11 @@ public class AreaGenerateManager : IAreaGenerater
 
         }
     }
+
+    public void AddTask()
+    {
+
+    }
     #endregion
 }
 
@@ -169,13 +177,13 @@ public class BasicAreaGenerater : IAreaGenerater
     int generateTurn, hasBlock;
     bool hasMake;
     Queue<Coordinate> GeneratePoint, GenerateTemp;
+    Coordinate target;
 
     public BasicAreaGenerater(IStateManager GenerateManager) : base(GenerateManager) { }
 
     public override void Initail()
     {
         generateTurn = 0;
-        hasMake = false;
         GeneratePoint = new Queue<Coordinate>();
         GenerateTemp = new Queue<Coordinate>();
         GeneratePoint.Enqueue(parms.startPoint);
@@ -183,8 +191,55 @@ public class BasicAreaGenerater : IAreaGenerater
 
     public override void Update()
     {
-        hasBlock = 0;
-        for (int d = 0; d < Direction.DirectionCount; d++)
+        //直到完成指定區塊大小為止
+        if(generateTurn < parms.areaScale)
+        {
+            //對生成清單內的所有點進行生成
+            if(GeneratePoint.Count > 0)
+            {
+                hasMake = false;
+                target = GeneratePoint.Dequeue();
+
+                while (!hasMake)
+                {
+                    hasBlock = 0;
+
+                    for (int d = 0; d < Direction.DirectionCount; d++)
+                    {
+                        if (areaBuilder.HasCompleteBlock(target + d))
+                        {
+                            hasBlock++;
+                            areaBuilder.ConectBoundary(target, d);
+                        }
+                        else if  (Random.Range(0,100) < 30)
+                        {
+                            hasMake = true;
+                            areaBuilder.MakePath(target, d);
+                        }
+                    }
+
+                    if(hasBlock >3)
+                    {
+                        break;
+                    }
+                }
+
+                for (int d= 0; d< Direction.DirectionCount; d++)
+                {
+                    if (!areaBuilder.HasBoundary(target, d))
+                        areaBuilder.MakeWall(target, d);
+                    else if(areaBuilder.)
+                }
+            }
+            //完成一輪生成、清空生成清單並加入暫存清單
+            else
+            {
+                generateTurn++;
+                GeneratePoint = GenerateTemp;
+                GenerateTemp = new Queue<Coordinate>();
+            }
+        }
+        else
         {
 
         }
