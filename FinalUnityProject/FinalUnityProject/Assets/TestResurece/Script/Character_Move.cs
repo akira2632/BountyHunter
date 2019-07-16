@@ -65,7 +65,7 @@ public class Character_Move : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.G) && action != 2)
             action = 2;
 
         rigidbody2d.MovePosition(position);
