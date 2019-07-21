@@ -206,7 +206,8 @@ public class BasicAreaGenerater : IAreaGenerater
 
                     for (int d = 0; d < Direction.DirectionCount; d++)
                     {
-                        if (areaBuilder.HasCompleteBlock(target + d))
+                        if (areaBuilder.HasBlock(target + d) &&
+                            areaBuilder.HasBoundary(target + d, !(Direction)d))
                         {
                             hasBlock++;
                             areaBuilder.ConectBoundary(target, d);

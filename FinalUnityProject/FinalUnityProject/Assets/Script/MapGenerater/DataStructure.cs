@@ -75,8 +75,8 @@ public sealed class Direction
     //固定方向定義
     public static readonly Direction Top = new Direction(1, 0);
     public static readonly Direction Down = new Direction(-1, 0);
-    public static readonly Direction Left = new Direction(-1, 0);
-    public static readonly Direction Right = new Direction(0, 1);
+    public static readonly Direction Left = new Direction(0, 1);
+    public static readonly Direction Right = new Direction(0, -1);
 
     #region 反方向運算
     /// <summary>
@@ -152,10 +152,10 @@ public sealed class Direction
 
 #region 地圖區塊、邊界
 //邊界類型
-public enum Boundary { Null, Path, Wall}
+public enum Boundary { Null, Path, Wall }
 
 //區塊類型
-public enum BlockType { Normal, MapEntry, BossRoom, Treasure, Mechanism, Quest}
+public enum BlockType { Normal, MapEntry, BossRoom, Treasure, Mechanism, Quest }
 
 public class MapBlock
 {
