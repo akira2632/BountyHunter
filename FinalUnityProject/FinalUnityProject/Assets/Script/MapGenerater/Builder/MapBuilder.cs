@@ -106,30 +106,22 @@ public class MapBuilder : MonoBehaviour, IAreaBuilder
             int x = data.Key.Column * 3;
             int y = data.Key.Row * 3;
 
-            Debug.Log("Set center tile at (" + x + "," + y + ")");
-            tilemap.SetTile(new Vector3Int(x, y, 0), CenterTile);
+            Debug.Log("Set tile at (" + x + "," + y + ")");
 
+            for (int i = -1; i < 2; i++)
+                for (int j = -1; j < 2; j++)
+                    tilemap.SetTile(new Vector3Int(x + i, y + j, 0), CenterTile);
+
+            tilemap.SetTile(new Vector3Int(x, y, 0), PathTile);
 
             if (data.Value.boundarys[Direction.Top] == Boundary.Path)
-            {
-                Debug.Log("Set top path at (" + (x + 1) + "," + y + ")");
                 tilemap.SetTile(new Vector3Int(x + 1, y, 0), PathTile);
-            }
             if (data.Value.boundarys[Direction.Down] == Boundary.Path)
-            {
-                Debug.Log("Set down path at (" + (x - 1) + "," + y + ")");
                 tilemap.SetTile(new Vector3Int(x - 1, y, 0), PathTile);
-            }
             if (data.Value.boundarys[Direction.Left] == Boundary.Path)
-            {
-                Debug.Log("Set left path at (" + x + "," + (y + 1) + ")");
                 tilemap.SetTile(new Vector3Int(x, y + 1, 0), PathTile);
-            }
             if (data.Value.boundarys[Direction.Right] == Boundary.Path)
-            {
-                Debug.Log("Set right path at (" + x + "," + (y - 1) + ")");
                 tilemap.SetTile(new Vector3Int(x, y - 1, 0), PathTile);
-            }
         }
     }
 }

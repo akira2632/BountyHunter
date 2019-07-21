@@ -188,8 +188,9 @@ public class BasicAreaGenerater : IAreaGenerater
 
     public override void Update()
     {
+        
         //直到完成指定區塊大小為止
-        if(generateTurn < parms.areaScale)
+        while(generateTurn < parms.areaScale)
         {
             //對生成清單內的所有點進行生成
             if(GeneratePoint.Count > 0)
@@ -247,10 +248,8 @@ public class BasicAreaGenerater : IAreaGenerater
                 GenerateTemp = new Queue<Coordinate>();
             }
         }
-        else
-        {
-            stateManager.SetState(AreaGenerateManager.areaGenerateManager);
-        }
+
+        stateManager.SetState(AreaGenerateManager.areaGenerateManager);
     }
 
     public override void End()

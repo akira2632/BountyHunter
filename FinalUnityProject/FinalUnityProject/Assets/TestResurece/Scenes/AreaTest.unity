@@ -177,7 +177,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d4e5f54298e33d41abad83d07519903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 11400000, guid: ec64fabd84f32d34b83d4dbfb12de2f1, type: 2}
+  CenterTile: {fileID: 11400000, guid: 844843033362491418c40183c4fd9775, type: 2}
+  PathTile: {fileID: 11400000, guid: f738fbdc2083afe42b85331ff8c8ce74, type: 2}
   tilemap: {fileID: 832545444}
 --- !u!1 &519420028
 GameObject:
