@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
+  - movingsound
   layers:
   - Default
   - TransparentFX
