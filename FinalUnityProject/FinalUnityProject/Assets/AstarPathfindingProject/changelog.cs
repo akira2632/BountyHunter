@@ -2,6 +2,24 @@
 /// \page changelog Changelog
 /// \order{-10}
 ///
+/// - 4.2.8 (2019-04-29)
+/// 	- Made it possible for nearest node queries on point graphs to find the closst connection instead of just the closest node.
+/// 		This will make it easier to use graphs when you have many long connections.
+/// 		See <see cref="Pathfinding.PointGraph.nearestNodeDistanceMode"/>.
+/// 	- Improved the Seeker->StartEndModifier's Connection snapping mode. Now it will behave better if the path only moves along a single connection in the graph.
+/// 	- Fixed a crash when deploying for Nintendo Switch due to a Unity bug when setting thread names. Thanks ToastyStoemp for reporting this.
+/// 	- Fixed some compiler warnings in the ObjImporter class that would show up on some platforms.
+/// 	- Fixed GridGraph.CalculateConnectionsForCellAndNeighbours would throw an exception when called with the coordinates for a node on the border of the grid. Thanks davidpare for reporting this.
+///
+/// - 4.2.7 (2019-04-05)
+/// 	- Significantly improved graph rendering performance for recast graphs when using a very large number of small tiles.
+/// 	- Fixed GridGraph.CountNodes throwing an exception when the graph is not scanned. Now it will return 0.
+///
+/// - 4.2.6 (2019-03-23)
+/// 	- Fixed AIPath.reachedDestination and RichAI.reachedDestination only worked when the y coordinate of the agent was close to zero... which it of course was in all my tests.
+/// 		Sorry about this silly bug and the headache it may have caused.
+/// 	- Fixed loading a serialized navmesh graph when the source mesh no longer existed would cause the graph to be offset if a navmesh cut was later used to cut it.
+///
 /// - 4.2.5 (2019-02-14)
 /// 	- Added a new documentation page for how to create and configure graphs during runtime. runtime-graphs (view in online documentation for working links).
 /// 	- Added a new documentation page about editing point graph connections manually. editing-graphs (view in online documentation for working links).

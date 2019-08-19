@@ -281,13 +281,6 @@ namespace RandomMap_V6
                     map[target].terrain[column, row] = 0;
         }
 
-        internal void SetNullBlock(Coordinate target)
-        {
-            for (int column = 0; column < 15; column++)
-                for (int row = 0; row < 15; row++)
-                    map[target].terrain[column, row] = 10;
-        }
-
         public ref sbyte[,] GetTerrainData(Coordinate target)
         {
             return ref map[target].terrain;
@@ -306,6 +299,7 @@ namespace RandomMap_V6
         {
             this.miniMapSetting = miniMapSetting;
             this.gameMapSetting = gameMapSetting;
+            //bossRoomColor = new Color32(255, 240, 109, 255);
             entryColor = new Color32(243, 105, 228, 255);
             safeBlockColor = new Color32(251, 172, 235, 255);
         }
@@ -321,9 +315,22 @@ namespace RandomMap_V6
         public void PrintGameMapWall(int x, int y)
         {
             gameMapSetting.GameMap_Wall.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapWall);
-            gameMapSetting.GameMap_Collider.SetTile(new Vector3Int(x, y, 0), gameMapSetting.NavegateBlock);
             gameMapSetting.NavegateMap.SetTile(new Vector3Int(x, y, 0), gameMapSetting.NavegateBlock);
         }
+        /*
+        public void BossRoom(bool isBossRoom)
+        {
+            if(isBossRoom)
+            {
+                gameMapSetting.GameMapGround.color = bossRoomColor;
+                gameMapSetting.GameMapWall.color = bossRoomColor;
+            }
+            else
+            {
+                gameMapSetting.GameMapGround.color = Color.white;
+                gameMapSetting.GameMapWall.color = Color.white;
+            }
+        }*/
         #endregion
 
         #region 印出小地圖

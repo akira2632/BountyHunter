@@ -57,6 +57,7 @@ namespace RandomMap_V6
                 UpdateColumnRowMinMax();
 
                 if (mapBuilder.GetBlockType(target) != BlockType.Null)
+                {
                     for (int d = 0; d < Direction.DirectionCount; d++)
                     {
                         if (mapBuilder.HasWall(target, d))
@@ -82,8 +83,9 @@ namespace RandomMap_V6
                         }
                     }
 
-                generaterManager.AddTicks();
-                generaterManager.SetNextGenerater(new GameMapPresenter(generaterManager));
+                    generaterManager.AddTicks();
+                    generaterManager.SetNextGenerater(new GameMapPresenter(generaterManager));
+                }
             }
             else
                 generaterManager.SetNextGenerater(new NaveGraphGenerate(generaterManager));
@@ -100,6 +102,10 @@ namespace RandomMap_V6
         public override void Initail()
         {
             terrainData = mapBuilder.GetTerrainData(target);
+            /*if (mapBuilder.GetBlockType(target) == BlockType.BossRoom)
+                mapPrinter.BossRoom(true);
+            else
+                mapPrinter.BossRoom(false);*/
         }
 
         public override void Update()
@@ -110,12 +116,28 @@ namespace RandomMap_V6
                     if (terrainData[column, row] < 10)
                         mapPrinter.PrintGameMapGround(target.Column * 15 + column, target.Row * 15 + row,
                             mapBuilder.GetBlockType(target) == BlockType.Safe);
+                    //else if (HasGroundBehind(column, row))
                     else
                         mapPrinter.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
                 }
 
             generaterManager.AddTicks();
             generaterManager.SetNextGenerater(new MiniMapPresenter(generaterManager));
+        }
+        
+        private bool HasGroundBehind(int column, int row)
+        {
+            for (int columnDisp = -1; columnDisp < 2; columnDisp++)
+            {
+                for (int rowDisp = -1; rowDisp < 2; rowDisp++)
+                    if (!(columnDisp == 0 && rowDisp == 0)
+                        && column + columnDisp > -1 && column + columnDisp < terrainData.GetLength(0)
+                        && row + rowDisp > -1 && row + rowDisp < terrainData.GetLength(1)
+                        && terrainData[column + columnDisp, row + rowDisp] < 10)
+                        return true;
+            }
+
+            return false;
         }
     }
 

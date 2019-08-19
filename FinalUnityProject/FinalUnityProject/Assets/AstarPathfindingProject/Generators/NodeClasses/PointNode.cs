@@ -16,6 +16,8 @@ namespace Pathfinding {
 		/// See: <see cref="RemoveConnection"/>
 		///
 		/// Note: If you modify this array or the contents of it you must call <see cref="SetConnectivityDirty"/>.
+		///
+		/// Note: If you modify this array or the contents of it you must call <see cref="PointGraph.RegisterConnectionLength"/> with the length of the new connections.
 		/// </summary>
 		public Connection[] connections;
 
@@ -126,6 +128,9 @@ namespace Pathfinding {
 
 			connections = newconns;
 			AstarPath.active.hierarchicalGraph.AddDirtyNode(this);
+
+			// Make sure the graph knows that there exists a connection with this length
+			(this.Graph as PointGraph).RegisterConnectionLength((node.position - position).sqrMagnitudeLong);
 		}
 
 		/// <summary>

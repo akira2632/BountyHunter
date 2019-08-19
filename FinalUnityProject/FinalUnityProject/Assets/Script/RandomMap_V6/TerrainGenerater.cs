@@ -84,10 +84,7 @@ namespace RandomMap_V6
                 generaterManager.SetNextGenerater(new BasicTerrainGenerater(generaterManager));
             }
             else
-            {
-                mapBuilder.SetNullBlock(target);
                 target = generateTargets.Dequeue();
-            }
         }
     }
 

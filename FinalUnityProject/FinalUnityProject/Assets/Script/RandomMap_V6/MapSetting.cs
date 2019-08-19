@@ -15,7 +15,6 @@ namespace RandomMap_V6
     {
         public Tilemap GameMap_Wall;
         public Tilemap GameMap_Ground;
-        public Tilemap GameMap_Collider;
         public IsometricRuleTile GameMapWall;
         public IsometricRuleTile GameMapGround;
 
