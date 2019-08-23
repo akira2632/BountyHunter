@@ -894,7 +894,7 @@ Transform:
   m_GameObject: {fileID: 5852561906833531106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.135578, y: -7.452696, z: -135.61919}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.5, y: 3.5, z: 1}
   m_Children:
   - {fileID: 2488534558604962135}
   - {fileID: 5529046427361282837}
@@ -918,7 +918,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c523f6d53095601469e624343fb342d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerKeySetting: {fileID: 11400000, guid: a92a754b5784d724c888bd0ec64cf916, type: 2}
   Character: {fileID: 4280045919699805550}
 --- !u!58 &3184237462566785645
 CircleCollider2D:
@@ -1070,7 +1069,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f8edbbd4752d941aefea553709f9dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Attirbute: {fileID: 11400000, guid: bd36998ebde61ba439487fa73c6d060a, type: 2}
   MovementBody: {fileID: 4120472245376351970}
   CharacterAnimator: {fileID: 4400809090990432873}
   MoveSound: {fileID: 4026182151988589933}
