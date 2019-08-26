@@ -6,7 +6,6 @@ using CharacterSystem_V2.AttackColliders;
 namespace CharacterSystem_V2
 {
     #region 角色狀態機
-    [System.Serializable]
     public class PlayerCharacter : MonoBehaviour, ICharacter
     {
         public CharacterData Data;

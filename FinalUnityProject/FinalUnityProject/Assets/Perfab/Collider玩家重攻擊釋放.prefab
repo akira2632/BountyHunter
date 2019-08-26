@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3014081420219544736}
   - component: {fileID: 2764853600334563852}
   - component: {fileID: 6296822166982123358}
-  - component: {fileID: 5957108732845104572}
+  - component: {fileID: 1383070983171022755}
   m_Layer: 0
   m_Name: "Collider\u73A9\u5BB6\u91CD\u653B\u64CA\u91CB\u653E"
   m_TagString: Untagged
@@ -282,7 +282,7 @@ PolygonCollider2D:
       - {x: 0.16226101, y: 0.6629086}
       - {x: 0.6026354, y: 0.24605757}
       - {x: 0.68575287, y: -0.18100351}
---- !u!114 &5957108732845104572
+--- !u!114 &1383070983171022755
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -291,6 +291,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3228684796954368208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92639c3e16af67841983574247e75f84, type: 3}
+  m_Script: {fileID: 11500000, guid: 2698ab4fe9ff8d94ab11d54d6ead4e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TargetTag: Enemy
