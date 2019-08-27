@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 1e7aa0d95e8e6e2498648269901a56aa, type: 3}
   m_Name: "\u6309\u9375\u8A2D\u5B9A"
-  m_EditorClassIdentifier: Assembly-CSharp:CharacterSystem_V4:KeySetting
+  m_EditorClassIdentifier: 
   UpKey: 119
   DownKey: 115
   LeftKey: 97

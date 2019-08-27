@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CharacterSystem_V4
 {
@@ -11,6 +9,7 @@ namespace CharacterSystem_V4
 
         public Rigidbody2D MovementBody;
         public Animator CharacterAnimator;
+        public bool AnimationEnd;
 
         public AudioSource MoveSound, DeffendSound, FallDownSound, LightAttackSound,
                 HeavyAttack1Sound, HeavyAttackChargeSound, HeavyAttack2Sound;
@@ -75,10 +74,16 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
+                Debug.Log("Idel Strat");
                 warrior.RunTimeData.Vertiacl = Vertical.None;
                 warrior.RunTimeData.Horizontal = Horizontal.None;
                 warrior.CharacterAnimator.SetBool("IsFallDown", false);
                 warrior.CharacterAnimator.SetBool("IsMove", false);
+            }
+
+            public override void End()
+            {
+                Debug.Log("Idel End");
             }
             #endregion
 
@@ -117,6 +122,7 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
+                Debug.Log("Move Strat");
                 warrior.MoveSound.Play();
                 warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertiacl);
                 warrior.CharacterAnimator.SetFloat("Horizontal", (float)warrior.RunTimeData.Horizontal);
@@ -125,7 +131,7 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                if (warrior.RunTimeData.Vertiacl == Vertical.None && 
+                if (warrior.RunTimeData.Vertiacl == Vertical.None &&
                     warrior.RunTimeData.Horizontal == Horizontal.None)
                 {
                     actionManager.SetAction(new WarriorIdel());
@@ -144,6 +150,7 @@ namespace CharacterSystem_V4
 
             public override void End()
             {
+                Debug.Log("Move End");
                 warrior.MoveSound.Stop();
             }
             #endregion
@@ -248,14 +255,11 @@ namespace CharacterSystem_V4
         /// </summary>
         private class WarriorLightAttack : IWarriorAction
         {
-            Horizontal horizontal;
-            Vertical vertical;
-
             #region 動作更新
             public override void Start()
             {
-                horizontal = Horizontal.None;
-                vertical = Vertical.None;
+                Debug.Log("LightAttack Start");
+                warrior.AnimationEnd = false;
 
                 warrior.LightAttackColliders.MyDamage
                     = new Damage { damage = warrior.Property.Attack, vertigo = 1 };
@@ -266,29 +270,13 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                if (warrior.CharacterAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.99)
-                {
-                    if (horizontal == Horizontal.None && vertical == Vertical.None)
-                        actionManager.SetAction(new WarriorIdel());
-                    else
-                    {
-                        warrior.RunTimeData.Horizontal = horizontal;
-                        warrior.RunTimeData.Vertiacl = vertical;
-                        actionManager.SetAction(new WarriorMove());
-                    }
-                }
-            }
-            #endregion
-
-            #region 外部操作
-            public override void Move(Horizontal direction)
-            {
-                horizontal = direction;
+                if (warrior.AnimationEnd)
+                    actionManager.SetAction(new WarriorIdel());
             }
 
-            public override void Move(Vertical direction)
+            public override void End()
             {
-                vertical = direction;
+                Debug.Log("LightAttack End");
             }
             #endregion
         }
@@ -304,12 +292,13 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 isCharge = true;
+                warrior.AnimationEnd = false;
                 warrior.CharacterAnimator.SetBool("HeavyAttackStart", true);
             }
 
             public override void Update()
             {
-                if (warrior.CharacterAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.99)
+                if (warrior.AnimationEnd)
                     actionManager.SetAction(new WarriorHeavyAttack_Dodge(isCharge));
             }
             #endregion
@@ -353,7 +342,7 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                Vector2 temp = 
+                Vector2 temp =
                     new Vector2((float)warrior.RunTimeData.Horizontal, (float)warrior.RunTimeData.Vertiacl * 0.6f).normalized
                     * warrior.Property.DodgeSpeed * Time.deltaTime;
 
@@ -450,7 +439,7 @@ namespace CharacterSystem_V4
                 {
                     ChargeTime += Time.deltaTime;
 
-                    if(!(vertical == Vertical.None && horizontal == Horizontal.None))
+                    if (!(vertical == Vertical.None && horizontal == Horizontal.None))
                     {
                         warrior.RunTimeData.Vertiacl = vertical;
                         warrior.RunTimeData.Horizontal = horizontal;
@@ -513,6 +502,7 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
+                warrior.AnimationEnd = false;
                 warrior.HeavyAttack2Colliders.MyDamage
                     = new Damage { damage = warrior.Property.Attack * 5, vertigo = 3 };
 
@@ -522,7 +512,7 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                if (warrior.CharacterAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.99)
+                if (warrior.AnimationEnd)
                 {
                     if (chargeState == 2)
                         actionManager.SetAction(new WarriorHeavyAttackRecovery());
