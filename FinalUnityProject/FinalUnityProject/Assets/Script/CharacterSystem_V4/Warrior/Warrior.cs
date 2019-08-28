@@ -52,6 +52,8 @@ namespace CharacterSystem_V4
         private class IWarriorAction : ICharacterAction
         {
             protected Warrior warrior;
+            protected Vertical verticalBuffer;
+            protected Horizontal horizontalBuffer;
 
             public override void SetManager(ICharacterActionManager actionManager)
             {
@@ -74,16 +76,8 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                Debug.Log("Idel Strat");
-                warrior.RunTimeData.Vertiacl = Vertical.None;
-                warrior.RunTimeData.Horizontal = Horizontal.None;
                 warrior.CharacterAnimator.SetBool("IsFallDown", false);
                 warrior.CharacterAnimator.SetBool("IsMove", false);
-            }
-
-            public override void End()
-            {
-                Debug.Log("Idel End");
             }
             #endregion
 
@@ -102,7 +96,7 @@ namespace CharacterSystem_V4
 
             public override void Move(Vertical direction)
             {
-                warrior.RunTimeData.Vertiacl = direction;
+                warrior.RunTimeData.Vertical = direction;
                 actionManager.SetAction(new WarriorMove());
             }
 
@@ -122,35 +116,38 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                Debug.Log("Move Strat");
+                horizontalBuffer = warrior.RunTimeData.Horizontal;
+                verticalBuffer = warrior.RunTimeData.Vertical;
+
                 warrior.MoveSound.Play();
-                warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertiacl);
+                warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertical);
                 warrior.CharacterAnimator.SetFloat("Horizontal", (float)warrior.RunTimeData.Horizontal);
                 warrior.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
-                if (warrior.RunTimeData.Vertiacl == Vertical.None &&
-                    warrior.RunTimeData.Horizontal == Horizontal.None)
+                if (verticalBuffer == Vertical.None && horizontalBuffer == Horizontal.None)
                 {
                     actionManager.SetAction(new WarriorIdel());
                 }
                 else
                 {
-                    warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertiacl);
+                    warrior.RunTimeData.Vertical = verticalBuffer;
+                    warrior.RunTimeData.Horizontal = horizontalBuffer;
+
+                    warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertical);
                     warrior.CharacterAnimator.SetFloat("Horizontal", (float)warrior.RunTimeData.Horizontal);
 
                     warrior.MovementBody.MovePosition(
                         warrior.MovementBody.position +
-                        new Vector2((float)warrior.RunTimeData.Horizontal, (float)warrior.RunTimeData.Vertiacl * 0.6f).normalized
+                        new Vector2((float)warrior.RunTimeData.Horizontal, (float)warrior.RunTimeData.Vertical * 0.6f).normalized
                         * warrior.Property.MoveSpeed * Time.deltaTime);
                 }
             }
 
             public override void End()
             {
-                Debug.Log("Move End");
                 warrior.MoveSound.Stop();
             }
             #endregion
@@ -158,12 +155,12 @@ namespace CharacterSystem_V4
             #region 外部操作
             public override void Move(Vertical direction)
             {
-                warrior.RunTimeData.Vertiacl = direction;
+                verticalBuffer = direction;
             }
 
             public override void Move(Horizontal direction)
             {
-                warrior.RunTimeData.Horizontal = direction;
+                horizontalBuffer = direction;
             }
 
             public override void Deffend(bool deffend)
@@ -192,15 +189,20 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
+                verticalBuffer = warrior.RunTimeData.Vertical;
+                horizontalBuffer = warrior.RunTimeData.Horizontal;
+
                 warrior.CharacterAnimator.SetBool("IsDeffend", true);
             }
 
             public override void Update()
             {
-                if (!(warrior.RunTimeData.Vertiacl == Vertical.None
-                    && warrior.RunTimeData.Horizontal == Horizontal.None))
+                if (!(verticalBuffer == Vertical.None && horizontalBuffer == Horizontal.None))
                 {
-                    warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertiacl);
+                    warrior.RunTimeData.Vertical = verticalBuffer;
+                    warrior.RunTimeData.Horizontal = horizontalBuffer;
+
+                    warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertical);
                     warrior.CharacterAnimator.SetFloat("Horizontal", (float)warrior.RunTimeData.Horizontal);
                 }
             }
@@ -214,24 +216,18 @@ namespace CharacterSystem_V4
             #region 外部操作
             public override void Move(Vertical direction)
             {
-                warrior.RunTimeData.Vertiacl = direction;
+                verticalBuffer = direction;
             }
 
             public override void Move(Horizontal direction)
             {
-                warrior.RunTimeData.Horizontal = direction;
+                horizontalBuffer = direction;
             }
 
             public override void Deffend(bool deffend)
             {
                 if (!deffend)
-                {
-                    if (warrior.RunTimeData.Vertiacl == Vertical.None &&
-                        warrior.RunTimeData.Horizontal == Horizontal.None)
-                        actionManager.SetAction(new WarriorIdel());
-                    else
-                        actionManager.SetAction(new WarriorMove());
-                }
+                    actionManager.SetAction(new WarriorIdel());
             }
 
             public override void LightAttack()
@@ -258,7 +254,6 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                Debug.Log("LightAttack Start");
                 warrior.AnimationEnd = false;
 
                 warrior.LightAttackColliders.MyDamage
@@ -272,11 +267,6 @@ namespace CharacterSystem_V4
             {
                 if (warrior.AnimationEnd)
                     actionManager.SetAction(new WarriorIdel());
-            }
-
-            public override void End()
-            {
-                Debug.Log("LightAttack End");
             }
             #endregion
         }
@@ -307,7 +297,12 @@ namespace CharacterSystem_V4
             public override void HeavyAttack(bool hold)
             {
                 if (!hold)
+                {
+                    Debug.Log("not hold");
                     isCharge = false;
+                }
+                else
+                    Debug.Log("hold");
             }
 
             public override void OnHit(Damage damage)
@@ -343,7 +338,7 @@ namespace CharacterSystem_V4
             public override void Update()
             {
                 Vector2 temp =
-                    new Vector2((float)warrior.RunTimeData.Horizontal, (float)warrior.RunTimeData.Vertiacl * 0.6f).normalized
+                    new Vector2((float)warrior.RunTimeData.Horizontal, (float)warrior.RunTimeData.Vertical * 0.6f).normalized
                     * warrior.Property.DodgeSpeed * Time.deltaTime;
 
                 DodgeDistance += temp.magnitude;
@@ -382,6 +377,7 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
+                warrior.AnimationEnd = false;
                 warrior.HeavyAttack1Colliders.MyDamage
                     = new Damage { damage = warrior.Property.Attack * 2, vertigo = 3 };
 
@@ -391,10 +387,13 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                if (isCharge)
-                    actionManager.SetAction(new WarriorHeavyAttackCharge());
-                else
-                    actionManager.SetAction(new WarriorIdel());
+                if(warrior.AnimationEnd)
+                {
+                    if (isCharge)
+                        actionManager.SetAction(new WarriorHeavyAttackCharge());
+                    else
+                        actionManager.SetAction(new WarriorIdel());
+                }
             }
             #endregion
 
@@ -426,7 +425,7 @@ namespace CharacterSystem_V4
                 ChargeEnd = false;
                 ChargeTime = 0;
 
-                vertical = warrior.RunTimeData.Vertiacl;
+                vertical = warrior.RunTimeData.Vertical;
                 horizontal = warrior.RunTimeData.Horizontal;
 
                 warrior.CharacterAnimator.SetBool("HeavyAttackCharge", true);
@@ -441,10 +440,10 @@ namespace CharacterSystem_V4
 
                     if (!(vertical == Vertical.None && horizontal == Horizontal.None))
                     {
-                        warrior.RunTimeData.Vertiacl = vertical;
+                        warrior.RunTimeData.Vertical = vertical;
                         warrior.RunTimeData.Horizontal = horizontal;
 
-                        warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertiacl);
+                        warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertical);
                         warrior.CharacterAnimator.SetFloat("Horizontal", (float)warrior.RunTimeData.Horizontal);
                     }
 

@@ -16,14 +16,14 @@ namespace CharacterSystem_V4
             property = characterProperty;
 
             _health = property.MaxHealth;
-            Vertiacl = Vertical.Down;
+            Vertical = Vertical.Down;
             Horizontal = Horizontal.None;
             _regenTimer = 0;
             _attackTimer = 0;
             _vertigoConter = 0;
         }
 
-        public Vertical Vertiacl { get; set; }
+        public Vertical Vertical { get; set; }
         public Horizontal Horizontal { get; set; }
         public float AttackTimer
         {
