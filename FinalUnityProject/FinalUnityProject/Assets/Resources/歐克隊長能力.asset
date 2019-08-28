@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterRegenSpeed: 20
   CharacterRegenHealth: 20
-  CharacterMaxHealth: 200
+  CharacterMaxHealth: 2000
   CharacterMoveSpeed: 5
   CharacterDodgeSpeed: 0
   CharacterAttack: 20
