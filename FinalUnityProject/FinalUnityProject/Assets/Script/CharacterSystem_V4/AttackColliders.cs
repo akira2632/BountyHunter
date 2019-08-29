@@ -4,7 +4,7 @@ namespace CharacterSystem_V4
 {
     public class AttackColliders : MonoBehaviour
     {
-        public Damage MyDamage;
+        public Wound MyDamage;
         public string TargetTag;
 
         private void OnCollisionEnter2D(Collision2D collision)

@@ -2,10 +2,16 @@ using UnityEngine;
 
 namespace CharacterSystem_V4
 {
-    public struct Damage
+    /// <summary>
+    /// 角色傷害物件
+    /// </summary>
+    public struct Wound
     {
-        public float vertigo;
-        public int damage;
+        public float Vertigo;
+        public int Damage;
+
+        public float KnockBackDistance, KnockBackSpeed;
+        public Vector2 KnockBackFrom;
     }
 
     /// <summary>
@@ -32,7 +38,7 @@ namespace CharacterSystem_V4
         void HeavyAttack(bool hold);
         void Deffend(bool deffend);
 
-        void OnHit(Damage damage);
+        void OnHit(Wound wound);
     }
 
     /// <summary>

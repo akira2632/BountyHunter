@@ -56,7 +56,7 @@ namespace CharacterSystem_V4
         public void HeavyAttack() => nowAction.HeavyAttack();
         public void HeavyAttack(bool hold) => nowAction.HeavyAttack(hold);
 
-        public void OnHit(Damage damage) => nowAction.OnHit(damage);
+        public void OnHit(Wound wound) => nowAction.OnHit(wound);
         #endregion
     }
 
@@ -83,7 +83,7 @@ namespace CharacterSystem_V4
         public virtual void HeavyAttack(bool hold) { }
         public virtual void LightAttack() { }
 
-        public virtual void OnHit(Damage damage) { }
+        public virtual void OnHit(Wound damage) { }
         #endregion
     }
 }

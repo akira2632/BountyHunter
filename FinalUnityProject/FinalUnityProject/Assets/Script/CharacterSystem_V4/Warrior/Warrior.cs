@@ -2,12 +2,16 @@
 
 namespace CharacterSystem_V4
 {
+    /// <summary>
+    /// 戰士角色
+    /// </summary>
     public class Warrior : ICharacterActionManager
     {
         public CharacterProperty Property;
         public CharacterRunTimeData RunTimeData;
 
         public Rigidbody2D MovementBody;
+        public Collider2D MovementCollider;
         public Animator CharacterAnimator;
 
         public AudioSource MoveSound, DeffendSound, FallDownSound, LightAttackSound,
@@ -61,15 +65,15 @@ namespace CharacterSystem_V4
                 base.SetManager(actionManager);
             }
 
-            public override void OnHit(Damage damage)
+            public override void OnHit(Wound damage)
             {
-                warrior.RunTimeData.Health -= damage.damage;
-                warrior.RunTimeData.VertigoConter += damage.vertigo;
+                warrior.RunTimeData.Health -= damage.Damage;
+                warrior.RunTimeData.VertigoConter += damage.Vertigo;
             }
         }
 
         /// <summary>
-        /// 玩家待機
+        /// 戰士待機
         /// </summary>
         private class WarriorIdel : IWarriorAction
         {
@@ -97,20 +101,16 @@ namespace CharacterSystem_V4
             public override void LightAttack() =>
                actionManager.SetAction(new WarriorLightAttack());
 
-            public override void Move(Vertical direction)
-            {
+            public override void Move(Vertical direction) =>
                 actionManager.SetAction(new WarriorMove(direction, Horizontal.None));
-            }
 
-            public override void Move(Horizontal direction)
-            {
+            public override void Move(Horizontal direction) =>
                 actionManager.SetAction(new WarriorMove(Vertical.None, direction));
-            }
             #endregion
         }
 
         /// <summary>
-        /// 玩家移動
+        /// 戰士移動
         /// </summary>
         private class WarriorMove : IWarriorAction
         {
@@ -186,7 +186,7 @@ namespace CharacterSystem_V4
         }
 
         /// <summary>
-        /// 玩家防禦
+        /// 戰士防禦
         /// </summary>
         private class WarriorDeffend : IWarriorAction
         {
@@ -239,19 +239,19 @@ namespace CharacterSystem_V4
                 actionManager.SetAction(new WarriorLightAttack());
             }
 
-            public override void OnHit(Damage damage)
+            public override void OnHit(Wound damage)
             {
                 warrior.DeffendSound.Play();
-                base.OnHit(new Damage
+                base.OnHit(new Wound
                 {
-                    damage = (int)(damage.damage * 0.1f)
+                    Damage = (int)(damage.Damage * 0.1f)
                 });
             }
             #endregion
         }
 
         /// <summary>
-        /// 玩家輕攻擊
+        /// 戰士輕攻擊
         /// </summary>
         private class WarriorLightAttack : IWarriorAction
         {
@@ -261,7 +261,7 @@ namespace CharacterSystem_V4
                 warrior.animationEnd = false;
 
                 warrior.LightAttackColliders.MyDamage
-                    = new Damage { damage = warrior.Property.Attack, vertigo = 1 };
+                    = new Wound { Damage = warrior.Property.Attack, Vertigo = 1 };
 
                 warrior.CharacterAnimator.SetTrigger("LightAttack");
                 warrior.LightAttackSound.Play();
@@ -276,7 +276,7 @@ namespace CharacterSystem_V4
         }
 
         /// <summary>
-        /// 玩家重攻擊預備
+        /// 戰士重攻擊預備
         /// </summary>
         private class WarriorHeavyAttack_Start : IWarriorAction
         {
@@ -304,22 +304,22 @@ namespace CharacterSystem_V4
                     isCharge = false;
             }
 
-            public override void OnHit(Damage damage)
+            public override void OnHit(Wound damage)
             {
-                base.OnHit(new Damage
+                base.OnHit(new Wound
                 {
-                    damage = damage.damage
+                    Damage = damage.Damage
                 });
             }
             #endregion
         }
 
         /// <summary>
-        /// 玩家重攻擊衝刺
+        /// 戰士重攻擊衝刺
         /// </summary>
         private class WarriorHeavyAttack_Dodge : IWarriorAction
         {
-            float DodgeDistance, TargetDistance = 2f;
+            float dodgeDistance, targetDistance = 2f;
             bool isCharge;
 
             public WarriorHeavyAttack_Dodge(bool isCharge)
@@ -330,8 +330,9 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                //GameManager.Instance. WarriorDodge();
-                DodgeDistance = 0;
+                //GameManager.Instance.WarriorDodge(true);
+                warrior.MovementCollider.isTrigger = true;
+                dodgeDistance = 0;
             }
 
             public override void Update()
@@ -340,13 +341,19 @@ namespace CharacterSystem_V4
                     new Vector2((float)warrior.RunTimeData.Horizontal, (float)warrior.RunTimeData.Vertical * 0.6f).normalized
                     * warrior.Property.DodgeSpeed * Time.deltaTime;
 
-                DodgeDistance += temp.magnitude;
+                dodgeDistance += temp.magnitude;
 
                 warrior.MovementBody.MovePosition(
                     warrior.MovementBody.position + temp);
 
-                if (DodgeDistance >= TargetDistance)
+                if (dodgeDistance >= targetDistance)
                     actionManager.SetAction(new WarriorHeavyAttack1(isCharge));
+            }
+
+            public override void End()
+            {
+                //GameManager.Instance.WarriorDodge(false);
+                warrior.MovementCollider.isTrigger = false;
             }
             #endregion
 
@@ -357,15 +364,16 @@ namespace CharacterSystem_V4
                     isCharge = false;
             }
 
-            public override void OnHit(Damage damage) { }
+            public override void OnHit(Wound damage) { }
             #endregion
         }
 
         /// <summary>
-        /// 玩家重攻擊第一段
+        /// 戰士重攻擊第一段
         /// </summary>
         private class WarriorHeavyAttack1 : IWarriorAction
         {
+            float dodgeDistance, targetDistance = 0.4f;
             bool isCharge;
 
             public WarriorHeavyAttack1(bool isCharge)
@@ -376,11 +384,12 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
+                dodgeDistance = 0;
                 warrior.animationEnd = false;
                 warrior.HeavyAttack1Colliders.MyDamage
-                    = new Damage { damage = warrior.Property.Attack * 2, vertigo = 3 };
+                    = new Wound { Damage = warrior.Property.Attack * 2, Vertigo = 3 };
 
-                if(isCharge)
+                if (isCharge)
                     warrior.CharacterAnimator.SetBool("HeavyAttackCharge", true);
 
                 warrior.CharacterAnimator.SetBool("HeavyAttackStart", false);
@@ -389,6 +398,18 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
+                if (dodgeDistance < targetDistance)
+                {
+                    Vector2 temp = new Vector2(
+                        (float)warrior.RunTimeData.Horizontal, (float)warrior.RunTimeData.Vertical * 0.6f).normalized
+                        * warrior.Property.DodgeSpeed * Time.deltaTime;
+
+                    dodgeDistance += temp.magnitude;
+
+                    warrior.MovementBody.MovePosition(
+                        warrior.MovementBody.position + temp);
+                }
+
                 if (warrior.animationEnd)
                 {
                     if (isCharge)
@@ -409,12 +430,12 @@ namespace CharacterSystem_V4
                 }
             }
 
-            public override void OnHit(Damage damage) { }
+            public override void OnHit(Wound damage) { }
             #endregion
         }
 
         /// <summary>
-        /// 玩家重攻擊蓄力
+        /// 戰士重攻擊蓄力
         /// </summary>
         private class WarriorHeavyAttackCharge : IWarriorAction
         {
@@ -487,10 +508,11 @@ namespace CharacterSystem_V4
         }
 
         /// <summary>
-        /// 玩家重攻擊第二段
+        /// 戰士重攻擊第二段
         /// </summary>
         private class WarriorHeavyAttack2 : IWarriorAction
         {
+            float dodgeDistance, targetDistance = 0.4f;
             int chargeState;
 
             public WarriorHeavyAttack2(int chargeState)
@@ -501,10 +523,10 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                Debug.Log("Start Heavy Attack 2\nCharge state = " + chargeState);
+                dodgeDistance = 0;
                 warrior.animationEnd = false;
                 warrior.HeavyAttack2Colliders.MyDamage
-                    = new Damage { damage = warrior.Property.Attack * 5, vertigo = 3 };
+                    = new Wound { Damage = warrior.Property.Attack * 5, Vertigo = 3 };
 
                 warrior.CharacterAnimator.SetBool("HeavyAttackCharge", false);
                 warrior.HeavyAttack2Sound.Play();
@@ -512,23 +534,35 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
+                if (dodgeDistance < targetDistance)
+                {
+                    Vector2 temp = new Vector2(
+                        (float)warrior.RunTimeData.Horizontal, (float)warrior.RunTimeData.Vertical * 0.6f).normalized
+                        * warrior.Property.DodgeSpeed * Time.deltaTime;
+
+                    dodgeDistance += temp.magnitude;
+
+                    warrior.MovementBody.MovePosition(
+                        warrior.MovementBody.position + temp);
+                }
+
                 if (warrior.animationEnd)
                 {
                     //if (chargeState == 2)
                     //    actionManager.SetAction(new WarriorHeavyAttackRecovery());
                     //else
-                        actionManager.SetAction(new WarriorIdel());
+                    actionManager.SetAction(new WarriorIdel());
                 }
             }
             #endregion
 
             #region 外部操作
-            public override void OnHit(Damage damage) { }
-            #endregion
+            public override void OnHit(Wound damage) { }
+            #endregion 
         }
 
         /// <summary>
-        /// 玩家重攻擊硬直
+        /// 戰士重攻擊硬直
         /// </summary>
         private class WarriorHeavyAttackRecovery : IWarriorAction
         {
@@ -537,7 +571,6 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                Debug.Log("Start Recovery");
                 recoveryTime = 0;
                 warrior.CharacterAnimator.SetBool("IsMove", false);
             }
@@ -551,11 +584,11 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void OnHit(Damage damage)
+            public override void OnHit(Wound damage)
             {
-                base.OnHit(new Damage
+                base.OnHit(new Wound
                 {
-                    damage = (int)(damage.damage * 2.5)
+                    Damage = (int)(damage.Damage * 2.5)
                 });
                 actionManager.SetAction(new WarriorFall(true));
             }
@@ -563,7 +596,7 @@ namespace CharacterSystem_V4
         }
 
         /// <summary>
-        /// 玩家倒地
+        /// 戰士倒地
         /// </summary>
         private class WarriorFall : IWarriorAction
         {
@@ -628,13 +661,13 @@ namespace CharacterSystem_V4
                 TryToRecurve(hitable);
             }
 
-            public override void OnHit(Damage damage)
+            public override void OnHit(Wound damage)
             {
                 if (hitable)
-                    base.OnHit(new Damage
+                    base.OnHit(new Wound
                     {
-                        damage = (int)(damage.damage * 0.5),
-                        vertigo = damage.vertigo * 0.5f
+                        Damage = (int)(damage.Damage * 0.5),
+                        Vertigo = damage.Vertigo * 0.5f
                     });
             }
             #endregion
@@ -649,7 +682,7 @@ namespace CharacterSystem_V4
         }
 
         /// <summary>
-        /// 玩家死亡
+        /// 戰士死亡
         /// </summary>
         private class WarriorDead : IWarriorAction
         {
