@@ -350,6 +350,11 @@ namespace CharacterSystem_V4
                 if (DodgeDistance >= TargetDistance)
                     actionManager.SetAction(new WarriorHeavyAttack1(isCharge));
             }
+
+            public override void End()
+            {
+                warrior.animationStart = false;
+            }
             #endregion
 
             #region 外部操作
@@ -382,6 +387,7 @@ namespace CharacterSystem_V4
                 warrior.HeavyAttack1Colliders.MyDamage
                     = new Damage { damage = warrior.Property.Attack * 2, vertigo = 3 };
 
+                warrior.CharacterAnimator.SetBool("HeavyAttackCharge", true);
                 warrior.CharacterAnimator.SetBool("HeavyAttackStart", false);
                 warrior.HeavyAttack1Sound.Play();
 
@@ -393,8 +399,7 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                if (warrior.CharacterAnimator.GetCurrentAnimatorStateInfo(0).IsName("重攻擊") &&
-                    warrior.CharacterAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99)
+                if (warrior.animationEnd)
                 {
                     if (isCharge)
                         actionManager.SetAction(new WarriorHeavyAttackCharge());
@@ -408,7 +413,10 @@ namespace CharacterSystem_V4
             public override void HeavyAttack(bool hold)
             {
                 if (!hold)
+                {
                     isCharge = false;
+                    warrior.CharacterAnimator.SetBool("HeavyAttackCharge", false);
+                }
             }
 
             public override void OnHit(Damage damage) { }
@@ -422,8 +430,6 @@ namespace CharacterSystem_V4
         {
             bool IsCharge, ChargeEnd;
             float ChargeTime;
-            Vertical vertical;
-            Horizontal horizontal;
 
             #region 動作更新
             public override void Start()
@@ -434,10 +440,9 @@ namespace CharacterSystem_V4
                 ChargeEnd = false;
                 ChargeTime = 0;
 
-                vertical = warrior.RunTimeData.Vertical;
-                horizontal = warrior.RunTimeData.Horizontal;
+                verticalBuffer = warrior.RunTimeData.Vertical;
+                horizontalBuffer = warrior.RunTimeData.Horizontal;
 
-                warrior.CharacterAnimator.SetBool("HeavyAttackCharge", true);
                 warrior.HeavyAttackChargeSound.Play();
             }
 
@@ -447,10 +452,10 @@ namespace CharacterSystem_V4
                 {
                     ChargeTime += Time.deltaTime;
 
-                    if (!(vertical == Vertical.None && horizontal == Horizontal.None))
+                    if (!(verticalBuffer == Vertical.None && horizontalBuffer == Horizontal.None))
                     {
-                        warrior.RunTimeData.Vertical = vertical;
-                        warrior.RunTimeData.Horizontal = horizontal;
+                        warrior.RunTimeData.Vertical = verticalBuffer;
+                        warrior.RunTimeData.Horizontal = horizontalBuffer;
 
                         warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertical);
                         warrior.CharacterAnimator.SetFloat("Horizontal", (float)warrior.RunTimeData.Horizontal);
@@ -483,14 +488,12 @@ namespace CharacterSystem_V4
 
             public override void Move(Vertical direction)
             {
-                if (vertical != direction)
-                    vertical = direction;
+                verticalBuffer = direction;
             }
 
             public override void Move(Horizontal direction)
             {
-                if (horizontal != direction)
-                    horizontal = direction;
+                horizontalBuffer = direction;
             }
             #endregion
         }

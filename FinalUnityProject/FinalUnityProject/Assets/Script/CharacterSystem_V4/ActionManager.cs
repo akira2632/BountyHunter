@@ -10,7 +10,13 @@ namespace CharacterSystem_V4
         {
             animationEnd = true;
         }
-        protected bool animationEnd;
+
+        public void AnimationStart()
+        {
+            animationStart = true;
+        }
+
+        protected bool animationStart, animationEnd;
 
         #region 流程控制
         protected ICharacterAction nowAction;

@@ -6,10 +6,10 @@ using CharacterSystem_V4;
 public class AnimateState : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-        
-    //}
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        animator.transform.GetComponent<ICharacterActionManager>().AnimationStart();
+    }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -20,7 +20,7 @@ public class AnimateState : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.transform.GetComponent<Warrior>().AnimationEnd();
+        animator.transform.GetComponent<ICharacterActionManager>().AnimationEnd();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
