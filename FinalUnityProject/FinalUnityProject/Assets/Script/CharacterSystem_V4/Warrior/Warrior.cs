@@ -76,8 +76,6 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                Debug.Log("Start Idel");
-
                 warrior.CharacterAnimator.SetBool("IsFallDown", false);
                 warrior.CharacterAnimator.SetBool("IsMove", false);
 
@@ -350,11 +348,6 @@ namespace CharacterSystem_V4
                 if (DodgeDistance >= TargetDistance)
                     actionManager.SetAction(new WarriorHeavyAttack1(isCharge));
             }
-
-            public override void End()
-            {
-                warrior.animationStart = false;
-            }
             #endregion
 
             #region 外部操作
@@ -383,18 +376,15 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                Debug.Log("Start Heavy Attack1");
+                warrior.animationEnd = false;
                 warrior.HeavyAttack1Colliders.MyDamage
                     = new Damage { damage = warrior.Property.Attack * 2, vertigo = 3 };
 
-                warrior.CharacterAnimator.SetBool("HeavyAttackCharge", true);
+                if(isCharge)
+                    warrior.CharacterAnimator.SetBool("HeavyAttackCharge", true);
+
                 warrior.CharacterAnimator.SetBool("HeavyAttackStart", false);
                 warrior.HeavyAttack1Sound.Play();
-
-                var force = new Vector2((float)warrior.RunTimeData.Horizontal,
-                    (float)warrior.RunTimeData.Vertical * 0.6f).normalized;
-                warrior.MovementBody.MovePosition(warrior.MovementBody.position +
-                    force * 0.8f);
             }
 
             public override void Update()
@@ -434,8 +424,6 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                Debug.Log("Start Heavy Attack Charge");
-
                 IsCharge = true;
                 ChargeEnd = false;
                 ChargeTime = 0;
@@ -513,6 +501,7 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
+                Debug.Log("Start Heavy Attack 2\nCharge state = " + chargeState);
                 warrior.animationEnd = false;
                 warrior.HeavyAttack2Colliders.MyDamage
                     = new Damage { damage = warrior.Property.Attack * 5, vertigo = 3 };
