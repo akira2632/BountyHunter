@@ -9,6 +9,7 @@ namespace CharacterSystem_V4
 
         public Rigidbody2D MovementBody;
         public Animator CharacterAnimator;
+        public bool AnimationEnd;
 
         public AudioSource MoveSound, DeffendSound, FallDownSound, LightAttackSound,
                 HeavyAttack1Sound, HeavyAttackChargeSound, HeavyAttack2Sound;
@@ -78,9 +79,6 @@ namespace CharacterSystem_V4
             {
                 warrior.CharacterAnimator.SetBool("IsFallDown", false);
                 warrior.CharacterAnimator.SetBool("IsMove", false);
-
-                warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertical);
-                warrior.CharacterAnimator.SetFloat("Horizontal", (float)warrior.RunTimeData.Horizontal);
             }
             #endregion
 
@@ -258,7 +256,7 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                warrior.animationEnd = false;
+                warrior.AnimationEnd = false;
 
                 warrior.LightAttackColliders.MyDamage
                     = new Damage { damage = warrior.Property.Attack, vertigo = 1 };
@@ -269,7 +267,7 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                if (warrior.animationEnd)
+                if (warrior.AnimationEnd)
                     actionManager.SetAction(new WarriorIdel());
             }
             #endregion
@@ -286,13 +284,13 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 isCharge = true;
-                warrior.animationEnd = false;
+                warrior.AnimationEnd = false;
                 warrior.CharacterAnimator.SetBool("HeavyAttackStart", true);
             }
 
             public override void Update()
             {
-                if (warrior.animationEnd)
+                if (warrior.AnimationEnd)
                     actionManager.SetAction(new WarriorHeavyAttack_Dodge(isCharge));
             }
             #endregion
@@ -339,7 +337,6 @@ namespace CharacterSystem_V4
                 Vector2 temp =
                     new Vector2((float)warrior.RunTimeData.Horizontal, (float)warrior.RunTimeData.Vertical * 0.6f).normalized
                     * warrior.Property.DodgeSpeed * Time.deltaTime;
-                Debug.Log(temp);
 
                 DodgeDistance += temp.magnitude;
 
@@ -391,7 +388,8 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                if (warrior.CharacterAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95)
+                if (warrior.CharacterAnimator.GetCurrentAnimatorStateInfo(0).IsName("重攻擊") &&
+                    warrior.CharacterAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99)
                 {
                     if (isCharge)
                         actionManager.SetAction(new WarriorHeavyAttackCharge());
@@ -507,7 +505,7 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                warrior.animationEnd = false;
+                warrior.AnimationEnd = false;
                 warrior.HeavyAttack2Colliders.MyDamage
                     = new Damage { damage = warrior.Property.Attack * 5, vertigo = 3 };
 
@@ -517,7 +515,7 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                if (warrior.animationEnd)
+                if (warrior.AnimationEnd)
                 {
                     if (chargeState == 2)
                         actionManager.SetAction(new WarriorHeavyAttackRecovery());
