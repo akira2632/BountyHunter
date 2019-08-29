@@ -6,6 +6,17 @@ namespace CharacterSystem_V4
 {
     public abstract class ICharacterActionManager : MonoBehaviour, ICharacterActionControll
     {
+        public void AnimationStart()
+        {
+            animationStart = false;
+        }
+
+        public void AnimationEnd()
+        {
+            animationEnd = false;
+        }
+        protected bool animationStart, animationEnd;
+
         #region 流程控制
         protected ICharacterAction nowAction;
         private bool IsStart;
