@@ -20,7 +20,7 @@ public class AnimateState : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.transform.GetComponent<Warrior>().AnimationEnd = true;
+        animator.transform.GetComponent<Warrior>().AnimationEnd();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
