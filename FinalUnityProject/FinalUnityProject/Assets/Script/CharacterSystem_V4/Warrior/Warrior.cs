@@ -514,9 +514,9 @@ namespace CharacterSystem_V4
             {
                 if (warrior.animationEnd)
                 {
-                    if (chargeState == 2)
-                        actionManager.SetAction(new WarriorHeavyAttackRecovery());
-                    else
+                    //if (chargeState == 2)
+                    //    actionManager.SetAction(new WarriorHeavyAttackRecovery());
+                    //else
                         actionManager.SetAction(new WarriorIdel());
                 }
             }
@@ -545,7 +545,7 @@ namespace CharacterSystem_V4
             public override void Update()
             {
                 recoveryTime += Time.deltaTime;
-                if (recoveryTime > 2)
+                if (recoveryTime > 0.5f)
                     actionManager.SetAction(new WarriorIdel());
             }
             #endregion
