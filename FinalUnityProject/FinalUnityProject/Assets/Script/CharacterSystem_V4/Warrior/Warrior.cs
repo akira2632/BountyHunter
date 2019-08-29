@@ -5,7 +5,7 @@ namespace CharacterSystem_V4
     public class Warrior : ICharacterActionManager
     {
         public CharacterProperty Property;
-        private CharacterRunTimeData RunTimeData;
+        public CharacterRunTimeData RunTimeData;
 
         public Rigidbody2D MovementBody;
         public Animator CharacterAnimator;
@@ -33,10 +33,11 @@ namespace CharacterSystem_V4
                 RunTimeData.AttackTimer += Time.deltaTime;
 
                 RunTimeData.RegenTimer += Time.deltaTime;
-                if (RunTimeData.RegenTimer > Property.CharacterRegenSpeed)
+                if (RunTimeData.Health < Property.MaxHealth &&
+                    RunTimeData.RegenTimer >= Property.CharacterRegenSpeed)
                 {
-                    RunTimeData.RegenTimer = 0;
                     RunTimeData.Health += Property.CharacterRegenHealth;
+                    RunTimeData.RegenTimer = 0;
                 }
 
                 RunTimeData.VertigoConter -= Time.deltaTime / 10;
@@ -96,14 +97,12 @@ namespace CharacterSystem_V4
 
             public override void Move(Vertical direction)
             {
-                warrior.RunTimeData.Vertical = direction;
-                actionManager.SetAction(new WarriorMove());
+                actionManager.SetAction(new WarriorMove(direction, Horizontal.None));
             }
 
             public override void Move(Horizontal direction)
             {
-                warrior.RunTimeData.Horizontal = direction;
-                actionManager.SetAction(new WarriorMove());
+                actionManager.SetAction(new WarriorMove(Vertical.None, direction));
             }
             #endregion
         }
@@ -113,12 +112,15 @@ namespace CharacterSystem_V4
         /// </summary>
         private class WarriorMove : IWarriorAction
         {
+            public WarriorMove(Vertical vertical, Horizontal horizontal)
+            {
+                verticalBuffer = vertical;
+                horizontalBuffer = horizontal;
+            }
+
             #region 動作更新
             public override void Start()
             {
-                horizontalBuffer = warrior.RunTimeData.Horizontal;
-                verticalBuffer = warrior.RunTimeData.Vertical;
-
                 warrior.MoveSound.Play();
                 warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertical);
                 warrior.CharacterAnimator.SetFloat("Horizontal", (float)warrior.RunTimeData.Horizontal);
@@ -297,12 +299,7 @@ namespace CharacterSystem_V4
             public override void HeavyAttack(bool hold)
             {
                 if (!hold)
-                {
-                    Debug.Log("not hold");
                     isCharge = false;
-                }
-                else
-                    Debug.Log("hold");
             }
 
             public override void OnHit(Damage damage)
@@ -377,17 +374,22 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                warrior.AnimationEnd = false;
                 warrior.HeavyAttack1Colliders.MyDamage
                     = new Damage { damage = warrior.Property.Attack * 2, vertigo = 3 };
 
                 warrior.CharacterAnimator.SetBool("HeavyAttackStart", false);
                 warrior.HeavyAttack1Sound.Play();
+
+                var force = new Vector2((float)warrior.RunTimeData.Horizontal,
+                    (float)warrior.RunTimeData.Vertical * 0.6f).normalized;
+                warrior.MovementBody.MovePosition(warrior.MovementBody.position +
+                    force * 0.8f);
             }
 
             public override void Update()
             {
-                if(warrior.AnimationEnd)
+                if (warrior.CharacterAnimator.GetCurrentAnimatorStateInfo(0).IsName("重攻擊") &&
+                    warrior.CharacterAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99)
                 {
                     if (isCharge)
                         actionManager.SetAction(new WarriorHeavyAttackCharge());
@@ -421,6 +423,8 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
+                Debug.Log("Charge Start");
+
                 IsCharge = true;
                 ChargeEnd = false;
                 ChargeTime = 0;
@@ -536,7 +540,9 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
+                Debug.Log("Start Recovery");
                 recoveryTime = 0;
+                warrior.CharacterAnimator.SetBool("IsMove", false);
             }
 
             public override void Update()

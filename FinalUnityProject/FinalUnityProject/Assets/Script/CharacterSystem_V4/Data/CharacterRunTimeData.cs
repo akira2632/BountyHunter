@@ -5,32 +5,41 @@ namespace CharacterSystem_V4
     /// <summary>
     /// 角色執行期參數介面
     /// </summary>
+    [System.Serializable]
     public class CharacterRunTimeData
     {
         ICharacterProperty property;
+        [SerializeField]
         int _health;
+        [SerializeField]
         float _attackTimer, _regenTimer, _vertigoConter;
+        [SerializeField]
+        Vertical _vertical;
+        [SerializeField]
+        Horizontal _horizontal;
 
         public void SetData(ICharacterProperty characterProperty)
         {
             property = characterProperty;
 
             _health = property.MaxHealth;
-            Vertical = Vertical.Down;
-            Horizontal = Horizontal.None;
+            _vertical = Vertical.Down;
+            _horizontal = Horizontal.None;
             _regenTimer = 0;
             _attackTimer = 0;
             _vertigoConter = 0;
         }
 
-        public Vertical Vertical { get; set; }
-        public Horizontal Horizontal { get; set; }
+        public Vertical Vertical { get => _vertical; set => _vertical = value; }
+        public Horizontal Horizontal { get => _horizontal; set => _horizontal = value; }
         public float AttackTimer
         {
             get => _attackTimer;
             set
             {
-                if (value <= property.AttackSpeed)
+                if (value > property.AttackSpeed)
+                    _attackTimer = property.AttackSpeed;
+                else
                     _attackTimer = value;
             }
         }
@@ -39,7 +48,9 @@ namespace CharacterSystem_V4
             get => _regenTimer;
             set
             {
-                if (value <= property.RegenSpeed)
+                if (value > property.RegenSpeed)
+                    _regenTimer = property.RegenSpeed;
+                else
                     _regenTimer = value;
             }
         }

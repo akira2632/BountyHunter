@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\u89D2\u8272\u80FD\u529B"
   m_EditorClassIdentifier: 
   CharacterRegenSpeed: 20
-  CharacterRegenHealth: 10
+  CharacterRegenHealth: 30
   CharacterMaxHealth: 200
   CharacterMoveSpeed: 2
   CharacterDodgeSpeed: 12

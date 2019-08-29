@@ -40,6 +40,8 @@ namespace CharacterSystem_V4
                 MyCharacter.HeavyAttack();
             if (Input.GetKey(PlayerKeySetting.HeavyAttack))
                 MyCharacter.HeavyAttack(true);
+            else if (Input.GetKeyUp(PlayerKeySetting.HeavyAttack))
+                MyCharacter.HeavyAttack(false);
 
             if (Input.GetKey(PlayerKeySetting.Deffend))
                 MyCharacter.Deffend(true);
