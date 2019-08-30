@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CharacterSystem_V4
 {
     public class Ork : ICharacterActionManager
     {
-        public int orkDamage;
+        public CharacterProperty Property;
         private CharacterRunTimeData RunTimeData;
 
         public Rigidbody2D MovementBody;
@@ -18,14 +16,39 @@ namespace CharacterSystem_V4
         void Start()
         {
             RunTimeData = new CharacterRunTimeData();
+            RunTimeData.SetData(Property);
 
             nowAction = new OrkIdle();
             nowAction.SetManager(this);
         }
 
-        private class IEnemyAction : ICharacterAction
+        public override void ActionUpdate()
+        {
+            if (RunTimeData.Health <= 0)
+                SetAction(new OrkDead());
+            else
+            {
+                RunTimeData.AttackTimer += Time.deltaTime;
+
+                RunTimeData.RegenTimer += Time.deltaTime;
+                if (RunTimeData.Health < Property.MaxHealth &&
+                    RunTimeData.RegenTimer >= Property.CharacterRegenSpeed)
+                {
+                    RunTimeData.Health += Property.CharacterRegenHealth;
+                    RunTimeData.RegenTimer = 0;
+                }
+
+                RunTimeData.VertigoConter -= Time.deltaTime / 10;
+            }
+
+            base.ActionUpdate();
+        }
+
+        private class IOrkAction : ICharacterAction
         {
             protected Ork ork;
+            protected Vertical verticalBuffer;
+            protected Horizontal horizontalBuffer;
 
             public override void SetManager(ICharacterActionManager actionManager)
             {
@@ -33,54 +56,49 @@ namespace CharacterSystem_V4
                 base.SetManager(actionManager);
             }
 
-            public override void OnHit(Wound damage)
+            public override void OnHit(Wound wound)
             {
-                ork.RunTimeData.Health -= damage.Damage;
-                ork.RunTimeData.VertigoConter += damage.Vertigo;
+                ork.RunTimeData.Health -= wound.Damage;
+                ork.RunTimeData.VertigoConter += wound.Vertigo;
+
+                if (wound.KnockBackDistance > 0)
+                    ork.SetAction(new OrkHurt(wound));
             }
         }
 
-        private class OrkIdle : IEnemyAction
+        private class OrkIdle : IOrkAction
         {
             #region 動作更新
             public override void Start()
             {
-                ork.RunTimeData.Vertical = Vertical.None;
-                ork.RunTimeData.Horizontal = Horizontal.None;
+                ork.CharacterAnimator.SetFloat("Vertical", (float)ork.RunTimeData.Vertical);
+                ork.CharacterAnimator.SetFloat("Horizontal", (float)ork.RunTimeData.Horizontal);
+
                 ork.CharacterAnimator.SetBool("IsFallDown", false);
                 ork.CharacterAnimator.SetBool("IsMove", false);
-            }
-
-            public override void End()
-            {
-                base.End();
             }
             #endregion
 
             #region 外部操作
-
-            public override void LightAttack()
-            {
+            public override void LightAttack() =>
                 actionManager.SetAction(new OrkLightAttack());
-            }
 
-            public override void Move(Vertical direction)
-            {
-                ork.RunTimeData.Vertical = direction;
-                actionManager.SetAction(new OrkMove());
-            }
+            public override void Move(Vertical direction) =>
+                actionManager.SetAction(new OrkMove(direction, Horizontal.None));
 
-            public override void Move(Horizontal direction)
-            {
-                ork.RunTimeData.Horizontal = direction;
-                actionManager.SetAction(new OrkMove());
-            }
-
+            public override void Move(Horizontal direction) =>
+                actionManager.SetAction(new OrkMove(Vertical.None, direction));
             #endregion
         }
 
-        private class OrkMove : IEnemyAction
+        private class OrkMove : IOrkAction
         {
+            public OrkMove(Vertical vertical, Horizontal horizontal)
+            {
+                verticalBuffer = vertical;
+                horizontalBuffer = horizontal;
+            }
+
             #region 動作更新
             public override void Start()
             {
@@ -92,20 +110,22 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                if (ork.RunTimeData.Vertical == Vertical.None &&
-                    ork.RunTimeData.Horizontal == Horizontal.None)
+                if (verticalBuffer == Vertical.None && horizontalBuffer == Horizontal.None)
                 {
                     actionManager.SetAction(new OrkIdle());
                 }
                 else
                 {
+                    ork.RunTimeData.Vertical = verticalBuffer;
+                    ork.RunTimeData.Horizontal = horizontalBuffer;
+
                     ork.CharacterAnimator.SetFloat("Vertical", (float)ork.RunTimeData.Vertical);
                     ork.CharacterAnimator.SetFloat("Horizontal", (float)ork.RunTimeData.Horizontal);
 
                     ork.MovementBody.MovePosition(
                         ork.MovementBody.position +
                         new Vector2((float)ork.RunTimeData.Horizontal, (float)ork.RunTimeData.Vertical * 0.6f).normalized
-                         * Time.deltaTime);
+                         * ork.Property.MoveSpeed * Time.deltaTime);
                 }
             }
 
@@ -116,33 +136,30 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void LightAttack()
-            {
-                actionManager.SetAction(new OrkLightAttack());
-            }
+            public override void LightAttack() =>
+               actionManager.SetAction(new OrkLightAttack());
 
             public override void Move(Vertical direction)
             {
-                ork.RunTimeData.Vertical = direction;
-                actionManager.SetAction(new OrkMove());
+                verticalBuffer = direction;
             }
 
             public override void Move(Horizontal direction)
             {
-                ork.RunTimeData.Horizontal = direction;
-                actionManager.SetAction(new OrkMove());
+                horizontalBuffer = direction;
             }
             #endregion
         }
 
-        private class OrkLightAttack : IEnemyAction
+        private class OrkLightAttack : IOrkAction
         {
+            #region 動作更新
             public override void Start()
             {
                 ork.animationEnd = false;
 
                 ork.LightAttackColliders.MyDamage
-                    = new Wound { Damage = ork.orkDamage, Vertigo = 1 };
+                    = new Wound { Damage = ork.Property.Attack, Vertigo = 0.4f };
 
                 ork.CharacterAnimator.SetTrigger("LightAttack");
                 ork.LightAttackSound.Play();
@@ -153,15 +170,51 @@ namespace CharacterSystem_V4
                 if (ork.animationEnd)
                     actionManager.SetAction(new OrkIdle());
             }
+            #endregion
+        }
+
+        private class OrkHurt : IOrkAction
+        {
+            float nowDistance;
+            Vector2 knockBackDirection;
+            private Wound wound;
+
+            public OrkHurt(Wound wound)
+            {
+                this.wound = wound;
+            }
+
+            #region 動作更新
+            public override void Start()
+            {
+                nowDistance = 0;
+                knockBackDirection = (wound.KnockBackFrom - ork.MovementBody.position).normalized;
+                ork.CharacterAnimator.SetBool("IsHurt", true);
+                ork.HurtSound.Play();
+            }
+
+            public override void Update()
+            {
+                if (nowDistance < wound.KnockBackDistance)
+                {
+                    Vector2 temp = wound.KnockBackSpeed * knockBackDirection * Time.deltaTime;
+                    nowDistance += temp.magnitude;
+
+                    ork.MovementBody.MovePosition(ork.MovementBody.position
+                        + temp);
+                }
+                else
+                    ork.SetAction(new OrkIdle());
+            }
 
             public override void End()
             {
-                base.End();
+                ork.CharacterAnimator.SetBool("IsHurt", false);
             }
-
+            #endregion
         }
 
-        private class OrkDead : IEnemyAction
+        private class OrkDead : IOrkAction
         {
             #region 動作更新
             public override void Start()
@@ -170,34 +223,6 @@ namespace CharacterSystem_V4
                 ork.FallDownSound.Play();
             }
             #endregion
-
         }
-
-        private class OrkHurt : IEnemyAction
-        {
-            #region 動作更新
-            public override void Start()
-            {
-                ork.CharacterAnimator.SetTrigger("IsHurt");
-                ork.HurtSound.Play();
-            }
-
-            public override void Update()
-            {
-                if (ork.animationEnd)
-                    actionManager.SetAction(new OrkIdle());
-            }
-
-            #endregion
-
-            #region 外部操作
-            public override void OnHit(Wound damage)
-            {
-                base.OnHit(damage);
-            }
-            #endregion
-        }
-
     }
-
 }
