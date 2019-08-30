@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2713500744654730897}
   - component: {fileID: 270039640594804951}
   m_Layer: 0
-  m_Name: Gobolin
+  m_Name: gobolin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273ade9c1b0bd7046a7c344a13ca484a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Property: {fileID: 0}
+  Property: {fileID: 11400000, guid: 36d624ba6de2d59458f2d116fa86bb05, type: 2}
   MovementBody: {fileID: 2713500744654730897}
   CharacterAnimator: {fileID: 4796646055716273524}
   MoveSound: {fileID: 5214064407863650928}
