@@ -59,7 +59,7 @@ namespace CharacterSystem_V4
             get => _vertigoConter;
             set
             {
-                if (value > 0)
+                if (value >= 0)
                     _vertigoConter = value;
             }
         }
@@ -68,7 +68,11 @@ namespace CharacterSystem_V4
             get => _health;
             set
             {
-                if (value >= 0 && value <= property.MaxHealth)
+                if (value < 0)
+                    _health = 0;
+                else if (value > property.MaxHealth)
+                    _health = property.MaxHealth;
+                else
                     _health = value;
             }
         }

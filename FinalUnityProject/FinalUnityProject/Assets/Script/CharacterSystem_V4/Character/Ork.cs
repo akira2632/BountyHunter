@@ -5,10 +5,12 @@ namespace CharacterSystem_V4
     public class Ork : ICharacterActionManager
     {
         public CharacterProperty Property;
-        private CharacterRunTimeData RunTimeData;
+        public CharacterRunTimeData RunTimeData;
 
         public Rigidbody2D MovementBody;
+        public Collider2D MovementCollider;
         public Animator CharacterAnimator;
+        public SpriteRenderer SpriteRenderer;
 
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
         public AttackColliders LightAttackColliders;
@@ -24,9 +26,9 @@ namespace CharacterSystem_V4
 
         public override void ActionUpdate()
         {
-            if (RunTimeData.Health <= 0)
+            if (RunTimeData.Health <= 0 && !(nowAction is OrkDead))
                 SetAction(new OrkDead());
-            else
+            else if (RunTimeData.Health > 0)
             {
                 RunTimeData.AttackTimer += Time.deltaTime;
 
@@ -38,12 +40,16 @@ namespace CharacterSystem_V4
                     RunTimeData.RegenTimer = 0;
                 }
 
+                if (RunTimeData.VertigoConter >= 4 && !(nowAction is OrkFall))
+                    SetAction(new OrkFall());
+
                 RunTimeData.VertigoConter -= Time.deltaTime / 10;
             }
 
             base.ActionUpdate();
         }
 
+        #region OrkActions
         private class IOrkAction : ICharacterAction
         {
             protected Ork ork;
@@ -173,6 +179,30 @@ namespace CharacterSystem_V4
             #endregion
         }
 
+        private class OrkFall : IOrkAction
+        {
+            float fallDownTimer;
+
+            public override void Start()
+            {
+                fallDownTimer = 2;
+                ork.CharacterAnimator.SetBool("IsFallDown", true);
+                ork.HurtSound.Play();
+            }
+
+            public override void Update()
+            {
+                fallDownTimer -= Time.deltaTime;
+                if (fallDownTimer <= 0)
+                    ork.SetAction(new OrkIdle());
+            }
+
+            public override void End()
+            {
+                ork.CharacterAnimator.SetBool("IsFallDown", false);
+            }
+        }
+
         private class OrkHurt : IOrkAction
         {
             float nowDistance;
@@ -216,13 +246,34 @@ namespace CharacterSystem_V4
 
         private class OrkDead : IOrkAction
         {
+            float desdroyedTimer;
             #region 動作更新
             public override void Start()
             {
+                desdroyedTimer = 120;
+
+                ork.MovementCollider.enabled = false;
                 ork.CharacterAnimator.SetBool("IsFallDown", true);
                 ork.FallDownSound.Play();
             }
+
+            public override void Update()
+            {
+                desdroyedTimer -= Time.deltaTime;
+                if (desdroyedTimer < 3)
+                    ork.SpriteRenderer.color = new Color(1,1,1,desdroyedTimer / 3);
+
+                if (desdroyedTimer <= 0)
+                    Destroy(ork.gameObject);
+            }
+
+            public override void End()
+            {
+                ork.MovementCollider.enabled = true;
+                ork.CharacterAnimator.SetBool("IsFallDown", false);
+            }
             #endregion
         }
+        #endregion
     }
 }

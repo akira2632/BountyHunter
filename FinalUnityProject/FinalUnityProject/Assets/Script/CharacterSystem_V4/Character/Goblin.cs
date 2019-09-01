@@ -5,10 +5,12 @@ namespace CharacterSystem_V4
     public class Goblin : ICharacterActionManager
     {
         public CharacterProperty Property;
-        private CharacterRunTimeData RunTimeData;
+        public CharacterRunTimeData RunTimeData;
 
         public Rigidbody2D MovementBody;
+        public Collider2D MovementCollider;
         public Animator CharacterAnimator;
+        public SpriteRenderer SpriteRenderer;
 
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
         public AttackColliders LightAttackColliders;
@@ -24,9 +26,9 @@ namespace CharacterSystem_V4
 
         public override void ActionUpdate()
         {
-            if (RunTimeData.Health <= 0)
+            if (RunTimeData.Health <= 0 && !(nowAction is GoblinDead))
                 SetAction(new GoblinDead());
-            else
+            else if (RunTimeData.Health > 0)
             {
                 RunTimeData.AttackTimer += Time.deltaTime;
 
@@ -38,12 +40,16 @@ namespace CharacterSystem_V4
                     RunTimeData.RegenTimer = 0;
                 }
 
+                if (RunTimeData.VertigoConter >= 4 && !(nowAction is GoblinFall))
+                    SetAction(new GoblinFall());
+
                 RunTimeData.VertigoConter -= Time.deltaTime / 10;
             }
 
             base.ActionUpdate();
         }
 
+        #region GoblinActions
         private class IGoblinAction : ICharacterAction
         {
             protected Goblin goblin;
@@ -214,15 +220,60 @@ namespace CharacterSystem_V4
             #endregion
         }
 
+        private class GoblinFall : IGoblinAction
+        {
+            float fallDownTimer;
+
+            public override void Start()
+            {
+                fallDownTimer = 2;
+                goblin.CharacterAnimator.SetBool("IsFallDown", true);
+                goblin.HurtSound.Play();
+            }
+
+            public override void Update()
+            {
+                fallDownTimer -= Time.deltaTime;
+                if (fallDownTimer <= 0)
+                    goblin.SetAction(new GoblinIdle());
+            }
+
+            public override void End()
+            {
+                goblin.CharacterAnimator.SetBool("IsFallDown", false);
+            }
+        }
+
         private class GoblinDead : IGoblinAction
         {
+            float desdroyedTimer;
             #region 動作更新
             public override void Start()
             {
+                desdroyedTimer = 120;
+
+                goblin.MovementCollider.enabled = false;
                 goblin.CharacterAnimator.SetBool("IsFallDown", true);
                 goblin.FallDownSound.Play();
             }
+
+            public override void Update()
+            {
+                desdroyedTimer -= Time.deltaTime;
+                if (desdroyedTimer < 3)
+                    goblin.SpriteRenderer.color = new Color(1, 1, 1, desdroyedTimer / 3);
+
+                if (desdroyedTimer <= 0)
+                    Destroy(goblin.gameObject);
+            }
+
+            public override void End()
+            {
+                goblin.MovementCollider.enabled = true;
+                goblin.CharacterAnimator.SetBool("IsFallDown", false);
+            }
             #endregion
         }
+        #endregion
     }
 }

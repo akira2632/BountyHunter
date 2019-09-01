@@ -1,16 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CharacterSystem_V4
 {
     public class OrkCaptain : ICharacterActionManager
     {
         public CharacterProperty Property;
-        private CharacterRunTimeData RunTimeData;
+        public CharacterRunTimeData RunTimeData;
 
         public Rigidbody2D MovementBody;
+        public Collider2D MovementCollider;
         public Animator CharacterAnimator;
+        public SpriteRenderer SpriteRenderer;
 
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
         public AttackColliders LightAttackColliders;
@@ -26,9 +26,9 @@ namespace CharacterSystem_V4
 
         public override void ActionUpdate()
         {
-            if (RunTimeData.Health <= 0)
+            if (RunTimeData.Health <= 0 && !(nowAction is OrkCaptainDead))
                 SetAction(new OrkCaptainDead());
-            else
+            else if (RunTimeData.Health > 0)
             {
                 RunTimeData.AttackTimer += Time.deltaTime;
 
@@ -46,6 +46,7 @@ namespace CharacterSystem_V4
             base.ActionUpdate();
         }
 
+        #region OrkCaptainActions
         private class IOrkCaptainAction : ICharacterAction
         {
             protected OrkCaptain orkCaptain;
@@ -61,10 +62,13 @@ namespace CharacterSystem_V4
             public override void OnHit(Wound wound)
             {
                 orkCaptain.RunTimeData.Health -= wound.Damage;
-                orkCaptain.RunTimeData.VertigoConter += wound.Vertigo;
 
                 if (wound.KnockBackDistance > 0)
-                    orkCaptain.SetAction(new OrkCaptainHurt(wound));
+                    orkCaptain.SetAction(new OrkCaptainHurt(new Wound
+                    {
+                        Damage = wound.Damage,
+
+                    }));
             }
         }
 
@@ -218,14 +222,34 @@ namespace CharacterSystem_V4
 
         private class OrkCaptainDead : IOrkCaptainAction
         {
+            float desdroyedTimer;
             #region 動作更新
             public override void Start()
             {
+                desdroyedTimer = 120;
+
+                orkCaptain.MovementCollider.enabled = false;
                 orkCaptain.CharacterAnimator.SetBool("IsFallDown", true);
                 orkCaptain.FallDownSound.Play();
             }
+
+            public override void Update()
+            {
+                desdroyedTimer -= Time.deltaTime;
+                if (desdroyedTimer < 3)
+                    orkCaptain.SpriteRenderer.color = new Color(1, 1, 1, desdroyedTimer / 3);
+
+                if (desdroyedTimer <= 0)
+                    Destroy(orkCaptain.gameObject);
+            }
+
+            public override void End()
+            {
+                orkCaptain.MovementCollider.enabled = true;
+                orkCaptain.CharacterAnimator.SetBool("IsFallDown", false);
+            }
             #endregion
         }
+        #endregion
     }
-
 }

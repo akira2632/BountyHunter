@@ -8,7 +8,7 @@ namespace CharacterSystem_V4
     public class Warrior : ICharacterActionManager
     {
         public CharacterProperty Property;
-        private CharacterRunTimeData RunTimeData;
+        public CharacterRunTimeData RunTimeData;
 
         public Rigidbody2D MovementBody;
         public Collider2D MovementCollider;
@@ -29,9 +29,9 @@ namespace CharacterSystem_V4
 
         public override void ActionUpdate()
         {
-            if (RunTimeData.Health <= 0)
+            if (RunTimeData.Health <= 0 && !(nowAction is WarriorDead))
                 SetAction(new WarriorDead());
-            else
+            else if(RunTimeData.Health > 0)
             {
                 RunTimeData.AttackTimer += Time.deltaTime;
 
@@ -42,6 +42,9 @@ namespace CharacterSystem_V4
                     RunTimeData.Health += Property.CharacterRegenHealth;
                     RunTimeData.RegenTimer = 0;
                 }
+
+                if (RunTimeData.VertigoConter >= 4 && !(nowAction is WarriorFall))
+                    SetAction(new WarriorFall(false));
 
                 RunTimeData.VertigoConter -= Time.deltaTime / 10;
             }
@@ -689,8 +692,15 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
+                warrior.MovementCollider.enabled = false;
                 warrior.CharacterAnimator.SetBool("IsFallDown", true);
                 warrior.FallDownSound.Play();
+            }
+
+            public override void End()
+            {
+                warrior.MovementCollider.enabled = true;
+                warrior.CharacterAnimator.SetBool("IsFallDown", false);
             }
             #endregion
         }

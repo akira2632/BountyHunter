@@ -6,11 +6,14 @@ namespace CharacterSystem_V4
     {
         public Wound MyDamage;
         public string TargetTag;
-
-        private void OnCollisionEnter2D(Collision2D collision)
+        
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.tag == TargetTag)
-                collision.gameObject.GetComponent<ICharacterActionManager>().OnHit(MyDamage);
+            {
+                MyDamage.KnockBackFrom = gameObject.gameObject.transform.position;
+                collision.gameObject.GetComponentInParent<ICharacterActionManager>().OnHit(MyDamage);
+            }
         }
     }
 }
