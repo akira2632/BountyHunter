@@ -147,8 +147,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: UpOrDown
     m_Mirror: 0
-  m_BlendParameter: Vertical
-  m_BlendParameterY: Horizontal
+  m_BlendParameter: Horizontal
+  m_BlendParameterY: Vertical
   m_MinThreshold: 0
   m_MaxThreshold: 0.5
   m_UseAutomaticThresholds: 1
@@ -179,6 +179,18 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 0
+--- !u!114 &-5153782735564949865
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5ac5e2560449194e89ce14bd46955ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!206 &-2378721226870527242
 BlendTree:
   m_ObjectHideFlags: 3
@@ -576,7 +588,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5283802027687101370}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -5153782735564949865}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
