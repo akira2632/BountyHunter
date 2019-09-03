@@ -4,7 +4,6 @@ namespace CharacterSystem_V4
 {
     public class OrkCaptain : ICharacterActionManager
     {
-        public CharacterProperty Property;
         public CharacterRunTimeData RunTimeData;
 
         public Rigidbody2D MovementBody;
@@ -30,13 +29,14 @@ namespace CharacterSystem_V4
                 SetAction(new OrkCaptainDead());
             else if (RunTimeData.Health > 0)
             {
-                RunTimeData.AttackTimer += Time.deltaTime;
+                if (RunTimeData.AttackTimer >= 0)
+                    RunTimeData.AttackTimer -= Time.deltaTime;
 
                 RunTimeData.RegenTimer += Time.deltaTime;
                 if (RunTimeData.Health < Property.MaxHealth &&
-                    RunTimeData.RegenTimer >= Property.CharacterRegenSpeed)
+                    RunTimeData.RegenTimer >= Property.RegenSpeed)
                 {
-                    RunTimeData.Health += Property.CharacterRegenHealth;
+                    RunTimeData.Health += Property.RegenHealth;
                     RunTimeData.RegenTimer = 0;
                 }
 
@@ -159,22 +159,38 @@ namespace CharacterSystem_V4
 
         private class OrkCaptainLightAttack : IOrkCaptainAction
         {
+            bool resetTimer;
             #region 動作更新
             public override void Start()
             {
-                orkCaptain.animationEnd = false;
+                if (orkCaptain.RunTimeData.AttackTimer > 0)
+                {
+                    resetTimer = false;
+                    orkCaptain.SetAction(new OrkCaptainIdle());
+                }
+                else
+                {
+                    resetTimer = true;
+                    orkCaptain.animationEnd = false;
 
-                orkCaptain.LightAttackColliders.MyDamage
-                    = new Wound { Damage = orkCaptain.Property.Attack, Vertigo = 0.4f };
+                    orkCaptain.LightAttackColliders.MyDamage
+                        = new Wound { Damage = orkCaptain.Property.Damage, Vertigo = 0.4f };
 
-                orkCaptain.CharacterAnimator.SetTrigger("LightAttack");
-                orkCaptain.LightAttackSound.Play();
+                    orkCaptain.CharacterAnimator.SetTrigger("LightAttack");
+                    orkCaptain.LightAttackSound.Play();
+                }
             }
 
             public override void Update()
             {
                 if (orkCaptain.animationEnd)
                     actionManager.SetAction(new OrkCaptainIdle());
+            }
+
+            public override void End()
+            {
+                if (resetTimer)
+                    orkCaptain.RunTimeData.AttackTimer = orkCaptain.Property.AttackSpeed;
             }
             #endregion
         }

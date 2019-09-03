@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RandomMap_V6_AddCharacter.unity
     guid: a46dfbee1fa1f384fb417c861f8113a5
+  - enabled: 1
+    path: Assets/UIFolder/UIScene/Login.unity
+    guid: f6836875da3c38741a2a025870f6dd8e
+  - enabled: 1
+    path: Assets/UIFolder/UIScene/Menu.unity
+    guid: 9c2bf39fe23f89d4186fce5fffa07073
+  - enabled: 1
+    path: Assets/UIFolder/UIScene/Exit.unity
+    guid: dba4301d720dd3d46ae51384256a14cd
   m_configObjects: {}

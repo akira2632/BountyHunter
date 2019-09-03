@@ -39,6 +39,8 @@ namespace CharacterSystem_V4
             {
                 if (value > property.AttackSpeed)
                     _attackTimer = property.AttackSpeed;
+                else if (value < 0)
+                    _attackTimer = 0;
                 else
                     _attackTimer = value;
             }

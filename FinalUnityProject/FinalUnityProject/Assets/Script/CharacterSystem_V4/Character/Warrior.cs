@@ -7,7 +7,6 @@ namespace CharacterSystem_V4
     /// </summary>
     public class Warrior : ICharacterActionManager
     {
-        public CharacterProperty Property;
         public CharacterRunTimeData RunTimeData;
 
         public Rigidbody2D MovementBody;
@@ -33,13 +32,14 @@ namespace CharacterSystem_V4
                 SetAction(new WarriorDead());
             else if(RunTimeData.Health > 0)
             {
-                RunTimeData.AttackTimer += Time.deltaTime;
+                if(RunTimeData.AttackTimer >= 0)
+                    RunTimeData.AttackTimer -= Time.deltaTime;
 
                 RunTimeData.RegenTimer += Time.deltaTime;
                 if (RunTimeData.Health < Property.MaxHealth &&
-                    RunTimeData.RegenTimer >= Property.CharacterRegenSpeed)
+                    RunTimeData.RegenTimer >= Property.RegenSpeed)
                 {
-                    RunTimeData.Health += Property.CharacterRegenHealth;
+                    RunTimeData.Health += Property.RegenHealth;
                     RunTimeData.RegenTimer = 0;
                 }
 
@@ -258,22 +258,38 @@ namespace CharacterSystem_V4
         /// </summary>
         private class WarriorLightAttack : IWarriorAction
         {
+            bool resetTimer;
             #region 動作更新
             public override void Start()
             {
-                warrior.animationEnd = false;
+                if (warrior.RunTimeData.AttackTimer > 0)
+                {
+                    resetTimer = false;
+                    warrior.SetAction(new WarriorIdel());
+                }
+                else
+                {
+                    resetTimer = true;
+                    warrior.animationEnd = false;
 
-                warrior.LightAttackColliders.MyDamage
-                    = new Wound { Damage = warrior.Property.Attack, Vertigo = 1 };
+                    warrior.LightAttackColliders.MyDamage
+                        = new Wound { Damage = warrior.Property.Damage, Vertigo = 1 };
 
-                warrior.CharacterAnimator.SetTrigger("LightAttack");
-                warrior.LightAttackSound.Play();
+                    warrior.CharacterAnimator.SetTrigger("LightAttack");
+                    warrior.LightAttackSound.Play();
+                }
             }
 
             public override void Update()
             {
                 if (warrior.animationEnd)
                     actionManager.SetAction(new WarriorIdel());
+            }
+
+            public override void End()
+            {
+                if(resetTimer)
+                    warrior.RunTimeData.AttackTimer = warrior.Property.AttackSpeed;
             }
             #endregion
         }
@@ -390,7 +406,7 @@ namespace CharacterSystem_V4
                 dodgeDistance = 0;
                 warrior.animationEnd = false;
                 warrior.HeavyAttack1Colliders.MyDamage
-                    = new Wound { Damage = warrior.Property.Attack * 2, Vertigo = 3 };
+                    = new Wound { Damage = warrior.Property.Damage * 2, Vertigo = 3 };
 
                 if (isCharge)
                     warrior.CharacterAnimator.SetBool("HeavyAttackCharge", true);
@@ -529,7 +545,7 @@ namespace CharacterSystem_V4
                 dodgeDistance = 0;
                 warrior.animationEnd = false;
                 warrior.HeavyAttack2Colliders.MyDamage
-                    = new Wound { Damage = warrior.Property.Attack * 5, Vertigo = 3 };
+                    = new Wound { Damage = warrior.Property.Damage * 5, Vertigo = 3 };
 
                 warrior.CharacterAnimator.SetBool("HeavyAttackCharge", false);
                 warrior.HeavyAttack2Sound.Play();

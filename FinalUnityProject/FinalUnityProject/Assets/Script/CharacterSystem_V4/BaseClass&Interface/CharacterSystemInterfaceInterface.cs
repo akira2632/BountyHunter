@@ -50,10 +50,25 @@ namespace CharacterSystem_V4
         float DodgeSpeed { get; }
         int MaxHealth { get; }
 
-        int Attack { get; }
+        int Damage { get; }
         float AttackSpeed { get; }
+        int CriticalDamage { get; }
+        float CriticalRate { get; }
 
         float RegenSpeed { get; }
         int RegenHealth { get; }
+    }
+
+    public abstract class IScriptableCharacterProperty : ScriptableObject, ICharacterProperty
+    {
+        public abstract float MoveSpeed { get; }
+        public abstract float DodgeSpeed { get; }
+        public abstract int MaxHealth { get; }
+        public abstract int Damage { get; }
+        public abstract float AttackSpeed { get; }
+        public abstract float RegenSpeed { get; }
+        public abstract int RegenHealth { get; }
+        public abstract int CriticalDamage { get; }
+        public abstract float CriticalRate { get; }
     }
 }

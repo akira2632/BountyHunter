@@ -4,7 +4,6 @@ namespace CharacterSystem_V4
 {
     public class Spider : ICharacterActionManager
     {
-        public CharacterProperty Property;
         public CharacterRunTimeData RunTimeData;
 
         public Rigidbody2D MovementBody;
@@ -30,13 +29,14 @@ namespace CharacterSystem_V4
                 SetAction(new SpiderDead());
             else if (RunTimeData.Health > 0)
             {
-                RunTimeData.AttackTimer += Time.deltaTime;
+                if (RunTimeData.AttackTimer >= 0)
+                    RunTimeData.AttackTimer -= Time.deltaTime;
 
                 RunTimeData.RegenTimer += Time.deltaTime;
                 if (RunTimeData.Health < Property.MaxHealth &&
-                    RunTimeData.RegenTimer >= Property.CharacterRegenSpeed)
+                    RunTimeData.RegenTimer >= Property.RegenSpeed)
                 {
-                    RunTimeData.Health += Property.CharacterRegenHealth;
+                    RunTimeData.Health += Property.RegenHealth;
                     RunTimeData.RegenTimer = 0;
                 }
 
@@ -159,16 +159,27 @@ namespace CharacterSystem_V4
 
         private class SpiderLightAttack : ISpiderAction
         {
+            bool resetTimer;
             #region 動作更新
             public override void Start()
             {
-                spider.animationEnd = false;
+                if (spider.RunTimeData.AttackTimer > 0)
+                {
+                    resetTimer = false;
+                    spider.SetAction(new SpiderIdle());
+                }
+                else
+                {
+                    resetTimer = true;
+                    spider.animationEnd = false;
 
-                spider.LightAttackColliders.MyDamage
-                    = new Wound { Damage = spider.Property.Attack, Vertigo = 0.4f };
+                    spider.LightAttackColliders.MyDamage
+                        = new Wound { Damage = spider.Property.Damage, Vertigo = 0.4f };
 
-                spider.CharacterAnimator.SetTrigger("LightAttack");
-                spider.LightAttackSound.Play();
+                    spider.CharacterAnimator.SetTrigger("LightAttack");
+                    spider.LightAttackSound.Play();
+                }
+
             }
 
             public override void Update()
@@ -176,7 +187,13 @@ namespace CharacterSystem_V4
                 if (spider.animationEnd)
                     actionManager.SetAction(new SpiderIdle());
             }
-            #endregion
+
+            public override void End()
+            {
+                if (resetTimer)
+                    spider.RunTimeData.AttackTimer = spider.Property.AttackSpeed;
+            }
+            #endregion            
         }
 
         private class SpiderHurt : ISpiderAction

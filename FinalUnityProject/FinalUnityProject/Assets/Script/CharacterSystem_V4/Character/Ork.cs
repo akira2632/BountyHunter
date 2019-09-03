@@ -4,7 +4,6 @@ namespace CharacterSystem_V4
 {
     public class Ork : ICharacterActionManager
     {
-        public CharacterProperty Property;
         public CharacterRunTimeData RunTimeData;
 
         public Rigidbody2D MovementBody;
@@ -30,13 +29,14 @@ namespace CharacterSystem_V4
                 SetAction(new OrkDead());
             else if (RunTimeData.Health > 0)
             {
-                RunTimeData.AttackTimer += Time.deltaTime;
+                if (RunTimeData.AttackTimer >= 0)
+                    RunTimeData.AttackTimer -= Time.deltaTime;
 
                 RunTimeData.RegenTimer += Time.deltaTime;
                 if (RunTimeData.Health < Property.MaxHealth &&
-                    RunTimeData.RegenTimer >= Property.CharacterRegenSpeed)
+                    RunTimeData.RegenTimer >= Property.RegenSpeed)
                 {
-                    RunTimeData.Health += Property.CharacterRegenHealth;
+                    RunTimeData.Health += Property.RegenHealth;
                     RunTimeData.RegenTimer = 0;
                 }
 
@@ -159,22 +159,38 @@ namespace CharacterSystem_V4
 
         private class OrkLightAttack : IOrkAction
         {
+            bool resetTimer;
             #region 動作更新
             public override void Start()
             {
-                ork.animationEnd = false;
+                if (ork.RunTimeData.AttackTimer > 0)
+                {
+                    resetTimer = false;
+                    ork.SetAction(new OrkIdle());
+                }
+                else
+                {
+                    resetTimer = true;
+                    ork.animationEnd = false;
 
-                ork.LightAttackColliders.MyDamage
-                    = new Wound { Damage = ork.Property.Attack, Vertigo = 0.4f };
+                    ork.LightAttackColliders.MyDamage
+                        = new Wound { Damage = ork.Property.Damage, Vertigo = 0.4f };
 
-                ork.CharacterAnimator.SetTrigger("LightAttack");
-                ork.LightAttackSound.Play();
+                    ork.CharacterAnimator.SetTrigger("LightAttack");
+                    ork.LightAttackSound.Play();
+                }
             }
 
             public override void Update()
             {
                 if (ork.animationEnd)
                     actionManager.SetAction(new OrkIdle());
+            }
+
+            public override void End()
+            {
+                if (resetTimer)
+                    ork.RunTimeData.AttackTimer = ork.Property.AttackSpeed;
             }
             #endregion
         }

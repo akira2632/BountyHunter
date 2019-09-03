@@ -1527,8 +1527,8 @@ TextureImporter:
         y: 1349
         width: 447
         height: 447
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.48236617, y: 0.34716523}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1691,12 +1691,12 @@ TextureImporter:
       name: "\u89D2\u82721\u731B\u864E\u7A81\u570D\u65AC\u91CB\u653Eslice(896x896)_63"
       rect:
         serializedVersion: 2
-        x: 3126
+        x: 3129
         y: 917
         width: 447
         height: 447
       alignment: 9
-      pivot: {x: 0.411762, y: 0.37566498}
+      pivot: {x: 0.411762, y: 0.3521518}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1717,7 +1717,7 @@ TextureImporter:
         width: 447
         height: 447
       alignment: 9
-      pivot: {x: 0.41978368, y: 0.34758934}
+      pivot: {x: 0.4139052, y: 0.3358329}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

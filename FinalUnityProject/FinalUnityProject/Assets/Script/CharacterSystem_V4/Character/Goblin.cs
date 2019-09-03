@@ -4,7 +4,6 @@ namespace CharacterSystem_V4
 {
     public class Goblin : ICharacterActionManager
     {
-        public CharacterProperty Property;
         public CharacterRunTimeData RunTimeData;
 
         public Rigidbody2D MovementBody;
@@ -30,13 +29,14 @@ namespace CharacterSystem_V4
                 SetAction(new GoblinDead());
             else if (RunTimeData.Health > 0)
             {
-                RunTimeData.AttackTimer += Time.deltaTime;
+                if (RunTimeData.AttackTimer >= 0)
+                    RunTimeData.AttackTimer -= Time.deltaTime;
 
                 RunTimeData.RegenTimer += Time.deltaTime;
                 if (RunTimeData.Health < Property.MaxHealth &&
-                    RunTimeData.RegenTimer >= Property.CharacterRegenSpeed)
+                    RunTimeData.RegenTimer >= Property.RegenSpeed)
                 {
-                    RunTimeData.Health += Property.CharacterRegenHealth;
+                    RunTimeData.Health += Property.RegenHealth;
                     RunTimeData.RegenTimer = 0;
                 }
 
@@ -159,22 +159,38 @@ namespace CharacterSystem_V4
 
         private class GoblinLightAttack : IGoblinAction
         {
+            bool resetTimer;
             #region 動作更新
             public override void Start()
             {
-                goblin.animationEnd = false;
+                if (goblin.RunTimeData.AttackTimer > 0)
+                {
+                    resetTimer = false;
+                    goblin.SetAction(new GoblinIdle());
+                }
+                else
+                {
+                    resetTimer = true;
+                    goblin.animationEnd = false;
 
-                goblin.LightAttackColliders.MyDamage
-                    = new Wound { Damage = goblin.Property.Attack, Vertigo = 0.4f };
+                    goblin.LightAttackColliders.MyDamage
+                        = new Wound { Damage = goblin.Property.Damage, Vertigo = 0.4f };
 
-                goblin.CharacterAnimator.SetTrigger("LightAttack");
-                goblin.LightAttackSound.Play();
+                    goblin.CharacterAnimator.SetTrigger("LightAttack");
+                    goblin.LightAttackSound.Play();
+                }
             }
 
             public override void Update()
             {
                 if (goblin.animationEnd)
                     actionManager.SetAction(new GoblinIdle());
+            }
+
+            public override void End()
+            {
+                if (resetTimer)
+                    goblin.RunTimeData.AttackTimer = goblin.Property.AttackSpeed;
             }
             #endregion
         }

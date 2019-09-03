@@ -2,8 +2,8 @@
 
 namespace CharacterSystem_V4
 {
-    [CreateAssetMenu(fileName = "角色能力", menuName = "賞金獵人_角色系統V4/角色能力", order = 1)]
-    public class CharacterProperty : ScriptableObject, ICharacterProperty
+    [CreateAssetMenu(fileName = "角色能力", menuName = "賞金獵人_角色系統V4/角色能力/一般能力", order = 1)]
+    public class CharacterProperty : IScriptableCharacterProperty
     {
         [Header("自然恢復速度"), Tooltip("角色自然恢復速度(秒)"), Min(0)]
         public float CharacterRegenSpeed;
@@ -20,12 +20,23 @@ namespace CharacterSystem_V4
         [Header("攻擊速度"), Tooltip("角色攻擊速度、每秒幾次(次/秒)"), Min(0)]
         public float CharacterAttackSpeed;
 
-        public float RegenSpeed => CharacterRegenSpeed;
-        public int RegenHealth => CharacterRegenHealth;
-        public int MaxHealth => CharacterMaxHealth;
-        public float MoveSpeed => CharacterMoveSpeed;
-        public float DodgeSpeed => CharacterDodgeSpeed;
-        public int Attack => CharacterAttack;
-        public float AttackSpeed => CharacterAttackSpeed;
+        public override float RegenSpeed => CharacterRegenSpeed;
+        public override int RegenHealth => CharacterRegenHealth;
+        public override int MaxHealth => CharacterMaxHealth;
+        public override float MoveSpeed => CharacterMoveSpeed;
+        public override float DodgeSpeed => CharacterDodgeSpeed;
+        public override int Damage
+        {
+            get
+            {
+                if (Random.Range(0, 100) <= CriticalRate)
+                    return Damage + CriticalDamage;
+                else
+                    return Damage;
+            }
+        }
+        public override float AttackSpeed => CharacterAttackSpeed;
+        public override int CriticalDamage => throw new System.NotImplementedException();
+        public override float CriticalRate => throw new System.NotImplementedException();
     }
 }
