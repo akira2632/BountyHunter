@@ -11,12 +11,13 @@ namespace CharacterSystem_V4.Controller
             Senser.OnPlayerCloseBy += (bool data) => playerCloseBy = data;
         }
 
-        private void Update()
+        protected override void ManagerUpdate()
         {
             if (!playerCloseBy)
                 SetState(new AIIdel());
         }
 
+        #region AIState
         private class IBasicAIState : AIState { }
 
         private class AIIdel : IBasicAIState
@@ -130,5 +131,6 @@ namespace CharacterSystem_V4.Controller
                     horizontal = Horizontal.None;
             }
         }
+        #endregion
     }
 }

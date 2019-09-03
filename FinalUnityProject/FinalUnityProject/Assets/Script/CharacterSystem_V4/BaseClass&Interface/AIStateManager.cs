@@ -15,6 +15,8 @@ namespace CharacterSystem_V4.Controller
 
         private void Update()
         {
+            ManagerUpdate();
+
             if (playerCloseBy)
             {
                 if (!isInitial)
@@ -26,6 +28,8 @@ namespace CharacterSystem_V4.Controller
                 nowState.Update();
             }
         }
+
+        protected virtual void ManagerUpdate() { }
 
         public void SetState(AIState nextState)
         {
