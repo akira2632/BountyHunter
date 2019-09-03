@@ -6,9 +6,7 @@ namespace CharacterSystem_V4
     public class WarriorProperty : IScriptableCharacterProperty
     {
         public int LvExpRequire;
-        [Header("當前等級")]
         public int Lv;
-
         [SerializeField]
         private int _exp;
         public int Exp
@@ -24,39 +22,10 @@ namespace CharacterSystem_V4
                     _exp = value;
             }
         }
-
-        [Header("力量")]
-        public int Str;
-
-        [Header("敏捷")]
-        public int Agi;
-
-        [Header("智慧")]
-        public int Wis;
-
-        [Header("靈敏")]
-        public int Dex;
-
-        [Header("生命力")]
-        public int Vit;
-
-        [Header("基礎移動速度")]
-        public float MoveSpeedBase;
-
-        [Header("基礎迴避速度")]
-        public float DodgeSpeedBase;
-
-        [Header("武器傷害")]
-        public int WeaponDamage;
         
-
-        // 移動速度
-        public override float MoveSpeed => MoveSpeedBase + (Agi * 0.1f);
-        // 迴避速度
-        public override float DodgeSpeed => DodgeSpeedBase + (Agi * 0.1f);
-        // 生命值
-        public override int MaxHealth => 100 + Vit * 10;
-        // 物理攻擊
+        public override float MoveSpeed => throw new System.NotImplementedException();
+        public override float DodgeSpeed => throw new System.NotImplementedException();
+        public override int MaxHealth => throw new System.NotImplementedException();
         public override int Damage
         {
             get
@@ -67,15 +36,10 @@ namespace CharacterSystem_V4
                     return (Damage);
             }
         }
-        // 攻擊速度
         public override float AttackSpeed => throw new System.NotImplementedException();
-        // 回復速度
-        public override float RegenSpeed => Time.deltaTime;
-        // 回復生命
-        public override int RegenHealth => (Vit + MaxHealth) / 30;
-        // 暴擊傷害
-        public override int CriticalDamage => ((Str * 2) * Lv) / 15;
-        // 暴擊機率
-        public override float CriticalRate => ((Lv + Dex + Agi) / 8) ;
+        public override float RegenSpeed => throw new System.NotImplementedException();
+        public override int RegenHealth => throw new System.NotImplementedException();
+        public override int CriticalDamage => throw new System.NotImplementedException();
+        public override float CriticalRate => throw new System.NotImplementedException();
     }
 }
