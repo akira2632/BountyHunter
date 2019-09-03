@@ -71,6 +71,7 @@ namespace CharacterSystem_V4
         public abstract int CriticalDamage { get; }
         public abstract float CriticalRate { get; }
     }
+<<<<<<< HEAD
 }
 
 namespace CharacterSystem_V4.Controller
@@ -123,4 +124,6 @@ namespace CharacterSystem_V4.Controller
         public virtual void End() { }
     }
 
+=======
+>>>>>>> parent of 97eb1a0... Merge branch 'master' of https://github.com/akira2632/FinalUnityProject
 }

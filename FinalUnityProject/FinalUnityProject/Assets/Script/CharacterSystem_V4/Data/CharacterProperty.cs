@@ -2,7 +2,7 @@
 
 namespace CharacterSystem_V4
 {
-    [CreateAssetMenu(fileName = "角色能力", menuName = "賞金獵人_角色系統V4/角色能力/一般能力")]
+    [CreateAssetMenu(fileName = "角色能力", menuName = "賞金獵人_角色系統V4/角色能力/一般能力", order = 1)]
     public class CharacterProperty : IScriptableCharacterProperty
     {
         [Header("自然恢復速度"), Tooltip("角色自然恢復速度(秒)"), Min(0)]
