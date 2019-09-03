@@ -19,6 +19,8 @@ namespace CharacterSystem_V4
         public int CharacterAttack;
         [Header("攻擊速度"), Tooltip("角色攻擊速度、每秒幾次(次/秒)"), Min(0)]
         public float CharacterAttackSpeed;
+        public int CharacterCriticalDamage;
+        public float CharacterCriticalRate;
 
         public override float RegenSpeed => CharacterRegenSpeed;
         public override int RegenHealth => CharacterRegenHealth;
@@ -29,14 +31,14 @@ namespace CharacterSystem_V4
         {
             get
             {
-                if (Random.Range(0, 100) <= CriticalRate)
-                    return Damage + CriticalDamage;
+                if (Random.Range(0, 100) < CharacterCriticalRate)
+                    return CharacterAttack + CharacterCriticalDamage;
                 else
-                    return Damage;
+                    return CharacterAttack;
             }
         }
         public override float AttackSpeed => CharacterAttackSpeed;
-        public override int CriticalDamage => throw new System.NotImplementedException();
-        public override float CriticalRate => throw new System.NotImplementedException();
+        public override int CriticalDamage => CharacterCriticalDamage;
+        public override float CriticalRate => CharacterCriticalRate;
     }
 }
