@@ -82,7 +82,7 @@ namespace CharacterSystem_V4.Controller
         public AISetting setting;
 
         private bool isInitial = false, playerCloseBy;
-        protected AIState nowState;
+        private AIState nowState;
 
         private void Start()
         {
