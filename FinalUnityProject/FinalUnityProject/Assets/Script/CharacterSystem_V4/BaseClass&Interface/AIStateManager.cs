@@ -17,16 +17,13 @@ namespace CharacterSystem_V4.Controller
         {
             ManagerUpdate();
 
-            if (playerCloseBy)
+            if (!isInitial)
             {
-                if (!isInitial)
-                {
-                    nowState.Initial();
-                    isInitial = true;
-                }
-
-                nowState.Update();
+                nowState.Initial();
+                isInitial = true;
             }
+
+            nowState.Update();
         }
 
         protected virtual void ManagerUpdate() { }

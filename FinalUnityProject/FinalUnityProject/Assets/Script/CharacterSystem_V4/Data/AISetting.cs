@@ -6,6 +6,6 @@ namespace CharacterSystem_V4.Controller
     public class AISetting : ScriptableObject
     {
         public float IdelTimeMax, IdelTimeMin,
-            WounderTurnMax, WounderDistanceMax, WounderDistanceMin;
+            WounderDistanceMax, WounderDistanceMin;
     }
 }

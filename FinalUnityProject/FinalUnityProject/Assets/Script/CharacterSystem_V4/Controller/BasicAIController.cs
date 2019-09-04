@@ -14,7 +14,7 @@ namespace CharacterSystem_V4.Controller
         protected override void ManagerUpdate()
         {
             if (!playerCloseBy)
-                SetState(new AIIdel());
+                SetState(new AIChase());
         }
 
         #region AIState
@@ -27,6 +27,7 @@ namespace CharacterSystem_V4.Controller
             public override void Initial()
             {
                 Debug.Log("Idel Start");
+
                 idelTimer = Random.Range
                     (manager.AISetting.IdelTimeMin, manager.AISetting.IdelTimeMax);
 
@@ -40,30 +41,16 @@ namespace CharacterSystem_V4.Controller
                 if (idelTimer < 0)
                     manager.SetState(new AIWandering());
             }
-
-            public override void End()
-            {
-                Debug.Log("Idel End");
-            }
         }
 
         private class AIWandering : IBasicAIState
         {
-            int wanderingCount;
             bool? pathFinded;
-
             Vector3 nextPoint;
-
-            public AIWandering(int wanderingCount = 0)
-            {
-                this.wanderingCount = wanderingCount + 1;
-            }
 
             #region 流程控制
             public override void Initial()
             {
-                Debug.Log("Wandering " + wanderingCount + " Start");
-
                 pathFinded = false;
                 float distance = Random.Range
                     (manager.AISetting.WounderDistanceMin, manager.AISetting.WounderDistanceMax);
@@ -90,21 +77,10 @@ namespace CharacterSystem_V4.Controller
                         manager.Character.Move(horizontal);
                     }
                     else if (!manager.Senser.NextWayPoint(out nextPoint))
-                    {
-                        if (wanderingCount < manager.AISetting.WounderTurnMax)
-                            manager.SetState(new AIWandering(wanderingCount));
-
                         manager.SetState(new AIIdel());
-                    }
                 }
                 else if (pathFinded == null)
-                    manager.SetState(new AIWandering(wanderingCount - 1));
-            }
-
-            public override void End()
-            {
-                Debug.Log("Wandering " + wanderingCount + " End");
-                base.End();
+                    manager.SetState(new AIWandering());
             }
             #endregion
 
@@ -130,6 +106,11 @@ namespace CharacterSystem_V4.Controller
                 else
                     horizontal = Horizontal.None;
             }
+        }
+
+        private class AIChase : IBasicAIState
+        {
+
         }
         #endregion
     }

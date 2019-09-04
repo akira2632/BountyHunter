@@ -10,27 +10,32 @@ namespace CharacterSystem_V4.Controller
         public delegate void SenerEventBool(bool data);
         public event SenerEventBool OnPlayerCloseBy;
 
-        public Seeker seeker;
-        public Path path;
+        public GameObject Character;
+
+        [SerializeField]
+        private Seeker seeker;
+        [SerializeField]
+        private Path path;
+
+        private Vector3 PlayerPosition;
 
         private int currentWayPoint = 0;
 
-        // Start is called before the first frame update
-        void Start()
+        private void LateUpdate()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            transform.position = Character.transform.position;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.tag == "Player")
                 OnPlayerCloseBy?.Invoke(true);
+        }
+
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag == "Player")
+                PlayerPosition = collision.transform.position;
         }
 
         private void OnTriggerExit2D(Collider2D collision)
