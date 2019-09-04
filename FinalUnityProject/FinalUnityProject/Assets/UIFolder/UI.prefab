@@ -5749,7 +5749,7 @@ RectTransform:
   m_GameObject: {fileID: 7160193107456234703}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.22, y: 0.22, z: 0.22}
   m_Children:
   - {fileID: 1656499671378393230}
   - {fileID: 7160193107564004703}
@@ -5773,12 +5773,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d788d342c78cb2c4a97f70f04b2afbce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gamePlayMenuBtn: {fileID: 0}
+  gamePlayMenuBtn: {fileID: 7160193107564004702}
   MenuUI: {fileID: 0}
   characterAttBtn: {fileID: 1920215200476000932}
   CharacterAtt: {fileID: 2231209917727631460}
-  OpenCharacterAttBtn: {fileID: 0}
-  CloseCharacterAttBtn: {fileID: 0}
+  OpenCharacterAttBtn: {fileID: 8206560686442576478}
+  CloseCharacterAttBtn: {fileID: 6930323947296361282}
+  BloodBar: {fileID: 5267380259646800933}
+  BloodMargin: {fileID: 6626993561439725480}
+  BloodValue: {fileID: 1375136121407937412}
+  BloodHP: 200
+  character: {fileID: 0}
 --- !u!82 &3609912623410249008
 AudioSource:
   m_ObjectHideFlags: 0

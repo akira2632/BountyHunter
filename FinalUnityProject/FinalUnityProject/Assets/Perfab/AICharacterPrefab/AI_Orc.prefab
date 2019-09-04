@@ -164,6 +164,12 @@ PrefabInstance:
       propertyPath: Character
       value: 
       objectReference: {fileID: 3668799233883059542}
+    - target: {fileID: 4838384656752762987, guid: 538e9543332697646a1e4d65d6931eff,
+        type: 3}
+      propertyPath: AISetting
+      value: 
+      objectReference: {fileID: 11400000, guid: 3113e831076546e4697654c876eaf505,
+        type: 2}
     - target: {fileID: 2859054273369190551, guid: 538e9543332697646a1e4d65d6931eff,
         type: 3}
       propertyPath: Character

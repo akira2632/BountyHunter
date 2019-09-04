@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CharacterSystem_V4.Controller
 {
@@ -17,7 +15,7 @@ namespace CharacterSystem_V4.Controller
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.gameObject.tag == "Player")
+            if (collision.gameObject.tag == "Player")
             {
                 AI.enabled = true;
                 Senser.enabled = true;
@@ -27,7 +25,7 @@ namespace CharacterSystem_V4.Controller
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if(collision.gameObject.tag == "Player")
+            if (collision.gameObject.tag == "Player")
             {
                 AI.enabled = false;
                 Senser.enabled = false;

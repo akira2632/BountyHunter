@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18dba907e6d46434c931e210bad51798, type: 3}
   m_Name: "AI\u8A2D\u5B9A"
   m_EditorClassIdentifier: 
-  IdelTimeMax: 10
-  IdelTimeMin: 3
+  IdelTimeMax: 5
+  IdelTimeMin: 1
   WounderDistanceMax: 7
-  WounderDistanceMin: 3
+  WounderDistanceMin: 5
   AttackDistance: 0.8
   StopDistance: 0.8

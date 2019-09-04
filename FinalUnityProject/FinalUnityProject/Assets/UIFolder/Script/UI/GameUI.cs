@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using CharacterSystem_V4;
 
 public class GameUI : MonoBehaviour
 {
@@ -76,4 +77,30 @@ public class GameUI : MonoBehaviour
     }
 
     #endregion
+
+    #region
+    public Image BloodBar;
+
+    public Image BloodMargin;
+
+    public Text BloodValue;
+
+    public int BloodHP;
+
+    public ICharacterActionManager character;
+    #endregion
+
+    private void Update()
+    {
+        float bloodHp = character.RunTimeData.Health;
+
+        //BloodHP = Mathf.Clamp(BloodHP, 0, 200);
+
+        BloodBar.fillAmount = bloodHp / 200;
+
+        BloodMargin.fillAmount = BloodBar.fillAmount;
+
+        BloodValue.text = (int)bloodHp + " / 200";
+    }
+
 }
