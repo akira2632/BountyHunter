@@ -8,6 +8,7 @@ namespace CharacterSystem_V4.Controller
     {
         public GameObject Character;
         public AIStateManager AI;
+        public BasicAISenser Senser;
 
         private void LateUpdate()
         {
@@ -19,6 +20,7 @@ namespace CharacterSystem_V4.Controller
             if(collision.gameObject.tag == "Player")
             {
                 AI.enabled = true;
+                Senser.enabled = true;
                 Character.SetActive(true);
             }
         }
@@ -28,6 +30,7 @@ namespace CharacterSystem_V4.Controller
             if(collision.gameObject.tag == "Player")
             {
                 AI.enabled = false;
+                Senser.enabled = false;
                 Character.SetActive(false);
             }
         }

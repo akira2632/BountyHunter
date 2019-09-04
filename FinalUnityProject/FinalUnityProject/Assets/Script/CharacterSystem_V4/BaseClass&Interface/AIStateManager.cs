@@ -10,12 +10,13 @@ namespace CharacterSystem_V4.Controller
         public BasicAISenser Senser;
         public AISetting AISetting;
 
-        protected bool isInitial = false, playerCloseBy;
+        protected bool isInitial = false, findPlayer;
         protected AIState nowState;
 
         private void Update()
         {
-            ManagerUpdate();
+            if (Character == null)
+                Destroy(gameObject);
 
             if (!isInitial)
             {
@@ -25,8 +26,6 @@ namespace CharacterSystem_V4.Controller
 
             nowState.Update();
         }
-
-        protected virtual void ManagerUpdate() { }
 
         public void SetState(AIState nextState)
         {

@@ -18,4 +18,6 @@ MonoBehaviour:
   CharacterMoveSpeed: 4
   CharacterDodgeSpeed: 8
   CharacterAttack: 20
-  CharacterAttackSpeed: 1
+  CharacterAttackSpeed: 0.5
+  CharacterCriticalDamage: 0
+  CharacterCriticalRate: 0

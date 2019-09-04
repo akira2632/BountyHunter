@@ -17,5 +17,7 @@ MonoBehaviour:
   CharacterMaxHealth: 20
   CharacterMoveSpeed: 2
   CharacterDodgeSpeed: 0
-  CharacterAttack: 7
-  CharacterAttackSpeed: 3
+  CharacterAttack: 15
+  CharacterAttackSpeed: 1
+  CharacterCriticalDamage: 0
+  CharacterCriticalRate: 0

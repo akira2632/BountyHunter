@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IdelTimeMax: 10
   IdelTimeMin: 3
-  WounderTurnMax: 3
   WounderDistanceMax: 7
   WounderDistanceMin: 3
+  AttackDistance: 0.8
+  StopDistance: 0.8

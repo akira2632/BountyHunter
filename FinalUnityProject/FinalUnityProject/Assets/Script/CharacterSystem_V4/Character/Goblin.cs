@@ -4,8 +4,6 @@ namespace CharacterSystem_V4
 {
     public class Goblin : ICharacterActionManager
     {
-        public CharacterRunTimeData RunTimeData;
-
         public Rigidbody2D MovementBody;
         public Collider2D MovementCollider;
         public Animator CharacterAnimator;
@@ -266,7 +264,7 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                desdroyedTimer = 120;
+                desdroyedTimer = 10;
 
                 goblin.MovementCollider.enabled = false;
                 goblin.CharacterAnimator.SetBool("IsFallDown", true);

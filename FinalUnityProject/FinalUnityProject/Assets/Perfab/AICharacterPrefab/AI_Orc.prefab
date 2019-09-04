@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orc
       objectReference: {fileID: 0}
+    - target: {fileID: 1810561749657080560, guid: e15735d20a7152842b1812a4b56889c0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6704382508476855882, guid: e15735d20a7152842b1812a4b56889c0,
         type: 3}
       propertyPath: m_LocalPosition.x

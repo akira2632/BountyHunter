@@ -11,15 +11,16 @@ namespace CharacterSystem_V4.Controller
         public event SenerEventBool OnPlayerCloseBy;
 
         public GameObject Character;
+        public Vector3 PlayerPosition { get => playerPosition; }
 
         [SerializeField]
         private Seeker seeker;
         [SerializeField]
         private Path path;
 
-        private Vector3 PlayerPosition;
-
+        private Vector3 playerPosition;
         private int currentWayPoint = 0;
+        private bool continueFinding = false;
 
         private void LateUpdate()
         {
@@ -34,8 +35,8 @@ namespace CharacterSystem_V4.Controller
 
         private void OnTriggerStay2D(Collider2D collision)
         {
-            if (collision.gameObject.tag == "Player")
-                PlayerPosition = collision.transform.position;
+            if(collision.gameObject.tag == "Player")
+                playerPosition = collision.transform.position;
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -58,12 +59,28 @@ namespace CharacterSystem_V4.Controller
             }
         }
 
-        public void FindPath(Vector3 start, Vector3 end, Action<bool?> pathFinded)
-            => StartCoroutine(MyFindPath(start, end, pathFinded));
+        public void FindPath(Vector3 target, Action<bool?> pathFinded)
+            => StartCoroutine(MyFindPath(target, pathFinded));
 
-        private IEnumerator MyFindPath(Vector3 start, Vector3 end, Action<bool?> pathFinded)
+        public void FindPathToPlayer(Action<bool?> pathFinded)
+            => StartCoroutine(ContinueFinding(pathFinded));
+
+        public void StopFindPathToPlayer() => continueFinding = false;
+
+        private IEnumerator ContinueFinding(Action<bool?> pathFinded)
         {
-            seeker.StartPath(start, end, (Path path) => this.path = path);
+            seeker.CancelCurrentPathRequest();
+            continueFinding = true;
+
+            while (continueFinding)
+                yield return MyFindPath(playerPosition, pathFinded);
+        }
+
+        private IEnumerator MyFindPath(Vector3 target, Action<bool?> pathFinded)
+        {
+            seeker.CancelCurrentPathRequest();
+            seeker.StartPath(transform.position, target, (Path path) => this.path = path);
+            Debug.Log(target);
 
             while (!seeker.IsDone())
                 yield return new WaitForSeconds(0.5f);
@@ -76,5 +93,6 @@ namespace CharacterSystem_V4.Controller
                 pathFinded(true);
             }
         }
+
     }
 }

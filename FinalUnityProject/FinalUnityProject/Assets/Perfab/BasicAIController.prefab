@@ -41,7 +41,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3331758773107381572}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e25284fa62fe6043a1c40d54ecb1a50, type: 3}
   m_Name: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4838384656752762988}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c333926de73f2a7479a1abfaf442994e, type: 3}
   m_Name: 
@@ -208,6 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Character: {fileID: 0}
   AI: {fileID: 4838384656752762987}
+  Senser: {fileID: 1367546450426938608}
 --- !u!70 &8147240812638905384
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -222,7 +223,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 40, y: 24}
+  m_Size: {x: 30, y: 18}
   m_Direction: 1
 --- !u!50 &4247827349910123329
 Rigidbody2D:

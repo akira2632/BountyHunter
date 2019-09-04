@@ -6,6 +6,7 @@ namespace CharacterSystem_V4
 {
     public abstract class ICharacterActionManager : MonoBehaviour, ICharacterActionControll
     {
+        public CharacterRunTimeData RunTimeData;
         public IScriptableCharacterProperty Property;
 
         #region AnimationControll

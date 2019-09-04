@@ -7,8 +7,6 @@ namespace CharacterSystem_V4
     /// </summary>
     public class Warrior : ICharacterActionManager
     {
-        public CharacterRunTimeData RunTimeData;
-
         public Rigidbody2D MovementBody;
         public Collider2D MovementCollider;
         public Animator CharacterAnimator;
