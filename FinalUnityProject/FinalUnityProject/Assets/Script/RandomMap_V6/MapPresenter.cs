@@ -138,9 +138,7 @@ namespace RandomMap_V6
                 for (int row = 0; row < terrainData.GetLength(1); row++)
                 {
                     if (terrainData[column, row] < 10)
-                        mapPrinter.PrintGameMapGround(target.Column * 15 + column, target.Row * 15 + row,
-                            mapBuilder.GetBlockType(target) == BlockType.Safe);
-                    //else if (HasGroundBehind(column, row))
+                        mapPrinter.PrintGameMapGround(target.Column * 15 + column, target.Row * 15 + row);
                     else
                         mapPrinter.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
                 }
@@ -166,15 +164,8 @@ namespace RandomMap_V6
             gridGraph.SetDimensions(width * 5, depth * 5, 0.2f);
             gridGraph.center = centerPosition;
 
-            generaterManager.StartCoroutine(ScanMap(gridGraph));
-        }
-
-        public IEnumerator ScanMap(GridGraph gridGraph)
-        {
-            yield return new WaitForSeconds(1f);
             AstarPath.active.Scan(gridGraph);
             Debug.Log(Time.time - generaterManager.StartTime);
-            yield return null;
         }
     }
     #endregion

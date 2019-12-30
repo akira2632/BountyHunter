@@ -305,11 +305,9 @@ namespace RandomMap_V6
         }
 
         #region 印出遊戲地圖
-        public void PrintGameMapGround(int x, int y, bool safe)
+        public void PrintGameMapGround(int x, int y)
         {
             gameMapSetting.GameMap_Ground.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapGround);
-            if (safe)
-                gameMapSetting.NavegateMap.SetTile(new Vector3Int(x, y, 0), gameMapSetting.NavegateBlock);
         }
 
         public void PrintGameMapWall(int x, int y)
