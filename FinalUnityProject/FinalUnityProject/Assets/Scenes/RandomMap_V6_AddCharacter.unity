@@ -301,6 +301,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2097412994600130058, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.03137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 2097412994600130058, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.03137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 2097412994600130058, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.03137255
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 983b491c307ee2d459e2de15d1d3e5d1, type: 3}
 --- !u!1 &474236234
@@ -653,6 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dafa2ef3ad913249adda38021cfff9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 1566488448}
   MapScale: 30
   seed: 0
   grid: {fileID: 474236235}
@@ -994,6 +1010,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01bdb60eaa005bd44b0e877602e2441b, type: 3}
+--- !u!4 &1566488448 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6704382508476855882, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 325034067}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1648082140
 PrefabInstance:
   m_ObjectHideFlags: 0

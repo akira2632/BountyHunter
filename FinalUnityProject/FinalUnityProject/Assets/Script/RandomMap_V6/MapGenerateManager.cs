@@ -4,6 +4,9 @@ namespace RandomMap_V6
 {
     public class MapGenerateManager : MonoBehaviour
     {
+        [Header("玩家角色"), Tooltip("重設玩家角色初始位置")]
+        public Transform Player;
+
         [Header("地圖深度"), Range(1, 100), Tooltip("自起點至最深處的區塊數量")]
         public int MapScale;
         [Header("地圖種子"), Tooltip("0由電腦自動產生種子")]
@@ -79,5 +82,9 @@ namespace RandomMap_V6
         }
 
         internal GeneraterFactry GetGeneraterFactry() => generaterFactry;
+        internal void SetPlayerPosition(float x, float y)
+        {
+            Player.position = new Vector3(x, y);
+        }
     }
 }

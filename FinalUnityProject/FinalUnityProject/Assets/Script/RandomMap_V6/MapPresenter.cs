@@ -159,13 +159,17 @@ namespace RandomMap_V6
 
             int width = (Mathf.Abs(columnMax) + Mathf.Abs(columnMin)) * 15, depth = (Mathf.Abs(rowMax) + Mathf.Abs(rowMin)) * 15;
             Vector3 centerPosition = generaterManager.grid.CellToWorld(
-                new Vector3Int(((columnMax + columnMin) / 2) * 15, ((rowMax + rowMin) / 2) * 15,0));
+                new Vector3Int(((columnMax + columnMin) / 2) * 15, ((rowMax + rowMin) / 2) * 15, 0));
 
             gridGraph.SetDimensions(width * 5, depth * 5, 0.2f);
             gridGraph.center = centerPosition;
 
             AstarPath.active.Scan(gridGraph);
             Debug.Log(Time.time - generaterManager.StartTime);
+
+            float x, y;
+            mapPrinter.GetEntryPosition(out x, out y);
+            generaterManager.SetPlayerPosition(x, y);
         }
     }
     #endregion

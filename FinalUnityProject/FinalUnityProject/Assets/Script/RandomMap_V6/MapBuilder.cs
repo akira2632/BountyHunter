@@ -291,7 +291,7 @@ namespace RandomMap_V6
 
     public class MapPrinter
     {
-        private Color bossRoomColor, entryColor, safeBlockColor;
+        private Color entryColor, safeBlockColor;
         private MiniMapSetting miniMapSetting;
         private GameMapSetting gameMapSetting;
 
@@ -376,6 +376,13 @@ namespace RandomMap_V6
             miniMapSetting.MiniMapWall.color = safeBlockColor;
             PrintMiniMapCorner(target, direction1, direction2);
             miniMapSetting.MiniMapWall.color = Color.white;
+        }
+
+        internal void GetEntryPosition(out float x, out float y)
+        {
+            var temp = gameMapSetting.GameMap_Ground.CellToLocal(new Vector3Int(8, 8, 0));
+            x = temp.x;
+            y = temp.y;
         }
         #endregion
     }
