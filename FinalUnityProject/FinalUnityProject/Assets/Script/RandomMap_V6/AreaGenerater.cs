@@ -226,7 +226,7 @@ namespace RandomMap_V6
 
         private int GetNextAreaSize()
         {
-            return Mathf.Clamp(Random.Range(5,10), 5, parms.MapQuota);
+            return Mathf.Clamp(Random.Range(5, 10), 5, parms.MapQuota);
         }
     }
 
@@ -274,7 +274,7 @@ namespace RandomMap_V6
             }
             else
             {
-                generaterManager.SetNextGenerater(new TerrainGenerateInitail(generaterManager));
+                generaterManager.SetNextGenerater(new OutSideFillter(generaterManager, mapBuilder.GetTargets()));
             }
             generaterManager.AddTicks();
         }
@@ -609,7 +609,7 @@ namespace RandomMap_V6
                                 mapBuilder.MakeBoundary(target, direction, BoundaryType.Wall);
                     }
                 }
-                else if(blockCount < 8)
+                else if (blockCount < 8)
                 {
                     /*Debug.Log("Scale " + nowScale + " : "
                         + (Time.time - generaterManager.ScaleStartTime) + " secends, Total "
@@ -680,6 +680,43 @@ namespace RandomMap_V6
         public override void End()
         {
             //Debug.Log("AreaSealderEnd");
+            generaterManager.AddTicks();
+        }
+    }
+
+    /// <summary>
+    /// 外圍填充規則
+    /// </summary>
+    public class OutSideFillter : IAreaGenerater
+    {
+        static Queue<Coordinate> targets;
+
+        public OutSideFillter(MapGenerateManager generaterManager, Queue<Coordinate> targets) : base(generaterManager)
+        {
+            OutSideFillter.targets = targets;
+        }
+
+        public OutSideFillter(MapGenerateManager generaterManager) : base(generaterManager)
+        {
+        }
+
+        public override void Update()
+        {
+            if (targets.Count > 0)
+            {
+                Coordinate target = targets.Dequeue();
+
+                for (int column = -1; column < 2; column++)
+                    for (int row = -1; row < 2; row++)
+                    {
+                        Coordinate temp = new Coordinate(target.Column + column, target.Row + row);
+                        if (!mapBuilder.HasBlock(temp))
+                            mapBuilder.MakeBlock(temp, BlockType.Null);
+                    }
+            }
+            else
+                generaterManager.SetNextGenerater(new TerrainGenerateInitail(generaterManager));
+
             generaterManager.AddTicks();
         }
     }

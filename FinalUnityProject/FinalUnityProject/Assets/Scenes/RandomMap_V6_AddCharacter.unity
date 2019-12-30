@@ -701,7 +701,7 @@ MonoBehaviour:
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
     cacheStartup: 0
-  showNavGraphs: 1
+  showNavGraphs: 0
   showUnwalkableNodes: 1
   debugMode: 0
   debugFloor: 0
@@ -1102,7 +1102,7 @@ Tilemap:
   m_TileMatrixArray: []
   m_TileColorArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.23921569, g: 0.85882354, b: 0.6711635, a: 0.4117647}
+  m_Color: {r: 0.23921569, g: 0.85882354, b: 0.6711635, a: 0.15686275}
   m_Origin: {x: 0, y: 0, z: 0}
   m_Size: {x: 0, y: 0, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}

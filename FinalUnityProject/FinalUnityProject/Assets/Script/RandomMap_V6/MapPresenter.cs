@@ -86,9 +86,33 @@ namespace RandomMap_V6
                     generaterManager.AddTicks();
                     generaterManager.SetNextGenerater(new GameMapPresenter(generaterManager));
                 }
+                else
+                {
+                    generaterManager.AddTicks();
+                    generaterManager.SetNextGenerater(new NullBlockPresenter(generaterManager));
+                }
             }
             else
                 generaterManager.SetNextGenerater(new NaveGraphGenerate(generaterManager));
+        }
+    }
+
+    public class NullBlockPresenter : IMapPresenter
+    {
+        public NullBlockPresenter(MapGenerateManager generaterManager) : base(generaterManager)
+        {
+        }
+
+        public override void Update()
+        {
+            for (int column = 0; column < 15; column++)
+                for (int row = 0; row < 15; row++)
+                {
+                    mapPrinter.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
+                }
+
+            generaterManager.AddTicks();
+            generaterManager.SetNextGenerater(new MiniMapPresenter(generaterManager));
         }
     }
 
@@ -123,21 +147,6 @@ namespace RandomMap_V6
 
             generaterManager.AddTicks();
             generaterManager.SetNextGenerater(new MiniMapPresenter(generaterManager));
-        }
-        
-        private bool HasGroundBehind(int column, int row)
-        {
-            for (int columnDisp = -1; columnDisp < 2; columnDisp++)
-            {
-                for (int rowDisp = -1; rowDisp < 2; rowDisp++)
-                    if (!(columnDisp == 0 && rowDisp == 0)
-                        && column + columnDisp > -1 && column + columnDisp < terrainData.GetLength(0)
-                        && row + rowDisp > -1 && row + rowDisp < terrainData.GetLength(1)
-                        && terrainData[column + columnDisp, row + rowDisp] < 10)
-                        return true;
-            }
-
-            return false;
         }
     }
 

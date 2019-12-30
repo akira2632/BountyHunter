@@ -81,10 +81,9 @@ namespace RandomMap_V6
                     $"{Time.time - generaterManager.ScaleStartTime} secends, Total " +
                     $"{Time.time - generaterManager.StartTime} secends"));
                 generaterManager.ScaleStartTime = Time.time;*/
-                generaterManager.SetNextGenerater(new BasicTerrainGenerater(generaterManager));
             }
-            else
-                target = generateTargets.Dequeue();
+    
+            generaterManager.SetNextGenerater(new BasicTerrainGenerater(generaterManager));
         }
     }
 
@@ -106,30 +105,33 @@ namespace RandomMap_V6
 
         public override void Update()
         {
-            //隨機高度
-            do
+            if (mapBuilder.GetBlockType(target) != BlockType.Null)
             {
-                isEnd = true;
+                //隨機高度
+                do
+                {
+                    isEnd = true;
 
+                    for (int x = 0; x < terrainData.GetLength(0); x++)
+                        for (int y = 0; y < terrainData.GetLength(1); y++)
+                            if (terrainData[x, y] != -1)
+                                FindGeneratePoint(x, y);
+                            else
+                                isEnd = false;
+                } while (!isEnd);
+
+                //處理被環繞的地形
                 for (int x = 0; x < terrainData.GetLength(0); x++)
                     for (int y = 0; y < terrainData.GetLength(1); y++)
-                        if (terrainData[x, y] != -1)
-                            FindGeneratePoint(x, y);
-                        else
-                            isEnd = false;
-            } while (!isEnd);
+                        if (terrainData[x, y] < 10)
+                            FillSerround(x, y);
 
-            //處理被環繞的地形
-            for (int x = 0; x < terrainData.GetLength(0); x++)
-                for (int y = 0; y < terrainData.GetLength(1); y++)
-                    if (terrainData[x, y] < 10)
-                        FillSerround(x, y);
-
-            generaterManager.AddTicks();
-            /*Debug.Log(string.Format($"Basic terrain generate at ({target.Column},{target.Row}):" +
-                $"{Time.time - generaterManager.ScaleStartTime} secends, Total " +
-                $"{Time.time - generaterManager.StartTime} secends"));
-            generaterManager.ScaleStartTime = Time.time;*/
+                generaterManager.AddTicks();
+                /*Debug.Log(string.Format($"Basic terrain generate at ({target.Column},{target.Row}):" +
+                    $"{Time.time - generaterManager.ScaleStartTime} secends, Total " +
+                    $"{Time.time - generaterManager.StartTime} secends"));
+                generaterManager.ScaleStartTime = Time.time;*/
+            }
 
             if (generateTargets.Count > 0)
             {
