@@ -82,7 +82,6 @@
     <Compile Include="Assets\Script\CharacterSystem_V4\Character\OrkCaptain.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Character\Spider.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Character\Warrior.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\Controller\AIActiver.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Controller\BasicAIController.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Controller\BasicAISenser.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Controller\PlayerController.cs" />

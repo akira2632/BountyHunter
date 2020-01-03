@@ -11,38 +11,48 @@ namespace CharacterSystem_V4.Controller
         public event SenerEventBool OnPlayerCloseBy;
 
         public GameObject Character;
-        public Vector3 PlayerPosition { get => playerPosition; }
+        public Vector3 PlayerPosition { get => player.transform.position; }
 
         [SerializeField]
         private Seeker seeker;
-        [SerializeField]
         private Path path;
 
-        private Vector3 playerPosition;
+        private GameObject player;
         private int currentWayPoint = 0;
-        private bool continueFinding = false;
+        private bool continueFinding = false, playerCloseBy = false;
 
-        private void LateUpdate()
+        private void Start()
         {
-            transform.position = Character.transform.position;
+            player = FindObjectOfType<PlayerController>().MyCharacter.gameObject;
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void Update()
         {
-            if (collision.gameObject.tag == "Player")
-                OnPlayerCloseBy?.Invoke(true);
-        }
+            if (Character.activeInHierarchy &&
+                Vector3.Distance(
+                Character.transform.position, player.transform.position) > 30)
+            {
+                Character.SetActive(false);
+            }
+            else if (!Character.activeInHierarchy &&
+                Vector3.Distance(
+                Character.transform.position, player.transform.position) <= 30)
+            {
+                Character.SetActive(true);
+            }
 
-        private void OnTriggerStay2D(Collider2D collision)
-        {
-            if(collision.gameObject.tag == "Player")
-                playerPosition = collision.transform.position;
-        }
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            if (collision.gameObject.tag == "Player")
+            if (playerCloseBy &&
+                Vector3.Distance(
+                Character.transform.position, player.transform.position) > 10)
+            {
                 OnPlayerCloseBy?.Invoke(false);
+            }
+            else if (!playerCloseBy &&
+                Vector3.Distance(
+                Character.transform.position, player.transform.position) <= 10)
+            {
+                OnPlayerCloseBy?.Invoke(true);
+            }
         }
 
         public bool NextWayPoint(out Vector3 nextPoint)
@@ -73,14 +83,14 @@ namespace CharacterSystem_V4.Controller
             continueFinding = true;
 
             while (continueFinding)
-                yield return MyFindPath(playerPosition, pathFinded);
+                yield return MyFindPath(player.transform.position, pathFinded);
         }
 
         private IEnumerator MyFindPath(Vector3 target, Action<bool?> pathFinded)
         {
             seeker.CancelCurrentPathRequest();
             seeker.StartPath(transform.position, target, (Path path) => this.path = path);
-            Debug.Log(target);
+            //Debug.Log(target);
 
             while (!seeker.IsDone())
                 yield return new WaitForSeconds(0.5f);
