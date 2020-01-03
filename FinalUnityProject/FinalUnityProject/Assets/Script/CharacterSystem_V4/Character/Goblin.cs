@@ -51,6 +51,7 @@ namespace CharacterSystem_V4
         private class IGoblinAction : ICharacterAction
         {
             protected Goblin goblin;
+            protected Vector2 directionBuffer;
             protected Vertical verticalBuffer;
             protected Horizontal horizontalBuffer;
 
@@ -97,6 +98,11 @@ namespace CharacterSystem_V4
 
         private class GoblinMove : IGoblinAction
         {
+            public GoblinMove(Vector2 direction)
+            {
+                directionBuffer = direction;
+            }
+
             public GoblinMove(Vertical vertical, Horizontal horizontal)
             {
                 verticalBuffer = vertical;

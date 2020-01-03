@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CharacterSystem_V4
 {
@@ -52,6 +50,7 @@ namespace CharacterSystem_V4
         #region ICharacterActionControll委派
         public void Move(Vertical direction) => nowAction.Move(direction);
         public void Move(Horizontal direction) => nowAction.Move(direction);
+        public void Move(Vector2 direction) => nowAction.Move(direction);
 
         public void Dodge() => nowAction.Dodge();
         public void Deffend(bool deffend) => nowAction.Deffend(deffend);
@@ -79,6 +78,7 @@ namespace CharacterSystem_V4
         #region ICharacterActionControll抽象實作
         public virtual void Move(Vertical direction) { }
         public virtual void Move(Horizontal direction) { }
+        public virtual void Move(Vector2 direction) { }
 
         public virtual void Deffend(bool deffend) { }
         public virtual void Dodge() { }
