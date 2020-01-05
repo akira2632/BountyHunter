@@ -118,7 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9b96be58fb5364e9717ee6188486da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Property: {fileID: 11400000, guid: 106c920c2f5993843a2d32f277783213, type: 2}
   RunTimeData:
     _health: 0
     _attackTimer: 0
@@ -126,6 +125,8 @@ MonoBehaviour:
     _vertigoConter: 0
     _vertical: 0
     _horizontal: 0
+    _direction: {x: 0, y: 0}
+  Property: {fileID: 11400000, guid: 106c920c2f5993843a2d32f277783213, type: 2}
   MovementBody: {fileID: 2713500744654730897}
   MovementCollider: {fileID: 270039640594804951}
   CharacterAnimator: {fileID: 4796646055716273524}
@@ -665,6 +666,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6704382508476855882}
     m_Modifications:
+    - target: {fileID: 4091426954205277456, guid: 34de69e531423614fbd2278c4fdbbc50,
+        type: 3}
+      propertyPath: m_Name
+      value: "Collider\u80D6\u6B50\u514B\u653B\u64CA"
+      objectReference: {fileID: 0}
     - target: {fileID: 4091426954205277463, guid: 34de69e531423614fbd2278c4fdbbc50,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -719,11 +725,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4091426954205277456, guid: 34de69e531423614fbd2278c4fdbbc50,
-        type: 3}
-      propertyPath: m_Name
-      value: "Collider\u80D6\u6B50\u514B\u653B\u64CA"
       objectReference: {fileID: 0}
     - target: {fileID: 4305532473013405785, guid: 34de69e531423614fbd2278c4fdbbc50,
         type: 3}

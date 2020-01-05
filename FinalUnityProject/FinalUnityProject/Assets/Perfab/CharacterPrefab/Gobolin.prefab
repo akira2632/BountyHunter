@@ -50,7 +50,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273ade9c1b0bd7046a7c344a13ca484a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Property: {fileID: 11400000, guid: 36d624ba6de2d59458f2d116fa86bb05, type: 2}
   RunTimeData:
     _health: 0
     _attackTimer: 0
@@ -58,6 +57,8 @@ MonoBehaviour:
     _vertigoConter: 0
     _vertical: 0
     _horizontal: 0
+    _direction: {x: 0, y: 0}
+  Property: {fileID: 11400000, guid: 36d624ba6de2d59458f2d116fa86bb05, type: 2}
   MovementBody: {fileID: 2713500744654730897}
   MovementCollider: {fileID: 270039640594804951}
   CharacterAnimator: {fileID: 4796646055716273524}
