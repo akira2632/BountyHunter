@@ -51,9 +51,7 @@ namespace CharacterSystem_V4
         private class ISpiderAction : ICharacterAction
         {
             protected Spider spider;
-            protected Vertical verticalBuffer;
-            protected Horizontal horizontalBuffer;
-            
+
             public override void SetManager(ICharacterActionManager actionManager)
             {
                 spider = (Spider)actionManager;
@@ -87,22 +85,19 @@ namespace CharacterSystem_V4
             public override void LightAttack() =>
                 actionManager.SetAction(new SpiderLightAttack());
 
-            public override void Move(Vertical direction) =>
-                actionManager.SetAction(new SpiderMove(direction, Horizontal.None));
-
-            public override void Move(Horizontal direction) =>
-                actionManager.SetAction(new SpiderMove(Vertical.None, direction));
+            public override void Move(Vector2 direction)
+            {
+                if (direction.magnitude > 0)
+                {
+                    spider.RunTimeData.Direction = direction;
+                    actionManager.SetAction(new SpiderMove());
+                }
+            }
             #endregion
         }
 
         private class SpiderMove : ISpiderAction
         {
-            public SpiderMove(Vertical vertical, Horizontal horizontal)
-            {
-                verticalBuffer = vertical;
-                horizontalBuffer = horizontal;
-            }
-
             #region 動作更新
             public override void Start()
             {
@@ -114,23 +109,14 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                if (verticalBuffer == Vertical.None && horizontalBuffer == Horizontal.None)
-                {
-                    actionManager.SetAction(new SpiderIdle());
-                }
-                else
-                {
-                    spider.RunTimeData.Vertical = verticalBuffer;
-                    spider.RunTimeData.Horizontal = horizontalBuffer;
+                spider.CharacterAnimator.SetFloat("Vertical", spider.RunTimeData.Direction.y);
+                spider.CharacterAnimator.SetFloat("Horizontal", spider.RunTimeData.Direction.x);
 
-                    spider.CharacterAnimator.SetFloat("Vertical", (float)spider.RunTimeData.Vertical);
-                    spider.CharacterAnimator.SetFloat("Horizontal", (float)spider.RunTimeData.Horizontal);
+                float angle = Mathf.Atan2(spider.RunTimeData.Direction.y, spider.RunTimeData.Direction.x);
+                var IsoMoveVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
 
-                    spider.MovementBody.MovePosition(
-                        spider.MovementBody.position +
-                        new Vector2((float)spider.RunTimeData.Horizontal, (float)spider.RunTimeData.Vertical * 0.6f).normalized
-                         * spider.Property.MoveSpeed * Time.deltaTime);
-                }
+                spider.MovementBody.MovePosition(spider.MovementBody.position +
+                    IsoMoveVector * spider.Property.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()
@@ -143,14 +129,12 @@ namespace CharacterSystem_V4
             public override void LightAttack() =>
                actionManager.SetAction(new SpiderLightAttack());
 
-            public override void Move(Vertical direction)
+            public override void Move(Vector2 direction)
             {
-                verticalBuffer = direction;
-            }
-
-            public override void Move(Horizontal direction)
-            {
-                horizontalBuffer = direction;
+                if (direction.magnitude <= 0)
+                    actionManager.SetAction(new SpiderIdle());
+                else
+                    spider.RunTimeData.Direction = direction;
             }
             #endregion
         }

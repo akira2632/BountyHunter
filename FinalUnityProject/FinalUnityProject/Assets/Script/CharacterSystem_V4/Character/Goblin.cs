@@ -98,10 +98,6 @@ namespace CharacterSystem_V4
 
         private class GoblinMove : IGoblinAction
         {
-            public GoblinMove()
-            { 
-            }
-
             #region 動作更新
             public override void Start()
             {
@@ -135,7 +131,7 @@ namespace CharacterSystem_V4
 
             public override void Move(Vector2 direction)
             {
-                if (direction.magnitude == 0)
+                if (direction.magnitude <= 0)
                     actionManager.SetAction(new GoblinIdle());
                 else
                     goblin.RunTimeData.Direction = direction;

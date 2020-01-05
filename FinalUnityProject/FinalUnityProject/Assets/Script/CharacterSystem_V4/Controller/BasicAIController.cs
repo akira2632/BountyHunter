@@ -32,23 +32,6 @@ namespace CharacterSystem_V4.Controller
             protected bool? pathFinded;
             protected Vector3 nextPoint;
 
-            protected void GetDirection(Vector3 direction, out Vertical vertical, out Horizontal horizontal)
-            {
-                if (direction.y < -0.5)
-                    vertical = Vertical.Down;
-                else if (direction.y > 0.5)
-                    vertical = Vertical.Top;
-                else
-                    vertical = Vertical.None;
-
-                if (direction.x < -0.5)
-                    horizontal = Horizontal.Left;
-                else if (direction.x > 0.5)
-                    horizontal = Horizontal.Right;
-                else
-                    horizontal = Horizontal.None;
-            }
-
             protected void PathFinded(bool? finded)
             {
                 pathFinded = finded;
@@ -67,8 +50,7 @@ namespace CharacterSystem_V4.Controller
                 idelTimer = Random.Range
                     (manager.AISetting.IdelTimeMin, manager.AISetting.IdelTimeMax);
 
-                manager.Character.Move(Vertical.None);
-                manager.Character.Move(Horizontal.None);
+                manager.Character.Move(Vector2.zero);
             }
 
             public override void Update()
@@ -100,15 +82,11 @@ namespace CharacterSystem_V4.Controller
             {
                 if (pathFinded == true)
                 {
-                    if (Vector3.Distance(nextPoint, manager.Character.transform.position) > manager.AISetting.StopDistance)
+                    if (Vector3.Distance(nextPoint, manager.Character.transform.position)
+                        > manager.AISetting.StopDistance)
                     {
-                        Vertical vertical;
-                        Horizontal horizontal;
-
-                        GetDirection(
-                            (nextPoint - manager.Character.transform.position).normalized, out vertical, out horizontal);
-                        manager.Character.Move(vertical);
-                        manager.Character.Move(horizontal);
+                        manager.Character.Move(
+                            (nextPoint - manager.Character.transform.position).normalized);
                     }
                     else if (!manager.Senser.NextWayPoint(out nextPoint))
                         manager.SetState(new AIIdel());
@@ -133,19 +111,15 @@ namespace CharacterSystem_V4.Controller
                 if (pathFinded == true)
                 {
                     if (Vector3.Distance(manager.Senser.PlayerPosition, manager.Character.transform.position) < manager.AISetting.AttackDistance
-                        && !(manager.Character.RunTimeData.AttackTimer > 0))
+                        && manager.Character.RunTimeData.AttackTimer <= 0)
                     {
                         manager.SetState(new AIAttack());
                     }
-                    else if (Vector3.Distance(nextPoint, manager.Character.transform.position) > manager.AISetting.StopDistance)
+                    else if (Vector3.Distance(nextPoint, manager.Character.transform.position)
+                        > manager.AISetting.StopDistance)
                     {
-                        Vertical vertical;
-                        Horizontal horizontal;
-
-                        GetDirection(
-                            (nextPoint - manager.Character.transform.position).normalized, out vertical, out horizontal);
-                        manager.Character.Move(vertical);
-                        manager.Character.Move(horizontal);
+                        manager.Character.Move(
+                            (nextPoint - manager.Character.transform.position).normalized);
                     }
                     else if (!manager.Senser.NextWayPoint(out nextPoint))
                     {
@@ -166,30 +140,20 @@ namespace CharacterSystem_V4.Controller
 
         private class AIAttack : IBasicAIState
         {
-            Vertical vertical;
-            Horizontal horizontal;
-            float timer;
-
             public override void Initial()
             {
-                timer = 1.5f;
-                GetDirection(
-                    (nextPoint - manager.Character.transform.position).normalized, out vertical, out horizontal);
-                manager.Character.Move(vertical);
-                manager.Character.Move(horizontal);
-
+                manager.Character.Move(
+                    (nextPoint - manager.Character.transform.position).normalized);
                 manager.Character.LightAttack();
-
-                manager.Character.Move(Vertical.None);
-                manager.Character.Move(Horizontal.None);
             }
 
             public override void Update()
             {
-                timer -= Time.deltaTime;
-
-                if(timer < 0)
+                if (Vector3.Distance(manager.Senser.PlayerPosition, manager.Character.transform.position) > manager.AISetting.AttackDistance)
                     manager.SetState(new AIChase());
+
+                if (manager.Character.RunTimeData.AttackTimer <= 0)
+                    manager.Character.LightAttack();
             }
         }
         #endregion
