@@ -143,7 +143,7 @@ namespace CharacterSystem_V4.Controller
             public override void Initial()
             {
                 manager.Character.Move(
-                    (nextPoint - manager.Character.transform.position).normalized);
+                    (manager.Senser.PlayerPosition - manager.Character.transform.position).normalized);
                 manager.Character.LightAttack();
             }
 
@@ -153,7 +153,11 @@ namespace CharacterSystem_V4.Controller
                     manager.SetState(new AIChase());
 
                 if (manager.Character.RunTimeData.AttackTimer <= 0)
+                {
+                    manager.Character.Move(
+                        (manager.Senser.PlayerPosition - manager.Character.transform.position).normalized);
                     manager.Character.LightAttack();
+                }
             }
         }
         #endregion
