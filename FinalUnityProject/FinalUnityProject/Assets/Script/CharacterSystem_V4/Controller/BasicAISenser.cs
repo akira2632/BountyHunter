@@ -45,12 +45,14 @@ namespace CharacterSystem_V4.Controller
                 Vector3.Distance(
                 Character.transform.position, player.transform.position) > 10)
             {
+                playerCloseBy = false;
                 OnPlayerCloseBy?.Invoke(false);
             }
             else if (!playerCloseBy &&
                 Vector3.Distance(
                 Character.transform.position, player.transform.position) <= 10)
             {
+                playerCloseBy = true;
                 OnPlayerCloseBy?.Invoke(true);
             }
         }
