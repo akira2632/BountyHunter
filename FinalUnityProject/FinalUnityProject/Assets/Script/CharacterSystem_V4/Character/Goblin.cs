@@ -51,9 +51,6 @@ namespace CharacterSystem_V4
         private class IGoblinAction : ICharacterAction
         {
             protected Goblin goblin;
-            protected Vector2 directionBuffer;
-            protected Vertical verticalBuffer;
-            protected Horizontal horizontalBuffer;
 
             public override void SetManager(ICharacterActionManager actionManager)
             {
@@ -76,8 +73,8 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                goblin.CharacterAnimator.SetFloat("Vertical", (float)goblin.RunTimeData.Vertical);
-                goblin.CharacterAnimator.SetFloat("Horizontal", (float)goblin.RunTimeData.Horizontal);
+                goblin.CharacterAnimator.SetFloat("Vertical", goblin.RunTimeData.Direction.y);
+                goblin.CharacterAnimator.SetFloat("Horizontal", goblin.RunTimeData.Direction.x);
 
                 goblin.CharacterAnimator.SetBool("IsFallDown", false);
                 goblin.CharacterAnimator.SetBool("IsMove", false);
@@ -88,55 +85,42 @@ namespace CharacterSystem_V4
             public override void LightAttack() =>
                 actionManager.SetAction(new GoblinLightAttack());
 
-            public override void Move(Vertical direction) =>
-                actionManager.SetAction(new GoblinMove(direction, Horizontal.None));
-
-            public override void Move(Horizontal direction) =>
-                actionManager.SetAction(new GoblinMove(Vertical.None, direction));
+            public override void Move(Vector2 direction)
+            {
+                if (direction.magnitude > 0)
+                {
+                    goblin.RunTimeData.Direction = direction;
+                    actionManager.SetAction(new GoblinMove());
+                }
+            }
             #endregion
         }
 
         private class GoblinMove : IGoblinAction
         {
-            public GoblinMove(Vector2 direction)
-            {
-                directionBuffer = direction;
-            }
-
-            public GoblinMove(Vertical vertical, Horizontal horizontal)
-            {
-                verticalBuffer = vertical;
-                horizontalBuffer = horizontal;
+            public GoblinMove()
+            { 
             }
 
             #region 動作更新
             public override void Start()
             {
                 goblin.MoveSound.Play();
-                goblin.CharacterAnimator.SetFloat("Vertical", (float)goblin.RunTimeData.Vertical);
-                goblin.CharacterAnimator.SetFloat("Horizontal", (float)goblin.RunTimeData.Horizontal);
+                goblin.CharacterAnimator.SetFloat("Vertical", goblin.RunTimeData.Direction.y);
+                goblin.CharacterAnimator.SetFloat("Horizontal", goblin.RunTimeData.Direction.x);
                 goblin.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
-                if (verticalBuffer == Vertical.None && horizontalBuffer == Horizontal.None)
-                {
-                    actionManager.SetAction(new GoblinIdle());
-                }
-                else
-                {
-                    goblin.RunTimeData.Vertical = verticalBuffer;
-                    goblin.RunTimeData.Horizontal = horizontalBuffer;
+                goblin.CharacterAnimator.SetFloat("Vertical", goblin.RunTimeData.Direction.y);
+                goblin.CharacterAnimator.SetFloat("Horizontal", goblin.RunTimeData.Direction.x);
 
-                    goblin.CharacterAnimator.SetFloat("Vertical", (float)goblin.RunTimeData.Vertical);
-                    goblin.CharacterAnimator.SetFloat("Horizontal", (float)goblin.RunTimeData.Horizontal);
+                float angle = Mathf.Atan2(goblin.RunTimeData.Direction.y, goblin.RunTimeData.Direction.x);
+                var IsoMoveVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
 
-                    goblin.MovementBody.MovePosition(
-                        goblin.MovementBody.position +
-                        new Vector2((float)goblin.RunTimeData.Horizontal, (float)goblin.RunTimeData.Vertical * 0.6f).normalized
-                         * goblin.Property.MoveSpeed * Time.deltaTime);
-                }
+                goblin.MovementBody.MovePosition(goblin.MovementBody.position +
+                    IsoMoveVector * goblin.Property.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()
@@ -149,14 +133,12 @@ namespace CharacterSystem_V4
             public override void LightAttack() =>
                actionManager.SetAction(new GoblinLightAttack());
 
-            public override void Move(Vertical direction)
+            public override void Move(Vector2 direction)
             {
-                verticalBuffer = direction;
-            }
-
-            public override void Move(Horizontal direction)
-            {
-                horizontalBuffer = direction;
+                if (direction.magnitude == 0)
+                    actionManager.SetAction(new GoblinIdle());
+                else
+                    goblin.RunTimeData.Direction = direction;
             }
             #endregion
         }
