@@ -14,10 +14,6 @@ namespace CharacterSystem_V4
         [SerializeField]
         float _attackTimer, _regenTimer, _vertigoConter;
         [SerializeField]
-        Vertical _vertical;
-        [SerializeField]
-        Horizontal _horizontal;
-        [SerializeField]
         Vector2 _direction;
 
         public void SetData(ICharacterProperty characterProperty)
@@ -25,16 +21,12 @@ namespace CharacterSystem_V4
             property = characterProperty;
 
             _health = property.MaxHealth;
-            _vertical = Vertical.Down;
-            _horizontal = Horizontal.None;
             _regenTimer = 0;
             _attackTimer = 0;
             _vertigoConter = 0;
             _direction = new Vector2();
         }
 
-        public Vertical Vertical { get => _vertical; set => _vertical = value; }
-        public Horizontal Horizontal { get => _horizontal; set => _horizontal = value; }
         public Vector2 Direction { get => _direction; set => _direction = value; }
         public float AttackTimer
         {

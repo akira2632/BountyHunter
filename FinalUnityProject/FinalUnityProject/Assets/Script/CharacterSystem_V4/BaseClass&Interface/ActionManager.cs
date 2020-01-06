@@ -48,8 +48,6 @@ namespace CharacterSystem_V4
         #endregion
 
         #region ICharacterActionControll委派
-        public void Move(Vertical direction) => nowAction.Move(direction);
-        public void Move(Horizontal direction) => nowAction.Move(direction);
         public void Move(Vector2 direction) => nowAction.Move(direction);
 
         public void Dodge() => nowAction.Dodge();
@@ -76,8 +74,6 @@ namespace CharacterSystem_V4
         public virtual void End() { }
 
         #region ICharacterActionControll抽象實作
-        public virtual void Move(Vertical direction) { }
-        public virtual void Move(Horizontal direction) { }
         public virtual void Move(Vector2 direction) { }
 
         public virtual void Deffend(bool deffend) { }

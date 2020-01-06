@@ -15,22 +15,10 @@ namespace CharacterSystem_V4
     }
 
     /// <summary>
-    /// 垂直方向定義
-    /// </summary>
-    public enum Vertical { Top = 1, None = 0, Down = -1 }
-
-    /// <summary>
-    /// 水平方向定義
-    /// </summary>
-    public enum Horizontal { Left = -1, None = 0, Right = 1 }
-
-    /// <summary>
     /// 角色操作介面
     /// </summary>
     public interface ICharacterActionControll
     {
-        void Move(Vertical direction);
-        void Move(Horizontal direction);
         void Move(Vector2 direction);
 
         void Dodge();

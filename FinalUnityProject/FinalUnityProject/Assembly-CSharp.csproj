@@ -79,7 +79,7 @@
     <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterSystemInterfaceInterface.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Character\Goblin.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Character\Orc.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\Character\OrkCaptain.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\Character\OrcCaptain.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Character\Spider.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Character\Warrior.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Controller\BasicAIController.cs" />

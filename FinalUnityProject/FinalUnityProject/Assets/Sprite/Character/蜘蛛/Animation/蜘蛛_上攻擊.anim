@@ -30,7 +30,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.5833333
+        time: 0.5
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -39,7 +39,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.75
+        time: 0.6666667
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -60,7 +60,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: "Collider\u8718\u86DB/\u4E0A"
+    path: "Collider\u8718\u86DB\u653B\u64CA/\u4E0A"
     classID: 60
     script: {fileID: 0}
   m_PPtrCurves:
@@ -109,7 +109,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2208515799
+      path: 1947775335
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 60
@@ -168,7 +168,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.5833333
+        time: 0.5
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -177,7 +177,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.75
+        time: 0.6666667
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -198,7 +198,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: "Collider\u8718\u86DB/\u4E0A"
+    path: "Collider\u8718\u86DB\u653B\u64CA/\u4E0A"
     classID: 60
     script: {fileID: 0}
   m_EulerEditorCurves: []
