@@ -28,6 +28,32 @@ namespace CharacterSystem_V4
         }
 
         public Vector2 Direction { get => _direction; set => _direction = value; }
+        public float Vertical
+        {
+            get
+            {
+                var temp = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+                if (temp > 22.5 && temp <= 157.5)
+                    return 1;
+                else if (temp > -157.5 && temp <= -22.5)
+                    return -1;
+                else
+                    return 0;
+            }
+        }
+        public float Horizontal
+        { 
+            get
+            {
+                var temp = Mathf.Abs(Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg);
+                if (temp > 112.5)
+                    return -1;
+                else if (temp < 67.5)
+                    return 1;
+                else
+                    return 0;
+            }
+        }
         public float AttackTimer
         {
             get => _attackTimer;

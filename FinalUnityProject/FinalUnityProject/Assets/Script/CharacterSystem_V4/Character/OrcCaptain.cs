@@ -72,8 +72,8 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                orcCaptain.CharacterAnimator.SetFloat("Vertical", orcCaptain.RunTimeData.Direction.y);
-                orcCaptain.CharacterAnimator.SetFloat("Horizontal", orcCaptain.RunTimeData.Direction.x);
+                orcCaptain.CharacterAnimator.SetFloat("Vertical", orcCaptain.RunTimeData.Vertical);
+                orcCaptain.CharacterAnimator.SetFloat("Horizontal", orcCaptain.RunTimeData.Horizontal);
 
                 orcCaptain.CharacterAnimator.SetBool("IsFallDown", false);
                 orcCaptain.CharacterAnimator.SetBool("IsMove", false);
@@ -101,15 +101,15 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 orcCaptain.MoveSound.Play();
-                orcCaptain.CharacterAnimator.SetFloat("Vertical", orcCaptain.RunTimeData.Direction.y);
-                orcCaptain.CharacterAnimator.SetFloat("Horizontal", orcCaptain.RunTimeData.Direction.x);
+                orcCaptain.CharacterAnimator.SetFloat("Vertical", orcCaptain.RunTimeData.Vertical);
+                orcCaptain.CharacterAnimator.SetFloat("Horizontal", orcCaptain.RunTimeData.Horizontal);
                 orcCaptain.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
-                orcCaptain.CharacterAnimator.SetFloat("Vertical", orcCaptain.RunTimeData.Direction.y);
-                orcCaptain.CharacterAnimator.SetFloat("Horizontal", orcCaptain.RunTimeData.Direction.x);
+                orcCaptain.CharacterAnimator.SetFloat("Vertical", orcCaptain.RunTimeData.Vertical);
+                orcCaptain.CharacterAnimator.SetFloat("Horizontal", orcCaptain.RunTimeData.Horizontal);
 
                 float angle = Mathf.Atan2(orcCaptain.RunTimeData.Direction.y, orcCaptain.RunTimeData.Direction.x);
                 var IsoMoveVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));

@@ -82,8 +82,8 @@ namespace CharacterSystem_V4
                 warrior.CharacterAnimator.SetBool("IsFallDown", false);
                 warrior.CharacterAnimator.SetBool("IsMove", false);
 
-                warrior.CharacterAnimator.SetFloat("Vertical", Mathf.Floor(warrior.RunTimeData.Direction.y));
-                warrior.CharacterAnimator.SetFloat("Horizontal", Mathf.Floor(warrior.RunTimeData.Direction.x));
+                warrior.CharacterAnimator.SetFloat("Vertical", warrior.RunTimeData.Vertical);
+                warrior.CharacterAnimator.SetFloat("Horizontal", warrior.RunTimeData.Horizontal);
             }
             #endregion
 
@@ -120,15 +120,15 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 warrior.MoveSound.Play();
-                warrior.CharacterAnimator.SetFloat("Vertical", Mathf.Floor(warrior.RunTimeData.Direction.y));
-                warrior.CharacterAnimator.SetFloat("Horizontal", Mathf.Floor(warrior.RunTimeData.Direction.x));
+                warrior.CharacterAnimator.SetFloat("Vertical", warrior.RunTimeData.Vertical);
+                warrior.CharacterAnimator.SetFloat("Horizontal", warrior.RunTimeData.Horizontal);
                 warrior.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
-                warrior.CharacterAnimator.SetFloat("Vertical", Mathf.Floor(warrior.RunTimeData.Direction.y));
-                warrior.CharacterAnimator.SetFloat("Horizontal", Mathf.Floor(warrior.RunTimeData.Direction.x));
+                warrior.CharacterAnimator.SetFloat("Vertical", warrior.RunTimeData.Vertical);
+                warrior.CharacterAnimator.SetFloat("Horizontal", warrior.RunTimeData.Horizontal);
 
                 float angle = Mathf.Atan2(warrior.RunTimeData.Direction.y, warrior.RunTimeData.Direction.x);
                 var IsoMoveVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
@@ -183,8 +183,8 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                warrior.CharacterAnimator.SetFloat("Vertical", Mathf.Floor(warrior.RunTimeData.Direction.y));
-                warrior.CharacterAnimator.SetFloat("Horizontal", Mathf.Floor(warrior.RunTimeData.Direction.x));
+                warrior.CharacterAnimator.SetFloat("Vertical", warrior.RunTimeData.Vertical);
+                warrior.CharacterAnimator.SetFloat("Horizontal", warrior.RunTimeData.Horizontal);
             }
 
             public override void End()
