@@ -73,8 +73,8 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                spider.CharacterAnimator.SetFloat("Vertical", spider.RunTimeData.Direction.y);
-                spider.CharacterAnimator.SetFloat("Horizontal", spider.RunTimeData.Direction.x);
+                spider.CharacterAnimator.SetFloat("Vertical", Mathf.Floor(spider.RunTimeData.Direction.y));
+                spider.CharacterAnimator.SetFloat("Horizontal", Mathf.Floor(spider.RunTimeData.Direction.x));
 
                 spider.CharacterAnimator.SetBool("IsFallDown", false);
                 spider.CharacterAnimator.SetBool("IsMove", false);
@@ -102,15 +102,15 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 spider.MoveSound.Play();
-                spider.CharacterAnimator.SetFloat("Vertical", spider.RunTimeData.Direction.y);
-                spider.CharacterAnimator.SetFloat("Horizontal", spider.RunTimeData.Direction.x);
+                spider.CharacterAnimator.SetFloat("Vertical", Mathf.Floor(spider.RunTimeData.Direction.y));
+                spider.CharacterAnimator.SetFloat("Horizontal", Mathf.Floor(spider.RunTimeData.Direction.x));
                 spider.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
-                spider.CharacterAnimator.SetFloat("Vertical", spider.RunTimeData.Direction.y);
-                spider.CharacterAnimator.SetFloat("Horizontal", spider.RunTimeData.Direction.x);
+                spider.CharacterAnimator.SetFloat("Vertical", Mathf.Floor(spider.RunTimeData.Direction.y));
+                spider.CharacterAnimator.SetFloat("Horizontal", Mathf.Floor(spider.RunTimeData.Direction.x));
 
                 float angle = Mathf.Atan2(spider.RunTimeData.Direction.y, spider.RunTimeData.Direction.x);
                 var IsoMoveVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
