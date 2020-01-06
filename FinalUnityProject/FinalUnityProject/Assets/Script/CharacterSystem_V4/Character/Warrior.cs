@@ -57,8 +57,6 @@ namespace CharacterSystem_V4
         private class IWarriorAction : ICharacterAction
         {
             protected Warrior warrior;
-            protected Vertical verticalBuffer;
-            protected Horizontal horizontalBuffer;
 
             public override void SetManager(ICharacterActionManager actionManager)
             {
