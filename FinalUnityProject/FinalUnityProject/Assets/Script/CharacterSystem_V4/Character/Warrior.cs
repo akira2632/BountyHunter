@@ -28,9 +28,9 @@ namespace CharacterSystem_V4
         {
             if (RunTimeData.Health <= 0 && !(nowAction is WarriorDead))
                 SetAction(new WarriorDead());
-            else if(RunTimeData.Health > 0)
+            else if (RunTimeData.Health > 0)
             {
-                if(RunTimeData.AttackTimer >= 0)
+                if (RunTimeData.AttackTimer >= 0)
                     RunTimeData.AttackTimer -= Time.deltaTime;
 
                 RunTimeData.RegenTimer += Time.deltaTime;
@@ -84,8 +84,8 @@ namespace CharacterSystem_V4
                 warrior.CharacterAnimator.SetBool("IsFallDown", false);
                 warrior.CharacterAnimator.SetBool("IsMove", false);
 
-                warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertical);
-                warrior.CharacterAnimator.SetFloat("Horizontal", (float)warrior.RunTimeData.Horizontal);
+                warrior.CharacterAnimator.SetFloat("Vertical", warrior.RunTimeData.Direction.y);
+                warrior.CharacterAnimator.SetFloat("Horizontal", warrior.RunTimeData.Direction.x);
             }
             #endregion
 
@@ -102,11 +102,14 @@ namespace CharacterSystem_V4
             public override void LightAttack() =>
                actionManager.SetAction(new WarriorLightAttack());
 
-            public override void Move(Vertical direction) =>
-                actionManager.SetAction(new WarriorMove(direction, Horizontal.None));
-
-            public override void Move(Horizontal direction) =>
-                actionManager.SetAction(new WarriorMove(Vertical.None, direction));
+            public override void Move(Vector2 direction)
+            {
+                if (direction.magnitude > 0)
+                {
+                    warrior.RunTimeData.Direction = direction;
+                    actionManager.SetAction(new WarriorMove());
+                }
+            }
             #endregion
         }
 
@@ -115,40 +118,25 @@ namespace CharacterSystem_V4
         /// </summary>
         private class WarriorMove : IWarriorAction
         {
-            public WarriorMove(Vertical vertical, Horizontal horizontal)
-            {
-                verticalBuffer = vertical;
-                horizontalBuffer = horizontal;
-            }
-
             #region 動作更新
             public override void Start()
             {
                 warrior.MoveSound.Play();
-                warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertical);
-                warrior.CharacterAnimator.SetFloat("Horizontal", (float)warrior.RunTimeData.Horizontal);
+                warrior.CharacterAnimator.SetFloat("Vertical", warrior.RunTimeData.Direction.y);
+                warrior.CharacterAnimator.SetFloat("Horizontal", warrior.RunTimeData.Direction.x);
                 warrior.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
-                if (verticalBuffer == Vertical.None && horizontalBuffer == Horizontal.None)
-                {
-                    actionManager.SetAction(new WarriorIdel());
-                }
-                else
-                {
-                    warrior.RunTimeData.Vertical = verticalBuffer;
-                    warrior.RunTimeData.Horizontal = horizontalBuffer;
+                warrior.CharacterAnimator.SetFloat("Vertical", warrior.RunTimeData.Direction.y);
+                warrior.CharacterAnimator.SetFloat("Horizontal", warrior.RunTimeData.Direction.x);
 
-                    warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertical);
-                    warrior.CharacterAnimator.SetFloat("Horizontal", (float)warrior.RunTimeData.Horizontal);
+                float angle = Mathf.Atan2(warrior.RunTimeData.Direction.y, warrior.RunTimeData.Direction.x);
+                var IsoMoveVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
 
-                    warrior.MovementBody.MovePosition(
-                        warrior.MovementBody.position +
-                        new Vector2((float)warrior.RunTimeData.Horizontal, (float)warrior.RunTimeData.Vertical * 0.6f).normalized
-                        * warrior.Property.MoveSpeed * Time.deltaTime);
-                }
+                warrior.MovementBody.MovePosition(warrior.MovementBody.position +
+                    IsoMoveVector * warrior.Property.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()
@@ -158,14 +146,12 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void Move(Vertical direction)
+            public override void Move(Vector2 direction)
             {
-                verticalBuffer = direction;
-            }
-
-            public override void Move(Horizontal direction)
-            {
-                horizontalBuffer = direction;
+                if (direction.magnitude <= 0)
+                    actionManager.SetAction(new WarriorIdel());
+                else
+                    warrior.RunTimeData.Direction = direction;
             }
 
             public override void Deffend(bool deffend)
@@ -194,22 +180,13 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                verticalBuffer = warrior.RunTimeData.Vertical;
-                horizontalBuffer = warrior.RunTimeData.Horizontal;
-
                 warrior.CharacterAnimator.SetBool("IsDeffend", true);
             }
 
             public override void Update()
             {
-                if (!(verticalBuffer == Vertical.None && horizontalBuffer == Horizontal.None))
-                {
-                    warrior.RunTimeData.Vertical = verticalBuffer;
-                    warrior.RunTimeData.Horizontal = horizontalBuffer;
-
-                    warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertical);
-                    warrior.CharacterAnimator.SetFloat("Horizontal", (float)warrior.RunTimeData.Horizontal);
-                }
+                warrior.CharacterAnimator.SetFloat("Vertical", warrior.RunTimeData.Direction.y);
+                warrior.CharacterAnimator.SetFloat("Horizontal", warrior.RunTimeData.Direction.x);
             }
 
             public override void End()
@@ -219,14 +196,10 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void Move(Vertical direction)
+            public override void Move(Vector2 direction)
             {
-                verticalBuffer = direction;
-            }
-
-            public override void Move(Horizontal direction)
-            {
-                horizontalBuffer = direction;
+                if (direction.magnitude > 0)
+                    warrior.RunTimeData.Direction = direction;
             }
 
             public override void Deffend(bool deffend)
@@ -286,7 +259,7 @@ namespace CharacterSystem_V4
 
             public override void End()
             {
-                if(resetTimer)
+                if (resetTimer)
                     warrior.RunTimeData.AttackTimer = warrior.Property.AttackSpeed;
             }
             #endregion
@@ -483,8 +456,8 @@ namespace CharacterSystem_V4
                         warrior.RunTimeData.Vertical = verticalBuffer;
                         warrior.RunTimeData.Horizontal = horizontalBuffer;
 
-                        warrior.CharacterAnimator.SetFloat("Vertical", (float)warrior.RunTimeData.Vertical);
-                        warrior.CharacterAnimator.SetFloat("Horizontal", (float)warrior.RunTimeData.Horizontal);
+                        warrior.CharacterAnimator.SetFloat("Vertical", warrior.RunTimeData.Direction.y);
+                        warrior.CharacterAnimator.SetFloat("Horizontal", warrior.RunTimeData.Direction.x);
                     }
 
                     if (!IsCharge || ChargeTime > 2.1)

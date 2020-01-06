@@ -73,8 +73,8 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                spider.CharacterAnimator.SetFloat("Vertical", (float)spider.RunTimeData.Vertical);
-                spider.CharacterAnimator.SetFloat("Horizontal", (float)spider.RunTimeData.Horizontal);
+                spider.CharacterAnimator.SetFloat("Vertical", spider.RunTimeData.Direction.y);
+                spider.CharacterAnimator.SetFloat("Horizontal", spider.RunTimeData.Direction.x);
 
                 spider.CharacterAnimator.SetBool("IsFallDown", false);
                 spider.CharacterAnimator.SetBool("IsMove", false);
@@ -102,8 +102,8 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 spider.MoveSound.Play();
-                spider.CharacterAnimator.SetFloat("Vertical", (float)spider.RunTimeData.Vertical);
-                spider.CharacterAnimator.SetFloat("Horizontal", (float)spider.RunTimeData.Horizontal);
+                spider.CharacterAnimator.SetFloat("Vertical", spider.RunTimeData.Direction.y);
+                spider.CharacterAnimator.SetFloat("Horizontal", spider.RunTimeData.Direction.x);
                 spider.CharacterAnimator.SetBool("IsMove", true);
             }
 
