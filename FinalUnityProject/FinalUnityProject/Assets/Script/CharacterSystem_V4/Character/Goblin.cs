@@ -73,8 +73,8 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                goblin.CharacterAnimator.SetFloat("Vertical", goblin.RunTimeData.Direction.y);
-                goblin.CharacterAnimator.SetFloat("Horizontal", goblin.RunTimeData.Direction.x);
+                goblin.CharacterAnimator.SetFloat("Vertical", Mathf.Floor(goblin.RunTimeData.Direction.y));
+                goblin.CharacterAnimator.SetFloat("Horizontal", Mathf.Floor(goblin.RunTimeData.Direction.x));
 
                 goblin.CharacterAnimator.SetBool("IsFallDown", false);
                 goblin.CharacterAnimator.SetBool("IsMove", false);
@@ -102,15 +102,15 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 goblin.MoveSound.Play();
-                goblin.CharacterAnimator.SetFloat("Vertical", goblin.RunTimeData.Direction.y);
-                goblin.CharacterAnimator.SetFloat("Horizontal", goblin.RunTimeData.Direction.x);
+                goblin.CharacterAnimator.SetFloat("Vertical", Mathf.Floor(goblin.RunTimeData.Direction.y));
+                goblin.CharacterAnimator.SetFloat("Horizontal", Mathf.Floor(goblin.RunTimeData.Direction.x));
                 goblin.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
-                goblin.CharacterAnimator.SetFloat("Vertical", goblin.RunTimeData.Direction.y);
-                goblin.CharacterAnimator.SetFloat("Horizontal", goblin.RunTimeData.Direction.x);
+                goblin.CharacterAnimator.SetFloat("Vertical", Mathf.Floor(goblin.RunTimeData.Direction.y));
+                goblin.CharacterAnimator.SetFloat("Horizontal", Mathf.Floor(goblin.RunTimeData.Direction.x));
 
                 float angle = Mathf.Atan2(goblin.RunTimeData.Direction.y, goblin.RunTimeData.Direction.x);
                 var IsoMoveVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
