@@ -45,7 +45,7 @@ namespace CharacterSystem_V4.Controller
 
             public override void Initial()
             {
-                Debug.Log("Idel Start");
+                //Debug.Log("Idel Start");
 
                 idelTimer = Random.Range
                     (manager.AISetting.IdelTimeMin, manager.AISetting.IdelTimeMax);
@@ -66,7 +66,7 @@ namespace CharacterSystem_V4.Controller
             #region 流程控制
             public override void Initial()
             {
-                Debug.Log("Wandering Start");
+                //Debug.Log("Wandering Start");
 
                 pathFinded = false;
                 float distance = Random.Range
@@ -101,7 +101,7 @@ namespace CharacterSystem_V4.Controller
         {
             public override void Initial()
             {
-                Debug.Log("Chase Start");
+                //Debug.Log("Chase Start");
                 pathFinded = false;
                 manager.Senser.FindPathToPlayer(PathFinded);
             }
@@ -142,6 +142,7 @@ namespace CharacterSystem_V4.Controller
         {
             public override void Initial()
             {
+                //Debug.Log("AttackStart");
                 manager.Character.Move(
                     (manager.Senser.PlayerPosition - manager.Character.transform.position).normalized);
                 manager.Character.LightAttack();

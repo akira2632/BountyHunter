@@ -18,7 +18,7 @@ namespace CharacterSystem_V4
         {
             if (!hasHitTarget && collision.gameObject.tag == TargetTag)
             {
-                Debug.Log($"Target Enter : {TargetTag}");
+                //Debug.Log($"Target Enter : {TargetTag}");
                 hasHitTarget = true;
                 MyDamage.KnockBackFrom = gameObject.gameObject.transform.position;
                 collision.gameObject.GetComponentInParent<ICharacterActionManager>().OnHit(MyDamage);
@@ -29,7 +29,7 @@ namespace CharacterSystem_V4
         {
             if(collision.gameObject.tag == TargetTag)
             {
-                Debug.Log($"Target Exit: {TargetTag}");
+                //Debug.Log($"Target Exit: {TargetTag}");
                 hasHitTarget = false;
             }
         }

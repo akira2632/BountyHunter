@@ -17,6 +17,11 @@ namespace CharacterSystem_V4
         Vector2 _direction;
 
         float angle;
+        const float
+            VerticalMin = Mathf.PI / 8,
+            VerticalMax = Mathf.PI * 7 / 8,
+            HorizontalMin = Mathf.PI * 3 / 8,
+            HorizontalMax = Mathf.PI * 5 / 8;
 
         public void SetData(ICharacterProperty characterProperty)
         {
@@ -30,7 +35,7 @@ namespace CharacterSystem_V4
         }
 
         public Vector2 Direction
-        { 
+        {
             get => _direction;
             set
             {
@@ -38,8 +43,8 @@ namespace CharacterSystem_V4
                 angle = Mathf.Atan2(_direction.y, _direction.x);
             }
         }
-        public Vector2 IsometricDirection 
-        { 
+        public Vector2 IsometricDirection
+        {
             get
             {
                 return new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
@@ -49,23 +54,22 @@ namespace CharacterSystem_V4
         {
             get
             {
-                var temp = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
-                if (temp > 22.5 && temp <= 157.5)
+                if (angle > VerticalMin && angle <= VerticalMax)
                     return 1;
-                else if (temp > -157.5 && temp <= -22.5)
+                else if (angle <= -VerticalMin && angle > -VerticalMax)
                     return -1;
                 else
                     return 0;
             }
         }
         public float Horizontal
-        { 
+        {
             get
             {
-                var temp = Mathf.Abs(Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg);
-                if (temp > 112.5)
+                var temp = Mathf.Abs(angle);
+                if (temp > HorizontalMax)
                     return -1;
-                else if (temp < 67.5)
+                else if (temp < HorizontalMin)
                     return 1;
                 else
                     return 0;
