@@ -327,14 +327,14 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                Vector2 temp =
-                    new Vector2((float)warrior.RunTimeData.Horizontal, (float)warrior.RunTimeData.Vertical * 0.6f).normalized
+                float angle = Mathf.Atan2(warrior.RunTimeData.Direction.y, warrior.RunTimeData.Direction.x);
+                Vector2 dodgeVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle))
                     * warrior.Property.DodgeSpeed * Time.deltaTime;
 
-                dodgeDistance += temp.magnitude;
+                dodgeDistance += dodgeVector.magnitude;
 
                 warrior.MovementBody.MovePosition(
-                    warrior.MovementBody.position + temp);
+                    warrior.MovementBody.position + dodgeVector);
 
                 if (dodgeDistance >= targetDistance)
                     actionManager.SetAction(new WarriorHeavyAttack1(isCharge));
@@ -390,14 +390,14 @@ namespace CharacterSystem_V4
             {
                 if (dodgeDistance < targetDistance)
                 {
-                    Vector2 temp = new Vector2(
-                        (float)warrior.RunTimeData.Horizontal, (float)warrior.RunTimeData.Vertical * 0.6f).normalized
+                    float angle = Mathf.Atan2(warrior.RunTimeData.Direction.y, warrior.RunTimeData.Direction.x);
+                    Vector2 dodgeVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle))
                         * warrior.Property.DodgeSpeed * Time.deltaTime;
 
-                    dodgeDistance += temp.magnitude;
+                    dodgeDistance += dodgeVector.magnitude;
 
                     warrior.MovementBody.MovePosition(
-                        warrior.MovementBody.position + temp);
+                        warrior.MovementBody.position + dodgeVector);
                 }
 
                 if (warrior.animationEnd)
@@ -439,9 +439,6 @@ namespace CharacterSystem_V4
                 ChargeEnd = false;
                 ChargeTime = 0;
 
-                verticalBuffer = warrior.RunTimeData.Vertical;
-                horizontalBuffer = warrior.RunTimeData.Horizontal;
-
                 warrior.HeavyAttackChargeSound.Play();
             }
 
@@ -451,14 +448,8 @@ namespace CharacterSystem_V4
                 {
                     ChargeTime += Time.deltaTime;
 
-                    if (!(verticalBuffer == Vertical.None && horizontalBuffer == Horizontal.None))
-                    {
-                        warrior.RunTimeData.Vertical = verticalBuffer;
-                        warrior.RunTimeData.Horizontal = horizontalBuffer;
-
-                        warrior.CharacterAnimator.SetFloat("Vertical", warrior.RunTimeData.Direction.y);
-                        warrior.CharacterAnimator.SetFloat("Horizontal", warrior.RunTimeData.Direction.x);
-                    }
+                    warrior.CharacterAnimator.SetFloat("Vertical", warrior.RunTimeData.Direction.y);
+                    warrior.CharacterAnimator.SetFloat("Horizontal", warrior.RunTimeData.Direction.x);
 
                     if (!IsCharge || ChargeTime > 2.1)
                     {
@@ -485,14 +476,10 @@ namespace CharacterSystem_V4
                     IsCharge = false;
             }
 
-            public override void Move(Vertical direction)
+            public override void Move(Vector2 direction)
             {
-                verticalBuffer = direction;
-            }
-
-            public override void Move(Horizontal direction)
-            {
-                horizontalBuffer = direction;
+                if (direction.magnitude > 0)
+                    warrior.RunTimeData.Direction = direction;
             }
             #endregion
         }
@@ -526,22 +513,22 @@ namespace CharacterSystem_V4
             {
                 if (dodgeDistance < targetDistance)
                 {
-                    Vector2 temp = new Vector2(
-                        (float)warrior.RunTimeData.Horizontal, (float)warrior.RunTimeData.Vertical * 0.6f).normalized
+                    float angle = Mathf.Atan2(warrior.RunTimeData.Direction.y, warrior.RunTimeData.Direction.x);
+                    Vector2 dodgeVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle))
                         * warrior.Property.DodgeSpeed * Time.deltaTime;
 
-                    dodgeDistance += temp.magnitude;
+                    dodgeDistance += dodgeVector.magnitude;
 
                     warrior.MovementBody.MovePosition(
-                        warrior.MovementBody.position + temp);
+                        warrior.MovementBody.position + dodgeVector);
                 }
 
                 if (warrior.animationEnd)
                 {
-                    //if (chargeState == 2)
-                    //    actionManager.SetAction(new WarriorHeavyAttackRecovery());
-                    //else
-                    actionManager.SetAction(new WarriorIdel());
+                    if (chargeState == 2)
+                        actionManager.SetAction(new WarriorHeavyAttackRecovery());
+                    else
+                        actionManager.SetAction(new WarriorIdel());
                 }
             }
             #endregion
@@ -621,34 +608,30 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void Move(Vertical direction)
+            public override void Move(Vector2 direction)
             {
-                TryToRecurve(hitable);
-            }
-
-            public override void Move(Horizontal direction)
-            {
-                TryToRecurve(hitable);
+                if(direction.magnitude > 0)
+                    TryToRecurve();
             }
 
             public override void Dodge()
             {
-                TryToRecurve(hitable);
+                TryToRecurve();
             }
 
             public override void LightAttack()
             {
-                TryToRecurve(hitable);
+                TryToRecurve();
             }
 
             public override void HeavyAttack()
             {
-                TryToRecurve(hitable);
+                TryToRecurve();
             }
 
             public override void Deffend(bool deffend)
             {
-                TryToRecurve(hitable);
+                TryToRecurve();
             }
 
             public override void OnHit(Wound damage)
@@ -662,9 +645,9 @@ namespace CharacterSystem_V4
             }
             #endregion
 
-            private void TryToRecurve(bool IsHitable)
+            private void TryToRecurve()
             {
-                if (IsHitable)
+                if (hitable)
                     fallDownTime += 0.1f;
                 else
                     fallDownTime += 0.2f;
