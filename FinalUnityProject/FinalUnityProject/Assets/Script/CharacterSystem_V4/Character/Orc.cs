@@ -112,11 +112,8 @@ namespace CharacterSystem_V4
                 orc.CharacterAnimator.SetFloat("Vertical", orc.RunTimeData.Vertical);
                 orc.CharacterAnimator.SetFloat("Horizontal", orc.RunTimeData.Horizontal);
 
-                float angle = Mathf.Atan2(orc.RunTimeData.Direction.y, orc.RunTimeData.Direction.x);
-                var IsoMoveVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
-
                 orc.MovementBody.MovePosition(orc.MovementBody.position +
-                    IsoMoveVector * orc.Property.MoveSpeed * Time.deltaTime);
+                    orc.RunTimeData.IsometricDirection * orc.Property.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()
@@ -216,7 +213,8 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 nowDistance = 0;
-                knockBackDirection = (wound.KnockBackFrom - orc.MovementBody.position).normalized;
+                knockBackDirection = CharacterRunTimeData.ToIsometricDirection(
+                        wound.KnockBackFrom - orc.MovementBody.position).normalized;
                 orc.CharacterAnimator.SetBool("IsHurt", true);
                 orc.HurtSound.Play();
             }

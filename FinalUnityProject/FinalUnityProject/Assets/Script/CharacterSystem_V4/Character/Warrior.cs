@@ -130,11 +130,8 @@ namespace CharacterSystem_V4
                 warrior.CharacterAnimator.SetFloat("Vertical", warrior.RunTimeData.Vertical);
                 warrior.CharacterAnimator.SetFloat("Horizontal", warrior.RunTimeData.Horizontal);
 
-                float angle = Mathf.Atan2(warrior.RunTimeData.Direction.y, warrior.RunTimeData.Direction.x);
-                var IsoMoveVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
-
                 warrior.MovementBody.MovePosition(warrior.MovementBody.position +
-                    IsoMoveVector * warrior.Property.MoveSpeed * Time.deltaTime);
+                    warrior.RunTimeData.IsometricDirection * warrior.Property.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()
@@ -325,9 +322,7 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                float angle = Mathf.Atan2(warrior.RunTimeData.Direction.y, warrior.RunTimeData.Direction.x);
-                Vector2 dodgeVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle))
-                    * warrior.Property.DodgeSpeed * Time.deltaTime;
+                Vector2 dodgeVector = warrior.RunTimeData.IsometricDirection * warrior.Property.DodgeSpeed * Time.deltaTime;
 
                 dodgeDistance += dodgeVector.magnitude;
 
@@ -388,9 +383,7 @@ namespace CharacterSystem_V4
             {
                 if (dodgeDistance < targetDistance)
                 {
-                    float angle = Mathf.Atan2(warrior.RunTimeData.Direction.y, warrior.RunTimeData.Direction.x);
-                    Vector2 dodgeVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle))
-                        * warrior.Property.DodgeSpeed * Time.deltaTime;
+                    Vector2 dodgeVector = warrior.RunTimeData.IsometricDirection * warrior.Property.DodgeSpeed * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;
 
@@ -511,9 +504,7 @@ namespace CharacterSystem_V4
             {
                 if (dodgeDistance < targetDistance)
                 {
-                    float angle = Mathf.Atan2(warrior.RunTimeData.Direction.y, warrior.RunTimeData.Direction.x);
-                    Vector2 dodgeVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle))
-                        * warrior.Property.DodgeSpeed * Time.deltaTime;
+                    Vector2 dodgeVector = warrior.RunTimeData.IsometricDirection * warrior.Property.DodgeSpeed * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;
 

@@ -16,6 +16,8 @@ namespace CharacterSystem_V4
         [SerializeField]
         Vector2 _direction;
 
+        float angle;
+
         public void SetData(ICharacterProperty characterProperty)
         {
             property = characterProperty;
@@ -27,7 +29,22 @@ namespace CharacterSystem_V4
             _direction = new Vector2();
         }
 
-        public Vector2 Direction { get => _direction; set => _direction = value; }
+        public Vector2 Direction
+        { 
+            get => _direction;
+            set
+            {
+                _direction = value;
+                angle = Mathf.Atan2(_direction.y, _direction.x);
+            }
+        }
+        public Vector2 IsometricDirection 
+        { 
+            get
+            {
+                return new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
+            }
+        }
         public float Vertical
         {
             get
@@ -100,6 +117,11 @@ namespace CharacterSystem_V4
                     _health = value;
             }
         }
-    }
 
+        public static Vector2 ToIsometricDirection(Vector2 vector)
+        {
+            float angle = Mathf.Atan2(vector.y, vector.x);
+            return new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
+        }
+    }
 }

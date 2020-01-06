@@ -55,8 +55,6 @@ MonoBehaviour:
     _attackTimer: 0
     _regenTimer: 0
     _vertigoConter: 0
-    _vertical: 0
-    _horizontal: 0
     _direction: {x: 0, y: 0}
   Property: {fileID: 11400000, guid: ac6bc9dc07cd5014abb41cd92a0bc8bb, type: 2}
   MovementBody: {fileID: 2713500744654730897}
@@ -149,8 +147,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1000
-  m_AngularDrag: 1000
+  m_LinearDrag: 100
+  m_AngularDrag: 100
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0

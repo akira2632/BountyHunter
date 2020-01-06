@@ -112,11 +112,8 @@ namespace CharacterSystem_V4
                 spider.CharacterAnimator.SetFloat("Vertical", spider.RunTimeData.Vertical);
                 spider.CharacterAnimator.SetFloat("Horizontal", spider.RunTimeData.Horizontal);
 
-                float angle = Mathf.Atan2(spider.RunTimeData.Direction.y, spider.RunTimeData.Direction.x);
-                var IsoMoveVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
-
                 spider.MovementBody.MovePosition(spider.MovementBody.position +
-                    IsoMoveVector * spider.Property.MoveSpeed * Time.deltaTime);
+                    spider.RunTimeData.IsometricDirection * spider.Property.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()
@@ -193,7 +190,8 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 nowDistance = 0;
-                knockBackDirection = (wound.KnockBackFrom - spider.MovementBody.position).normalized;
+                knockBackDirection = CharacterRunTimeData.ToIsometricDirection(
+                    wound.KnockBackFrom - spider.MovementBody.position).normalized;
                 spider.CharacterAnimator.SetBool("IsHurt", true);
                 spider.HurtSound.Play();
             }

@@ -112,11 +112,8 @@ namespace CharacterSystem_V4
                 goblin.CharacterAnimator.SetFloat("Vertical", goblin.RunTimeData.Vertical);
                 goblin.CharacterAnimator.SetFloat("Horizontal", goblin.RunTimeData.Horizontal);
 
-                float angle = Mathf.Atan2(goblin.RunTimeData.Direction.y, goblin.RunTimeData.Direction.x);
-                var IsoMoveVector = new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
-
                 goblin.MovementBody.MovePosition(goblin.MovementBody.position +
-                    IsoMoveVector * goblin.Property.MoveSpeed * Time.deltaTime);
+                    goblin.RunTimeData.IsometricDirection * goblin.Property.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()
@@ -192,7 +189,8 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 nowDistance = 0;
-                knockBackDirection = (wound.KnockBackFrom - goblin.MovementBody.position).normalized;
+                knockBackDirection = CharacterRunTimeData.ToIsometricDirection(
+                        wound.KnockBackFrom - goblin.MovementBody.position).normalized;
                 goblin.CharacterAnimator.SetBool("IsHurt", true);
                 goblin.HurtSound.Play();
             }
