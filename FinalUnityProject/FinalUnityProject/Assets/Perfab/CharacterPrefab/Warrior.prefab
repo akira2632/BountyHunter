@@ -175,14 +175,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7662d1197001dda4da5ceed2d8ba6a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Property: {fileID: 11400000, guid: 3a54ff655ea72e845bf16927c56772fa, type: 2}
   RunTimeData:
     _health: 0
     _attackTimer: 0
     _regenTimer: 0
     _vertigoConter: 0
-    _vertical: 0
-    _horizontal: 0
+    _direction: {x: 0, y: 0}
+  Property: {fileID: 11400000, guid: 3a54ff655ea72e845bf16927c56772fa, type: 2}
   MovementBody: {fileID: 2713500744654730897}
   MovementCollider: {fileID: 270039640594804951}
   CharacterAnimator: {fileID: 4796646055716273524}
@@ -1508,6 +1507,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875671976265210168, guid: d44e010b1c4c0014aaec634ab8e2ca7f,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d44e010b1c4c0014aaec634ab8e2ca7f, type: 3}

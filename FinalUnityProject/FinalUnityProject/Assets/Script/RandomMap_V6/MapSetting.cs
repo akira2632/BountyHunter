@@ -15,8 +15,14 @@ namespace RandomMap_V6
     {
         public Tilemap GameMap_Wall;
         public Tilemap GameMap_Ground;
+        public Tilemap GameMap_Decotate;
+
         public IsometricRuleTile GameMapWall;
         public IsometricRuleTile GameMapGround;
+        public Tile[] GroundDecorates;
+        public Tile[] WallDecotates;
+        public Tile[] BoxDecotates;
+        public Tile[] SkullDecotates;
 
         public Tilemap NavegateMap;
         public Tile NavegateBlock;

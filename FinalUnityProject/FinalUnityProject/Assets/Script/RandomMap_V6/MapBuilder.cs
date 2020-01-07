@@ -315,6 +315,18 @@ namespace RandomMap_V6
             gameMapSetting.GameMap_Wall.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapWall);
             gameMapSetting.NavegateMap.SetTile(new Vector3Int(x, y, 0), gameMapSetting.NavegateBlock);
         }
+
+        public void PrintWallDecorates(int random, int x, int y)
+        {
+            gameMapSetting.GameMap_Decotate.SetTile(new Vector3Int(x, y, 0),
+                gameMapSetting.WallDecotates[random % gameMapSetting.WallDecotates.Length]);
+        }
+
+        public void PrintGroundDecorates(int random, int x, int y)
+        {
+            gameMapSetting.GameMap_Decotate.SetTile(new Vector3Int(x, y, 0),
+                gameMapSetting.GroundDecorates[random % gameMapSetting.GroundDecorates.Length]);
+        }
         /*
         public void BossRoom(bool isBossRoom)
         {

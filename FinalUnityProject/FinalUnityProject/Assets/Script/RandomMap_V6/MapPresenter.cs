@@ -119,6 +119,13 @@ namespace RandomMap_V6
     public class GameMapPresenter : IMapPresenter
     {
         sbyte[,] terrainData;
+        Direction decorateSide;
+
+        public GameMapPresenter(MapGenerateManager generateManager, Direction decorateSide)
+            : base(generateManager)
+        {
+            this.decorateSide = decorateSide;
+        }
 
         public GameMapPresenter(MapGenerateManager generaterManager)
             : base(generaterManager) { }
@@ -138,7 +145,18 @@ namespace RandomMap_V6
                 for (int row = 0; row < terrainData.GetLength(1); row++)
                 {
                     if (terrainData[column, row] < 10)
+                    {
                         mapPrinter.PrintGameMapGround(target.Column * 15 + column, target.Row * 15 + row);
+
+                        int random = UnityEngine.Random.Range(0, 100);
+
+                        if (random > 85 && terrainData[column, row] > 4)
+                            mapPrinter.PrintWallDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                        else if(random > 70 && terrainData[column, row] < 4)
+                            mapPrinter.PrintGroundDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+
+
+                    }
                     else
                         mapPrinter.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
                 }
