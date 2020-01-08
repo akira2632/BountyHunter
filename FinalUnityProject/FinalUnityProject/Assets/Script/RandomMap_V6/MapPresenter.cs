@@ -152,10 +152,12 @@ namespace RandomMap_V6
 
                         if (random > 85 && terrainData[column, row] > 4)
                             mapPrinter.PrintWallDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
-                        else if(random > 70 && terrainData[column, row] < 4)
+                        else if (random > 70 && terrainData[column, row] < 4)
                             mapPrinter.PrintGroundDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
-
-
+                        else if(random < 2 && terrainData[column, row] > 4)
+                            mapPrinter.PrintBoxDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                        else if(random >=2 && random < 4 && terrainData[column, row] > 4)
+                            mapPrinter.PRintSkullDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
                     }
                     else
                         mapPrinter.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
