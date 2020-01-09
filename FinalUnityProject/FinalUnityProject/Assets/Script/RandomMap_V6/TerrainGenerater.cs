@@ -60,7 +60,7 @@ namespace RandomMap_V6
                         switch (mapBuilder.GetBoundaryType(target, d))
                         {
                             case BoundaryType.Entry:
-                                mapBuilder.SetBoundaryTerrain(target, d, 5, 0);
+                                mapBuilder.SetBoundaryTerrain(target, d, 3, 0);
                                 break;
                             case BoundaryType.SmallPath:
                                 mapBuilder.SetBoundaryTerrain(target, d, Random.Range(4, 7), Random.Range(-4, 4));

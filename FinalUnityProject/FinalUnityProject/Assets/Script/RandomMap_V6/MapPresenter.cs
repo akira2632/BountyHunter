@@ -46,8 +46,13 @@ namespace RandomMap_V6
     #region 地圖輸出者
     public class MiniMapPresenter : IMapPresenter
     {
+        bool isEntryBlock;
+
         public MiniMapPresenter(MapGenerateManager generaterManager)
-            : base(generaterManager) { }
+            : base(generaterManager)
+        {
+            isEntryBlock = false;
+        }
 
         public override void Update()
         {
@@ -68,7 +73,10 @@ namespace RandomMap_V6
                                 mapPrinter.PrintMiniMapWall(target, d);
                         }
                         else if (mapBuilder.GetBoundaryType(target, d) == BoundaryType.Entry)
+                        {
                             mapPrinter.PrintMiniMapEntry(target, d);
+                            isEntryBlock = true;
+                        }
 
                         if (!(mapBuilder.HasBlock(target + d + Direction.LeftSide(d))
                             && mapBuilder.HasOpenBoundary(target, d)
@@ -84,7 +92,10 @@ namespace RandomMap_V6
                     }
 
                     generaterManager.AddTicks();
-                    generaterManager.SetNextGenerater(new GameMapPresenter(generaterManager));
+                    if (!isEntryBlock)
+                        generaterManager.SetNextGenerater(new GameMapPresenter(generaterManager));
+                    else
+                        generaterManager.SetNextGenerater(new MapEntryPresenter(generaterManager));
                 }
                 else
                 {
@@ -99,9 +110,8 @@ namespace RandomMap_V6
 
     public class NullBlockPresenter : IMapPresenter
     {
-        public NullBlockPresenter(MapGenerateManager generaterManager) : base(generaterManager)
-        {
-        }
+        public NullBlockPresenter(MapGenerateManager generaterManager)
+            : base(generaterManager) { }
 
         public override void Update()
         {
@@ -116,27 +126,15 @@ namespace RandomMap_V6
         }
     }
 
-    public class GameMapPresenter : IMapPresenter
+    public class MapEntryPresenter : IMapPresenter
     {
         sbyte[,] terrainData;
-        Direction decorateSide;
-
-        public GameMapPresenter(MapGenerateManager generateManager, Direction decorateSide)
-            : base(generateManager)
-        {
-            this.decorateSide = decorateSide;
-        }
-
-        public GameMapPresenter(MapGenerateManager generaterManager)
+        public MapEntryPresenter(MapGenerateManager generaterManager)
             : base(generaterManager) { }
 
         public override void Initail()
         {
             terrainData = mapBuilder.GetTerrainData(target);
-            /*if (mapBuilder.GetBlockType(target) == BlockType.BossRoom)
-                mapPrinter.BossRoom(true);
-            else
-                mapPrinter.BossRoom(false);*/
         }
 
         public override void Update()
@@ -154,9 +152,60 @@ namespace RandomMap_V6
                             mapPrinter.PrintWallDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
                         else if (random > 70 && terrainData[column, row] < 4)
                             mapPrinter.PrintGroundDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
-                        else if(random < 2 && terrainData[column, row] > 4)
+                    }
+                    else
+                        mapPrinter.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
+                }
+
+            for (int d = 0; d < Direction.DirectionCount; d++)
+                if (mapBuilder.GetBoundaryType(target, d) == BoundaryType.Entry)
+                {
+                    var direction = (Direction)d;
+                    var columnDisp = direction.Column == 0 ? 7 : direction.Row > 0 ? 0 : 14;
+                    var rowDisp = direction.Row == 0 ? 7 : direction.Column > 0 ? 0 : 14;
+
+                    mapPrinter.PrintGameMapEntry(
+                        target.Column * 15 + columnDisp,
+                        target.Row * 15 + rowDisp, direction);
+
+                    continue;
+                }
+
+            generaterManager.AddTicks();
+            generaterManager.SetNextGenerater(new MiniMapPresenter(generaterManager));
+        }
+    }
+
+    public class GameMapPresenter : IMapPresenter
+    {
+        sbyte[,] terrainData;
+
+        public GameMapPresenter(MapGenerateManager generaterManager)
+            : base(generaterManager) { }
+
+        public override void Initail()
+        {
+            terrainData = mapBuilder.GetTerrainData(target);
+        }
+
+        public override void Update()
+        {
+            for (int column = 0; column < terrainData.GetLength(0); column++)
+                for (int row = 0; row < terrainData.GetLength(1); row++)
+                {
+                    if (terrainData[column, row] < 10)
+                    {
+                        mapPrinter.PrintGameMapGround(target.Column * 15 + column, target.Row * 15 + row);
+
+                        int random = UnityEngine.Random.Range(0, 100);
+
+                        if (random > 85 && terrainData[column, row] > 4)
+                            mapPrinter.PrintWallDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                        else if (random > 70 && terrainData[column, row] < 4)
+                            mapPrinter.PrintGroundDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                        else if (random < 2 && terrainData[column, row] > 4)
                             mapPrinter.PrintBoxDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
-                        else if(random >=2 && random < 4 && terrainData[column, row] > 4)
+                        else if (random >= 2 && random < 4 && terrainData[column, row] > 4)
                             mapPrinter.PRintSkullDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
                     }
                     else

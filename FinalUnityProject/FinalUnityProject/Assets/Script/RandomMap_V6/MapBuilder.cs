@@ -339,6 +339,22 @@ namespace RandomMap_V6
             gameMapSetting.GameMap_Decotate.SetTile(new Vector3Int(x, y, 0),
                gameMapSetting.SkullDecotates[random % gameMapSetting.SkullDecotates.Length]);
         }
+
+        internal void PrintGameMapEntry(int x, int y, Direction d)
+        {
+            if (d == Direction.Left)
+                gameMapSetting.GameMap_Ground.SetTile(new Vector3Int(x, y, 0)
+                    , gameMapSetting.TopLeftEntry);
+            else if (d == Direction.Right)
+                gameMapSetting.GameMap_Ground.SetTile(new Vector3Int(x, y, 0)
+                    , gameMapSetting.BottomRightEntry);
+            else if (d == Direction.Top)
+                gameMapSetting.GameMap_Ground.SetTile(new Vector3Int(x, y, 0)
+                    , gameMapSetting.TopRightEntry);
+            else if (d == Direction.Bottom)
+                gameMapSetting.GameMap_Ground.SetTile(new Vector3Int(x, y, 0)
+                    , gameMapSetting.BottomLeftEntry);
+        }
         /*
         public void BossRoom(bool isBossRoom)
         {
@@ -401,6 +417,7 @@ namespace RandomMap_V6
             PrintMiniMapCorner(target, direction1, direction2);
             miniMapSetting.MiniMapWall.color = Color.white;
         }
+        #endregion
 
         internal void GetEntryPosition(out float x, out float y)
         {
@@ -408,6 +425,5 @@ namespace RandomMap_V6
             x = temp.x;
             y = temp.y;
         }
-        #endregion
     }
 }

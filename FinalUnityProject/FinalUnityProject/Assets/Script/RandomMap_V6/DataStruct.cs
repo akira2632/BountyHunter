@@ -189,7 +189,7 @@ namespace RandomMap_V6
         /// <summary>
         /// Isometric 的左下
         /// </summary>
-        public static readonly Direction Down = new Direction(-1, 0);
+        public static readonly Direction Bottom = new Direction(-1, 0);
         /// <summary>
         /// Isometric 的左上
         /// </summary>
@@ -209,8 +209,8 @@ namespace RandomMap_V6
         public static Direction Reverse(Direction direction)
         {
             if (direction.Equals(Top))
-                return Down;
-            else if (direction.Equals(Down))
+                return Bottom;
+            else if (direction.Equals(Bottom))
                 return Top;
             else if (direction.Equals(Left))
                 return Right;
@@ -229,10 +229,10 @@ namespace RandomMap_V6
         {
             if (direction.Equals(Top))
                 return Left;
-            else if (direction.Equals(Down))
+            else if (direction.Equals(Bottom))
                 return Right;
             else if (direction.Equals(Left))
-                return Down;
+                return Bottom;
             else if (direction.Equals(Right))
                 return Top;
             else
@@ -248,12 +248,12 @@ namespace RandomMap_V6
         {
             if (direction.Equals(Top))
                 return Right;
-            else if (direction.Equals(Down))
+            else if (direction.Equals(Bottom))
                 return Left;
             else if (direction.Equals(Left))
                 return Top;
             else if (direction.Equals(Right))
-                return Down;
+                return Bottom;
             else
                 throw new System.ArgumentException();
         }
@@ -272,7 +272,7 @@ namespace RandomMap_V6
         {
             if (direction.Equals(Top))
                 return 0;
-            else if (direction.Equals(Down))
+            else if (direction.Equals(Bottom))
                 return 1;
             else if (direction.Equals(Left))
                 return 2;
@@ -297,7 +297,7 @@ namespace RandomMap_V6
                 case 0:
                     return Top;
                 case 1:
-                    return Down;
+                    return Bottom;
                 case 2:
                     return Left;
                 case 3:
