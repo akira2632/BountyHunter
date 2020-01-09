@@ -17,6 +17,8 @@ namespace RandomMap_V6
         public Tilemap GameMap_Ground;
         public Tilemap GameMap_Decotate;
 
+        public Tile TopLeftEntry;
+        public Tile TopRightEntry;
         public IsometricRuleTile GameMapWall;
         public IsometricRuleTile GameMapGround;
         public Tile[] GroundDecorates;
