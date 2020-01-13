@@ -318,41 +318,41 @@ namespace RandomMap_V6
 
         public void PrintWallDecorates(int random, int x, int y)
         {
-            gameMapSetting.GameMap_Decotate.SetTile(new Vector3Int(x, y, 0),
+            gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0),
                 gameMapSetting.WallDecotates[random % gameMapSetting.WallDecotates.Length]);
         }
 
         public void PrintGroundDecorates(int random, int x, int y)
         {
-            gameMapSetting.GameMap_Decotate.SetTile(new Vector3Int(x, y, 0),
+            gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0),
                 gameMapSetting.GroundDecorates[random % gameMapSetting.GroundDecorates.Length]);
         }
 
         public void PrintBoxDecorates(int random, int x, int y)
         {
-            gameMapSetting.GameMap_Decotate.SetTile(new Vector3Int(x, y, 0),
+            gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0),
                gameMapSetting.BoxDecotates[random % gameMapSetting.BoxDecotates.Length]);
         }
 
         public void PRintSkullDecorates(int random, int x, int y)
         {
-            gameMapSetting.GameMap_Decotate.SetTile(new Vector3Int(x, y, 0),
+            gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0),
                gameMapSetting.SkullDecotates[random % gameMapSetting.SkullDecotates.Length]);
         }
 
         internal void PrintGameMapEntry(int x, int y, Direction d)
         {
             if (d == Direction.Left)
-                gameMapSetting.GameMap_Ground.SetTile(new Vector3Int(x, y, 0)
+                gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0)
                     , gameMapSetting.TopLeftEntry);
             else if (d == Direction.Right)
-                gameMapSetting.GameMap_Ground.SetTile(new Vector3Int(x, y, 0)
+                gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0)
                     , gameMapSetting.BottomRightEntry);
             else if (d == Direction.Top)
-                gameMapSetting.GameMap_Ground.SetTile(new Vector3Int(x, y, 0)
+                gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0)
                     , gameMapSetting.TopRightEntry);
             else if (d == Direction.Bottom)
-                gameMapSetting.GameMap_Ground.SetTile(new Vector3Int(x, y, 0)
+                gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0)
                     , gameMapSetting.BottomLeftEntry);
         }
         /*
