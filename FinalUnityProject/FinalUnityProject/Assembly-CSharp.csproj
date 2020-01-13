@@ -92,6 +92,7 @@
     <Compile Include="Assets\Script\CharacterSystem_V4\Data\WarriorProperty.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Utility\AnimateState.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Utility\AttackColliders.cs" />
+    <Compile Include="Assets\Script\Other\ChangeScene.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\AreaGenerater.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\DataStruct.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\MapBuilder.cs" />
@@ -99,8 +100,6 @@
     <Compile Include="Assets\Script\RandomMap_V6\MapPresenter.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\MapSetting.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\TerrainGenerater.cs" />
-    <Compile Include="Assets\Script\Test\ChangeScene.cs" />
-    <Compile Include="Assets\Script\Test\Character_Move.cs" />
     <Compile Include="Assets\Script\UI\Click.cs" />
     <Compile Include="Assets\Script\UI\Exit.cs" />
     <Compile Include="Assets\Script\UI\GamePlayMenu.cs" />
