@@ -8,7 +8,7 @@ namespace CharacterSystem_V4.Controller
         public BasicAISenser Senser;
         public AISetting AISetting;
 
-        protected bool isInitial = false, findPlayer;
+        protected bool isInitial = false;
         protected AIState nowState;
 
         private void Update()

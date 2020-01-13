@@ -4,6 +4,8 @@ namespace CharacterSystem_V4.Controller
 {
     public class BasicAIController : AIStateManager
     {
+        public BasicAISenser Senser;
+
         private void Start()
         {
             nowState = new AIIdel();
@@ -13,8 +15,6 @@ namespace CharacterSystem_V4.Controller
 
         private void PlayerCloseby(bool playerCloseby)
         {
-            findPlayer = playerCloseby;
-
             if (playerCloseby)
             {
                 if (Vector3.Distance(Character.transform.position, Senser.PlayerPosition) > AISetting.AttackDistance)
