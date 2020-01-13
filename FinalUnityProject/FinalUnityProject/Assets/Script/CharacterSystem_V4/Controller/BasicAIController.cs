@@ -2,15 +2,42 @@
 
 namespace CharacterSystem_V4.Controller
 {
-    public class BasicAIController : AIStateManager
+    public class BasicAIController : MonoBehaviour
     {
+        public ICharacterActionManager Character;
         public BasicAISenser Senser;
+        public AISetting AISetting;
+
+        private bool isInitial = false;
+        private IBasicAIState nowState;
 
         private void Start()
         {
             nowState = new AIIdel();
             nowState.SetManager(this);
             Senser.OnPlayerCloseBy += (bool data) => PlayerCloseby(data);
+        }
+
+        private void Update()
+        {
+            if (Character == null)
+                Destroy(gameObject);
+
+            if (!isInitial)
+            {
+                nowState.Initial();
+                isInitial = true;
+            }
+
+            nowState.Update();
+        }
+
+        private void SetState(IBasicAIState nextState)
+        {
+            nowState.End();
+            isInitial = false;
+            nowState = nextState;
+            nowState.SetManager(this);
         }
 
         private void PlayerCloseby(bool playerCloseby)
@@ -27,16 +54,24 @@ namespace CharacterSystem_V4.Controller
         }
 
         #region AIState
-        private class IBasicAIState : AIState
+        private abstract class IBasicAIState
         {
+            protected BasicAIController manager;
             protected bool? pathFinded;
             protected Vector3 nextPoint;
+
+            public void SetManager(BasicAIController manager)
+                => this.manager = manager;
 
             protected void PathFinded(bool? finded)
             {
                 pathFinded = finded;
                 manager.Senser.NextWayPoint(out nextPoint);
             }
+
+            public virtual void Initial() { }
+            public virtual void Update() { }
+            public virtual void End() { }
         }
 
         private class AIIdel : IBasicAIState

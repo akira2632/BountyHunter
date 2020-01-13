@@ -75,7 +75,6 @@
     <Compile Include="Assets\2d-extras-master\Assets\Tilemap\Tiles\Terrain Tile\Scripts\TerrainTile.cs" />
     <Compile Include="Assets\2d-extras-master\Assets\Tilemap\Tiles\Weighted Random Tile\WeightedRandomTile.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\ActionManager.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\AIStateManager.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterSystemInterfaceInterface.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Character\Goblin.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Character\Orc.cs" />
