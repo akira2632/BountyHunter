@@ -64,7 +64,7 @@ namespace CharacterSystem_V4.Controller
 
         public void StopFindPathToPlayer() => continueFinding = false;
 
-        #region A*Seeker呼叫
+        #region A*Seeker
         private IEnumerator ContinueFinding(Action<bool?> pathFinded)
         {
             seeker.CancelCurrentPathRequest();

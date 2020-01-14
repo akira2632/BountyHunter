@@ -8,6 +8,14 @@ public class IsometricUtility
         return new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
     }
 
+    public static Vector3 ToIsometricVector(Vector3 vector)
+    {
+        float angle = Mathf.Atan2(vector.y, vector.x);
+
+        return new Vector3(vector.magnitude * Mathf.Cos(angle),
+            0.6f * vector.magnitude * Mathf.Sin(angle));
+    }
+
     public static float ToIsometricDistance(Vector3 from, Vector3 to)
     {
         float angle = Mathf.Atan2(to.y - from.y, to.x - from.x);
