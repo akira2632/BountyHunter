@@ -7,8 +7,7 @@ namespace CharacterSystem_V4.Controller
 {
     public class BasicAISenser : MonoBehaviour
     {
-        public delegate void SenerEventBool(bool data);
-        public event SenerEventBool OnPlayerCloseBy;
+        public event Action<bool> OnPlayerCloseBy;
 
         public GameObject Character;
         public Vector3 PlayerPosition { get => player.transform.position; }
@@ -28,19 +27,6 @@ namespace CharacterSystem_V4.Controller
 
         private void Update()
         {
-            if (Character.activeInHierarchy &&
-                IsometricUtility.ToIsometricDistance(
-                Character.transform.position, player.transform.position) > 30)
-            {
-                Character.SetActive(false);
-            }
-            else if (!Character.activeInHierarchy &&
-                IsometricUtility.ToIsometricDistance(
-                Character.transform.position, player.transform.position) <= 30)
-            {
-                Character.SetActive(true);
-            }
-
             if (playerCloseBy &&
                 IsometricUtility.ToIsometricDistance(
                 Character.transform.position, player.transform.position) > 10)

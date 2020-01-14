@@ -1,15 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class IsometricUtility
 {
-    const float
-       VerticalMin = Mathf.PI / 8,
-       VerticalMax = Mathf.PI * 7 / 8,
-       HorizontalMin = Mathf.PI * 3 / 8,
-       HorizontalMax = Mathf.PI * 5 / 8;
-
     public static Vector2 ToIsometricDirection(Vector2 vector)
     {
         float angle = Mathf.Atan2(vector.y, vector.x);

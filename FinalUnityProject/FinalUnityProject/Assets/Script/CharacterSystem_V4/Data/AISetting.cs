@@ -7,6 +7,7 @@ namespace CharacterSystem_V4.Controller
     {
         public float IdelTimeMax, IdelTimeMin,
             WounderDistanceMax, WounderDistanceMin,
+            DetectedDistance,
             AttackDistance, StopDistance;
     }
 }
