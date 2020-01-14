@@ -34,6 +34,11 @@ namespace CharacterSystem_V4.Controller
             player = FindObjectOfType<PlayerController>().MyCharacter.gameObject;
         }
 
+        private void OnEnable()
+        {
+            SetState(new AIIdel());
+        }
+
         private void Update()
         {
             if (Character == null)

@@ -10,7 +10,6 @@ namespace CharacterSystem_V4.Controller
         public event Action<bool> OnPlayerCloseBy;
 
         public GameObject Character;
-        public Vector3 PlayerPosition { get => player.transform.position; }
 
         [SerializeField]
         private Seeker seeker;
@@ -65,6 +64,7 @@ namespace CharacterSystem_V4.Controller
 
         public void StopFindPathToPlayer() => continueFinding = false;
 
+        #region A*Seeker呼叫
         private IEnumerator ContinueFinding(Action<bool?> pathFinded)
         {
             seeker.CancelCurrentPathRequest();
@@ -91,6 +91,6 @@ namespace CharacterSystem_V4.Controller
                 pathFinded(true);
             }
         }
-
+        #endregion
     }
 }

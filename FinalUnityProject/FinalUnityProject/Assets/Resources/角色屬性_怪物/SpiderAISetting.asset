@@ -16,5 +16,6 @@ MonoBehaviour:
   IdelTimeMin: 4
   WounderDistanceMax: 5
   WounderDistanceMin: 1
+  DetectedDistance: 10
   AttackDistance: 0.8
   StopDistance: 0.8
