@@ -188,7 +188,7 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 nowDistance = 0;
-                knockBackDirection = CharacterRunTimeData.ToIsometricDirection(
+                knockBackDirection = IsometricUtility.ToIsometricDirection(
                         wound.KnockBackFrom - orcCaptain.MovementBody.position).normalized;
                 orcCaptain.CharacterAnimator.SetBool("IsHurt", true);
                 orcCaptain.HurtSound.Play();

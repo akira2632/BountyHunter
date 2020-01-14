@@ -189,7 +189,7 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 nowDistance = 0;
-                knockBackDirection = CharacterRunTimeData.ToIsometricDirection(
+                knockBackDirection = IsometricUtility.ToIsometricDirection(
                         wound.KnockBackFrom - goblin.MovementBody.position).normalized;
                 goblin.CharacterAnimator.SetBool("IsHurt", true);
                 goblin.HurtSound.Play();

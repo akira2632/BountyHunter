@@ -121,11 +121,5 @@ namespace CharacterSystem_V4
                     _health = value;
             }
         }
-
-        public static Vector2 ToIsometricDirection(Vector2 vector)
-        {
-            float angle = Mathf.Atan2(vector.y, vector.x);
-            return new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
-        }
     }
 }

@@ -29,27 +29,27 @@ namespace CharacterSystem_V4.Controller
         private void Update()
         {
             if (Character.activeInHierarchy &&
-                Vector3.Distance(
+                IsometricUtility.ToIsometricDistance(
                 Character.transform.position, player.transform.position) > 30)
             {
                 Character.SetActive(false);
             }
             else if (!Character.activeInHierarchy &&
-                Vector3.Distance(
+                IsometricUtility.ToIsometricDistance(
                 Character.transform.position, player.transform.position) <= 30)
             {
                 Character.SetActive(true);
             }
 
             if (playerCloseBy &&
-                Vector3.Distance(
+                IsometricUtility.ToIsometricDistance(
                 Character.transform.position, player.transform.position) > 10)
             {
                 playerCloseBy = false;
                 OnPlayerCloseBy?.Invoke(false);
             }
             else if (!playerCloseBy &&
-                Vector3.Distance(
+                IsometricUtility.ToIsometricDistance(
                 Character.transform.position, player.transform.position) <= 10)
             {
                 playerCloseBy = true;
