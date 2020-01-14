@@ -113,7 +113,8 @@ namespace CharacterSystem_V4
                 orc.CharacterAnimator.SetFloat("Horizontal", orc.RunTimeData.Horizontal);
 
                 orc.MovementBody.MovePosition(orc.MovementBody.position +
-                    orc.RunTimeData.IsometricDirection * orc.Property.MoveSpeed * Time.deltaTime);
+                    IsometricUtility.ToIsometricDirection(orc.RunTimeData.Direction)
+                    * orc.Property.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()

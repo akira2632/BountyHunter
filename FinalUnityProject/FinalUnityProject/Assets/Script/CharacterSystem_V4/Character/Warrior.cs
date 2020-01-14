@@ -131,7 +131,8 @@ namespace CharacterSystem_V4
                 warrior.CharacterAnimator.SetFloat("Horizontal", warrior.RunTimeData.Horizontal);
 
                 warrior.MovementBody.MovePosition(warrior.MovementBody.position +
-                    warrior.RunTimeData.IsometricDirection * warrior.Property.MoveSpeed * Time.deltaTime);
+                    IsometricUtility.ToIsometricDirection(warrior.RunTimeData.Direction)
+                    * warrior.Property.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()
@@ -322,7 +323,9 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                Vector2 dodgeVector = warrior.RunTimeData.IsometricDirection * warrior.Property.DodgeSpeed * Time.deltaTime;
+                Vector2 dodgeVector = 
+                    IsometricUtility.ToIsometricDirection(warrior.RunTimeData.Direction)
+                    * warrior.Property.DodgeSpeed * Time.deltaTime;
 
                 dodgeDistance += dodgeVector.magnitude;
 
@@ -383,7 +386,9 @@ namespace CharacterSystem_V4
             {
                 if (dodgeDistance < targetDistance)
                 {
-                    Vector2 dodgeVector = warrior.RunTimeData.IsometricDirection * warrior.Property.DodgeSpeed * Time.deltaTime;
+                    Vector2 dodgeVector = 
+                        IsometricUtility.ToIsometricDirection(warrior.RunTimeData.Direction)
+                        * warrior.Property.DodgeSpeed * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;
 
@@ -504,7 +509,9 @@ namespace CharacterSystem_V4
             {
                 if (dodgeDistance < targetDistance)
                 {
-                    Vector2 dodgeVector = warrior.RunTimeData.IsometricDirection * warrior.Property.DodgeSpeed * Time.deltaTime;
+                    Vector2 dodgeVector = 
+                        IsometricUtility.ToIsometricDirection(warrior.RunTimeData.Direction)
+                        * warrior.Property.DodgeSpeed * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;
 

@@ -43,13 +43,6 @@ namespace CharacterSystem_V4
                 angle = Mathf.Atan2(_direction.y, _direction.x);
             }
         }
-        public Vector2 IsometricDirection
-        {
-            get
-            {
-                return new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
-            }
-        }
         public float Vertical
         {
             get

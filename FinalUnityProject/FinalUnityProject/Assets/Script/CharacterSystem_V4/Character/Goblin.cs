@@ -113,7 +113,8 @@ namespace CharacterSystem_V4
                 goblin.CharacterAnimator.SetFloat("Horizontal", goblin.RunTimeData.Horizontal);
 
                 goblin.MovementBody.MovePosition(goblin.MovementBody.position +
-                    goblin.RunTimeData.IsometricDirection * goblin.Property.MoveSpeed * Time.deltaTime);
+                    IsometricUtility.ToIsometricDirection(goblin.RunTimeData.Direction)
+                    * goblin.Property.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()

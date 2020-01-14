@@ -113,7 +113,8 @@ namespace CharacterSystem_V4
                 spider.CharacterAnimator.SetFloat("Horizontal", spider.RunTimeData.Horizontal);
 
                 spider.MovementBody.MovePosition(spider.MovementBody.position +
-                    spider.RunTimeData.IsometricDirection * spider.Property.MoveSpeed * Time.deltaTime);
+                    IsometricUtility.ToIsometricDirection(spider.RunTimeData.Direction)
+                    * spider.Property.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()
