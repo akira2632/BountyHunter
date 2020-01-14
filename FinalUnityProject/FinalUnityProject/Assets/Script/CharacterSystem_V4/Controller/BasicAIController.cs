@@ -142,7 +142,7 @@ namespace CharacterSystem_V4.Controller
             {
                 //Debug.Log("Chase Start");
                 pathFinded = false;
-                manager.Senser.FindPathToPlayer(PathFinded);
+                manager.Senser.FindPath(manager.player.transform, PathFinded);
             }
 
             public override void Update()

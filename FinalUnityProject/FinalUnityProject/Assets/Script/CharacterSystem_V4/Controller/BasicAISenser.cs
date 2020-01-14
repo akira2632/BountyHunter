@@ -13,7 +13,6 @@ namespace CharacterSystem_V4.Controller
         private Seeker seeker;
         private Path path;
 
-        private GameObject player;
         private int currentWayPoint = 0;
         private bool continueFinding = false;
 
@@ -39,19 +38,19 @@ namespace CharacterSystem_V4.Controller
         public void FindPath(Vector3 target, Action<bool?> pathFinded)
             => StartCoroutine(MyFindPath(target, pathFinded));
 
-        public void FindPathToPlayer(Action<bool?> pathFinded)
-            => StartCoroutine(ContinueFinding(pathFinded));
+        public void FindPath(Transform target, Action<bool?> pathFinded)
+            => StartCoroutine(ContinueFinding(target, pathFinded));
 
         public void StopFindPathToPlayer() => continueFinding = false;
 
         #region A*Seeker
-        private IEnumerator ContinueFinding(Action<bool?> pathFinded)
+        private IEnumerator ContinueFinding(Transform target, Action<bool?> pathFinded)
         {
             seeker.CancelCurrentPathRequest();
             continueFinding = true;
 
             while (continueFinding)
-                yield return MyFindPath(player.transform.position, pathFinded);
+                yield return MyFindPath(target.transform.position, pathFinded);
         }
 
         private IEnumerator MyFindPath(Vector3 target, Action<bool?> pathFinded)
