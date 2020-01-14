@@ -8,14 +8,30 @@ namespace CharacterSystem_V4.Controller
         public BasicAISenser Senser;
         public AISetting AISetting;
 
+        private GameObject player;
+
+        private void PlayerCloseby(bool playerCloseby)
+        {
+            if (playerCloseby)
+            {
+                if (Vector3.Distance(Character.transform.position, player.transform.position) > AISetting.AttackDistance)
+                    SetState(new AIChase());
+                else
+                    SetState(new AIAttack());
+            }
+            else
+                SetState(new AIIdel());
+        }
+
+        #region StateControl
         private bool isInitial = false;
         private IBasicAIState nowState;
 
         private void Start()
         {
-            nowState = new AIIdel();
-            nowState.SetManager(this);
+            SetState(new AIIdel());
             Senser.OnPlayerCloseBy += (bool data) => PlayerCloseby(data);
+            player = FindObjectOfType<PlayerController>().MyCharacter.gameObject;
         }
 
         private void Update()
@@ -34,24 +50,12 @@ namespace CharacterSystem_V4.Controller
 
         private void SetState(IBasicAIState nextState)
         {
-            nowState.End();
+            nowState?.End();
             isInitial = false;
             nowState = nextState;
             nowState.SetManager(this);
         }
-
-        private void PlayerCloseby(bool playerCloseby)
-        {
-            if (playerCloseby)
-            {
-                if (Vector3.Distance(Character.transform.position, Senser.PlayerPosition) > AISetting.AttackDistance)
-                    SetState(new AIChase());
-                else
-                    SetState(new AIAttack());
-            }
-            else
-                SetState(new AIIdel());
-        }
+        #endregion
 
         #region AIState
         private abstract class IBasicAIState
@@ -145,7 +149,7 @@ namespace CharacterSystem_V4.Controller
             {
                 if (pathFinded == true)
                 {
-                    if (Vector3.Distance(manager.Senser.PlayerPosition, manager.Character.transform.position) < manager.AISetting.AttackDistance
+                    if (Vector3.Distance(manager.player.transform.position, manager.Character.transform.position) < manager.AISetting.AttackDistance
                         && manager.Character.RunTimeData.AttackTimer <= 0)
                     {
                         manager.SetState(new AIAttack());
@@ -179,19 +183,19 @@ namespace CharacterSystem_V4.Controller
             {
                 //Debug.Log("AttackStart");
                 manager.Character.Move(
-                    (manager.Senser.PlayerPosition - manager.Character.transform.position).normalized);
+                    (manager.player.transform.position - manager.Character.transform.position).normalized);
                 manager.Character.LightAttack();
             }
 
             public override void Update()
             {
-                if (Vector3.Distance(manager.Senser.PlayerPosition, manager.Character.transform.position) > manager.AISetting.AttackDistance)
+                if (Vector3.Distance(manager.player.transform.position, manager.Character.transform.position) > manager.AISetting.AttackDistance)
                     manager.SetState(new AIChase());
 
                 if (manager.Character.RunTimeData.AttackTimer <= 0)
                 {
                     manager.Character.Move(
-                        (manager.Senser.PlayerPosition - manager.Character.transform.position).normalized);
+                        (manager.player.transform.position - manager.Character.transform.position).normalized);
                     manager.Character.LightAttack();
                 }
             }
