@@ -10,19 +10,6 @@ namespace CharacterSystem_V4.Controller
 
         private GameObject player;
 
-        private void PlayerCloseby(bool playerCloseby)
-        {
-            if (playerCloseby)
-            {
-                if (Vector3.Distance(Character.transform.position, player.transform.position) > AISetting.AttackDistance)
-                    SetState(new AIChase());
-                else
-                    SetState(new AIAttack());
-            }
-            else
-                SetState(new AIIdel());
-        }
-
         #region StateControl
         private bool isInitial = false;
         private IBasicAIState nowState;

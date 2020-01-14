@@ -7,8 +7,6 @@ namespace CharacterSystem_V4.Controller
 {
     public class BasicAISenser : MonoBehaviour
     {
-        public event Action<bool> OnPlayerCloseBy;
-
         public GameObject Character;
 
         [SerializeField]
@@ -17,29 +15,11 @@ namespace CharacterSystem_V4.Controller
 
         private GameObject player;
         private int currentWayPoint = 0;
-        private bool continueFinding = false, playerCloseBy = false;
+        private bool continueFinding = false;
 
         private void Start()
         {
-            player = FindObjectOfType<PlayerController>().MyCharacter.gameObject;
-        }
-
-        private void Update()
-        {
-            if (playerCloseBy &&
-                IsometricUtility.ToIsometricDistance(
-                Character.transform.position, player.transform.position) > 10)
-            {
-                playerCloseBy = false;
-                OnPlayerCloseBy?.Invoke(false);
-            }
-            else if (!playerCloseBy &&
-                IsometricUtility.ToIsometricDistance(
-                Character.transform.position, player.transform.position) <= 10)
-            {
-                playerCloseBy = true;
-                OnPlayerCloseBy?.Invoke(true);
-            }
+            
         }
 
         public bool NextWayPoint(out Vector3 nextPoint)
