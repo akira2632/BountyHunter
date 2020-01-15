@@ -16,7 +16,6 @@ namespace CharacterSystem_V4.Controller
 
         private void Start()
         {
-            SetState(new AIIdel());
             player = FindObjectOfType<PlayerController>().MyCharacter.gameObject;
         }
 
@@ -27,9 +26,6 @@ namespace CharacterSystem_V4.Controller
 
         private void Update()
         {
-            if (Character == null)
-                Destroy(gameObject);
-
             if (!isInitial)
             {
                 nowState.Initial();
@@ -49,7 +45,7 @@ namespace CharacterSystem_V4.Controller
         #endregion
 
         #region AIState
-        private abstract class IBasicAIState
+        protected abstract class IBasicAIState
         {
             protected BasicAIController manager;
             protected bool? pathFinded;
@@ -69,7 +65,7 @@ namespace CharacterSystem_V4.Controller
             public virtual void End() { }
         }
 
-        private class AIIdel : IBasicAIState
+        protected class AIIdel : IBasicAIState
         {
             float idelTimer;
 
@@ -95,7 +91,7 @@ namespace CharacterSystem_V4.Controller
             }
         }
 
-        private class AIWandering : IBasicAIState
+        protected class AIWandering : IBasicAIState
         {
             #region 流程控制
             public override void Initial()
@@ -136,7 +132,7 @@ namespace CharacterSystem_V4.Controller
             #endregion
         }
 
-        private class AIChase : IBasicAIState
+        protected class AIChase : IBasicAIState
         {
             public override void Initial()
             {
@@ -177,11 +173,11 @@ namespace CharacterSystem_V4.Controller
 
             public override void End()
             {
-                manager.Senser.StopFindPathToPlayer();
+                manager.Senser.StopFindPath();
             }
         }
 
-        private class AIAttack : IBasicAIState
+        protected class AIAttack : IBasicAIState
         {
             public override void Initial()
             {

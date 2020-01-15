@@ -7,19 +7,12 @@ namespace CharacterSystem_V4.Controller
 {
     public class BasicAISenser : MonoBehaviour
     {
-        public GameObject Character;
-
         [SerializeField]
         private Seeker seeker;
         private Path path;
 
         private int currentWayPoint = 0;
         private bool continueFinding = false;
-
-        private void Start()
-        {
-            
-        }
 
         public bool NextWayPoint(out Vector3 nextPoint)
         {
@@ -41,7 +34,7 @@ namespace CharacterSystem_V4.Controller
         public void FindPath(Transform target, Action<bool?> pathFinded)
             => StartCoroutine(ContinueFinding(target, pathFinded));
 
-        public void StopFindPathToPlayer() => continueFinding = false;
+        public void StopFindPath() => continueFinding = false;
 
         #region A*Seeker
         private IEnumerator ContinueFinding(Transform target, Action<bool?> pathFinded)

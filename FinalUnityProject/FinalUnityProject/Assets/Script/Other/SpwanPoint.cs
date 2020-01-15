@@ -1,19 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CharacterSystem_V4;
+using CharacterSystem_V4.Controller;
 
 public class SpwanPoint : MonoBehaviour
 {
     public SpwanMobData[] SpwanMobs;
+    public int MaxMobCount, MobCount;
+    public float ActiveRange;
+
     private Transform player;
+    private bool unvisible, isActive;
 
     // Start is called before the first frame update
     void Start()
     {
+        MobCount = 0;
+        player = FindObjectOfType<PlayerController>().MyCharacter.transform;
+
         foreach (SpwanMobData item in SpwanMobs)
         {
-            item.Start(this);
+            item.Start(gameObject);
         }
+
+        if (IsometricUtility.ToIsometricDistance(
+                transform.position, player.position) <= ActiveRange)
+            isActive = true;
+        else
+            isActive = false;
     }
 
     // Update is called once per frame
@@ -22,7 +37,43 @@ public class SpwanPoint : MonoBehaviour
         foreach (SpwanMobData item in SpwanMobs)
         {
             item.Update();
+
+            if (item.ReadyToSpwan() && MobCount < MaxMobCount && unvisible)
+            {
+                item.SpwanMob();
+            }
         }
+
+        if (!isActive &&
+            IsometricUtility.ToIsometricDistance(
+                transform.position, player.position) <= ActiveRange)
+        {
+            isActive = true;
+            foreach (SpwanMobData item in SpwanMobs)
+            {
+                item.SetActive(true);
+            }
+        }
+        else if(isActive &&
+            IsometricUtility.ToIsometricDistance(
+                transform.position, player.position) > ActiveRange)
+        {
+            isActive = false;
+            foreach (SpwanMobData item in SpwanMobs)
+            {
+                item.SetActive(false);
+            }
+        }
+    }
+
+    private void OnBecameVisible()
+    {
+        unvisible = false;
+    }
+
+    private void OnBecameInvisible()
+    {
+        unvisible = true;
     }
 
     private void OnDrawGizmos()
@@ -30,44 +81,59 @@ public class SpwanPoint : MonoBehaviour
         Gizmos.DrawIcon(transform.position, "SpawnPointIcon.png");
     }
 
-    public enum SpwanState
-    {
-        CoolDown
-    }
-
     [System.Serializable]
-    public struct SpwanMobData
+    public class SpwanMobData
     {
-
-        public GameObject Mob;
+        public GameObject MobPrefab;
         public float SpwanRate;
+        public float Timer;
+        public bool IsAlive;
 
-        public float Timer { get => _timer; }
-        public bool IsAlive { get => _isAlive; }
-
-        private float _timer;
-        private bool _isAlive;
         private SpwanPoint mySpwanPoint;
+        private GameObject myMob;
 
-        public void Start(SpwanPoint spwanPoint)
+        public void Start(GameObject spwanPoint)
         {
-            _timer = 0;
-            _isAlive = true;
-            mySpwanPoint = spwanPoint;
+            Timer = 0;
+            IsAlive = false;
+            mySpwanPoint = spwanPoint.GetComponent<SpwanPoint>();
         }
 
         public void Update()
         {
-            if (!_isAlive)
-                _timer -= Time.deltaTime;
-            else
-                SpwanMob();
+            if (!IsAlive && Timer > 0)
+                Timer -= Time.deltaTime;
         }
 
-        private void SpwanMob()
+        public void SetActive(bool active)
         {
-            var temp = Instantiate(Mob, mySpwanPoint.transform.position, Quaternion.identity);
+            if (myMob == null)
+                return;
 
+            if (active)
+                myMob.transform.position = mySpwanPoint.transform.position;
+
+            myMob.SetActive(active);
+        }
+
+        public bool ReadyToSpwan()
+        {
+            return !IsAlive && Timer <= 0;
+        }
+
+        public void SpwanMob()
+        {
+            IsAlive = true;
+            Timer = SpwanRate;
+            mySpwanPoint.MobCount++;
+
+            myMob = Instantiate(MobPrefab, mySpwanPoint.transform.position, Quaternion.identity);
+            myMob.GetComponent<ICharacterActionManager>().OnCharacterDead
+                += () =>
+                {
+                    IsAlive = false;
+                    mySpwanPoint.MobCount--;
+                };
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace CharacterSystem_V4
 {
@@ -6,6 +7,9 @@ namespace CharacterSystem_V4
     {
         public CharacterRunTimeData RunTimeData;
         public IScriptableCharacterProperty Property;
+
+        public event Action OnCharacterDead;
+        private bool hasInvoke;
 
         #region AnimationControll
         public void AnimationEnd()
@@ -30,6 +34,12 @@ namespace CharacterSystem_V4
 
         public virtual void ActionUpdate()
         {
+            if (RunTimeData.Health <= 0 && !hasInvoke)
+            {
+                OnCharacterDead?.Invoke();
+                hasInvoke = true;
+            }
+
             if(!IsStart)
             {
                 nowAction.Start();
