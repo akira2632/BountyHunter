@@ -16,6 +16,7 @@ namespace RandomMap_V6
 
         public MiniMapSetting MiniMapSetting = new MiniMapSetting();
         public GameMapSetting GameMapSetting = new GameMapSetting();
+        public SpwanPointSetting SpwanPointSetting = new SpwanPointSetting();
         private GeneraterFactry generaterFactry;
 
         #region 生成頻率管理
@@ -28,7 +29,8 @@ namespace RandomMap_V6
         private void Start()
         {
             SetSeed();
-            generaterFactry = new GeneraterFactry(MiniMapSetting, GameMapSetting, this);
+            generaterFactry = new GeneraterFactry(
+                MiniMapSetting, GameMapSetting, SpwanPointSetting, this);
 
             //初始化狀態機
             hasInitail = false;

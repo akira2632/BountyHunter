@@ -212,6 +212,10 @@ namespace RandomMap_V6
                         mapPrinter.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
                 }
 
+            var spwanPoint = mapBuilder.GetSpwanPoint(target);
+            if(spwanPoint != null)
+                mapPrinter.SetSpwanPoint(target.Column * 15 + 8, target.Row * 15 + 8, spwanPoint);
+
             generaterManager.AddTicks();
             generaterManager.SetNextGenerater(new MiniMapPresenter(generaterManager));
         }
@@ -239,6 +243,7 @@ namespace RandomMap_V6
             float x, y;
             mapPrinter.GetEntryPosition(out x, out y);
             generaterManager.SetPlayerPosition(x, y);
+            mapPrinter.ActiveSpwanPoint();
         }
     }
     #endregion

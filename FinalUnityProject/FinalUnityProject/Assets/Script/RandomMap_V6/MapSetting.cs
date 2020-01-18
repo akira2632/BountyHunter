@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace RandomMap_V6
@@ -32,5 +33,18 @@ namespace RandomMap_V6
 
         public Tilemap NavegateMap;
         public Tile NavegateBlock;
+    }
+
+    [System.Serializable]
+    public class SpwanPointSetting
+    {
+        public SpwanPointPrafeb[] SpwanPoints;
+    }
+
+    [System.Serializable]
+    public struct SpwanPointPrafeb
+    {
+        public int FromMapDeep, ToMapDeep;
+        public GameObject SpwanPoint;
     }
 }

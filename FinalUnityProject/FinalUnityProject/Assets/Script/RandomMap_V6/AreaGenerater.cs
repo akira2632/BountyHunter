@@ -468,6 +468,10 @@ namespace RandomMap_V6
                         if (nullBoundary.Count > 0)
                             foreach (Direction direction in nullBoundary)
                                 mapBuilder.MakeBoundary(target, direction, BoundaryType.Wall);
+
+                        GameObject spwanPoint;
+                        if (mapBuilder.TryGetRandomedSpwanPoint(nowScale, out spwanPoint))
+                            mapBuilder.SetSpwanPoint(target, spwanPoint);
                     }
                 }
                 else

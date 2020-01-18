@@ -6,9 +6,8 @@ using CharacterSystem_V4.Controller;
 
 public class SpwanPoint : MonoBehaviour
 {
-    public SpwanMobData[] SpwanMobs;
-    public int MaxMobCount, MobCount;
     public float ActiveRange;
+    public SpwanMobData[] SpwanMobs;
 
     private Transform player;
     private bool unvisible, isActive;
@@ -16,7 +15,6 @@ public class SpwanPoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MobCount = 0;
         player = FindObjectOfType<PlayerController>().MyCharacter.transform;
 
         foreach (SpwanMobData item in SpwanMobs)
@@ -38,10 +36,8 @@ public class SpwanPoint : MonoBehaviour
         {
             item.Update();
 
-            if (item.ReadyToSpwan() && MobCount < MaxMobCount && unvisible)
-            {
+            if (item.ReadyToSpwan() && unvisible)
                 item.SpwanMob();
-            }
         }
 
         if (!isActive &&
@@ -125,15 +121,10 @@ public class SpwanPoint : MonoBehaviour
         {
             IsAlive = true;
             Timer = SpwanRate;
-            mySpwanPoint.MobCount++;
 
             myMob = Instantiate(MobPrefab, mySpwanPoint.transform.position, Quaternion.identity);
             myMob.GetComponent<ICharacterActionManager>().OnCharacterDead
-                += () =>
-                {
-                    IsAlive = false;
-                    mySpwanPoint.MobCount--;
-                };
+                += () => IsAlive = false;
         }
     }
 }

@@ -2,6 +2,7 @@
 using UnityEngine.Tilemaps;
 using System;
 using System.Collections.Generic;
+using Random = UnityEngine.Random;
 
 namespace RandomMap_V6
 {
@@ -17,10 +18,13 @@ namespace RandomMap_V6
         BossRoomGenerater bossRoomGenerater;
         AreaSealder areaSealder;
 
-        public GeneraterFactry(MiniMapSetting miniMapSetting, GameMapSetting gameMapSetting, MapGenerateManager manager)
+        public GeneraterFactry(MiniMapSetting miniMapSetting, 
+            GameMapSetting gameMapSetting,
+            SpwanPointSetting spwanPointSetting,
+            MapGenerateManager manager)
         {
             this.manager = manager;
-            mapBuilder = new MapBuilder();
+            mapBuilder = new MapBuilder(spwanPointSetting);
             mapPrinter = new MapPrinter(miniMapSetting, gameMapSetting);
         }
 
@@ -64,7 +68,15 @@ namespace RandomMap_V6
 
     public class MapBuilder
     {
+        SpwanPointSetting spwanPointSetting;
         Dictionary<Coordinate, MapBlock> map = new Dictionary<Coordinate, MapBlock>();
+        List<GameObject> selected;
+
+        public MapBuilder(SpwanPointSetting spwanPointSetting)
+        {
+            selected = new List<GameObject>();
+            this.spwanPointSetting = spwanPointSetting;
+        }
 
         #region AreaBuilder 區域建造者
         #region 檢查方法
@@ -287,6 +299,38 @@ namespace RandomMap_V6
         }
         #endregion
         #endregion
+
+        #region 生成點相關
+        public void SetSpwanPoint(Coordinate target, GameObject spwanPoint)
+        {
+            map[target].spwanPoint = spwanPoint;
+        }
+
+        public GameObject GetSpwanPoint(Coordinate target)
+        {
+            return map[target].spwanPoint;
+        }
+
+        public bool TryGetRandomedSpwanPoint(int targetScale, out GameObject spwanPoint)
+        {
+            spwanPoint = null;
+            selected.Clear();
+
+            foreach (SpwanPointPrafeb item in spwanPointSetting.SpwanPoints)
+                if (targetScale >= item.FromMapDeep && targetScale <= item.ToMapDeep)
+                    selected.Add(item.SpwanPoint);
+
+            if (selected.Count > 0)
+            {
+                spwanPoint = selected[Random.Range(0, selected.Count - 1)];
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        #endregion
     }
 
     public class MapPrinter
@@ -294,6 +338,7 @@ namespace RandomMap_V6
         private Color entryColor, safeBlockColor;
         private MiniMapSetting miniMapSetting;
         private GameMapSetting gameMapSetting;
+        private List<GameObject> spwanPoints;
 
         public MapPrinter(MiniMapSetting miniMapSetting, GameMapSetting gameMapSetting)
         {
@@ -302,6 +347,7 @@ namespace RandomMap_V6
             //bossRoomColor = new Color32(255, 240, 109, 255);
             entryColor = new Color32(243, 105, 228, 255);
             safeBlockColor = new Color32(251, 172, 235, 255);
+            spwanPoints = new List<GameObject>();
         }
 
         #region 印出遊戲地圖
@@ -418,6 +464,20 @@ namespace RandomMap_V6
             miniMapSetting.MiniMapWall.color = Color.white;
         }
         #endregion
+
+        public void SetSpwanPoint(int x, int y, GameObject spwanPoint)
+        {
+            var spwanPointPosition = gameMapSetting.GameMap_Ground.CellToWorld(new Vector3Int(x, y, 0));
+            GameObject.Instantiate(spwanPoint, spwanPointPosition, Quaternion.identity);
+        }
+
+        public void ActiveSpwanPoint()
+        {
+            foreach (GameObject item in spwanPoints)
+            {
+                item.SetActive(true);
+            }
+        }
 
         internal void GetEntryPosition(out float x, out float y)
         {

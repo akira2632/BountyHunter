@@ -251,31 +251,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2097412994600130058, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0.09115304
-      objectReference: {fileID: 0}
-    - target: {fileID: 2097412994600130058, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.075204685
-      objectReference: {fileID: 0}
-    - target: {fileID: 2097412994600130058, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0.09433961
-      objectReference: {fileID: 0}
-    - target: {fileID: 2295306642993150841, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.9490196
-      objectReference: {fileID: 0}
-    - target: {fileID: 6192091270071643019, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.004
-      objectReference: {fileID: 0}
     - target: {fileID: 6704382508476855882, guid: 983b491c307ee2d459e2de15d1d3e5d1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -340,6 +315,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.x
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2295306642993150841, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.9490196
+      objectReference: {fileID: 0}
+    - target: {fileID: 6192091270071643019, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.004
+      objectReference: {fileID: 0}
+    - target: {fileID: 2097412994600130058, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.09115304
+      objectReference: {fileID: 0}
+    - target: {fileID: 2097412994600130058, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.075204685
+      objectReference: {fileID: 0}
+    - target: {fileID: 2097412994600130058, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.09433961
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 983b491c307ee2d459e2de15d1d3e5d1, type: 3}
@@ -695,7 +695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1566488448}
-  MapScale: 10
+  MapScale: 30
   seed: 0
   grid: {fileID: 474236235}
   MiniMapSetting:
@@ -727,6 +727,17 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 9b97c938e9f356e4fb2307699ff887b7, type: 2}
     NavegateMap: {fileID: 1655588003}
     NavegateBlock: {fileID: 11400000, guid: 05a521c88c4e70d4bb2ea1878c00820d, type: 2}
+  SpwanPointSetting:
+    SpwanPoints:
+    - FromMapDeep: 3
+      ToMapDeep: 15
+      SpwanPoint: {fileID: 0}
+    - FromMapDeep: 10
+      ToMapDeep: 25
+      SpwanPoint: {fileID: 0}
+    - FromMapDeep: 25
+      ToMapDeep: 30
+      SpwanPoint: {fileID: 0}
   StartTime: 0
   ScaleStartTime: 0
 --- !u!4 &1473439190

@@ -1,5 +1,5 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace RandomMap_V6
 {
@@ -335,6 +335,7 @@ namespace RandomMap_V6
     public class MapBlock
     {
         public Boundary[] boundarys;
+        public GameObject spwanPoint;
         public sbyte[,] terrain;
         public BlockType blockType;
 
@@ -342,6 +343,7 @@ namespace RandomMap_V6
         {
             blockType = type;
             boundarys = new Boundary[Direction.DirectionCount];
+            spwanPoint = null;
 
             terrain = new sbyte[15, 15];
 
