@@ -7,6 +7,7 @@ namespace CharacterSystem_V4
     {
         public CharacterRunTimeData RunTimeData;
         public IScriptableCharacterProperty Property;
+        public HitEffector HitEffector;
 
         public event Action OnCharacterDead;
         private bool hasInvoke;
@@ -66,7 +67,7 @@ namespace CharacterSystem_V4
         public void HeavyAttack() => nowAction.HeavyAttack();
         public void HeavyAttack(bool hold) => nowAction.HeavyAttack(hold);
 
-        public void OnHit(Wound wound) => nowAction.OnHit(wound);
+        public void OnHit(DamageData wound) => nowAction.OnHit(wound);
         #endregion
     }
 
@@ -92,7 +93,7 @@ namespace CharacterSystem_V4
         public virtual void HeavyAttack(bool hold) { }
         public virtual void LightAttack() { }
 
-        public virtual void OnHit(Wound damage) { }
+        public virtual void OnHit(DamageData damage) { }
         #endregion
     }
 }

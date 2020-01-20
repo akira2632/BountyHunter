@@ -55,12 +55,12 @@ namespace CharacterSystem_V4
                 base.SetManager(actionManager);
             }
 
-            public override void OnHit(Wound wound)
+            public override void OnHit(DamageData wound)
             {
                 orcCaptain.RunTimeData.Health -= wound.Damage;
 
                 if (wound.KnockBackDistance > 0)
-                    orcCaptain.SetAction(new OrcCaptainHurt(new Wound
+                    orcCaptain.SetAction(new OrcCaptainHurt(new DamageData
                     {
                         Damage = wound.Damage
                     }));
@@ -153,7 +153,7 @@ namespace CharacterSystem_V4
                     orcCaptain.animationEnd = false;
 
                     orcCaptain.LightAttackColliders.MyDamage
-                        = new Wound { Damage = orcCaptain.Property.Damage, Vertigo = 0.4f };
+                        = new DamageData { Damage = orcCaptain.Property.Damage, Vertigo = 0.4f };
 
                     orcCaptain.CharacterAnimator.SetTrigger("LightAttack");
                     orcCaptain.LightAttackSound.Play();
@@ -178,9 +178,9 @@ namespace CharacterSystem_V4
         {
             float nowDistance;
             Vector2 knockBackDirection;
-            private Wound wound;
+            private DamageData wound;
 
-            public OrcCaptainHurt(Wound wound)
+            public OrcCaptainHurt(DamageData wound)
             {
                 this.wound = wound;
             }

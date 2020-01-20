@@ -58,7 +58,7 @@ namespace CharacterSystem_V4
                 base.SetManager(actionManager);
             }
 
-            public override void OnHit(Wound wound)
+            public override void OnHit(DamageData wound)
             {
                 goblin.RunTimeData.Health -= wound.Damage;
                 goblin.RunTimeData.VertigoConter += wound.Vertigo;
@@ -154,7 +154,7 @@ namespace CharacterSystem_V4
                     goblin.animationEnd = false;
 
                     goblin.LightAttackColliders.MyDamage
-                        = new Wound { Damage = goblin.Property.Damage, Vertigo = 0.4f };
+                        = new DamageData { Damage = goblin.Property.Damage, Vertigo = 0.4f };
 
                     goblin.CharacterAnimator.SetTrigger("LightAttack");
                     goblin.LightAttackSound.Play();
@@ -179,9 +179,9 @@ namespace CharacterSystem_V4
         {
             float nowDistance;
             Vector2 knockBackDirection;
-            private Wound wound;
+            private DamageData wound;
 
-            public GoblinHurt(Wound wound)
+            public GoblinHurt(DamageData wound)
             {
                 this.wound = wound;
             }

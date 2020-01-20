@@ -64,10 +64,11 @@ namespace CharacterSystem_V4
                 base.SetManager(actionManager);
             }
 
-            public override void OnHit(Wound damage)
+            public override void OnHit(DamageData damage)
             {
                 warrior.RunTimeData.Health -= damage.Damage;
                 warrior.RunTimeData.VertigoConter += damage.Vertigo;
+                actionManager.HitEffector.PlayHitEffect(damage);
             }
         }
 
@@ -209,10 +210,10 @@ namespace CharacterSystem_V4
                 actionManager.SetAction(new WarriorLightAttack());
             }
 
-            public override void OnHit(Wound damage)
+            public override void OnHit(DamageData damage)
             {
                 warrior.DeffendSound.Play();
-                base.OnHit(new Wound
+                base.OnHit(new DamageData
                 {
                     Damage = (int)(damage.Damage * 0.1f)
                 });
@@ -240,7 +241,7 @@ namespace CharacterSystem_V4
                     warrior.animationEnd = false;
 
                     warrior.LightAttackColliders.MyDamage
-                        = new Wound { Damage = warrior.Property.Damage, Vertigo = 1 };
+                        = new DamageData { Damage = warrior.Property.Damage, Vertigo = 1 };
 
                     warrior.CharacterAnimator.SetTrigger("LightAttack");
                     warrior.LightAttackSound.Play();
@@ -290,9 +291,9 @@ namespace CharacterSystem_V4
                     isCharge = false;
             }
 
-            public override void OnHit(Wound damage)
+            public override void OnHit(DamageData damage)
             {
-                base.OnHit(new Wound
+                base.OnHit(new DamageData
                 {
                     Damage = damage.Damage
                 });
@@ -350,7 +351,7 @@ namespace CharacterSystem_V4
                     isCharge = false;
             }
 
-            public override void OnHit(Wound damage) { }
+            public override void OnHit(DamageData damage) { }
             #endregion
         }
 
@@ -373,7 +374,7 @@ namespace CharacterSystem_V4
                 dodgeDistance = 0;
                 warrior.animationEnd = false;
                 warrior.HeavyAttack1Colliders.MyDamage
-                    = new Wound { Damage = warrior.Property.Damage * 2, Vertigo = 3 };
+                    = new DamageData { Damage = warrior.Property.Damage * 2, Vertigo = 3 };
 
                 if (isCharge)
                     warrior.CharacterAnimator.SetBool("HeavyAttackCharge", true);
@@ -416,7 +417,7 @@ namespace CharacterSystem_V4
                 }
             }
 
-            public override void OnHit(Wound damage) { }
+            public override void OnHit(DamageData damage) { }
             #endregion
         }
 
@@ -499,7 +500,7 @@ namespace CharacterSystem_V4
                 dodgeDistance = 0;
                 warrior.animationEnd = false;
                 warrior.HeavyAttack2Colliders.MyDamage
-                    = new Wound { Damage = warrior.Property.Damage * 5, Vertigo = 3 };
+                    = new DamageData { Damage = warrior.Property.Damage * 5, Vertigo = 3 };
 
                 warrior.CharacterAnimator.SetBool("HeavyAttackCharge", false);
                 warrior.HeavyAttack2Sound.Play();
@@ -530,7 +531,7 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void OnHit(Wound damage) { }
+            public override void OnHit(DamageData damage) { }
             #endregion 
         }
 
@@ -557,9 +558,9 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void OnHit(Wound damage)
+            public override void OnHit(DamageData damage)
             {
-                base.OnHit(new Wound
+                base.OnHit(new DamageData
                 {
                     Damage = (int)(damage.Damage * 2.5)
                 });
@@ -630,10 +631,10 @@ namespace CharacterSystem_V4
                 TryToRecurve();
             }
 
-            public override void OnHit(Wound damage)
+            public override void OnHit(DamageData damage)
             {
                 if (hitable)
-                    base.OnHit(new Wound
+                    base.OnHit(new DamageData
                     {
                         Damage = (int)(damage.Damage * 0.5),
                         Vertigo = damage.Vertigo * 0.5f

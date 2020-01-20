@@ -58,7 +58,7 @@ namespace CharacterSystem_V4
                 base.SetManager(actionManager);
             }
 
-            public override void OnHit(Wound wound)
+            public override void OnHit(DamageData wound)
             {
                 orc.RunTimeData.Health -= wound.Damage;
                 orc.RunTimeData.VertigoConter += wound.Vertigo;
@@ -154,7 +154,7 @@ namespace CharacterSystem_V4
                     orc.animationEnd = false;
 
                     orc.LightAttackColliders.MyDamage
-                        = new Wound { Damage = orc.Property.Damage, Vertigo = 0.4f };
+                        = new DamageData { Damage = orc.Property.Damage, Vertigo = 0.4f };
 
                     orc.CharacterAnimator.SetTrigger("LightAttack");
                     orc.LightAttackSound.Play();
@@ -203,9 +203,9 @@ namespace CharacterSystem_V4
         {
             float nowDistance;
             Vector2 knockBackDirection;
-            private Wound wound;
+            private DamageData wound;
 
-            public OrcHurt(Wound wound)
+            public OrcHurt(DamageData wound)
             {
                 this.wound = wound;
             }

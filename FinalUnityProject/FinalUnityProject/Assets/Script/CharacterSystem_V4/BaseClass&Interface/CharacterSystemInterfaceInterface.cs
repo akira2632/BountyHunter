@@ -5,13 +5,13 @@ namespace CharacterSystem_V4
     /// <summary>
     /// 角色傷害物件
     /// </summary>
-    public struct Wound
+    public struct DamageData
     {
         public float Vertigo;
         public int Damage;
 
         public float KnockBackDistance, KnockBackSpeed;
-        public Vector2 HitFrom;
+        public Vector2 HitFrom, HitAt;
     }
 
     /// <summary>
@@ -27,7 +27,7 @@ namespace CharacterSystem_V4
         void HeavyAttack(bool hold);
         void Deffend(bool deffend);
 
-        void OnHit(Wound wound);
+        void OnHit(DamageData damage);
     }
 
     /// <summary>

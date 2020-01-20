@@ -4,7 +4,7 @@ namespace CharacterSystem_V4
 {
     public class AttackColliders : MonoBehaviour
     {
-        public Wound MyDamage;
+        public DamageData MyDamage;
         public string TargetTag;
         public bool HitAll;
 
@@ -21,6 +21,9 @@ namespace CharacterSystem_V4
             {
                 //Debug.Log($"Target Enter : {TargetTag}");
                 hasHitTarget = true;
+                var hitPoint = Physics2D.Raycast(gameObject.gameObject.transform.position,
+                    collision.gameObject.transform.position - gameObject.gameObject.transform.position);
+                MyDamage.HitAt = hitPoint.point;
                 MyDamage.HitFrom = gameObject.gameObject.transform.position;
                 collision.gameObject.GetComponentInParent<ICharacterActionManager>().OnHit(MyDamage);
             }

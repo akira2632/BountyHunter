@@ -58,7 +58,7 @@ namespace CharacterSystem_V4
                 base.SetManager(actionManager);
             }
 
-            public override void OnHit(Wound wound)
+            public override void OnHit(DamageData wound)
             {
                 spider.RunTimeData.Health -= wound.Damage;
                 spider.RunTimeData.VertigoConter += wound.Vertigo;
@@ -154,7 +154,7 @@ namespace CharacterSystem_V4
                     spider.animationEnd = false;
 
                     spider.LightAttackColliders.MyDamage
-                        = new Wound { Damage = spider.Property.Damage, Vertigo = 0.4f };
+                        = new DamageData { Damage = spider.Property.Damage, Vertigo = 0.4f };
 
                     spider.CharacterAnimator.SetTrigger("LightAttack");
                     spider.LightAttackSound.Play();
@@ -180,9 +180,9 @@ namespace CharacterSystem_V4
         {
             float nowDistance;
             Vector2 knockBackDirection;
-            private Wound wound;
+            private DamageData wound;
 
-            public SpiderHurt(Wound wound)
+            public SpiderHurt(DamageData wound)
             {
                 this.wound = wound;
             }
