@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using CharacterSystem_V4;
 
-public class HitEffector : MonoBehaviour
+public class DamageEffector : MonoBehaviour
 {
     #region 輔助用結構
     public enum EffectDirection { Left = -1, None, Right }
@@ -14,7 +14,8 @@ public class HitEffector : MonoBehaviour
     {
         public GameObject Prafeb;
         [Tooltip("效果的預設方向")]
-        public EffectDirection Direction;
+        public EffectDirection DefaultDirection;
+        public bool HorizontalMovement, VerticalMovement;
     }
     #endregion
 
@@ -38,23 +39,25 @@ public class HitEffector : MonoBehaviour
     [Space(10)]
     [Header("NumberEffectSetting")]
     public float NumberEffectTime;
-    public float NumberEndHight, NumberEndVertical;
+    public float NumberEndHight, NumberEndHorizontal;
     public Color NumberEndColor;
-    public Ease NumberColorEase = Ease.InSine, 
+    public Ease NumberColorEase = Ease.InSine,
         NumberHorizontalEase = Ease.InOutCubic,
         NumberVerticalEase = Ease.OutBack;
-    public bool EnableHorizontal_Number = true;
+    public bool NumberHorizontalMovement = true;
     #endregion
     #region 擊中特效設定
     [Space(10)]
     [Header("HitEffectSetting")]
     public float HitEffectTime;
-    public float HitEndHight, HitEndVertical;
+    public float HitEndHight, HitEndHorizontal;
+    [Range(0, 1)]
+    public float HitEndColorDelay;
+    public Vector3 HitStartSize, HitEndSize;
     public Color HitEndColor;
-    public Ease HitColorEase = Ease.InSine,
-        HitHorizontalEase = Ease.InOutCubic,
-        HitVerticalEase = Ease.OutBack;
-    public bool EnableHorizontal_Hit = true;
+    public Ease HitColorEase = Ease.Linear,
+        HitSizeEase = Ease.OutBack,
+        HitMovementEase = Ease.OutBack;
     #endregion
     #endregion
 
@@ -62,8 +65,8 @@ public class HitEffector : MonoBehaviour
     [ContextMenu("PlayHitEffect")]
     private void PlayHitEffect()
     {
-        PlayHitEffect(new DamageData() 
-        { 
+        PlayHitEffect(new DamageData()
+        {
             Damage = test_Damage,
             HitAt = transform.position,
             HitFrom = test_HitFrom
@@ -73,8 +76,8 @@ public class HitEffector : MonoBehaviour
     [ContextMenu("PlayDeffendEffect")]
     private void PlayDeffendEffect()
     {
-        PlayDeffendEffect(new DamageData() 
-        { 
+        PlayDeffendEffect(new DamageData()
+        {
             Damage = test_Damage,
             HitAt = transform.position,
             HitFrom = test_HitFrom
@@ -84,7 +87,7 @@ public class HitEffector : MonoBehaviour
 
     public void PlayHitEffect(DamageData damage, bool showNumber = true)
     {
-        if(showNumber)
+        if (showNumber)
             ShowHitNumber(damage);
         ShowSprite(HitEffectPrafebs[Random.Range(0, HitEffectPrafebs.Length - 1)], damage);
     }
@@ -99,25 +102,25 @@ public class HitEffector : MonoBehaviour
     private void ShowHitNumber(DamageData damage)
     {
         var temp = new GameObject($"HitNumber_{damage.Damage}");
-        temp.transform.position = damage.HitAt;
-        var renderers = AssambellyNumber(damage.Damage, temp);
 
+        var renderers = AssambellyNumber(damage.Damage, temp);
+        temp.transform.position = damage.HitAt;
         foreach (SpriteRenderer renderer in renderers)
         {
             renderer.DOColor(NumberEndColor, NumberEffectTime).SetEase(NumberColorEase);
         }
-        
+
         temp.transform.DOBlendableMoveBy(
-            transform.position + new Vector3(0, NumberEndHight), NumberEffectTime)
+            new Vector3(0, NumberEndHight), NumberEffectTime)
             .SetEase(NumberVerticalEase)
             .onComplete += () => Destroy(temp);
 
-        if(EnableHorizontal_Number)
+        if (NumberHorizontalMovement)
         {
-            var horizontalOffset = new Vector3(damage.HitFrom.x - damage.HitAt.x, 0).normalized * NumberEndVertical;
-            //Debug.Log(horizontalOffset);
             temp.transform.DOBlendableMoveBy(
-                transform.position + horizontalOffset, NumberEffectTime)
+                new Vector3((damage.HitAt.x - damage.HitFrom.x) > 0 ? 
+                NumberEndHorizontal : -NumberEndHorizontal, 0)
+                , NumberEffectTime)
                 .SetEase(NumberHorizontalEase);
         }
 
@@ -128,7 +131,7 @@ public class HitEffector : MonoBehaviour
             float numberOffset = (numbers.Length - 1) * NumberPitch * 0.5f;
             for (int i = 0; i < numbers.Length; i++)
             {
-                spriteRenderers[i] = 
+                spriteRenderers[i] =
                     Instantiate(NumberPrafebs[numbers[i]],
                         new Vector3(numberOffset, 0),
                         Quaternion.identity,
@@ -161,5 +164,26 @@ public class HitEffector : MonoBehaviour
     private void ShowSprite(EffectPrafeb effectPrafeb, DamageData damage)
     {
         var temp = Instantiate(effectPrafeb.Prafeb, damage.HitAt, Quaternion.identity);
+        temp.GetComponent<SpriteRenderer>().flipX =
+            (damage.HitAt.x - damage.HitFrom.x) * (int)effectPrafeb.DefaultDirection > 0;
+
+        temp.transform.DOScale(HitEndSize, HitEffectTime)
+            .SetEase(HitSizeEase)
+            .ChangeStartValue(HitStartSize)
+            .onComplete += () => Destroy(temp);
+
+        temp.GetComponent<SpriteRenderer>()
+            .DOColor(HitEndColor, HitEffectTime * (1 - HitEndColorDelay))
+            .SetDelay(HitEffectTime * HitEndColorDelay);
+
+        if (!effectPrafeb.VerticalMovement && !effectPrafeb.HorizontalMovement)
+            return;
+
+        Vector3 endPosition = new Vector3(
+            damage.HitAt.x + (!effectPrafeb.HorizontalMovement ? 0 :
+                (damage.HitAt.x - damage.HitFrom.x) < 0 ? HitEndHorizontal : -HitEndHorizontal),
+            damage.HitAt.y + (effectPrafeb.VerticalMovement ? HitEndHight : 0));
+
+        temp.transform.DOMove(endPosition, HitEffectTime);
     }
 }

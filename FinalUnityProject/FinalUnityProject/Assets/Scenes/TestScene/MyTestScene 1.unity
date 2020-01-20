@@ -6652,7 +6652,7 @@ GameObject:
   - component: {fileID: 1676678447}
   - component: {fileID: 1676678446}
   m_Layer: 0
-  m_Name: HitEffector
+  m_Name: DamageEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6667,12 +6667,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1676678445}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6b8bda0b1190be44829cbba05c7ca3b, type: 3}
+  m_Script: {fileID: 11500000, guid: ccab5c0159be47f4f87ffc70ac509b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   test_Damage: 1234567890
   test_ShowDamage: 1
-  test_HitFrom: {x: 2, y: 0}
+  test_HitFrom: {x: 0, y: 0}
   NumberPrafebs:
   - {fileID: 2168671981815422684, guid: b914883e883f0d344a452df01e588b55, type: 3}
   - {fileID: 5964144589485710642, guid: 2d95319292df38744b7784301759243d, type: 3}
@@ -6688,33 +6688,43 @@ MonoBehaviour:
   HitEffectPrafebs:
   - Prafeb: {fileID: 5020764986836720799, guid: fd12a76967b1b714d9259b023c129e64,
       type: 3}
-    Direction: -1
+    DefaultDirection: -1
+    HorizontalMovement: 1
+    VerticalMovement: 1
   - Prafeb: {fileID: 7793172847014978566, guid: 5c968d5942a5b584486cefeb4eaefe95,
       type: 3}
-    Direction: 1
+    DefaultDirection: 1
+    HorizontalMovement: 1
+    VerticalMovement: 1
   - Prafeb: {fileID: 7799089856244679341, guid: a14ee4f89de5a814587ab480a5a7f61f,
       type: 3}
-    Direction: 0
+    DefaultDirection: 0
+    HorizontalMovement: 0
+    VerticalMovement: 1
   DeffendEffectPrafebs:
   - Prafeb: {fileID: 2432422812702768216, guid: 63ed0f5f46758d248806fe97dfa9e8d2,
       type: 3}
-    Direction: 0
+    DefaultDirection: 0
+    HorizontalMovement: 0
+    VerticalMovement: 0
   NumberEffectTime: 0.8
   NumberEndHight: 0.6
-  NumberEndVertical: 0.3
-  NumberEndColor: {r: 0.1882353, g: 0.1882353, b: 0.1882353, a: 0}
+  NumberEndHorizontal: 0.4
+  NumberEndColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 0}
   NumberColorEase: 2
   NumberHorizontalEase: 10
   NumberVerticalEase: 27
-  EnableHorizontal_Number: 1
-  HitEffectTime: 0
-  HitEndHight: 0
-  HitEndVertical: 0
-  HitEndColor: {r: 0, g: 0, b: 0, a: 0}
-  HitColorEase: 27
-  HitHorizontalEase: 10
-  HitVerticalEase: 27
-  EnableHorizontal_Hit: 1
+  NumberHorizontalMovement: 1
+  HitEffectTime: 0.8
+  HitEndHight: 0.1
+  HitEndHorizontal: 0.2
+  HitEndColorDelay: 0.7
+  HitStartSize: {x: 0.05, y: 0.1, z: 0}
+  HitEndSize: {x: 0.2, y: 0.2, z: 0}
+  HitEndColor: {r: 0.2924528, g: 0, b: 0, a: 0}
+  HitColorEase: 1
+  HitSizeEase: 27
+  HitMovementEase: 27
 --- !u!4 &1676678447
 Transform:
   m_ObjectHideFlags: 0
@@ -6723,7 +6733,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1676678445}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.04, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6820,6 +6830,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteSortPoint
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 906002252590915433, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 906002252590915433, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 983b491c307ee2d459e2de15d1d3e5d1, type: 3}
