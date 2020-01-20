@@ -7,14 +7,14 @@ using CharacterSystem_V4;
 public class HitEffector : MonoBehaviour
 {
     #region 輔助用結構
-    public enum SpriteDirection { Left = -1, None, Right }
+    public enum EffectDirection { Left = -1, None, Right }
 
     [System.Serializable]
     public struct EffectPrafeb
     {
-        public GameObject effectPrafeb;
+        public GameObject Prafeb;
         [Tooltip("效果的預設方向")]
-        public SpriteDirection Direction;
+        public EffectDirection Direction;
     }
     #endregion
 
@@ -24,15 +24,15 @@ public class HitEffector : MonoBehaviour
     [Min(0)]
     public int test_Damage;
     public bool test_ShowDamage;
-    public Vector2 test_HitAt;
+    public Vector2 test_HitFrom;
     #endregion
     #region 預製物設定
     [Space(10)]
     [Header("PrafebSetting")]
     public GameObject[] NumberPrafebs;
+    public float NumberPitch;
     public EffectPrafeb[] HitEffectPrafebs, DeffendEffectPrafebs;
     [Tooltip("文字的間距")]
-    public float NumberPitch;
     #endregion
     #region 傷害數字效果設定
     [Space(10)]
@@ -65,8 +65,8 @@ public class HitEffector : MonoBehaviour
         PlayHitEffect(new DamageData() 
         { 
             Damage = test_Damage,
-            HitAt = test_HitAt,
-            HitFrom = transform.position
+            HitAt = transform.position,
+            HitFrom = test_HitFrom
         }, test_ShowDamage);
     }
 
@@ -76,8 +76,8 @@ public class HitEffector : MonoBehaviour
         PlayDeffendEffect(new DamageData() 
         { 
             Damage = test_Damage,
-            HitAt = test_HitAt,
-            HitFrom = transform.position
+            HitAt = transform.position,
+            HitFrom = test_HitFrom
         }, test_ShowDamage);
     }
     #endregion
@@ -158,8 +158,8 @@ public class HitEffector : MonoBehaviour
         }
     }
 
-    private void ShowSprite(EffectPrafeb effectSprite, DamageData damage)
+    private void ShowSprite(EffectPrafeb effectPrafeb, DamageData damage)
     {
-
+        var temp = Instantiate(effectPrafeb.Prafeb, damage.HitAt, Quaternion.identity);
     }
 }
