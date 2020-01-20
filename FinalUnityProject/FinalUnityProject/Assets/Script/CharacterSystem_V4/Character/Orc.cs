@@ -58,13 +58,13 @@ namespace CharacterSystem_V4
                 base.SetManager(actionManager);
             }
 
-            public override void OnHit(DamageData wound)
+            public override void OnHit(DamageData damage)
             {
-                orc.RunTimeData.Health -= wound.Damage;
-                orc.RunTimeData.VertigoConter += wound.Vertigo;
-
-                if (wound.KnockBackDistance > 0)
-                    orc.SetAction(new OrcHurt(wound));
+                orc.RunTimeData.Health -= damage.Damage;
+                orc.RunTimeData.VertigoConter += damage.Vertigo;
+                actionManager.DamageEffector.PlayHitEffect(damage);
+                if (damage.KnockBackDistance > 0)
+                    orc.SetAction(new OrcHurt(damage));
             }
         }
 

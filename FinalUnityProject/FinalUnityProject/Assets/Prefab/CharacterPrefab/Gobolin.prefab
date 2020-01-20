@@ -58,7 +58,7 @@ MonoBehaviour:
     _vertigoConter: 0
     _direction: {x: 0, y: 0}
   Property: {fileID: 11400000, guid: 36d624ba6de2d59458f2d116fa86bb05, type: 2}
-  HitEffector: {fileID: 1533410545302256377}
+  DamageEffector: {fileID: 1533410545302256377}
   MovementBody: {fileID: 2713500744654730897}
   MovementCollider: {fileID: 270039640594804951}
   CharacterAnimator: {fileID: 4796646055716273524}

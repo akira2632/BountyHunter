@@ -58,13 +58,14 @@ namespace CharacterSystem_V4
                 base.SetManager(actionManager);
             }
 
-            public override void OnHit(DamageData wound)
+            public override void OnHit(DamageData damage)
             {
-                goblin.RunTimeData.Health -= wound.Damage;
-                goblin.RunTimeData.VertigoConter += wound.Vertigo;
+                goblin.RunTimeData.Health -= damage.Damage;
+                goblin.RunTimeData.VertigoConter += damage.Vertigo;
 
-                if (wound.KnockBackDistance > 0)
-                    goblin.SetAction(new GoblinHurt(wound));
+                actionManager.DamageEffector.PlayHitEffect(damage);
+                if (damage.KnockBackDistance > 0)
+                    goblin.SetAction(new GoblinHurt(damage));
             }
         }
 

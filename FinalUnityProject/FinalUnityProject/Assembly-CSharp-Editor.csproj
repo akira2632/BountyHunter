@@ -698,6 +698,10 @@
       <Project>{7526BB2E-CB58-B0B2-21EF-6B32EBBCD0A1}</Project>
       <Name>AstarPathfindingProjectEditor</Name>
     </ProjectReference>
+    <ProjectReference Include="DOTween.Modules.csproj">
+      <Project>{6EB31097-1CD9-0E5B-3130-4C845CC26628}</Project>
+      <Name>DOTween.Modules</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

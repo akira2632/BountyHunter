@@ -58,13 +58,13 @@ namespace CharacterSystem_V4
                 base.SetManager(actionManager);
             }
 
-            public override void OnHit(DamageData wound)
+            public override void OnHit(DamageData damage)
             {
-                spider.RunTimeData.Health -= wound.Damage;
-                spider.RunTimeData.VertigoConter += wound.Vertigo;
-
-                if (wound.KnockBackDistance > 0)
-                    spider.SetAction(new SpiderHurt(wound));
+                spider.RunTimeData.Health -= damage.Damage;
+                spider.RunTimeData.VertigoConter += damage.Vertigo;
+                actionManager.DamageEffector.PlayHitEffect(damage);
+                if (damage.KnockBackDistance > 0)
+                    spider.SetAction(new SpiderHurt(damage));
             }
         }
 
