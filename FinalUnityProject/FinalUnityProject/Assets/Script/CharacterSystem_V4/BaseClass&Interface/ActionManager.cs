@@ -7,7 +7,7 @@ namespace CharacterSystem_V4
     {
         public CharacterRunTimeData RunTimeData;
         public IScriptableCharacterProperty Property;
-        public DamageEffector HitEffector;
+        public DamageEffector DamageEffector;
 
         public event Action OnCharacterDead;
         private bool hasInvoke;

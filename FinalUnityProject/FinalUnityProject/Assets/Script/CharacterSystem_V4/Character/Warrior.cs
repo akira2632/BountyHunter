@@ -68,7 +68,7 @@ namespace CharacterSystem_V4
             {
                 warrior.RunTimeData.Health -= damage.Damage;
                 warrior.RunTimeData.VertigoConter += damage.Vertigo;
-                actionManager.HitEffector.PlayHitEffect(damage);
+                actionManager.DamageEffector.PlayHitEffect(damage);
             }
         }
 
@@ -213,6 +213,7 @@ namespace CharacterSystem_V4
             public override void OnHit(DamageData damage)
             {
                 warrior.DeffendSound.Play();
+                actionManager.DamageEffector.PlayDeffendEffect(damage);
                 base.OnHit(new DamageData
                 {
                     Damage = (int)(damage.Damage * 0.1f)
