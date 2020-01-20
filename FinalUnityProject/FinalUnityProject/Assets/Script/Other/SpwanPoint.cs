@@ -7,6 +7,7 @@ using CharacterSystem_V4.Controller;
 public class SpwanPoint : MonoBehaviour
 {
     public float ActiveRange;
+    public bool SpwanWhenVisible;
     public SpwanMobData[] SpwanMobs;
 
     private Transform player;
@@ -36,7 +37,7 @@ public class SpwanPoint : MonoBehaviour
         {
             item.Update();
 
-            if (item.ReadyToSpwan() && unvisible)
+            if (item.ReadyToSpwan() && (unvisible || SpwanWhenVisible))
                 item.SpwanMob();
         }
 

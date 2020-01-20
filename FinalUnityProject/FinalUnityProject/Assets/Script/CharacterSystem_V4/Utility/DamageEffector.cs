@@ -89,14 +89,16 @@ public class DamageEffector : MonoBehaviour
     {
         if (showNumber)
             ShowHitNumber(damage);
-        ShowSprite(HitEffectPrafebs[Random.Range(0, HitEffectPrafebs.Length - 1)], damage);
+        ShowSprite(HitEffectPrafebs[Random.Range(0, HitEffectPrafebs.Length * 10)
+            % HitEffectPrafebs.Length], damage);
     }
 
     public void PlayDeffendEffect(DamageData damage, bool showNumber = true)
     {
         if (showNumber)
             ShowHitNumber(damage);
-        ShowSprite(DeffendEffectPrafebs[Random.Range(0, DeffendEffectPrafebs.Length - 1)], damage);
+        ShowSprite(DeffendEffectPrafebs[Random.Range(0, DeffendEffectPrafebs.Length * 10)
+            % DeffendEffectPrafebs.Length], damage);
     }
 
     private void ShowHitNumber(DamageData damage)

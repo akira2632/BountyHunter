@@ -57,6 +57,7 @@ MonoBehaviour:
     _vertigoConter: 0
     _direction: {x: 0, y: 0}
   Property: {fileID: 11400000, guid: 36d624ba6de2d59458f2d116fa86bb05, type: 2}
+  HitEffector: {fileID: 0}
   MovementBody: {fileID: 2713500744654730897}
   MovementCollider: {fileID: 270039640594804951}
   CharacterAnimator: {fileID: 4796646055716273524}
@@ -114,7 +115,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &4796646055716273524
 Animator:
   serializedVersion: 3

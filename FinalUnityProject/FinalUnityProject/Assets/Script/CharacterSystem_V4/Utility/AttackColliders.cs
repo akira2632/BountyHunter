@@ -21,9 +21,7 @@ namespace CharacterSystem_V4
             {
                 //Debug.Log($"Target Enter : {TargetTag}");
                 hasHitTarget = true;
-                var hitPoint = Physics2D.Raycast(gameObject.gameObject.transform.position,
-                    collision.gameObject.transform.position - gameObject.gameObject.transform.position);
-                MyDamage.HitAt = hitPoint.point;
+                MyDamage.HitAt = collision.transform.position;
                 MyDamage.HitFrom = gameObject.gameObject.transform.position;
                 collision.gameObject.GetComponentInParent<ICharacterActionManager>().OnHit(MyDamage);
             }
@@ -31,7 +29,7 @@ namespace CharacterSystem_V4
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if(collision.gameObject.tag == TargetTag)
+            if (collision.gameObject.tag == TargetTag)
             {
                 //Debug.Log($"Target Exit: {TargetTag}");
                 hasHitTarget = false;
