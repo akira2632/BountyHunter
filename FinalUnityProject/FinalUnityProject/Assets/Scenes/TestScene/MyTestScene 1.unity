@@ -6670,9 +6670,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6b8bda0b1190be44829cbba05c7ca3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test_Damage: 0
+  test_Damage: 1234567890
   test_ShowDamage: 1
-  test_HitAt: {x: 0, y: 0}
+  test_HitAt: {x: 2, y: 0}
   NumberPrafebs:
   - {fileID: 2168671981815422684, guid: b914883e883f0d344a452df01e588b55, type: 3}
   - {fileID: 5964144589485710642, guid: 2d95319292df38744b7784301759243d, type: 3}
@@ -6698,13 +6698,14 @@ MonoBehaviour:
   - effectPrafeb: {fileID: 2432422812702768216, guid: 63ed0f5f46758d248806fe97dfa9e8d2,
       type: 3}
     Direction: 0
-  NumberPitch: 0.3
+  NumberPitch: 0.25
   HitEffectTime: 0
   NumberEffectTime: 1.2
-  EndHight: 0.8
-  EndVertical: 0
+  EndHight: 0.6
+  EndVertical: 0.4
+  HorizontalEase: 3
+  VerticalEase: 27
   EnableHorizontal: 1
-  EnableVertical: 1
 --- !u!4 &1676678447
 Transform:
   m_ObjectHideFlags: 0
