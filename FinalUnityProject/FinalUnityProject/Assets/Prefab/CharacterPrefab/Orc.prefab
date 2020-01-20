@@ -173,7 +173,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: 2820608474444010470, guid: eadc381e8d1f17446bc7c4db02e43b80,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7075472, g: 0.9433962, b: 0.8757534, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -381,13 +381,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0546f2daa121f124080264a95a15d9e1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.121
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 24
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

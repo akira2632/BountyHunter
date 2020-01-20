@@ -487,6 +487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetTag: Enemy
+  HitAll: 1
 --- !u!1 &7632978184052300046
 GameObject:
   m_ObjectHideFlags: 0

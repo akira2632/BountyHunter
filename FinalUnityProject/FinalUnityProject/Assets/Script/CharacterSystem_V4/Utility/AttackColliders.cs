@@ -6,6 +6,7 @@ namespace CharacterSystem_V4
     {
         public Wound MyDamage;
         public string TargetTag;
+        public bool HitAll;
 
         private bool hasHitTarget;
 
@@ -16,7 +17,7 @@ namespace CharacterSystem_V4
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!hasHitTarget && collision.gameObject.tag == TargetTag)
+            if ((HitAll || !hasHitTarget) && collision.gameObject.tag == TargetTag)
             {
                 //Debug.Log($"Target Enter : {TargetTag}");
                 hasHitTarget = true;
