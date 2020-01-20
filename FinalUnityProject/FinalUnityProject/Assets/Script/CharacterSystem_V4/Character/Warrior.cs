@@ -57,6 +57,7 @@ namespace CharacterSystem_V4
         private class IWarriorAction : ICharacterAction
         {
             protected Warrior warrior;
+            protected static bool deffendEffect = false;
 
             public override void SetManager(ICharacterActionManager actionManager)
             {
@@ -68,7 +69,13 @@ namespace CharacterSystem_V4
             {
                 warrior.RunTimeData.Health -= damage.Damage;
                 warrior.RunTimeData.VertigoConter += damage.Vertigo;
-                actionManager.DamageEffector.PlayHitEffect(damage);
+                if(!deffendEffect)
+                    actionManager.DamageEffector.PlayHitEffect(damage);
+                else
+                {
+                    deffendEffect = false;
+                    actionManager.DamageEffector.PlayDeffendEffect(damage);
+                }
             }
         }
 
@@ -213,10 +220,12 @@ namespace CharacterSystem_V4
             public override void OnHit(DamageData damage)
             {
                 warrior.DeffendSound.Play();
-                actionManager.DamageEffector.PlayDeffendEffect(damage);
+                deffendEffect = true;
                 base.OnHit(new DamageData
                 {
-                    Damage = (int)(damage.Damage * 0.1f)
+                    Damage = (int)(damage.Damage * 0.1f),
+                    HitAt = damage.HitAt,
+                    HitFrom = damage.HitFrom
                 });
             }
             #endregion
@@ -296,7 +305,9 @@ namespace CharacterSystem_V4
             {
                 base.OnHit(new DamageData
                 {
-                    Damage = damage.Damage
+                    Damage = damage.Damage,
+                    HitAt = damage.HitAt,
+                    HitFrom = damage.HitFrom
                 });
             }
             #endregion
@@ -563,7 +574,9 @@ namespace CharacterSystem_V4
             {
                 base.OnHit(new DamageData
                 {
-                    Damage = (int)(damage.Damage * 2.5)
+                    Damage = (int)(damage.Damage * 2.5),
+                    HitAt = damage.HitAt,
+                    HitFrom = damage.HitFrom
                 });
                 actionManager.SetAction(new WarriorFall(true));
             }
@@ -638,7 +651,9 @@ namespace CharacterSystem_V4
                     base.OnHit(new DamageData
                     {
                         Damage = (int)(damage.Damage * 0.5),
-                        Vertigo = damage.Vertigo * 0.5f
+                        Vertigo = damage.Vertigo * 0.5f,
+                        HitAt = damage.HitAt,
+                        HitFrom = damage.HitFrom
                     });
             }
             #endregion
