@@ -191,7 +191,7 @@ namespace CharacterSystem_V4
             {
                 nowDistance = 0;
                 knockBackDirection = IsometricUtility.ToIsometricDirection(
-                        wound.KnockBackFrom - goblin.MovementBody.position).normalized;
+                        wound.HitFrom - goblin.MovementBody.position).normalized;
                 goblin.CharacterAnimator.SetBool("IsHurt", true);
                 goblin.HurtSound.Play();
             }

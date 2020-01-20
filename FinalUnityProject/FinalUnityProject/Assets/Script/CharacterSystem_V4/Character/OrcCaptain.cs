@@ -190,7 +190,7 @@ namespace CharacterSystem_V4
             {
                 nowDistance = 0;
                 knockBackDirection = IsometricUtility.ToIsometricDirection(
-                        wound.KnockBackFrom - orcCaptain.MovementBody.position).normalized;
+                        wound.HitFrom - orcCaptain.MovementBody.position).normalized;
                 orcCaptain.CharacterAnimator.SetBool("IsHurt", true);
                 orcCaptain.HurtSound.Play();
             }

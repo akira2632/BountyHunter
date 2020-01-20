@@ -21,7 +21,7 @@ namespace CharacterSystem_V4
             {
                 //Debug.Log($"Target Enter : {TargetTag}");
                 hasHitTarget = true;
-                MyDamage.KnockBackFrom = gameObject.gameObject.transform.position;
+                MyDamage.HitFrom = gameObject.gameObject.transform.position;
                 collision.gameObject.GetComponentInParent<ICharacterActionManager>().OnHit(MyDamage);
             }
         }

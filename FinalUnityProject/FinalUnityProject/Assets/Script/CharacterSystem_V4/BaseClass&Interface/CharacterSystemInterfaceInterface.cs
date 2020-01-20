@@ -11,7 +11,7 @@ namespace CharacterSystem_V4
         public int Damage;
 
         public float KnockBackDistance, KnockBackSpeed;
-        public Vector2 KnockBackFrom;
+        public Vector2 HitFrom;
     }
 
     /// <summary>

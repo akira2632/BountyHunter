@@ -192,7 +192,7 @@ namespace CharacterSystem_V4
             {
                 nowDistance = 0;
                 knockBackDirection = IsometricUtility.ToIsometricDirection(
-                    wound.KnockBackFrom - spider.MovementBody.position).normalized;
+                    wound.HitFrom - spider.MovementBody.position).normalized;
                 spider.CharacterAnimator.SetBool("IsHurt", true);
                 spider.HurtSound.Play();
             }
