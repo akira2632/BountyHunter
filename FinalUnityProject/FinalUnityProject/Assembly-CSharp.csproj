@@ -82,6 +82,7 @@
     <Compile Include="Assets\Script\CharacterSystem_V4\Utility\AttackColliders.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Utility\DamageEffector.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Utility\IsometricUtility.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\Utility\RangeAttackColliders.cs" />
     <Compile Include="Assets\Script\Other\ChangeScene.cs" />
     <Compile Include="Assets\Script\Other\SpwanPoint.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\AreaGenerater.cs" />

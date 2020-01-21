@@ -131,7 +131,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6911973636830190855}
   - component: {fileID: 8720417627509952901}
-  - component: {fileID: 5238261867806426700}
   m_Layer: 0
   m_Name: "Collider\u8718\u86DB\u653B\u64CA"
   m_TagString: Untagged
@@ -174,27 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetTag: Player
---- !u!50 &5238261867806426700
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3190235242059812745}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  HitAll: 0
 --- !u!1 &4475826193617566806
 GameObject:
   m_ObjectHideFlags: 0
