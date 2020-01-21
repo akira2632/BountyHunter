@@ -184,7 +184,7 @@ namespace CharacterSystem_V4.Controller
                 //Debug.Log("AttackStart");
                 manager.Character.Move(
                     (manager.player.transform.position - manager.Character.transform.position).normalized);
-                manager.Character.LightAttack();
+                manager.Character.BasicAttack();
             }
 
             public override void Update()
@@ -201,7 +201,7 @@ namespace CharacterSystem_V4.Controller
                 {
                     manager.Character.Move(
                         (manager.player.transform.position - manager.Character.transform.position).normalized);
-                    manager.Character.LightAttack();
+                    manager.Character.BasicAttack();
                 }
             }
         }

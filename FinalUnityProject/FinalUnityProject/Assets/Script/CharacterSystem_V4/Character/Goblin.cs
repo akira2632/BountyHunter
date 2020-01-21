@@ -83,7 +83,7 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void LightAttack() =>
+            public override void BasicAttack() =>
                 actionManager.SetAction(new GoblinLightAttack());
 
             public override void Move(Vector2 direction)
@@ -125,7 +125,7 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void LightAttack() =>
+            public override void BasicAttack() =>
                actionManager.SetAction(new GoblinLightAttack());
 
             public override void Move(Vector2 direction)
@@ -140,38 +140,31 @@ namespace CharacterSystem_V4
 
         private class GoblinLightAttack : IGoblinAction
         {
-            bool resetTimer;
             #region 動作更新
             public override void Start()
             {
                 if (goblin.RunTimeData.AttackTimer > 0)
                 {
-                    resetTimer = false;
                     goblin.SetAction(new GoblinIdle());
+                    return;
                 }
-                else
-                {
-                    resetTimer = true;
-                    goblin.animationEnd = false;
 
-                    goblin.LightAttackColliders.MyDamage
-                        = new DamageData { Damage = goblin.Property.Damage, Vertigo = 0.4f };
+                goblin.animationEnd = false;
 
-                    goblin.CharacterAnimator.SetTrigger("LightAttack");
-                    goblin.LightAttackSound.Play();
-                }
+                goblin.LightAttackColliders.MyDamage
+                    = new DamageData { Damage = goblin.Property.Damage, Vertigo = 0.4f };
+
+                goblin.CharacterAnimator.SetTrigger("LightAttack");
+                goblin.LightAttackSound.Play();
             }
 
             public override void Update()
             {
                 if (goblin.animationEnd)
-                    actionManager.SetAction(new GoblinIdle());
-            }
-
-            public override void End()
-            {
-                if (resetTimer)
+                { 
                     goblin.RunTimeData.AttackTimer = goblin.Property.AttackSpeed;
+                    actionManager.SetAction(new GoblinIdle());
+                }
             }
             #endregion
         }
@@ -180,11 +173,11 @@ namespace CharacterSystem_V4
         {
             float nowDistance;
             Vector2 knockBackDirection;
-            private DamageData wound;
+            private DamageData damage;
 
-            public GoblinHurt(DamageData wound)
+            public GoblinHurt(DamageData damage)
             {
-                this.wound = wound;
+                this.damage = damage;
             }
 
             #region 動作更新
@@ -192,16 +185,16 @@ namespace CharacterSystem_V4
             {
                 nowDistance = 0;
                 knockBackDirection = IsometricUtility.ToIsometricDirection(
-                        wound.HitFrom - goblin.MovementBody.position).normalized;
+                        damage.HitFrom - goblin.MovementBody.position).normalized;
                 goblin.CharacterAnimator.SetBool("IsHurt", true);
                 goblin.HurtSound.Play();
             }
 
             public override void Update()
             {
-                if (nowDistance < wound.KnockBackDistance)
+                if (nowDistance < damage.KnockBackDistance)
                 {
-                    Vector2 temp = wound.KnockBackSpeed * knockBackDirection * Time.deltaTime;
+                    Vector2 temp = damage.KnockBackSpeed * knockBackDirection * Time.deltaTime;
                     nowDistance += temp.magnitude;
 
                     goblin.MovementBody.MovePosition(goblin.MovementBody.position

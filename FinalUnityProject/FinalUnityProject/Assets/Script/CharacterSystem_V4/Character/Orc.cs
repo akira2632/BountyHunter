@@ -82,7 +82,7 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void LightAttack() =>
+            public override void BasicAttack() =>
                 actionManager.SetAction(new OrcLightAttack());
 
             public override void Move(Vector2 direction)
@@ -124,7 +124,7 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void LightAttack() =>
+            public override void BasicAttack() =>
                actionManager.SetAction(new OrcLightAttack());
 
             public override void Move(Vector2 direction)
@@ -139,38 +139,31 @@ namespace CharacterSystem_V4
 
         private class OrcLightAttack : IOrcAction
         {
-            bool resetTimer;
             #region 動作更新
             public override void Start()
             {
                 if (orc.RunTimeData.AttackTimer > 0)
                 {
-                    resetTimer = false;
                     orc.SetAction(new OrcIdle());
+                    return;
                 }
-                else
-                {
-                    resetTimer = true;
-                    orc.animationEnd = false;
 
-                    orc.LightAttackColliders.MyDamage
-                        = new DamageData { Damage = orc.Property.Damage, Vertigo = 0.4f };
+                orc.animationEnd = false;
 
-                    orc.CharacterAnimator.SetTrigger("LightAttack");
-                    orc.LightAttackSound.Play();
-                }
+                orc.LightAttackColliders.MyDamage
+                    = new DamageData { Damage = orc.Property.Damage, Vertigo = 0.4f };
+
+                orc.CharacterAnimator.SetTrigger("LightAttack");
+                orc.LightAttackSound.Play();
             }
 
             public override void Update()
             {
                 if (orc.animationEnd)
-                    actionManager.SetAction(new OrcIdle());
-            }
-
-            public override void End()
-            {
-                if (resetTimer)
+                {
                     orc.RunTimeData.AttackTimer = orc.Property.AttackSpeed;
+                    actionManager.SetAction(new OrcIdle());
+                }
             }
             #endregion
         }
@@ -203,11 +196,11 @@ namespace CharacterSystem_V4
         {
             float nowDistance;
             Vector2 knockBackDirection;
-            private DamageData wound;
+            private DamageData damage;
 
-            public OrcHurt(DamageData wound)
+            public OrcHurt(DamageData damage)
             {
-                this.wound = wound;
+                this.damage = damage;
             }
 
             #region 動作更新
@@ -215,16 +208,16 @@ namespace CharacterSystem_V4
             {
                 nowDistance = 0;
                 knockBackDirection = IsometricUtility.ToIsometricDirection(
-                        wound.HitFrom - orc.MovementBody.position).normalized;
+                        damage.HitFrom - orc.MovementBody.position).normalized;
                 orc.CharacterAnimator.SetBool("IsHurt", true);
                 orc.HurtSound.Play();
             }
 
             public override void Update()
             {
-                if (nowDistance < wound.KnockBackDistance)
+                if (nowDistance < damage.KnockBackDistance)
                 {
-                    Vector2 temp = wound.KnockBackSpeed * knockBackDirection * Time.deltaTime;
+                    Vector2 temp = damage.KnockBackSpeed * knockBackDirection * Time.deltaTime;
                     nowDistance += temp.magnitude;
 
                     orc.MovementBody.MovePosition(orc.MovementBody.position

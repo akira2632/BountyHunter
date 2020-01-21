@@ -22,9 +22,9 @@ namespace CharacterSystem_V4
         void Move(Vector2 direction);
 
         void Dodge();
-        void LightAttack();
-        void HeavyAttack();
-        void HeavyAttack(bool hold);
+        void BasicAttack();
+        void SpecialAttack();
+        void SpecialAttack(bool hold);
         void Deffend(bool deffend);
 
         void OnHit(DamageData damage);

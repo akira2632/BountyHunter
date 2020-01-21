@@ -37,14 +37,14 @@ namespace CharacterSystem_V4.Controller
             MyCharacter.Move(direction.normalized);
 
             if (Input.GetKeyDown(PlayerKeySetting.LightAttack))
-                MyCharacter.LightAttack();
+                MyCharacter.BasicAttack();
 
             if (Input.GetKeyDown(PlayerKeySetting.HeavyAttack))
-                MyCharacter.HeavyAttack();
+                MyCharacter.SpecialAttack();
             if (Input.GetKey(PlayerKeySetting.HeavyAttack))
-                MyCharacter.HeavyAttack(true);
+                MyCharacter.SpecialAttack(true);
             if (!Input.GetKey(PlayerKeySetting.HeavyAttack))
-                MyCharacter.HeavyAttack(false);
+                MyCharacter.SpecialAttack(false);
 
             if (Input.GetKey(PlayerKeySetting.Deffend))
                 MyCharacter.Deffend(true);

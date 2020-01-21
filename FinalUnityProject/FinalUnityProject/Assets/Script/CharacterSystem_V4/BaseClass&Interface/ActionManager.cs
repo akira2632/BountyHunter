@@ -63,9 +63,9 @@ namespace CharacterSystem_V4
 
         public void Dodge() => nowAction.Dodge();
         public void Deffend(bool deffend) => nowAction.Deffend(deffend);
-        public void LightAttack() => nowAction.LightAttack();
-        public void HeavyAttack() => nowAction.HeavyAttack();
-        public void HeavyAttack(bool hold) => nowAction.HeavyAttack(hold);
+        public void BasicAttack() => nowAction.BasicAttack();
+        public void SpecialAttack() => nowAction.SpecialAttack();
+        public void SpecialAttack(bool hold) => nowAction.SpecialAttack(hold);
 
         public void OnHit(DamageData wound) => nowAction.OnHit(wound);
         #endregion
@@ -89,9 +89,9 @@ namespace CharacterSystem_V4
 
         public virtual void Deffend(bool deffend) { }
         public virtual void Dodge() { }
-        public virtual void HeavyAttack() { }
-        public virtual void HeavyAttack(bool hold) { }
-        public virtual void LightAttack() { }
+        public virtual void SpecialAttack() { }
+        public virtual void SpecialAttack(bool hold) { }
+        public virtual void BasicAttack() { }
 
         public virtual void OnHit(DamageData damage) { }
         #endregion

@@ -81,7 +81,7 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void LightAttack() =>
+            public override void BasicAttack() =>
                 actionManager.SetAction(new OrcCaptainLightAttack());
 
             public override void Move(Vector2 direction)
@@ -123,7 +123,7 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void LightAttack() =>
+            public override void BasicAttack() =>
                actionManager.SetAction(new OrcCaptainLightAttack());
 
             public override void Move(Vector2 direction)

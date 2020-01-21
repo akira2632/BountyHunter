@@ -82,7 +82,7 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void LightAttack() =>
+            public override void BasicAttack() =>
                 actionManager.SetAction(new SpiderLightAttack());
 
             public override void Move(Vector2 direction)
@@ -124,7 +124,7 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void LightAttack() =>
+            public override void BasicAttack() =>
                actionManager.SetAction(new SpiderLightAttack());
 
             public override void Move(Vector2 direction)
@@ -139,39 +139,31 @@ namespace CharacterSystem_V4
 
         private class SpiderLightAttack : ISpiderAction
         {
-            bool resetTimer;
             #region 動作更新
             public override void Start()
             {
                 if (spider.RunTimeData.AttackTimer > 0)
                 {
-                    resetTimer = false;
                     spider.SetAction(new SpiderIdle());
-                }
-                else
-                {
-                    resetTimer = true;
-                    spider.animationEnd = false;
-
-                    spider.LightAttackColliders.MyDamage
-                        = new DamageData { Damage = spider.Property.Damage, Vertigo = 0.4f };
-
-                    spider.CharacterAnimator.SetTrigger("LightAttack");
-                    spider.LightAttackSound.Play();
+                    return;
                 }
 
+                spider.animationEnd = false;
+
+                spider.LightAttackColliders.MyDamage
+                    = new DamageData { Damage = spider.Property.Damage, Vertigo = 0.4f };
+
+                spider.CharacterAnimator.SetTrigger("LightAttack");
+                spider.LightAttackSound.Play();
             }
 
             public override void Update()
             {
                 if (spider.animationEnd)
-                    actionManager.SetAction(new SpiderIdle());
-            }
-
-            public override void End()
-            {
-                if (resetTimer)
+                {
                     spider.RunTimeData.AttackTimer = spider.Property.AttackSpeed;
+                    actionManager.SetAction(new SpiderIdle());
+                }
             }
             #endregion            
         }
@@ -180,11 +172,11 @@ namespace CharacterSystem_V4
         {
             float nowDistance;
             Vector2 knockBackDirection;
-            private DamageData wound;
+            private DamageData damage;
 
-            public SpiderHurt(DamageData wound)
+            public SpiderHurt(DamageData damage)
             {
-                this.wound = wound;
+                this.damage = damage;
             }
 
             #region 動作更新
@@ -192,16 +184,16 @@ namespace CharacterSystem_V4
             {
                 nowDistance = 0;
                 knockBackDirection = IsometricUtility.ToIsometricDirection(
-                    wound.HitFrom - spider.MovementBody.position).normalized;
+                    damage.HitFrom - spider.MovementBody.position).normalized;
                 spider.CharacterAnimator.SetBool("IsHurt", true);
                 spider.HurtSound.Play();
             }
 
             public override void Update()
             {
-                if (nowDistance < wound.KnockBackDistance)
+                if (nowDistance < damage.KnockBackDistance)
                 {
-                    Vector2 temp = wound.KnockBackSpeed * knockBackDirection * Time.deltaTime;
+                    Vector2 temp = damage.KnockBackSpeed * knockBackDirection * Time.deltaTime;
                     nowDistance += temp.magnitude;
 
                     spider.MovementBody.MovePosition(spider.MovementBody.position

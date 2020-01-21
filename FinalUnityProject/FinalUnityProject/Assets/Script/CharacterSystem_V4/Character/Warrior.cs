@@ -102,10 +102,10 @@ namespace CharacterSystem_V4
                     actionManager.SetAction(new WarriorDeffend());
             }
 
-            public override void HeavyAttack() =>
+            public override void SpecialAttack() =>
                actionManager.SetAction(new WarriorHeavyAttack_Start());
 
-            public override void LightAttack() =>
+            public override void BasicAttack() =>
                actionManager.SetAction(new WarriorLightAttack());
 
             public override void Move(Vector2 direction)
@@ -164,12 +164,12 @@ namespace CharacterSystem_V4
                     actionManager.SetAction(new WarriorDeffend());
             }
 
-            public override void HeavyAttack()
+            public override void SpecialAttack()
             {
                 actionManager.SetAction(new WarriorHeavyAttack_Start());
             }
 
-            public override void LightAttack()
+            public override void BasicAttack()
             {
                 actionManager.SetAction(new WarriorLightAttack());
             }
@@ -212,7 +212,7 @@ namespace CharacterSystem_V4
                     actionManager.SetAction(new WarriorIdel());
             }
 
-            public override void LightAttack()
+            public override void BasicAttack()
             {
                 actionManager.SetAction(new WarriorLightAttack());
             }
@@ -236,38 +236,31 @@ namespace CharacterSystem_V4
         /// </summary>
         private class WarriorLightAttack : IWarriorAction
         {
-            bool resetTimer;
             #region 動作更新
             public override void Start()
             {
                 if (warrior.RunTimeData.AttackTimer > 0)
                 {
-                    resetTimer = false;
                     warrior.SetAction(new WarriorIdel());
+                    return;
                 }
-                else
-                {
-                    resetTimer = true;
-                    warrior.animationEnd = false;
 
-                    warrior.LightAttackColliders.MyDamage
-                        = new DamageData { Damage = warrior.Property.Damage, Vertigo = 1 };
+                warrior.animationEnd = false;
 
-                    warrior.CharacterAnimator.SetTrigger("LightAttack");
-                    warrior.LightAttackSound.Play();
-                }
+                warrior.LightAttackColliders.MyDamage
+                    = new DamageData { Damage = warrior.Property.Damage, Vertigo = 1 };
+
+                warrior.CharacterAnimator.SetTrigger("LightAttack");
+                warrior.LightAttackSound.Play();
             }
 
             public override void Update()
             {
                 if (warrior.animationEnd)
-                    actionManager.SetAction(new WarriorIdel());
-            }
-
-            public override void End()
-            {
-                if (resetTimer)
+                {
                     warrior.RunTimeData.AttackTimer = warrior.Property.AttackSpeed;
+                    actionManager.SetAction(new WarriorIdel());
+                }
             }
             #endregion
         }
@@ -295,7 +288,7 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void HeavyAttack(bool hold)
+            public override void SpecialAttack(bool hold)
             {
                 if (!hold)
                     isCharge = false;
@@ -357,7 +350,7 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void HeavyAttack(bool hold)
+            public override void SpecialAttack(bool hold)
             {
                 if (!hold)
                     isCharge = false;
@@ -420,7 +413,7 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void HeavyAttack(bool hold)
+            public override void SpecialAttack(bool hold)
             {
                 if (!hold)
                 {
@@ -479,7 +472,7 @@ namespace CharacterSystem_V4
             #endregion
 
             #region 外部操作
-            public override void HeavyAttack(bool hold)
+            public override void SpecialAttack(bool hold)
             {
                 if (!hold)
                     IsCharge = false;
@@ -630,12 +623,12 @@ namespace CharacterSystem_V4
                 TryToRecurve();
             }
 
-            public override void LightAttack()
+            public override void BasicAttack()
             {
                 TryToRecurve();
             }
 
-            public override void HeavyAttack()
+            public override void SpecialAttack()
             {
                 TryToRecurve();
             }
