@@ -25,6 +25,7 @@ namespace CharacterSystem_V4
         void BasicAttack();
         void SpecialAttack();
         void SpecialAttack(bool hold);
+        void SpecialAttack(Vector3 tartgetPosition);
         void Deffend(bool deffend);
 
         void OnHit(DamageData damage);

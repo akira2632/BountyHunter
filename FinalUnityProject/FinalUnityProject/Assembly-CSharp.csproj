@@ -63,6 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\CharacterSystem_V4\AttackCollider\AttackColliders.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\AttackCollider\RangeAttackColliders.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\ActionManager.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterSystemInterfaceInterface.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Character\Goblin.cs" />
@@ -78,11 +80,10 @@
     <Compile Include="Assets\Script\CharacterSystem_V4\Data\CharacterRunTimeData.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Data\KeySetting.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Data\WarriorProperty.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\Utility\AnimateState.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\Utility\AttackColliders.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\Utility\AnimateStateInvoker.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Utility\DamageEffector.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\Utility\IAnimateStateInvokeTarget.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Utility\IsometricUtility.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\Utility\RangeAttackColliders.cs" />
     <Compile Include="Assets\Script\Other\ChangeScene.cs" />
     <Compile Include="Assets\Script\Other\SpwanPoint.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\AreaGenerater.cs" />

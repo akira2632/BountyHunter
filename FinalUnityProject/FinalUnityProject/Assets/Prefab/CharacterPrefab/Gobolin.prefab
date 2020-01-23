@@ -63,10 +63,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4364425766781685038}
+  - {fileID: 2985123861679583717}
   - {fileID: 1609247683605296508}
   - {fileID: 8105771671256716377}
   - {fileID: 1533410545302256376}
-  - {fileID: 2985123861679583717}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -98,7 +98,7 @@ MonoBehaviour:
   FallDownSound: {fileID: 1150387926125242612}
   LightAttackSound: {fileID: 7502064583160869374}
   HurtSound: {fileID: 5463490643344342028}
-  LightAttackColliders: {fileID: 4931450830575393629}
+  LightAttackColliders: {fileID: 755283712987782835}
 --- !u!212 &906002252590915433
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -233,7 +233,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6704382508476855882}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &3740019969845840168
 CapsuleCollider2D:
@@ -260,7 +260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2985123861679583717}
-  - component: {fileID: 8547514442107804820}
+  - component: {fileID: 4923897050095240038}
   m_Layer: 0
   m_Name: RangeAttackColliders
   m_TagString: Untagged
@@ -289,9 +289,9 @@ Transform:
   - {fileID: 2188734270063837762}
   - {fileID: 4031031603149779164}
   m_Father: {fileID: 6704382508476855882}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8547514442107804820
+--- !u!114 &4923897050095240038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -300,13 +300,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 3141064018112754779}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: facf3350acbe4d5469ae17287659c607, type: 3}
+  m_Script: {fileID: 11500000, guid: 4463f0c66ed1f92499553b7f545f3bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetTag: Player
   BlockingLayer: 8
   HitAll: 0
+  StartPoints:
+  - {fileID: 2291099215371612230}
+  - {fileID: 2188734270063837762}
+  - {fileID: 4031031603149779164}
+  - {fileID: 8838073838959424081}
+  - {fileID: 7413607102775802595}
+  - {fileID: 4900100509358403730}
+  - {fileID: 3332597538085914564}
+  - {fileID: 8030591280575032092}
   Bullet: {fileID: 4487449139250431408}
+  BulletSpeed: 5
+  BulletRange: 10
+  BulletMoveEase: 3
 --- !u!1 &4823503039604099596
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +351,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6704382508476855882}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &7502064583160869374
 AudioSource:
@@ -1198,7 +1210,7 @@ PrefabInstance:
     - target: {fileID: 1180029361120613333, guid: 3045b51c1d7ca20479e7f0b03894116e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1180029361120613333, guid: 3045b51c1d7ca20479e7f0b03894116e,
         type: 3}
@@ -1655,15 +1667,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1895826652933262340}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4931450830575393629 stripped
+--- !u!114 &755283712987782835 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6791248110838241113, guid: c129a303a96bef44588eb06656e9f715,
+  m_CorrespondingSourceObject: {fileID: 1167587627453928119, guid: c129a303a96bef44588eb06656e9f715,
     type: 3}
   m_PrefabInstance: {fileID: 1895826652933262340}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2698ab4fe9ff8d94ab11d54d6ead4e59, type: 3}
+  m_Script: {fileID: 11500000, guid: a302a7cad6ed629499437c88c704326f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

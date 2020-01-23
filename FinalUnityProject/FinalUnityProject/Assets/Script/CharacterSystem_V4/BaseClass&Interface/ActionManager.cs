@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CharacterSystem_V4
 {
-    public abstract class ICharacterActionManager : MonoBehaviour, ICharacterActionControll
+    public abstract class ICharacterActionManager : MonoBehaviour, ICharacterActionControll, IAnimateStateInvokeTarget
     {
         public CharacterRunTimeData RunTimeData;
         public IScriptableCharacterProperty Property;
@@ -66,6 +66,7 @@ namespace CharacterSystem_V4
         public void BasicAttack() => nowAction.BasicAttack();
         public void SpecialAttack() => nowAction.SpecialAttack();
         public void SpecialAttack(bool hold) => nowAction.SpecialAttack(hold);
+        public void SpecialAttack(Vector3 tartgetPosition) => nowAction.SpecialAttack(tartgetPosition);
 
         public void OnHit(DamageData wound) => nowAction.OnHit(wound);
         #endregion
@@ -91,6 +92,7 @@ namespace CharacterSystem_V4
         public virtual void Dodge() { }
         public virtual void SpecialAttack() { }
         public virtual void SpecialAttack(bool hold) { }
+        public virtual void SpecialAttack(Vector3 tartgetPosition){ }
         public virtual void BasicAttack() { }
 
         public virtual void OnHit(DamageData damage) { }

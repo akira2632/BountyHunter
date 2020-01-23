@@ -67,7 +67,7 @@ MonoBehaviour:
   FallDownSound: {fileID: 1150387926125242612}
   LightAttackSound: {fileID: 7502064583160869374}
   HurtSound: {fileID: 524092908601169108}
-  LightAttackColliders: {fileID: 5778730000629034177}
+  LightAttackColliders: {fileID: 4486466618527959586}
 --- !u!212 &906002252590915433
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -713,16 +713,16 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2969853408500776260}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5778730000629034177 stripped
+--- !u!114 &4486466618527959586 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8720417627509952901, guid: adf700287299c484b9957e388607e98b,
+  m_CorrespondingSourceObject: {fileID: 1690020213865199462, guid: adf700287299c484b9957e388607e98b,
     type: 3}
   m_PrefabInstance: {fileID: 2969853408500776260}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2698ab4fe9ff8d94ab11d54d6ead4e59, type: 3}
+  m_Script: {fileID: 11500000, guid: a302a7cad6ed629499437c88c704326f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4501288644794200041
