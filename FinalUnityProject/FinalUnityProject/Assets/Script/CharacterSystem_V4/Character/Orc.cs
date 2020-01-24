@@ -212,7 +212,7 @@ namespace CharacterSystem_V4
             {
                 nowDistance = 0;
                 knockBackDirection = IsometricUtility.ToIsometricDirection(
-                        damage.HitFrom - orc.MovementBody.position).normalized;
+                    orc.MovementBody.position - damage.HitFrom).normalized;
                 orc.CharacterAnimator.SetBool("IsHurt", true);
                 orc.HurtSound.Play();
             }

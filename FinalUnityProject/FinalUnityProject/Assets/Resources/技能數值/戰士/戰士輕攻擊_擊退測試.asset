@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1fa70b0ebfc18e49aa9216751fd6cdc, type: 3}
-  m_Name: "\u8718\u86DB\u57FA\u672C\u653B\u64CA"
+  m_Name: "\u6230\u58EB\u8F15\u653B\u64CA_\u64CA\u9000\u6E2C\u8A66"
   m_EditorClassIdentifier: 
   BonusDamage: 0
   BonusCriticalRate: 0
   NoCritical: 0
   DamageMagnifiction: 1
-  Vertigo: 0.4
-  KnockBackDistance: 0
-  KnockBackSpeed: 0
+  Vertigo: 1
+  KnockBackDistance: 5
+  KnockBackSpeed: 0.1

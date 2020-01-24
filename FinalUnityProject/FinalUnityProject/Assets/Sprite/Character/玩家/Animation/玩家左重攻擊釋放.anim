@@ -51,7 +51,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: "Collider\u73A9\u5BB6\u91CD\u653B\u64CA\u91CB\u653E/\u5DE6"
+    path: "Collider\u6230\u58EB\u91CD\u653B\u64CA/\u5DE6"
     classID: 60
     script: {fileID: 0}
   m_PPtrCurves:
@@ -83,7 +83,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 1641813050
+      path: 3772585070
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 60
@@ -157,7 +157,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: "Collider\u73A9\u5BB6\u91CD\u653B\u64CA\u91CB\u653E/\u5DE6"
+    path: "Collider\u6230\u58EB\u91CD\u653B\u64CA/\u5DE6"
     classID: 60
     script: {fileID: 0}
   m_EulerEditorCurves: []
