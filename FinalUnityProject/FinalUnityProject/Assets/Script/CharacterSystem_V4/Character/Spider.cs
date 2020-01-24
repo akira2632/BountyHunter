@@ -74,10 +74,10 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                spider.CharacterAnimator.SetFloat("Vertical",
-                    IsometricUtility.GetVertical(spider.RunTimeData.Direction));
-                spider.CharacterAnimator.SetFloat("Horizontal",
-                    IsometricUtility.GetHorizontal(spider.RunTimeData.Direction));
+                IsometricUtility.GetVerticalAndHorizontal(
+                    spider.RunTimeData.Direction, out var vertical, out var horizontal);
+                spider.CharacterAnimator.SetFloat("Vertical", vertical);
+                spider.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                 spider.CharacterAnimator.SetBool("IsFallDown", false);
                 spider.CharacterAnimator.SetBool("IsMove", false);
@@ -105,19 +105,19 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 spider.MoveSound.Play();
-                spider.CharacterAnimator.SetFloat("Vertical",
-                    IsometricUtility.GetVertical(spider.RunTimeData.Direction));
-                spider.CharacterAnimator.SetFloat("Horizontal",
-                    IsometricUtility.GetHorizontal(spider.RunTimeData.Direction));
+                IsometricUtility.GetVerticalAndHorizontal(
+                    spider.RunTimeData.Direction, out var vertical, out var horizontal);
+                spider.CharacterAnimator.SetFloat("Vertical", vertical);
+                spider.CharacterAnimator.SetFloat("Horizontal", horizontal);
                 spider.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
-                spider.CharacterAnimator.SetFloat("Vertical",
-                    IsometricUtility.GetVertical(spider.RunTimeData.Direction));
-                spider.CharacterAnimator.SetFloat("Horizontal",
-                    IsometricUtility.GetHorizontal(spider.RunTimeData.Direction));
+                IsometricUtility.GetVerticalAndHorizontal(
+                    spider.RunTimeData.Direction, out var vertical, out var horizontal);
+                spider.CharacterAnimator.SetFloat("Vertical", vertical);
+                spider.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                 spider.MovementBody.MovePosition(spider.MovementBody.position +
                     IsometricUtility.ToIsometricDirection(spider.RunTimeData.Direction)

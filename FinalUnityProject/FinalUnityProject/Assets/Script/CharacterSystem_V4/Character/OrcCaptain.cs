@@ -73,10 +73,10 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                orcCaptain.CharacterAnimator.SetFloat("Vertical",
-                    IsometricUtility.GetVertical(orcCaptain.RunTimeData.Direction));
-                orcCaptain.CharacterAnimator.SetFloat("Horizontal",
-                    IsometricUtility.GetHorizontal(orcCaptain.RunTimeData.Direction));
+                IsometricUtility.GetVerticalAndHorizontal(
+                    orcCaptain.RunTimeData.Direction, out var vertical, out var horizontal);
+                orcCaptain.CharacterAnimator.SetFloat("Vertical", vertical);
+                orcCaptain.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                 orcCaptain.CharacterAnimator.SetBool("IsFallDown", false);
                 orcCaptain.CharacterAnimator.SetBool("IsMove", false);
@@ -104,19 +104,19 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 orcCaptain.MoveSound.Play();
-                orcCaptain.CharacterAnimator.SetFloat("Vertical",
-                    IsometricUtility.GetVertical(orcCaptain.RunTimeData.Direction));
-                orcCaptain.CharacterAnimator.SetFloat("Horizontal",
-                    IsometricUtility.GetHorizontal(orcCaptain.RunTimeData.Direction));
+                IsometricUtility.GetVerticalAndHorizontal(
+                    orcCaptain.RunTimeData.Direction, out var vertical, out var horizontal);
+                orcCaptain.CharacterAnimator.SetFloat("Vertical", vertical);
+                orcCaptain.CharacterAnimator.SetFloat("Horizontal", horizontal);
                 orcCaptain.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
-                orcCaptain.CharacterAnimator.SetFloat("Vertical",
-                    IsometricUtility.GetVertical(orcCaptain.RunTimeData.Direction));
-                orcCaptain.CharacterAnimator.SetFloat("Horizontal",
-                    IsometricUtility.GetHorizontal(orcCaptain.RunTimeData.Direction));
+                IsometricUtility.GetVerticalAndHorizontal(
+                    orcCaptain.RunTimeData.Direction, out var vertical, out var horizontal);
+                orcCaptain.CharacterAnimator.SetFloat("Vertical", vertical);
+                orcCaptain.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                 orcCaptain.MovementBody.MovePosition(orcCaptain.MovementBody.position +
                     IsometricUtility.ToIsometricDirection(orcCaptain.RunTimeData.Direction)

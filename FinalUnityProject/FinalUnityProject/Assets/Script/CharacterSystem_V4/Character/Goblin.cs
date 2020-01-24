@@ -76,10 +76,10 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                goblin.CharacterAnimator.SetFloat("Vertical",
-                    IsometricUtility.GetVertical(goblin.RunTimeData.Direction));
-                goblin.CharacterAnimator.SetFloat("Horizontal",
-                    IsometricUtility.GetHorizontal(goblin.RunTimeData.Direction));
+                IsometricUtility.GetVerticalAndHorizontal(
+                    goblin.RunTimeData.Direction, out var vertical, out var horizontal);
+                goblin.CharacterAnimator.SetFloat("Vertical", vertical);
+                goblin.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                 goblin.CharacterAnimator.SetBool("IsFallDown", false);
                 goblin.CharacterAnimator.SetBool("IsMove", false);
@@ -107,19 +107,19 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 goblin.MoveSound.Play();
-                goblin.CharacterAnimator.SetFloat("Vertical",
-                    IsometricUtility.GetVertical(goblin.RunTimeData.Direction));
-                goblin.CharacterAnimator.SetFloat("Horizontal",
-                    IsometricUtility.GetHorizontal(goblin.RunTimeData.Direction));
+                IsometricUtility.GetVerticalAndHorizontal(
+                    goblin.RunTimeData.Direction, out var vertical, out var horizontal);
+                goblin.CharacterAnimator.SetFloat("Vertical", vertical);
+                goblin.CharacterAnimator.SetFloat("Horizontal", horizontal);
                 goblin.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
-                goblin.CharacterAnimator.SetFloat("Vertical",
-                    IsometricUtility.GetVertical(goblin.RunTimeData.Direction));
-                goblin.CharacterAnimator.SetFloat("Horizontal",
-                    IsometricUtility.GetHorizontal(goblin.RunTimeData.Direction));
+                IsometricUtility.GetVerticalAndHorizontal(
+                    goblin.RunTimeData.Direction, out var vertical, out var horizontal);
+                goblin.CharacterAnimator.SetFloat("Vertical", vertical);
+                goblin.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                 goblin.MovementBody.MovePosition(goblin.MovementBody.position +
                     IsometricUtility.ToIsometricDirection(goblin.RunTimeData.Direction)
