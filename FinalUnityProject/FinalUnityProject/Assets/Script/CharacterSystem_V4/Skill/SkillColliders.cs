@@ -23,10 +23,11 @@ namespace CharacterSystem_V4.SkillCollider
             {
                 //Debug.Log($"Target Enter : {TargetTag}");
                 hittedTargets.Add(collision);
-                MyDamage.HitAt = collision.transform.transform.position;
-                MyDamage.HitFrom = Character.transform.position;
+                var damage = SkillDamage.GetDamageData(Character.Property);
+                damage.HitAt = collision.transform.position;
+                damage.HitFrom = gameObject.gameObject.transform.position;
                 collision.gameObject.GetComponentInParent<ICharacterActionManager>()
-                    .OnHit(SkillDamage.GetDamageData(Character.Property));
+                    .OnHit(damage);
             }
         }
 
