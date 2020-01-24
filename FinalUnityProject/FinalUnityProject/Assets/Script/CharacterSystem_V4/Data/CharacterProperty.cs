@@ -21,9 +21,9 @@ namespace CharacterSystem_V4
         public float CharacterBasicAttackSpeed;
         [Header("特殊攻擊速度"), Tooltip("角色攻擊速度、每秒幾次(次/秒)"), Min(0)]
         public float CharacterSpacilAttackSpeed;
-        [Header("會心攻擊增傷"), Tooltip("角色攻擊速度、每秒幾次(次/秒)"), Min(0)]
+        [Header("會心攻擊增傷"), Tooltip("會心攻擊時基本傷害加成"), Min(0)]
         public int CharacterCriticalDamage;
-        [Header("會心攻擊機率"), Tooltip("角色攻擊速度、每秒幾次(次/秒)"), Min(0)]
+        [Header("會心攻擊機率"), Tooltip("會心攻擊機率"), Range(0, 100)]
         public float CharacterCriticalRate;
 
         public override float RegenSpeed => CharacterRegenSpeed;
