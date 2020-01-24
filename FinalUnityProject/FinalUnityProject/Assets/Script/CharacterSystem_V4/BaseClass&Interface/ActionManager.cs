@@ -13,11 +13,11 @@ namespace CharacterSystem_V4
         private bool hasInvoke;
 
         #region AnimationControll
-        public void AnimationEnd()
+        public void OnAnimationEnd()
         {
             animationEnd = true;
         }
-        public void AnimationStart()
+        public void OnAnimationStart()
         {
             animationStart = true;
         }

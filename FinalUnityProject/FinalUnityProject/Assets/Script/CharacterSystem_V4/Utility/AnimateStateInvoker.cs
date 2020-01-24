@@ -7,7 +7,7 @@ namespace CharacterSystem_V4
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            animator.transform.GetComponent<IAnimateStateInvokeTarget>()?.AnimationStart();
+            animator.transform.GetComponent<IAnimateStateInvokeTarget>()?.OnAnimationStart();
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -19,7 +19,7 @@ namespace CharacterSystem_V4
         // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            animator.transform.GetComponent<IAnimateStateInvokeTarget>()?.AnimationEnd();
+            animator.transform.GetComponent<IAnimateStateInvokeTarget>()?.OnAnimationEnd();
         }
 
         // OnStateMove is called right after Animator.OnAnimatorMove()

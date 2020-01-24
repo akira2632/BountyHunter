@@ -2,7 +2,7 @@
 {
     public interface IAnimateStateInvokeTarget
     {
-        void AnimationStart();
-        void AnimationEnd();
+        void OnAnimationStart();
+        void OnAnimationEnd();
     }
 }

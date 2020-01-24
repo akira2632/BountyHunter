@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 namespace CharacterSystem_V4.SkillCollider
@@ -15,16 +16,11 @@ namespace CharacterSystem_V4.SkillCollider
         public float BulletSpeed, BulletRange;
         public Ease BulletMoveEase;
 
-        private bool hasHitTarget, hasShot;
+        private List<Collider2D> hittedTargets = new List<Collider2D>();
+        private bool hasShot = false;
 
-        public void AnimationStart() { }
-        public void AnimationEnd() => Destroy(gameObject);
-
-        private void Start()
-        {
-            hasHitTarget = false;
-            hasShot = false;
-        }
+        public void OnAnimationStart() { }
+        public void OnAnimationEnd() => Destroy(gameObject);
 
         private void DestroyBullet()
         {
@@ -61,10 +57,12 @@ namespace CharacterSystem_V4.SkillCollider
             if (!hasShot)
                 return;
 
-            if ((HitAll || !hasHitTarget) && collision.gameObject.tag == TargetTag)
+            if (collision.gameObject.tag == TargetTag
+                && !hittedTargets.Contains(collision)
+                && (HitAll || hittedTargets.Count <= 0))
             {
                 //Debug.Log($"Target Enter : {TargetTag}");
-                hasHitTarget = true;
+                hittedTargets.Add(collision);
                 MyDamage.HitAt = collision.transform.position;
                 MyDamage.HitFrom = gameObject.gameObject.transform.position;
                 collision.gameObject.GetComponentInParent<ICharacterActionManager>().OnHit(MyDamage);
@@ -76,10 +74,11 @@ namespace CharacterSystem_V4.SkillCollider
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.tag == TargetTag)
+            if (collision.gameObject.tag == TargetTag
+                && hittedTargets.Contains(collision))
             {
                 //Debug.Log($"Target Exit: {TargetTag}");
-                hasHitTarget = false;
+                hittedTargets.Remove(collision);
             }
         }
     }
