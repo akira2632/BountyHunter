@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 022664a6e7705cd439bf060faf65cb48, type: 3}
-  m_Name: "\u89D2\u8272\u80FD\u529B_\u6E2C\u8A66\u7528"
+  m_Name: "\u6230\u58EB\u80FD\u529B"
   m_EditorClassIdentifier: 
   CharacterRegenSpeed: 20
   CharacterRegenHealth: 30
@@ -18,6 +18,8 @@ MonoBehaviour:
   CharacterMoveSpeed: 2.5
   CharacterDodgeSpeed: 10
   CharacterAttack: 20
-  CharacterAttackSpeed: 0
-  CharacterCriticalDamage: 20
+  CharacterAttackFloating: 0
+  CharacterBasicAttackSpeed: 0
+  CharacterSpacilAttackSpeed: 0
+  CharacterCriticalMagnifiction: 0
   CharacterCriticalRate: 30

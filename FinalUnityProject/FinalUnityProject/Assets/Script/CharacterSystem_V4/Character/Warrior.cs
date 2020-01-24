@@ -257,7 +257,7 @@ namespace CharacterSystem_V4
                 warrior.animationEnd = false;
 
                 warrior.LightAttackColliders.MyDamage
-                    = new DamageData { Damage = warrior.Property.Damage, Vertigo = 1 };
+                    = new DamageData { Damage = warrior.Property.Attack, Vertigo = 1 };
 
                 warrior.CharacterAnimator.SetTrigger("LightAttack");
                 warrior.LightAttackSound.Play();
@@ -388,7 +388,7 @@ namespace CharacterSystem_V4
                 dodgeDistance = 0;
                 warrior.animationEnd = false;
                 warrior.HeavyAttack1Colliders.MyDamage
-                    = new DamageData { Damage = warrior.Property.Damage * 2, Vertigo = 3 };
+                    = new DamageData { Damage = warrior.Property.Attack * 2, Vertigo = 3 };
 
                 if (isCharge)
                     warrior.CharacterAnimator.SetBool("HeavyAttackCharge", true);
@@ -514,7 +514,7 @@ namespace CharacterSystem_V4
                 dodgeDistance = 0;
                 warrior.animationEnd = false;
                 warrior.HeavyAttack2Colliders.MyDamage
-                    = new DamageData { Damage = warrior.Property.Damage * 5, Vertigo = 3 };
+                    = new DamageData { Damage = warrior.Property.Attack * 5, Vertigo = 3 };
 
                 warrior.CharacterAnimator.SetBool("HeavyAttackCharge", false);
                 warrior.HeavyAttack2Sound.Play();

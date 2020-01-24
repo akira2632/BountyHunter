@@ -57,14 +57,14 @@ namespace CharacterSystem_V4
         // 生命值
         public override int MaxHealth => 100 + Vit * 10;
         // 物理攻擊
-        public override int Damage
+        public override int Attack
         {
             get
             {
                 if (Random.Range(0, 100) <= CriticalRate)
-                    return (Damage) + CriticalDamage;
+                    return (int)((Attack) * CriticalMagnifiction);
                 else
-                    return (Damage);
+                    return (Attack);
             }
         }
         // 攻擊速度
@@ -74,10 +74,12 @@ namespace CharacterSystem_V4
         // 回復生命
         public override int RegenHealth => (Vit + MaxHealth) / 30;
         // 暴擊傷害
-        public override int CriticalDamage => ((Str * 2) * Lv) / 15;
+        public override float CriticalMagnifiction => ((Str * 2) * Lv) / 15;
         // 暴擊機率
         public override float CriticalRate => ((Lv + Dex + Agi) / 8);
 
         public override float SpacilAttackSpeed => throw new System.NotImplementedException();
+
+        public override int AttackFloating => throw new System.NotImplementedException();
     }
 }

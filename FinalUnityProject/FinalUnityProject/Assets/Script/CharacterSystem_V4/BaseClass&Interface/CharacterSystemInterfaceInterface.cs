@@ -40,14 +40,16 @@ namespace CharacterSystem_V4
         float DodgeSpeed { get; }
         int MaxHealth { get; }
 
-        int Damage { get; }
-        float BasicAttackSpeed { get; }
-        float SpacilAttackSpeed { get; }
-        int CriticalDamage { get; }
-        float CriticalRate { get; }
-
         float RegenSpeed { get; }
         int RegenHealth { get; }
+
+        float BasicAttackSpeed { get; }
+        float SpacilAttackSpeed { get; }
+
+        int Attack { get; }
+        int AttackFloating { get; }
+        float CriticalMagnifiction { get; }
+        float CriticalRate { get; }
     }
 
     public abstract class IScriptableCharacterProperty : ScriptableObject, ICharacterProperty
@@ -55,12 +57,16 @@ namespace CharacterSystem_V4
         public abstract float MoveSpeed { get; }
         public abstract float DodgeSpeed { get; }
         public abstract int MaxHealth { get; }
-        public abstract int Damage { get; }
-        public abstract float BasicAttackSpeed { get; }
-        public abstract float SpacilAttackSpeed { get; }
+
         public abstract float RegenSpeed { get; }
         public abstract int RegenHealth { get; }
-        public abstract int CriticalDamage { get; }
+
+        public abstract float BasicAttackSpeed { get; }
+        public abstract float SpacilAttackSpeed { get; }
+
+        public abstract int Attack { get; }
+        public abstract int AttackFloating { get; }
+        public abstract float CriticalMagnifiction { get; }
         public abstract float CriticalRate { get; }
     }
 }

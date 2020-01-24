@@ -158,7 +158,7 @@ namespace CharacterSystem_V4
                 orc.animationEnd = false;
 
                 orc.LightAttackColliders.MyDamage
-                    = new DamageData { Damage = orc.Property.Damage, Vertigo = 0.4f };
+                    = new DamageData { Damage = orc.Property.Attack, Vertigo = 0.4f };
 
                 orc.CharacterAnimator.SetTrigger("LightAttack");
                 orc.LightAttackSound.Play();
