@@ -74,8 +74,10 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                orc.CharacterAnimator.SetFloat("Vertical", orc.RunTimeData.Vertical);
-                orc.CharacterAnimator.SetFloat("Horizontal", orc.RunTimeData.Horizontal);
+                orc.CharacterAnimator.SetFloat("Vertical",
+                    IsometricUtility.GetVertical(orc.RunTimeData.Direction));
+                orc.CharacterAnimator.SetFloat("Horizontal",
+                    IsometricUtility.GetHorizontal(orc.RunTimeData.Direction));
 
                 orc.CharacterAnimator.SetBool("IsFallDown", false);
                 orc.CharacterAnimator.SetBool("IsMove", false);
@@ -103,15 +105,19 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 orc.MoveSound.Play();
-                orc.CharacterAnimator.SetFloat("Vertical", orc.RunTimeData.Vertical);
-                orc.CharacterAnimator.SetFloat("Horizontal", orc.RunTimeData.Horizontal);
+                orc.CharacterAnimator.SetFloat("Vertical",
+                    IsometricUtility.GetVertical(orc.RunTimeData.Direction));
+                orc.CharacterAnimator.SetFloat("Horizontal",
+                    IsometricUtility.GetHorizontal(orc.RunTimeData.Direction));
                 orc.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
-                orc.CharacterAnimator.SetFloat("Vertical", orc.RunTimeData.Vertical);
-                orc.CharacterAnimator.SetFloat("Horizontal", orc.RunTimeData.Horizontal);
+                orc.CharacterAnimator.SetFloat("Vertical",
+                    IsometricUtility.GetVertical(orc.RunTimeData.Direction));
+                orc.CharacterAnimator.SetFloat("Horizontal",
+                    IsometricUtility.GetHorizontal(orc.RunTimeData.Direction));
 
                 orc.MovementBody.MovePosition(orc.MovementBody.position +
                     IsometricUtility.ToIsometricDirection(orc.RunTimeData.Direction)

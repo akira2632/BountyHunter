@@ -74,8 +74,10 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                spider.CharacterAnimator.SetFloat("Vertical", spider.RunTimeData.Vertical);
-                spider.CharacterAnimator.SetFloat("Horizontal", spider.RunTimeData.Horizontal);
+                spider.CharacterAnimator.SetFloat("Vertical",
+                    IsometricUtility.GetVertical(spider.RunTimeData.Direction));
+                spider.CharacterAnimator.SetFloat("Horizontal",
+                    IsometricUtility.GetHorizontal(spider.RunTimeData.Direction));
 
                 spider.CharacterAnimator.SetBool("IsFallDown", false);
                 spider.CharacterAnimator.SetBool("IsMove", false);
@@ -103,15 +105,19 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 spider.MoveSound.Play();
-                spider.CharacterAnimator.SetFloat("Vertical", spider.RunTimeData.Vertical);
-                spider.CharacterAnimator.SetFloat("Horizontal", spider.RunTimeData.Horizontal);
+                spider.CharacterAnimator.SetFloat("Vertical",
+                    IsometricUtility.GetVertical(spider.RunTimeData.Direction));
+                spider.CharacterAnimator.SetFloat("Horizontal",
+                    IsometricUtility.GetHorizontal(spider.RunTimeData.Direction));
                 spider.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
-                spider.CharacterAnimator.SetFloat("Vertical", spider.RunTimeData.Vertical);
-                spider.CharacterAnimator.SetFloat("Horizontal", spider.RunTimeData.Horizontal);
+                spider.CharacterAnimator.SetFloat("Vertical",
+                    IsometricUtility.GetVertical(spider.RunTimeData.Direction));
+                spider.CharacterAnimator.SetFloat("Horizontal",
+                    IsometricUtility.GetHorizontal(spider.RunTimeData.Direction));
 
                 spider.MovementBody.MovePosition(spider.MovementBody.position +
                     IsometricUtility.ToIsometricDirection(spider.RunTimeData.Direction)

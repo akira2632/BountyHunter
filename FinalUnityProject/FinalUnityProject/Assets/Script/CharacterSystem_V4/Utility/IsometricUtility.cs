@@ -2,6 +2,12 @@
 
 public class IsometricUtility
 {
+    const float
+        VerticalMin = Mathf.PI / 8,
+        VerticalMax = Mathf.PI * 7 / 8,
+        HorizontalMin = Mathf.PI * 3 / 8,
+        HorizontalMax = Mathf.PI * 5 / 8;
+
     public static Vector2 ToIsometricDirection(Vector2 vector)
     {
         float angle = Mathf.Atan2(vector.y, vector.x);
@@ -23,5 +29,27 @@ public class IsometricUtility
 
         return new Vector2(orignalDistance * Mathf.Cos(angle),
             0.6f * orignalDistance * Mathf.Sin(angle)).magnitude;
+    }
+
+    public static float GetVertical(Vector2 direction)
+    {
+        var angle = Mathf.Atan2(direction.y, direction.x);
+        if (angle > VerticalMin && angle <= VerticalMax)
+            return 1;
+        else if (angle <= -VerticalMin && angle > -VerticalMax)
+            return -1;
+        else
+            return 0;
+    }
+
+    public static float GetHorizontal(Vector2 direction)
+    {
+        var angle = Mathf.Abs(Mathf.Atan2(direction.y, direction.x));
+        if (angle > HorizontalMax)
+            return -1;
+        else if (angle < HorizontalMin)
+            return 1;
+        else
+            return 0;
     }
 }

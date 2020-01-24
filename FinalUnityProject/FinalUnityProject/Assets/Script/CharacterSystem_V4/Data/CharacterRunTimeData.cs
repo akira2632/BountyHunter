@@ -16,13 +16,6 @@ namespace CharacterSystem_V4
         [SerializeField]
         Vector2 _direction;
 
-        float angle;
-        const float
-            VerticalMin = Mathf.PI / 8,
-            VerticalMax = Mathf.PI * 7 / 8,
-            HorizontalMin = Mathf.PI * 3 / 8,
-            HorizontalMax = Mathf.PI * 5 / 8;
-
         public void SetData(ICharacterProperty characterProperty)
         {
             property = characterProperty;
@@ -40,32 +33,6 @@ namespace CharacterSystem_V4
             set
             {
                 _direction = value;
-                angle = Mathf.Atan2(_direction.y, _direction.x);
-            }
-        }
-        public float Vertical
-        {
-            get
-            {
-                if (angle > VerticalMin && angle <= VerticalMax)
-                    return 1;
-                else if (angle <= -VerticalMin && angle > -VerticalMax)
-                    return -1;
-                else
-                    return 0;
-            }
-        }
-        public float Horizontal
-        {
-            get
-            {
-                var temp = Mathf.Abs(angle);
-                if (temp > HorizontalMax)
-                    return -1;
-                else if (temp < HorizontalMin)
-                    return 1;
-                else
-                    return 0;
             }
         }
         public float AttackTimer
