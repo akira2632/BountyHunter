@@ -11,7 +11,7 @@ namespace CharacterSystem_V4
         public SpriteRenderer SpriteRenderer;
 
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
-        public AttackColliders LightAttackColliders;
+        public SkillColliders LightAttackColliders;
         public ProjectorShooter ProjectorShooter;
 
         void Start()
@@ -67,7 +67,7 @@ namespace CharacterSystem_V4
 
                 actionManager.DamageEffector.PlayHitEffect(damage);
                 if (damage.KnockBackDistance > 0)
-                    goblin.SetAction(new GoblinHurt(damage));
+                    goblin.SetAction(new GoblinKnockBack(damage));
             }
         }
 
@@ -177,13 +177,13 @@ namespace CharacterSystem_V4
             #endregion
         }
 
-        private class GoblinHurt : IGoblinAction
+        private class GoblinKnockBack : IGoblinAction
         {
             float nowDistance;
             Vector2 knockBackDirection;
             private DamageData damage;
 
-            public GoblinHurt(DamageData damage)
+            public GoblinKnockBack(DamageData damage)
             {
                 this.damage = damage;
             }

@@ -11,7 +11,7 @@ namespace CharacterSystem_V4
         public SpriteRenderer SpriteRenderer;
 
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
-        public AttackColliders LightAttackColliders;
+        public SkillColliders LightAttackColliders;
 
         void Start()
         {
@@ -65,7 +65,7 @@ namespace CharacterSystem_V4
                 spider.RunTimeData.VertigoConter += damage.Vertigo;
                 actionManager.DamageEffector.PlayHitEffect(damage);
                 if (damage.KnockBackDistance > 0)
-                    spider.SetAction(new SpiderHurt(damage));
+                    spider.SetAction(new SpiderKnockBack(damage));
             }
         }
 
@@ -175,13 +175,13 @@ namespace CharacterSystem_V4
             #endregion            
         }
 
-        private class SpiderHurt : ISpiderAction
+        private class SpiderKnockBack : ISpiderAction
         {
             float nowDistance;
             Vector2 knockBackDirection;
             private DamageData damage;
 
-            public SpiderHurt(DamageData damage)
+            public SpiderKnockBack(DamageData damage)
             {
                 this.damage = damage;
             }

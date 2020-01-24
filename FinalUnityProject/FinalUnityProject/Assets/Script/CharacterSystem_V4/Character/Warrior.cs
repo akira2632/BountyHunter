@@ -14,7 +14,7 @@ namespace CharacterSystem_V4
 
         public AudioSource MoveSound, DeffendSound, FallDownSound, LightAttackSound,
                 HeavyAttack1Sound, HeavyAttackChargeSound, HeavyAttack2Sound;
-        public AttackColliders LightAttackColliders, HeavyAttack1Colliders, HeavyAttack2Colliders;
+        public SkillColliders LightAttackColliders, HeavyAttack1Colliders, HeavyAttack2Colliders;
 
         public void Start()
         {

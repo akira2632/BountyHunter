@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18dba907e6d46434c931e210bad51798, type: 3}
-  m_Name: GobolinAISetting
+  m_Script: {fileID: 11500000, guid: b1fa70b0ebfc18e49aa9216751fd6cdc, type: 3}
+  m_Name: "\u6230\u58EB\u8F15\u653B\u64CA"
   m_EditorClassIdentifier: 
-  IdelTimeMax: 5
-  IdelTimeMin: 1
-  WounderDistanceMax: 7
-  WounderDistanceMin: 5
-  DetectedDistance: 7
-  AttackDistance: 0.5
-  StopDistance: 0.8
+  BonusDamage: 0
+  BonusCriticalRate: 0
+  NoCritical: 0
+  DamageMagnifiction: 1
+  Vertigo: 1
+  KnockBackDistance: 0
+  KnockBackSpeed: 0

@@ -11,7 +11,7 @@ namespace CharacterSystem_V4
         public SpriteRenderer SpriteRenderer;
 
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
-        public AttackColliders LightAttackColliders;
+        public SkillColliders LightAttackColliders;
 
         void Start()
         {
@@ -61,7 +61,7 @@ namespace CharacterSystem_V4
                 orcCaptain.RunTimeData.Health -= wound.Damage;
 
                 if (wound.KnockBackDistance > 0)
-                    orcCaptain.SetAction(new OrcCaptainHurt(new DamageData
+                    orcCaptain.SetAction(new OrcCaptainKnockBack(new DamageData
                     {
                         Damage = wound.Damage
                     }));
@@ -181,13 +181,13 @@ namespace CharacterSystem_V4
             #endregion
         }
 
-        private class OrcCaptainHurt : IOrcCaptainAction
+        private class OrcCaptainKnockBack : IOrcCaptainAction
         {
             float nowDistance;
             Vector2 knockBackDirection;
             private DamageData wound;
 
-            public OrcCaptainHurt(DamageData wound)
+            public OrcCaptainKnockBack(DamageData wound)
             {
                 this.wound = wound;
             }

@@ -11,7 +11,7 @@ namespace CharacterSystem_V4
         public SpriteRenderer SpriteRenderer;
 
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
-        public AttackColliders LightAttackColliders;
+        public SkillColliders LightAttackColliders;
 
         void Start()
         {
@@ -65,7 +65,7 @@ namespace CharacterSystem_V4
                 orc.RunTimeData.VertigoConter += damage.Vertigo;
                 actionManager.DamageEffector.PlayHitEffect(damage);
                 if (damage.KnockBackDistance > 0)
-                    orc.SetAction(new OrcHurt(damage));
+                    orc.SetAction(new OrcKnockBack(damage));
             }
         }
 
@@ -199,13 +199,13 @@ namespace CharacterSystem_V4
             }
         }
 
-        private class OrcHurt : IOrcAction
+        private class OrcKnockBack : IOrcAction
         {
             float nowDistance;
             Vector2 knockBackDirection;
             private DamageData damage;
 
-            public OrcHurt(DamageData damage)
+            public OrcKnockBack(DamageData damage)
             {
                 this.damage = damage;
             }

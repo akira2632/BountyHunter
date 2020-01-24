@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CharacterSystem_V4.SkillCollider
 {
-    public class ProjectBullet : MonoBehaviour, IAnimateStateInvokeTarget
+    public class ProjectSkillCollider : MonoBehaviour, IAnimateStateInvokeTarget
     {
         public DamageData MyDamage;
 

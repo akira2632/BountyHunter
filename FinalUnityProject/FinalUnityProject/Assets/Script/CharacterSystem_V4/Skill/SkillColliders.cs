@@ -3,12 +3,16 @@ using UnityEngine;
 
 namespace CharacterSystem_V4.SkillCollider
 {
-    public class AttackColliders : MonoBehaviour
+    public class SkillColliders : MonoBehaviour
     {
+        public ICharacterActionManager Character;
+        public SkillDamage SkillDamage;
+
         public string TargetTag;
         public bool HitAll;
 
         public DamageData MyDamage;
+
         private List<Collider2D> hittedTargets = new List<Collider2D>();
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -19,9 +23,10 @@ namespace CharacterSystem_V4.SkillCollider
             {
                 //Debug.Log($"Target Enter : {TargetTag}");
                 hittedTargets.Add(collision);
-                MyDamage.HitAt = collision.transform.position;
-                MyDamage.HitFrom = gameObject.gameObject.transform.position;
-                collision.gameObject.GetComponentInParent<ICharacterActionManager>().OnHit(MyDamage);
+                MyDamage.HitAt = collision.transform.transform.position;
+                MyDamage.HitFrom = Character.transform.position;
+                collision.gameObject.GetComponentInParent<ICharacterActionManager>()
+                    .OnHit(SkillDamage.GetDamageData(Character.Property));
             }
         }
 

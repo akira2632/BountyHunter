@@ -14,7 +14,7 @@ namespace CharacterSystem_V4.SkillCollider
         {
             var StartPosition = ShottingPoints[(vertical + 1) * 3 + horizontal + 1].position;
             var bullet = Instantiate(Bullet, StartPosition, Quaternion.identity);
-            bullet.GetComponent<ProjectBullet>().Shooting(target, MyDamage);
+            bullet.GetComponent<ProjectSkillCollider>().Shooting(target, MyDamage);
         }
     }
 }

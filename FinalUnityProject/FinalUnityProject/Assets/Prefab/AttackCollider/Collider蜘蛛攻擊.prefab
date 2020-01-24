@@ -130,7 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6911973636830190855}
-  - component: {fileID: 1690020213865199462}
+  - component: {fileID: -8334081721910039551}
   - component: {fileID: 3906612244800426696}
   m_Layer: 0
   m_Name: "Collider\u8718\u86DB\u653B\u64CA"
@@ -161,7 +161,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1690020213865199462
+--- !u!114 &-8334081721910039551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,9 +170,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3190235242059812745}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a302a7cad6ed629499437c88c704326f, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d954277cd2ec9141aab63b08791f711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Character: {fileID: 0}
+  SkillDamage: {fileID: 11400000, guid: 31e5dd50157d0b8458ae7caa262ac06a, type: 2}
   TargetTag: Player
   HitAll: 0
 --- !u!50 &3906612244800426696
