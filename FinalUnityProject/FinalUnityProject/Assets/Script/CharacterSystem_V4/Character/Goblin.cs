@@ -159,9 +159,6 @@ namespace CharacterSystem_V4
 
                 goblin.animationEnd = false;
 
-                goblin.LightAttackColliders.MyDamage
-                    = new DamageData { Damage = goblin.Property.Attack, Vertigo = 0.4f };
-
                 goblin.CharacterAnimator.SetTrigger("LightAttack");
                 goblin.LightAttackSound.Play();
             }

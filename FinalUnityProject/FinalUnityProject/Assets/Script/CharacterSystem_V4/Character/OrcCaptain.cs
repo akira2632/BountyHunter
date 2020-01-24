@@ -159,9 +159,6 @@ namespace CharacterSystem_V4
                     resetTimer = true;
                     orcCaptain.animationEnd = false;
 
-                    orcCaptain.LightAttackColliders.MyDamage
-                        = new DamageData { Damage = orcCaptain.Property.Attack, Vertigo = 0.4f };
-
                     orcCaptain.CharacterAnimator.SetTrigger("LightAttack");
                     orcCaptain.LightAttackSound.Play();
                 }

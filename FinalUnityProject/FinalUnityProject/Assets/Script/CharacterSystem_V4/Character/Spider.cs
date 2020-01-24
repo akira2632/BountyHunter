@@ -157,9 +157,6 @@ namespace CharacterSystem_V4
 
                 spider.animationEnd = false;
 
-                spider.LightAttackColliders.MyDamage
-                    = new DamageData { Damage = spider.Property.Attack, Vertigo = 0.4f };
-
                 spider.CharacterAnimator.SetTrigger("LightAttack");
                 spider.LightAttackSound.Play();
             }

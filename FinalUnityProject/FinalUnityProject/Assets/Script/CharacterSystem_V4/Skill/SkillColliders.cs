@@ -11,8 +11,6 @@ namespace CharacterSystem_V4.SkillCollider
         public string TargetTag;
         public bool HitAll;
 
-        public DamageData MyDamage;
-
         private List<Collider2D> hittedTargets = new List<Collider2D>();
 
         private void OnTriggerEnter2D(Collider2D collision)
