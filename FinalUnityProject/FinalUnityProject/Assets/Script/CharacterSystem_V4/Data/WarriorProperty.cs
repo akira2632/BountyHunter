@@ -68,7 +68,7 @@ namespace CharacterSystem_V4
             }
         }
         // 攻擊速度
-        public override float AttackSpeed => 0;
+        public override float BasicAttackSpeed => 0;
         // 回復速度
         public override float RegenSpeed => 20;
         // 回復生命
@@ -77,5 +77,7 @@ namespace CharacterSystem_V4
         public override int CriticalDamage => ((Str * 2) * Lv) / 15;
         // 暴擊機率
         public override float CriticalRate => ((Lv + Dex + Agi) / 8);
+
+        public override float SpacilAttackSpeed => throw new System.NotImplementedException();
     }
 }

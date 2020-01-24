@@ -265,16 +265,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &381174366 stripped
+--- !u!114 &249529584 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8612497687333612445, guid: d7f05e6740797fb439b4bac1eb839ddf,
+  m_CorrespondingSourceObject: {fileID: 54887327339312259, guid: 983b491c307ee2d459e2de15d1d3e5d1,
     type: 3}
-  m_PrefabInstance: {fileID: 870794751}
+  m_PrefabInstance: {fileID: 1996477851}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 273ade9c1b0bd7046a7c344a13ca484a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7662d1197001dda4da5ceed2d8ba6a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &464713976
@@ -6752,7 +6752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerKeySetting: {fileID: 11400000, guid: aeb0aaa3a4dd6304cb004cf477e1dffa, type: 2}
-  MyCharacter: {fileID: 381174366}
+  MyCharacter: {fileID: 249529584}
   direction: {x: 0, y: 0}
 --- !u!4 &994114082
 Transform:
@@ -7004,11 +7004,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 270039640594804951, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1769994441510432285, guid: 983b491c307ee2d459e2de15d1d3e5d1,
         type: 3}

@@ -17,9 +17,13 @@ namespace CharacterSystem_V4
         public float CharacterDodgeSpeed;
         [Header("攻擊力"), Tooltip("角色基本攻擊力"), Min(0)]
         public int CharacterAttack;
-        [Header("攻擊速度"), Tooltip("角色攻擊速度、每秒幾次(次/秒)"), Min(0)]
-        public float CharacterAttackSpeed;
+        [Header("普通攻擊速度"), Tooltip("角色攻擊速度、每秒幾次(次/秒)"), Min(0)]
+        public float CharacterBasicAttackSpeed;
+        [Header("特殊攻擊速度"), Tooltip("角色攻擊速度、每秒幾次(次/秒)"), Min(0)]
+        public float CharacterSpacilAttackSpeed;
+        [Header("會心攻擊增傷"), Tooltip("角色攻擊速度、每秒幾次(次/秒)"), Min(0)]
         public int CharacterCriticalDamage;
+        [Header("會心攻擊機率"), Tooltip("角色攻擊速度、每秒幾次(次/秒)"), Min(0)]
         public float CharacterCriticalRate;
 
         public override float RegenSpeed => CharacterRegenSpeed;
@@ -37,7 +41,8 @@ namespace CharacterSystem_V4
                     return CharacterAttack;
             }
         }
-        public override float AttackSpeed => CharacterAttackSpeed;
+        public override float BasicAttackSpeed => CharacterBasicAttackSpeed;
+        public override float SpacilAttackSpeed => CharacterSpacilAttackSpeed;
         public override int CriticalDamage => CharacterCriticalDamage;
         public override float CriticalRate => CharacterCriticalRate;
     }

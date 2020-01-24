@@ -29,8 +29,8 @@ namespace CharacterSystem_V4
                 SetAction(new GoblinDead());
             else if (RunTimeData.Health > 0)
             {
-                if (RunTimeData.AttackTimer >= 0)
-                    RunTimeData.AttackTimer -= Time.deltaTime;
+                if (RunTimeData.BasicAttackTimer >= 0)
+                    RunTimeData.BasicAttackTimer -= Time.deltaTime;
 
                 RunTimeData.RegenTimer += Time.deltaTime;
                 if (RunTimeData.Health < Property.MaxHealth &&
@@ -151,7 +151,7 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                if (goblin.RunTimeData.AttackTimer > 0)
+                if (goblin.RunTimeData.BasicAttackTimer > 0)
                 {
                     goblin.SetAction(new GoblinIdle());
                     return;
@@ -170,7 +170,7 @@ namespace CharacterSystem_V4
             {
                 if (goblin.animationEnd)
                 { 
-                    goblin.RunTimeData.AttackTimer = goblin.Property.AttackSpeed;
+                    goblin.RunTimeData.BasicAttackTimer = goblin.Property.BasicAttackSpeed;
                     actionManager.SetAction(new GoblinIdle());
                 }
             }

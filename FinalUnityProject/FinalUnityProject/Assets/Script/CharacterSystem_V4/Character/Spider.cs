@@ -28,8 +28,8 @@ namespace CharacterSystem_V4
                 SetAction(new SpiderDead());
             else if (RunTimeData.Health > 0)
             {
-                if (RunTimeData.AttackTimer >= 0)
-                    RunTimeData.AttackTimer -= Time.deltaTime;
+                if (RunTimeData.BasicAttackTimer >= 0)
+                    RunTimeData.BasicAttackTimer -= Time.deltaTime;
 
                 RunTimeData.RegenTimer += Time.deltaTime;
                 if (RunTimeData.Health < Property.MaxHealth &&
@@ -149,7 +149,7 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                if (spider.RunTimeData.AttackTimer > 0)
+                if (spider.RunTimeData.BasicAttackTimer > 0)
                 {
                     spider.SetAction(new SpiderIdle());
                     return;
@@ -168,7 +168,7 @@ namespace CharacterSystem_V4
             {
                 if (spider.animationEnd)
                 {
-                    spider.RunTimeData.AttackTimer = spider.Property.AttackSpeed;
+                    spider.RunTimeData.BasicAttackTimer = spider.Property.BasicAttackSpeed;
                     actionManager.SetAction(new SpiderIdle());
                 }
             }

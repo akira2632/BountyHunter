@@ -28,8 +28,8 @@ namespace CharacterSystem_V4
                 SetAction(new OrcDead());
             else if (RunTimeData.Health > 0)
             {
-                if (RunTimeData.AttackTimer >= 0)
-                    RunTimeData.AttackTimer -= Time.deltaTime;
+                if (RunTimeData.BasicAttackTimer >= 0)
+                    RunTimeData.BasicAttackTimer -= Time.deltaTime;
 
                 RunTimeData.RegenTimer += Time.deltaTime;
                 if (RunTimeData.Health < Property.MaxHealth &&
@@ -149,7 +149,7 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                if (orc.RunTimeData.AttackTimer > 0)
+                if (orc.RunTimeData.BasicAttackTimer > 0)
                 {
                     orc.SetAction(new OrcIdle());
                     return;
@@ -168,7 +168,7 @@ namespace CharacterSystem_V4
             {
                 if (orc.animationEnd)
                 {
-                    orc.RunTimeData.AttackTimer = orc.Property.AttackSpeed;
+                    orc.RunTimeData.BasicAttackTimer = orc.Property.BasicAttackSpeed;
                     actionManager.SetAction(new OrcIdle());
                 }
             }

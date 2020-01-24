@@ -41,7 +41,8 @@ namespace CharacterSystem_V4
         int MaxHealth { get; }
 
         int Damage { get; }
-        float AttackSpeed { get; }
+        float BasicAttackSpeed { get; }
+        float SpacilAttackSpeed { get; }
         int CriticalDamage { get; }
         float CriticalRate { get; }
 
@@ -55,7 +56,8 @@ namespace CharacterSystem_V4
         public abstract float DodgeSpeed { get; }
         public abstract int MaxHealth { get; }
         public abstract int Damage { get; }
-        public abstract float AttackSpeed { get; }
+        public abstract float BasicAttackSpeed { get; }
+        public abstract float SpacilAttackSpeed { get; }
         public abstract float RegenSpeed { get; }
         public abstract int RegenHealth { get; }
         public abstract int CriticalDamage { get; }

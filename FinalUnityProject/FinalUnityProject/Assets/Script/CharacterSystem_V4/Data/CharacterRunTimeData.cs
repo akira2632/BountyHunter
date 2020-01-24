@@ -12,7 +12,7 @@ namespace CharacterSystem_V4
         [SerializeField]
         int _health;
         [SerializeField]
-        float _attackTimer, _regenTimer, _vertigoConter;
+        float _basicAttackTimer, _spacilAttackTimer , _regenTimer, _vertigoConter;
         [SerializeField]
         Vector2 _direction;
 
@@ -22,7 +22,8 @@ namespace CharacterSystem_V4
 
             _health = property.MaxHealth;
             _regenTimer = 0;
-            _attackTimer = 0;
+            _basicAttackTimer = 0;
+            _spacilAttackTimer = 0;
             _vertigoConter = 0;
             _direction = new Vector2();
         }
@@ -35,17 +36,30 @@ namespace CharacterSystem_V4
                 _direction = value;
             }
         }
-        public float AttackTimer
+        public float BasicAttackTimer
         {
-            get => _attackTimer;
+            get => _basicAttackTimer;
             set
             {
-                if (value > property.AttackSpeed)
-                    _attackTimer = property.AttackSpeed;
+                if (value > property.BasicAttackSpeed)
+                    _basicAttackTimer = property.BasicAttackSpeed;
                 else if (value < 0)
-                    _attackTimer = 0;
+                    _basicAttackTimer = 0;
                 else
-                    _attackTimer = value;
+                    _basicAttackTimer = value;
+            }
+        }
+        public float SpacilAttackTimer
+        {
+            get => _spacilAttackTimer;
+            set
+            {
+                if (value > property.SpacilAttackSpeed)
+                    _spacilAttackTimer = property.SpacilAttackSpeed;
+                else if (value < 0)
+                    _spacilAttackTimer = 0;
+                else
+                    _spacilAttackTimer = value;
             }
         }
         public float RegenTimer

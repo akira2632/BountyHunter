@@ -31,8 +31,8 @@ namespace CharacterSystem_V4
                 SetAction(new WarriorDead());
             else if (RunTimeData.Health > 0)
             {
-                if (RunTimeData.AttackTimer >= 0)
-                    RunTimeData.AttackTimer -= Time.deltaTime;
+                if (RunTimeData.BasicAttackTimer >= 0)
+                    RunTimeData.BasicAttackTimer -= Time.deltaTime;
 
                 RunTimeData.RegenTimer += Time.deltaTime;
                 if (RunTimeData.Health < Property.MaxHealth &&
@@ -248,7 +248,7 @@ namespace CharacterSystem_V4
             #region 動作更新
             public override void Start()
             {
-                if (warrior.RunTimeData.AttackTimer > 0)
+                if (warrior.RunTimeData.BasicAttackTimer > 0)
                 {
                     warrior.SetAction(new WarriorIdel());
                     return;
@@ -267,7 +267,7 @@ namespace CharacterSystem_V4
             {
                 if (warrior.animationEnd)
                 {
-                    warrior.RunTimeData.AttackTimer = warrior.Property.AttackSpeed;
+                    warrior.RunTimeData.BasicAttackTimer = warrior.Property.BasicAttackSpeed;
                     actionManager.SetAction(new WarriorIdel());
                 }
             }
