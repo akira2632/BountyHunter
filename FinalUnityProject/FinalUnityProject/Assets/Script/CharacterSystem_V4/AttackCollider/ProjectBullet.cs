@@ -17,14 +17,20 @@ namespace CharacterSystem_V4.SkillCollider
 
         private bool hasHitTarget, hasShot;
 
+        public void AnimationStart() { }
+        public void AnimationEnd() => Destroy(gameObject);
+
         private void Start()
         {
             hasHitTarget = false;
             hasShot = false;
         }
 
-        public void AnimationStart() { }
-        public void AnimationEnd() => Destroy(gameObject);
+        private void DestroyBullet()
+        {
+            transform.DOKill();
+            GetComponent<Animator>().SetTrigger("Destroy");
+        }
 
         public void Shooting(Vector3 target, DamageData damage)
         {
@@ -68,10 +74,13 @@ namespace CharacterSystem_V4.SkillCollider
             }
         }
 
-        private void DestroyBullet()
+        private void OnTriggerExit2D(Collider2D collision)
         {
-            transform.DOKill();
-            GetComponent<Animator>().SetTrigger("Destroy");
+            if (collision.gameObject.tag == TargetTag)
+            {
+                //Debug.Log($"Target Exit: {TargetTag}");
+                hasHitTarget = false;
+            }
         }
     }
 }

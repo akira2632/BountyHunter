@@ -91,10 +91,10 @@ namespace CharacterSystem_V4
                 warrior.CharacterAnimator.SetBool("IsFallDown", false);
                 warrior.CharacterAnimator.SetBool("IsMove", false);
 
-                warrior.CharacterAnimator.SetFloat("Vertical", 
-                    IsometricUtility.GetVertical(warrior.RunTimeData.Direction));
-                warrior.CharacterAnimator.SetFloat("Horizontal", 
-                    IsometricUtility.GetHorizontal(warrior.RunTimeData.Direction));
+                IsometricUtility.GetVerticalAndHorizontal(
+                    warrior.RunTimeData.Direction, out var vertical, out var horizontal);
+                warrior.CharacterAnimator.SetFloat("Vertical", vertical);
+                warrior.CharacterAnimator.SetFloat("Horizontal", horizontal);
             }
             #endregion
 
@@ -131,19 +131,19 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 warrior.MoveSound.Play();
-                warrior.CharacterAnimator.SetFloat("Vertical",
-                    IsometricUtility.GetVertical(warrior.RunTimeData.Direction));
-                warrior.CharacterAnimator.SetFloat("Horizontal",
-                    IsometricUtility.GetHorizontal(warrior.RunTimeData.Direction));
+                IsometricUtility.GetVerticalAndHorizontal(
+                    warrior.RunTimeData.Direction, out var vertical, out var horizontal);
+                warrior.CharacterAnimator.SetFloat("Vertical", vertical);
+                warrior.CharacterAnimator.SetFloat("Horizontal", horizontal);
                 warrior.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
-                warrior.CharacterAnimator.SetFloat("Vertical",
-                    IsometricUtility.GetVertical(warrior.RunTimeData.Direction));
-                warrior.CharacterAnimator.SetFloat("Horizontal",
-                    IsometricUtility.GetHorizontal(warrior.RunTimeData.Direction));
+                IsometricUtility.GetVerticalAndHorizontal(
+                    warrior.RunTimeData.Direction, out var vertical, out var horizontal);
+                warrior.CharacterAnimator.SetFloat("Vertical", vertical);
+                warrior.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                 warrior.MovementBody.MovePosition(warrior.MovementBody.position +
                     IsometricUtility.ToIsometricDirection(warrior.RunTimeData.Direction)
@@ -196,10 +196,10 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                warrior.CharacterAnimator.SetFloat("Vertical",
-                    IsometricUtility.GetVertical(warrior.RunTimeData.Direction));
-                warrior.CharacterAnimator.SetFloat("Horizontal",
-                    IsometricUtility.GetHorizontal(warrior.RunTimeData.Direction));
+                IsometricUtility.GetVerticalAndHorizontal(
+                    warrior.RunTimeData.Direction, out var vertical, out var horizontal);
+                warrior.CharacterAnimator.SetFloat("Vertical", vertical);
+                warrior.CharacterAnimator.SetFloat("Horizontal", horizontal);
             }
 
             public override void End()

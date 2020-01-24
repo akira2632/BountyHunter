@@ -31,6 +31,26 @@ public class IsometricUtility
             0.6f * orignalDistance * Mathf.Sin(angle)).magnitude;
     }
 
+    public static void GetVerticalAndHorizontal(Vector2 direction, out float vertical, out float horizontal)
+    {
+        var verticalAngle = Mathf.Atan2(direction.y, direction.x);
+        var horizontalAngle = Mathf.Abs(verticalAngle);
+
+        if (verticalAngle > VerticalMin && verticalAngle <= VerticalMax)
+            vertical = 1;
+        else if (verticalAngle <= -VerticalMin && verticalAngle > -VerticalMax)
+            vertical = -1;
+        else
+            vertical = 0;
+
+        if (horizontalAngle > HorizontalMax)
+            horizontal = -1;
+        else if (horizontalAngle < HorizontalMin)
+            horizontal = 1;
+        else
+            horizontal = 0;
+    }
+
     public static float GetVertical(Vector2 direction)
     {
         var angle = Mathf.Atan2(direction.y, direction.x);

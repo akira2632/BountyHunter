@@ -26,5 +26,14 @@ namespace CharacterSystem_V4.SkillCollider
                 collision.gameObject.GetComponentInParent<ICharacterActionManager>().OnHit(MyDamage);
             }
         }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag == TargetTag)
+            {
+                //Debug.Log($"Target Exit: {TargetTag}");
+                hasHitTarget = false;
+            }
+        }
     }
 }

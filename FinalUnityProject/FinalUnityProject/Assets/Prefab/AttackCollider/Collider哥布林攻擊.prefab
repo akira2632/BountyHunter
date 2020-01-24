@@ -370,6 +370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2800916088393269546}
   - component: {fileID: 1167587627453928119}
+  - component: {fileID: 772405819526059615}
   m_Layer: 0
   m_Name: "Collider\u54E5\u5E03\u6797\u653B\u64CA"
   m_TagString: Untagged
@@ -413,6 +414,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetTag: Player
   HitAll: 0
+--- !u!50 &772405819526059615
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6379598536852392570}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8113398749268005844
 GameObject:
   m_ObjectHideFlags: 0

@@ -250,6 +250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4091426954205277463}
   - component: {fileID: 4389568075165565749}
+  - component: {fileID: -7396450855550210975}
   m_Layer: 0
   m_Name: "Collider\u80D6\u6B50\u514B\u653B\u64CA"
   m_TagString: Untagged
@@ -293,6 +294,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetTag: Player
   HitAll: 0
+--- !u!50 &-7396450855550210975
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4091426954205277456}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4175998509669977217
 GameObject:
   m_ObjectHideFlags: 0
