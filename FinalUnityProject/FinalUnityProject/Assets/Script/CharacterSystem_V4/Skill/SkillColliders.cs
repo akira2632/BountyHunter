@@ -23,7 +23,7 @@ namespace CharacterSystem_V4.SkillCollider
                 hittedTargets.Add(collision);
                 var damage = SkillDamage.GetDamageData(Character.Property);
                 damage.HitAt = collision.transform.position;
-                damage.HitFrom = gameObject.gameObject.transform.position;
+                damage.HitFrom = Character.transform.position;
                 collision.gameObject.GetComponentInParent<ICharacterActionManager>()
                     .OnHit(damage);
             }
