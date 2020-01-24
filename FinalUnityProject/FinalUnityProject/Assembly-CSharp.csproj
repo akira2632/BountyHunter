@@ -64,7 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\CharacterSystem_V4\AttackCollider\AttackColliders.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\AttackCollider\RangeAttackColliders.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\AttackCollider\ProjectBullet.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\AttackCollider\ProjectorShooter.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\ActionManager.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterSystemInterfaceInterface.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Character\Goblin.cs" />

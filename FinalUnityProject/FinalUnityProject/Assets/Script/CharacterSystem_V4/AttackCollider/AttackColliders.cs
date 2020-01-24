@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CharacterSystem_V4
+namespace CharacterSystem_V4.SkillCollider
 {
     public class AttackColliders : MonoBehaviour
     {
@@ -24,15 +24,6 @@ namespace CharacterSystem_V4
                 MyDamage.HitAt = collision.transform.position;
                 MyDamage.HitFrom = gameObject.gameObject.transform.position;
                 collision.gameObject.GetComponentInParent<ICharacterActionManager>().OnHit(MyDamage);
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            if (collision.gameObject.tag == TargetTag)
-            {
-                //Debug.Log($"Target Exit: {TargetTag}");
-                hasHitTarget = false;
             }
         }
     }
