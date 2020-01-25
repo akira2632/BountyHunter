@@ -19,7 +19,7 @@ namespace CharacterSystem_V4
         public void Start()
         {
             RunTimeData = new CharacterRunTimeData();
-            RunTimeData.SetData(Property);
+            RunTimeData.SetData(Property, transform);
 
             nowAction = new WarriorIdel();
             nowAction.SetManager(this);
@@ -146,7 +146,7 @@ namespace CharacterSystem_V4
                 warrior.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                 warrior.MovementBody.MovePosition(warrior.MovementBody.position +
-                    IsometricUtility.ToIsometricDirection(warrior.RunTimeData.Direction)
+                    IsometricUtility.ToIsometricVector2(warrior.RunTimeData.Direction)
                     * warrior.Property.MoveSpeed * Time.deltaTime);
             }
 
@@ -336,7 +336,7 @@ namespace CharacterSystem_V4
             public override void Update()
             {
                 Vector2 dodgeVector = 
-                    IsometricUtility.ToIsometricDirection(warrior.RunTimeData.Direction)
+                    IsometricUtility.ToIsometricVector2(warrior.RunTimeData.Direction)
                     * warrior.Property.DodgeSpeed * Time.deltaTime;
 
                 dodgeDistance += dodgeVector.magnitude;
@@ -397,7 +397,7 @@ namespace CharacterSystem_V4
                 if (dodgeDistance < targetDistance)
                 {
                     Vector2 dodgeVector = 
-                        IsometricUtility.ToIsometricDirection(warrior.RunTimeData.Direction)
+                        IsometricUtility.ToIsometricVector2(warrior.RunTimeData.Direction)
                         * warrior.Property.DodgeSpeed * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;
@@ -518,7 +518,7 @@ namespace CharacterSystem_V4
                 if (dodgeDistance < targetDistance)
                 {
                     Vector2 dodgeVector = 
-                        IsometricUtility.ToIsometricDirection(warrior.RunTimeData.Direction)
+                        IsometricUtility.ToIsometricVector2(warrior.RunTimeData.Direction)
                         * warrior.Property.DodgeSpeed * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;

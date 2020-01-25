@@ -9,16 +9,20 @@ namespace CharacterSystem_V4
     public class CharacterRunTimeData
     {
         ICharacterProperty property;
+        Transform transform;
         [SerializeField]
         int _health;
         [SerializeField]
         float _basicAttackTimer, _spacilAttackTimer , _regenTimer, _vertigoConter;
         [SerializeField]
         Vector2 _direction;
+        [SerializeField]
+        Vector3 _target;
 
-        public void SetData(ICharacterProperty characterProperty)
+        public void SetData(ICharacterProperty characterProperty, Transform characterTransform)
         {
             property = characterProperty;
+            transform = characterTransform;
 
             _health = property.MaxHealth;
             _regenTimer = 0;
@@ -34,7 +38,13 @@ namespace CharacterSystem_V4
             set
             {
                 _direction = value;
+                _target = IsometricUtility.ToIsometricVector3(_direction) * 10 + transform.position;
             }
+        }
+        public Vector3 TargetPosition
+        {
+            get => _target;
+            set => _target = value;
         }
         public float BasicAttackTimer
         {

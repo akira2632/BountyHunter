@@ -17,7 +17,7 @@ namespace CharacterSystem_V4
         void Start()
         {
             RunTimeData = new CharacterRunTimeData();
-            RunTimeData.SetData(Property);
+            RunTimeData.SetData(Property, transform);
 
             nowAction = new GoblinIdle();
             nowAction.SetManager(this);
@@ -88,7 +88,16 @@ namespace CharacterSystem_V4
 
             #region 外部操作
             public override void BasicAttack() =>
-                actionManager.SetAction(new GoblinLightAttack());
+                actionManager.SetAction(new GoblinBasicAttack());
+
+            public override void SpecialAttack() =>
+                actionManager.SetAction(new GoblinSpacilAttack());
+
+            public override void SpecialAttack(Vector3 tartgetPosition)
+            {
+                goblin.RunTimeData.TargetPosition = tartgetPosition;
+                actionManager.SetAction(new GoblinSpacilAttack());
+            }
 
             public override void Move(Vector2 direction)
             {
@@ -122,7 +131,7 @@ namespace CharacterSystem_V4
                 goblin.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                 goblin.MovementBody.MovePosition(goblin.MovementBody.position +
-                    IsometricUtility.ToIsometricDirection(goblin.RunTimeData.Direction)
+                    IsometricUtility.ToIsometricVector2(goblin.RunTimeData.Direction)
                     * goblin.Property.MoveSpeed * Time.deltaTime);
             }
 
@@ -134,7 +143,16 @@ namespace CharacterSystem_V4
 
             #region 外部操作
             public override void BasicAttack() =>
-               actionManager.SetAction(new GoblinLightAttack());
+                actionManager.SetAction(new GoblinBasicAttack());
+
+            public override void SpecialAttack() =>
+                actionManager.SetAction(new GoblinSpacilAttack());
+
+            public override void SpecialAttack(Vector3 tartgetPosition)
+            {
+                goblin.RunTimeData.TargetPosition = tartgetPosition;
+                actionManager.SetAction(new GoblinSpacilAttack());
+            }
 
             public override void Move(Vector2 direction)
             {
@@ -146,7 +164,7 @@ namespace CharacterSystem_V4
             #endregion
         }
 
-        private class GoblinLightAttack : IGoblinAction
+        private class GoblinBasicAttack : IGoblinAction
         {
             #region 動作更新
             public override void Start()
@@ -166,12 +184,37 @@ namespace CharacterSystem_V4
             public override void Update()
             {
                 if (goblin.animationEnd)
-                { 
+                {
                     goblin.RunTimeData.BasicAttackTimer = goblin.Property.BasicAttackSpeed;
                     actionManager.SetAction(new GoblinIdle());
                 }
             }
             #endregion
+        }
+
+        private class GoblinSpacilAttack : IGoblinAction
+        {
+            public override void Start()
+            {
+                if (goblin.RunTimeData.SpacilAttackTimer > 0)
+                {
+                    goblin.SetAction(new GoblinIdle());
+                    return;
+                }
+
+                goblin.animationEnd = false;
+
+                goblin.CharacterAnimator.SetTrigger("RangeAttack");
+            }
+
+            public override void Update()
+            {
+                if (goblin.animationEnd)
+                {
+                    goblin.RunTimeData.SpacilAttackTimer = goblin.Property.SpacilAttackSpeed;
+                    actionManager.SetAction(new GoblinIdle());
+                }
+            }
         }
 
         private class GoblinKnockBack : IGoblinAction
@@ -189,7 +232,7 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 nowDistance = 0;
-                knockBackDirection = IsometricUtility.ToIsometricDirection(
+                knockBackDirection = IsometricUtility.ToIsometricVector2(
                     goblin.MovementBody.position - damage.HitFrom).normalized;
                 goblin.CharacterAnimator.SetBool("IsHurt", true);
                 goblin.HurtSound.Play();

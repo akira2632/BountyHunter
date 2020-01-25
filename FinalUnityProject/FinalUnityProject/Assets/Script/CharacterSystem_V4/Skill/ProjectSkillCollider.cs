@@ -6,7 +6,7 @@ namespace CharacterSystem_V4.SkillCollider
 {
     public class ProjectSkillCollider : MonoBehaviour, IAnimateStateInvokeTarget
     {
-        public DamageData MyDamage;
+        private DamageData MyDamage;
 
         public string TargetTag;
         public int BlockingLayer;
@@ -31,9 +31,8 @@ namespace CharacterSystem_V4.SkillCollider
         public void Shooting(Vector3 target, DamageData damage)
         {
             MyDamage = damage;
-            GetComponent<Animator>().SetTrigger("Thow");
 
-            Vector3 endPosition = IsometricUtility.ToIsometricVector(
+            Vector3 endPosition = IsometricUtility.ToIsometricVector3(
                 (target - transform.position).normalized * BulletRange);
             transform.DOBlendableMoveBy(endPosition, (BulletRange / BulletSpeed))
                 .SetEase(BulletMoveEase)
@@ -64,7 +63,6 @@ namespace CharacterSystem_V4.SkillCollider
                 //Debug.Log($"Target Enter : {TargetTag}");
                 hittedTargets.Add(collision);
                 MyDamage.HitAt = collision.transform.position;
-                MyDamage.HitFrom = gameObject.gameObject.transform.position;
                 collision.gameObject.GetComponentInParent<ICharacterActionManager>().OnHit(MyDamage);
 
                 if (!HitAll)

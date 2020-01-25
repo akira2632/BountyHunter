@@ -16,7 +16,7 @@ namespace CharacterSystem_V4
         void Start()
         {
             RunTimeData = new CharacterRunTimeData();
-            RunTimeData.SetData(Property);
+            RunTimeData.SetData(Property, transform);
 
             nowAction = new OrcIdle();
             nowAction.SetManager(this);
@@ -120,7 +120,7 @@ namespace CharacterSystem_V4
                 orc.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                 orc.MovementBody.MovePosition(orc.MovementBody.position +
-                    IsometricUtility.ToIsometricDirection(orc.RunTimeData.Direction)
+                    IsometricUtility.ToIsometricVector2(orc.RunTimeData.Direction)
                     * orc.Property.MoveSpeed * Time.deltaTime);
             }
 
@@ -211,7 +211,7 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 nowDistance = 0;
-                knockBackDirection = IsometricUtility.ToIsometricDirection(
+                knockBackDirection = IsometricUtility.ToIsometricVector2(
                     orc.MovementBody.position - damage.HitFrom).normalized;
                 orc.CharacterAnimator.SetBool("IsHurt", true);
                 orc.HurtSound.Play();

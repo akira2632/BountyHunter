@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4463f0c66ed1f92499553b7f545f3bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Character: {fileID: 0}
+  SkillDamage: {fileID: 11400000, guid: 96862db2957971344abca64facc415c4, type: 2}
   ShottingPoints:
   - {fileID: 3725337983102571041}
   - {fileID: 3613966663644274725}

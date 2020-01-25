@@ -104,7 +104,7 @@ namespace CharacterSystem_V4.Controller
                 float degree = Random.Range(0, 360);
 
                 manager.Senser.FindPath(manager.Character.transform.position +
-                    IsometricUtility.ToIsometricVector(
+                    IsometricUtility.ToIsometricVector3(
                     Quaternion.AngleAxis(degree, Vector3.forward) * (Vector3.one * distance))
                     , PathFinded);
             }

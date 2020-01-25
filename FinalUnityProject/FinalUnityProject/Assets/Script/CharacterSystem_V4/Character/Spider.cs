@@ -16,7 +16,7 @@ namespace CharacterSystem_V4
         void Start()
         {
             RunTimeData = new CharacterRunTimeData();
-            RunTimeData.SetData(Property);
+            RunTimeData.SetData(Property, transform);
 
             nowAction = new SpiderIdle();
             nowAction.SetManager(this);
@@ -120,7 +120,7 @@ namespace CharacterSystem_V4
                 spider.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                 spider.MovementBody.MovePosition(spider.MovementBody.position +
-                    IsometricUtility.ToIsometricDirection(spider.RunTimeData.Direction)
+                    IsometricUtility.ToIsometricVector2(spider.RunTimeData.Direction)
                     * spider.Property.MoveSpeed * Time.deltaTime);
             }
 
@@ -187,7 +187,7 @@ namespace CharacterSystem_V4
             public override void Start()
             {
                 nowDistance = 0;
-                knockBackDirection = IsometricUtility.ToIsometricDirection(
+                knockBackDirection = IsometricUtility.ToIsometricVector2(
                     spider.MovementBody.position - damage.HitFrom).normalized;
                 spider.CharacterAnimator.SetBool("IsHurt", true);
                 spider.HurtSound.Play();

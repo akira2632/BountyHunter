@@ -51,9 +51,9 @@ MonoBehaviour:
   BlockingLayer: 8
   HitAll: 0
   target: {x: 0, y: 0, z: 0}
-  BulletSpeed: 4
-  BulletRange: 10
-  BulletMoveEase: 3
+  BulletSpeed: 8
+  BulletRange: 6
+  BulletMoveEase: 21
 --- !u!212 &3466649796960702346
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -90,7 +90,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 4197062269161249229, guid: 9e1c9b8dcdf9ee241b8a41fc04331c58,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
