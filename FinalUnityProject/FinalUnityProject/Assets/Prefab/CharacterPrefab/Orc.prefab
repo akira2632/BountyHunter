@@ -114,7 +114,7 @@ MonoBehaviour:
   FallDownSound: {fileID: 3536777300869806681}
   LightAttackSound: {fileID: 7502064583160869374}
   HurtSound: {fileID: 1150387926125242612}
-  LightAttackColliders: {fileID: 2212730087502123050}
+  DefalutHitEffect: {fileID: 11400000, guid: bd0abba3180e4034da92aac916d4bfe9, type: 2}
 --- !u!212 &906002252590915433
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -645,11 +645,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6704382508476855882}
     m_Modifications:
-    - target: {fileID: 4091426954205277456, guid: 34de69e531423614fbd2278c4fdbbc50,
-        type: 3}
-      propertyPath: m_Name
-      value: "Collider\u80D6\u6B50\u514B\u653B\u64CA"
-      objectReference: {fileID: 0}
     - target: {fileID: 4091426954205277463, guid: 34de69e531423614fbd2278c4fdbbc50,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -710,6 +705,11 @@ PrefabInstance:
       propertyPath: Character
       value: 
       objectReference: {fileID: 2072704109068948732}
+    - target: {fileID: 4091426954205277456, guid: 34de69e531423614fbd2278c4fdbbc50,
+        type: 3}
+      propertyPath: m_Name
+      value: "Collider\u80D6\u6B50\u514B\u653B\u64CA"
+      objectReference: {fileID: 0}
     - target: {fileID: 4305532473013405785, guid: 34de69e531423614fbd2278c4fdbbc50,
         type: 3}
       propertyPath: m_IsTrigger
@@ -763,15 +763,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4062127185231714695}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2212730087502123050 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2804231210288777645, guid: 34de69e531423614fbd2278c4fdbbc50,
-    type: 3}
-  m_PrefabInstance: {fileID: 4062127185231714695}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d954277cd2ec9141aab63b08791f711, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

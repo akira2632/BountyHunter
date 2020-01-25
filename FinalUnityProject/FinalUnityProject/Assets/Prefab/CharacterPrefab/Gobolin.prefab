@@ -68,8 +68,7 @@ MonoBehaviour:
   FallDownSound: {fileID: 1150387926125242612}
   LightAttackSound: {fileID: 7502064583160869374}
   HurtSound: {fileID: 5463490643344342028}
-  LightAttackColliders: {fileID: 2782381107230602612}
-  ProjectorShooter: {fileID: 4238433075852162293}
+  DefaultHitEffect: {fileID: 11400000, guid: bd0abba3180e4034da92aac916d4bfe9, type: 2}
 --- !u!212 &906002252590915433
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1065,18 +1064,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1895826652933262340}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2782381107230602612 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4382658484256307568, guid: c129a303a96bef44588eb06656e9f715,
-    type: 3}
-  m_PrefabInstance: {fileID: 1895826652933262340}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d954277cd2ec9141aab63b08791f711, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5979746329446159860
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1232,15 +1219,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5979746329446159860}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4238433075852162293 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7506836439040696577, guid: 66d1210ca6791af439a011b88129fae4,
-    type: 3}
-  m_PrefabInstance: {fileID: 5979746329446159860}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4463f0c66ed1f92499553b7f545f3bea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

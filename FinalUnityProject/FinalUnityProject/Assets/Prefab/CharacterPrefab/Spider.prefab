@@ -67,7 +67,7 @@ MonoBehaviour:
   FallDownSound: {fileID: 1150387926125242612}
   LightAttackSound: {fileID: 7502064583160869374}
   HurtSound: {fileID: 524092908601169108}
-  LightAttackColliders: {fileID: 2693272581855908165}
+  DefaultHitEffect: {fileID: 11400000, guid: fdc35bb4c196d304b8197b14848b02ab, type: 2}
 --- !u!212 &906002252590915433
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -107,7 +107,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: -4259274631584123427, guid: 20a473fb6cc3d1746a720e33120d1d67,
     type: 3}
-  m_Color: {r: 0.83503026, g: 0.6755073, b: 0.8679245, a: 1}
+  m_Color: {r: 0.6465827, g: 0.57155573, b: 0.7169812, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -645,16 +645,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6704382508476855882}
     m_Modifications:
-    - target: {fileID: 3190235242059812745, guid: adf700287299c484b9957e388607e98b,
-        type: 3}
-      propertyPath: m_Name
-      value: "Collider\u8718\u86DB\u653B\u64CA"
-      objectReference: {fileID: 0}
     - target: {fileID: -8334081721910039551, guid: adf700287299c484b9957e388607e98b,
         type: 3}
       propertyPath: Character
       value: 
       objectReference: {fileID: 4835822839643871109}
+    - target: {fileID: 3190235242059812745, guid: adf700287299c484b9957e388607e98b,
+        type: 3}
+      propertyPath: m_Name
+      value: "Collider\u8718\u86DB\u653B\u64CA"
+      objectReference: {fileID: 0}
     - target: {fileID: 6911973636830190855, guid: adf700287299c484b9957e388607e98b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -718,15 +718,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2969853408500776260}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2693272581855908165 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -8334081721910039551, guid: adf700287299c484b9957e388607e98b,
-    type: 3}
-  m_PrefabInstance: {fileID: 2969853408500776260}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d954277cd2ec9141aab63b08791f711, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

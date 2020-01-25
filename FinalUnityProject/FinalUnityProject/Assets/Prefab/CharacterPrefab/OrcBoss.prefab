@@ -51,12 +51,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RunTimeData:
     _health: 0
-    _attackTimer: 0
+    _basicAttackTimer: 0
+    _spacilAttackTimer: 0
     _regenTimer: 0
     _vertigoConter: 0
     _direction: {x: 0, y: 0}
+    _target: {x: 0, y: 0, z: 0}
   Property: {fileID: 11400000, guid: 113f9eee90be3094baf36d5b754311ef, type: 2}
-  HitEffector: {fileID: 0}
   MovementBody: {fileID: 2713500744654730897}
   MovementCollider: {fileID: 0}
   CharacterAnimator: {fileID: 4796646055716273524}
@@ -67,9 +68,9 @@ MonoBehaviour:
   HeavyAttack1Sound: {fileID: 0}
   HeavyAttackChargeSound: {fileID: 0}
   HeavyAttack2Sound: {fileID: 0}
-  LightAttackColliders: {fileID: 7211773366730040898}
-  HeavyAttack1Colliders: {fileID: 0}
-  HeavyAttack2Colliders: {fileID: 0}
+  DefaultHitEffect: {fileID: 11400000, guid: bd0abba3180e4034da92aac916d4bfe9, type: 2}
+  DefaultDeffendEffect: {fileID: 11400000, guid: 375aa02693b531145b5158631a5f9b4b,
+    type: 2}
 --- !u!212 &906002252590915433
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -651,15 +652,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1118747703578411179}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7211773366730040898 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -1471609790764259607, guid: 74bcc0a7dfbafd24c88de192e47e5758,
-    type: 3}
-  m_PrefabInstance: {fileID: 1118747703578411179}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2698ab4fe9ff8d94ab11d54d6ead4e59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
