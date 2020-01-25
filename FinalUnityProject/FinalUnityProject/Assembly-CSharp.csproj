@@ -78,11 +78,11 @@
     <Compile Include="Assets\Script\CharacterSystem_V4\Data\CharacterRunTimeData.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Data\KeySetting.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Data\WarriorProperty.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\Skill\HitEffect.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Skill\ProjectorShooter.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Skill\ProjectSkillCollider.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Skill\SkillColliders.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Skill\SkillDamage.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\Skill\SkillEffector.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Utility\AnimateStateInvoker.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Utility\IAnimateStateInvokeTarget.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Utility\IsometricUtility.cs" />

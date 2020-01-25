@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccab5c0159be47f4f87ffc70ac509b59, type: 3}
+  m_Name: "\u73A9\u5BB6\u9810\u8A2D\u64CA\u4E2D\u7279\u6548"
+  m_EditorClassIdentifier: 
+  NumberPrafebs:
+  - {fileID: 2168671981815422684, guid: b914883e883f0d344a452df01e588b55, type: 3}
+  - {fileID: 5964144589485710642, guid: 2d95319292df38744b7784301759243d, type: 3}
+  - {fileID: 8887971361630395463, guid: 785d063ffcbba7147af86e3a2d04deb3, type: 3}
+  - {fileID: 3789629544514005390, guid: ce5a42368380eb549b6bc91c847cf4de, type: 3}
+  - {fileID: 6261270053578838271, guid: d7efa479197a6a942b35e74289364a30, type: 3}
+  - {fileID: 745367841876536205, guid: 63714ff55a56905488622cc7f4ffe313, type: 3}
+  - {fileID: 6550491314855878300, guid: 85cdaa4f961cfac4abe0405f0adc4ff6, type: 3}
+  - {fileID: 8959772488074281877, guid: 1d0c9cf646a979a4fbb73cc0ee4b202a, type: 3}
+  - {fileID: 9206514083200667853, guid: 658afa8824c091a45af22980cdc7bde8, type: 3}
+  - {fileID: 4511065443657641323, guid: 4da5db8fde51f514b8ce4ae822e9c8d1, type: 3}
+  NumberPitch: 0.125
+  HitEffectPrafebs:
+  - Prafeb: {fileID: 5020764986836720799, guid: fd12a76967b1b714d9259b023c129e64,
+      type: 3}
+    DefaultDirection: -1
+    HorizontalMovement: 1
+    VerticalMovement: 1
+  - Prafeb: {fileID: 7793172847014978566, guid: 5c968d5942a5b584486cefeb4eaefe95,
+      type: 3}
+    DefaultDirection: 1
+    HorizontalMovement: 1
+    VerticalMovement: 1
+  - Prafeb: {fileID: 7799089856244679341, guid: a14ee4f89de5a814587ab480a5a7f61f,
+      type: 3}
+    DefaultDirection: 0
+    HorizontalMovement: 0
+    VerticalMovement: 1
+  NumberEffectTime: 0.6
+  NumberDestroyDelayTime: 0.4
+  NumberEndHight: 0.8
+  NumberEndHorizontal: 0.5
+  NumberDestroyDelayHight: -0.2
+  NumberDestroyDelayHorizontal: 0.05
+  NumberStartColor: {r: 1, g: 1, b: 1, a: 1}
+  NumberEndColor: {r: 0.20784314, g: 0.20784314, b: 0.20784314, a: 0}
+  NumberStartSize: {x: 0.3, y: 0.5, z: 0}
+  NumberEndSize: {x: 1.1, y: 1.1, z: 0}
+  NumberColorEase: 2
+  NumberSizeEase: 18
+  NumberHorizontalEase: 10
+  NumberVerticalEase: 27
+  NumberDestoryDelayMovementEase: 2
+  NumberHorizontalMovement: 1
+  HitEffectTime: 0.8
+  HitEndHight: 0.1
+  HitEndHorizontal: 0.2
+  HitEndColorDelay: 0.7
+  HitStartSize: {x: 0.05, y: 0.1, z: 0}
+  HitEndSize: {x: 0.2, y: 0.2, z: 0}
+  HitEndColor: {r: 0.4433962, g: 0.027189402, b: 0.027189402, a: 0.7137255}
+  HitColorEase: 1
+  HitSizeEase: 27
+  HitMovementEase: 27
