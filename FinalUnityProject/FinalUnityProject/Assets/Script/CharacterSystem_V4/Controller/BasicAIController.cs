@@ -6,7 +6,7 @@ namespace CharacterSystem_V4.Controller
     {
         public ICharacterActionManager Character;
         public BasicAISenser Senser;
-        public AISetting AISetting;
+        public BasicAISetting AISetting;
 
         private GameObject player;
 

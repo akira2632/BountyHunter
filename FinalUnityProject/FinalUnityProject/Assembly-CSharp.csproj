@@ -64,7 +64,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\ActionManager.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterProperty.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterRunTimeData.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterSystemInterfaceInterface.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\KeySetting.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Character\Goblin.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Character\Orc.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Character\OrcCaptain.cs" />
@@ -72,12 +75,8 @@
     <Compile Include="Assets\Script\CharacterSystem_V4\Character\Warrior.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Controller\BasicAIController.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Controller\BasicAISenser.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\Controller\BasicAISetting.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Controller\PlayerController.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\Data\AISetting.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\Data\CharacterProperty.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\Data\CharacterRunTimeData.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\Data\KeySetting.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\Data\WarriorProperty.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Skill\HitEffect.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Skill\ProjectorShooter.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Skill\ProjectSkillCollider.cs" />
@@ -89,6 +88,7 @@
     <Compile Include="Assets\Script\CharacterSystem_V4\Utility\SkillEffectTester.cs" />
     <Compile Include="Assets\Script\Other\ChangeScene.cs" />
     <Compile Include="Assets\Script\Other\SpwanPoint.cs" />
+    <Compile Include="Assets\Script\Other\WarriorProperty.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\AreaGenerater.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\DataStruct.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\MapBuilder.cs" />
