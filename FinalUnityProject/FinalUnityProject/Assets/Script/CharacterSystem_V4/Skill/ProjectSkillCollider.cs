@@ -2,7 +2,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace CharacterSystem_V4.SkillCollider
+namespace CharacterSystem_V4.Skill
 {
     public class ProjectSkillCollider : MonoBehaviour, IAnimateStateInvokeTarget
     {

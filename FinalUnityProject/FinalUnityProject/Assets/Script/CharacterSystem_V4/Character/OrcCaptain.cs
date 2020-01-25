@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using CharacterSystem_V4.SkillCollider;
+using CharacterSystem_V4.Skill;
 
 namespace CharacterSystem_V4
 {

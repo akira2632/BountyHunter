@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace CharacterSystem_V4.SkillCollider
+namespace CharacterSystem_V4.Skill
 {
     public class SkillColliders : MonoBehaviour
     {

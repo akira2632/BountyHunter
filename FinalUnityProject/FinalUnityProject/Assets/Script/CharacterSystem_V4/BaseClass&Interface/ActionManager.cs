@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using CharacterSystem_V4.Skill;
 
 namespace CharacterSystem_V4
 {
@@ -7,7 +8,6 @@ namespace CharacterSystem_V4
     {
         public CharacterRunTimeData RunTimeData;
         public IScriptableCharacterProperty Property;
-        public DamageEffector DamageEffector;
 
         public event Action OnCharacterDead;
         private bool hasInvoke;

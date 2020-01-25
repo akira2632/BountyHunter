@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using CharacterSystem_V4.SkillCollider;
+using CharacterSystem_V4.Skill;
 
 namespace CharacterSystem_V4
 {
@@ -63,7 +63,7 @@ namespace CharacterSystem_V4
             {
                 spider.RunTimeData.Health -= damage.Damage;
                 spider.RunTimeData.VertigoConter += damage.Vertigo;
-                actionManager.DamageEffector.PlayHitEffect(damage);
+
                 if (damage.KnockBackDistance > 0)
                     spider.SetAction(new SpiderKnockBack(damage));
             }

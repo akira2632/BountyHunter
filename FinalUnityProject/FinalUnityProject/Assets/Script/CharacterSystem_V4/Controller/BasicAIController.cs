@@ -93,7 +93,6 @@ namespace CharacterSystem_V4.Controller
 
         protected class AIWandering : IBasicAIState
         {
-            #region 流程控制
             public override void Initial()
             {
                 //Debug.Log("Wandering Start");
@@ -129,7 +128,6 @@ namespace CharacterSystem_V4.Controller
                 else if (pathFinded == null)
                     manager.SetState(new AIWandering());
             }
-            #endregion
         }
 
         protected class AIChase : IBasicAIState

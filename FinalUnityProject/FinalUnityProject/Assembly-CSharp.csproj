@@ -82,10 +82,11 @@
     <Compile Include="Assets\Script\CharacterSystem_V4\Skill\ProjectSkillCollider.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Skill\SkillColliders.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Skill\SkillDamage.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\Skill\SkillEffector.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Utility\AnimateStateInvoker.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\Utility\DamageEffector.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Utility\IAnimateStateInvokeTarget.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Utility\IsometricUtility.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\Utility\SkillEffectTester.cs" />
     <Compile Include="Assets\Script\Other\ChangeScene.cs" />
     <Compile Include="Assets\Script\Other\SpwanPoint.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\AreaGenerater.cs" />

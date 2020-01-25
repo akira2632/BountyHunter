@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using CharacterSystem_V4.SkillCollider;
+using CharacterSystem_V4.Skill;
 
 namespace CharacterSystem_V4
 {
@@ -65,7 +65,6 @@ namespace CharacterSystem_V4
                 goblin.RunTimeData.Health -= damage.Damage;
                 goblin.RunTimeData.VertigoConter += damage.Vertigo;
 
-                actionManager.DamageEffector.PlayHitEffect(damage);
                 if (damage.KnockBackDistance > 0)
                     goblin.SetAction(new GoblinKnockBack(damage));
             }

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using CharacterSystem_V4.SkillCollider;
+using CharacterSystem_V4.Skill;
 
 namespace CharacterSystem_V4
 {
@@ -58,7 +58,6 @@ namespace CharacterSystem_V4
         private class IWarriorAction : ICharacterAction
         {
             protected Warrior warrior;
-            protected static bool deffendEffect = false;
 
             public override void SetManager(ICharacterActionManager actionManager)
             {
@@ -70,13 +69,6 @@ namespace CharacterSystem_V4
             {
                 warrior.RunTimeData.Health -= damage.Damage;
                 warrior.RunTimeData.VertigoConter += damage.Vertigo;
-                if(!deffendEffect)
-                    actionManager.DamageEffector.PlayHitEffect(damage);
-                else
-                {
-                    deffendEffect = false;
-                    actionManager.DamageEffector.PlayDeffendEffect(damage);
-                }
             }
         }
 
@@ -229,7 +221,6 @@ namespace CharacterSystem_V4
             public override void OnHit(DamageData damage)
             {
                 warrior.DeffendSound.Play();
-                deffendEffect = true;
                 base.OnHit(new DamageData
                 {
                     Damage = (int)(damage.Damage * 0.1f),
