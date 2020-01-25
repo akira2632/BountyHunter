@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022664a6e7705cd439bf060faf65cb48, type: 3}
   m_Name: "\u80D6\u6B50\u514B\u80FD\u529B"
   m_EditorClassIdentifier: 
-  CharacterRegenSpeed: 20
-  CharacterRegenHealth: 10
-  CharacterMaxHealth: 70
-  CharacterMoveSpeed: 2
+  CharacterRegenSpeed: 3
+  CharacterRegenHealth: 2
+  CharacterMaxHealth: 100
+  CharacterMoveSpeed: 3
   CharacterDodgeSpeed: 0
   CharacterAttack: 40
-  CharacterAttackSpeed: 3
-  CharacterCriticalDamage: 0
-  CharacterCriticalRate: 0
+  CharacterAttackFloating: 9
+  CharacterBasicAttackSpeed: 2
+  CharacterSpacilAttackSpeed: 2
+  CharacterCriticalMagnifiction: 1.53
+  CharacterCriticalRate: 4.26

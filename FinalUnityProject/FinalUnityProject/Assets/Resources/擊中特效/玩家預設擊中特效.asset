@@ -23,7 +23,7 @@ MonoBehaviour:
   - {fileID: 8959772488074281877, guid: 1d0c9cf646a979a4fbb73cc0ee4b202a, type: 3}
   - {fileID: 9206514083200667853, guid: 658afa8824c091a45af22980cdc7bde8, type: 3}
   - {fileID: 4511065443657641323, guid: 4da5db8fde51f514b8ce4ae822e9c8d1, type: 3}
-  NumberPitch: 0.125
+  NumberPitch: 0.32
   HitEffectPrafebs:
   - Prafeb: {fileID: 5020764986836720799, guid: fd12a76967b1b714d9259b023c129e64,
       type: 3}
