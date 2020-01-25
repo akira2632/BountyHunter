@@ -21,40 +21,51 @@ namespace CharacterSystem_V4.Skill
 
         #region 設定
         #region 預製物設定
-        [Header("PrafebSetting")]
-        public GameObject[] NumberPrafebs;
-        [Tooltip("文字的間距")]
-        public float NumberPitch;
-        public EffectPrafeb[] HitEffectPrafebs;
+        [Header("PrafebSetting"), SerializeField]
+        private GameObject[] NumberPrafebs;
+        [Tooltip("文字的間距"), SerializeField]
+        private float NumberPitch;
+        [SerializeField]
+        private EffectPrafeb[] HitEffectPrafebs;
         #endregion
         #region 傷害數字效果設定
         [Space(10)]
         [Header("NumberEffectSetting")]
-        [Min(0)]
-        public float NumberEffectTime;
-        public float NumberDestroyDelayTime;
-        public float NumberEndHight, NumberEndHorizontal
+        [Min(0), SerializeField]
+        private float NumberEffectTime;
+        [Min(0), SerializeField]
+        private float NumberDestroyDelayTime;
+        [SerializeField]
+        private float NumberEndHight, NumberEndHorizontal
             , NumberDestroyDelayHight, NumberDestroyDelayHorizontal;
-        public Color NumberStartColor, NumberEndColor;
-        public Vector3 NumberStartSize, NumberEndSize;
-        public Ease NumberColorEase = Ease.InSine,
+        [SerializeField]
+        private Color NumberStartColor, NumberEndColor;
+        [SerializeField]
+        private Vector3 NumberStartSize, NumberEndSize;
+        [SerializeField]
+        private Ease NumberColorEase = Ease.InSine,
             NumberSizeEase = Ease.OutBack,
             NumberHorizontalEase = Ease.InOutCubic,
             NumberVerticalEase = Ease.OutBack,
             NumberDestoryDelayMovementEase = Ease.InSine;
-        public bool NumberHorizontalMovement = true;
+        [SerializeField]
+        private bool NumberHorizontalMovement = true;
         #endregion
         #region 技能特效設定
         [Space(10)]
         [Header("HitEffectSetting")]
-        [Min(0)]
-        public float HitEffectTime;
-        public float HitEndHight, HitEndHorizontal;
+        [Min(0), SerializeField]
+        private float HitEffectTime;
+        [SerializeField]
+        private float HitEndHight, HitEndHorizontal;
         [Range(0, 1)]
-        public float HitEndColorDelay;
-        public Vector3 HitStartSize, HitEndSize;
-        public Color HitEndColor;
-        public Ease HitColorEase = Ease.Linear,
+        private float HitEndColorDelay;
+        [SerializeField]
+        private Vector3 HitStartSize, HitEndSize;
+        [SerializeField]
+        private Color HitEndColor;
+        [SerializeField]
+        private Ease HitColorEase = Ease.Linear,
             HitSizeEase = Ease.OutBack,
             HitMovementEase = Ease.OutBack;
         #endregion

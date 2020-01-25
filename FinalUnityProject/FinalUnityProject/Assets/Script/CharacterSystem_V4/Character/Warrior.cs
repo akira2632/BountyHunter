@@ -14,7 +14,7 @@ namespace CharacterSystem_V4
 
         public AudioSource MoveSound, DeffendSound, FallDownSound, LightAttackSound,
                 HeavyAttack1Sound, HeavyAttackChargeSound, HeavyAttack2Sound;
-        public SkillColliders LightAttackColliders, HeavyAttack1Colliders, HeavyAttack2Colliders;
+        public HitEffect DefaultHitEffect, DefaultDeffendEffect;
 
         public void Start()
         {
@@ -69,6 +69,7 @@ namespace CharacterSystem_V4
             {
                 warrior.RunTimeData.Health -= damage.Damage;
                 warrior.RunTimeData.VertigoConter += damage.Vertigo;
+                warrior.DefaultHitEffect.PlayEffect(damage);
             }
         }
 
@@ -220,13 +221,9 @@ namespace CharacterSystem_V4
 
             public override void OnHit(DamageData damage)
             {
+                warrior.RunTimeData.Health -= (int)(damage.Damage * 0.1f);
                 warrior.DeffendSound.Play();
-                base.OnHit(new DamageData
-                {
-                    Damage = (int)(damage.Damage * 0.1f),
-                    HitAt = damage.HitAt,
-                    HitFrom = damage.HitFrom
-                });
+                warrior.DefaultDeffendEffect.PlayEffect(damage);
             }
             #endregion
         }
@@ -293,12 +290,8 @@ namespace CharacterSystem_V4
 
             public override void OnHit(DamageData damage)
             {
-                base.OnHit(new DamageData
-                {
-                    Damage = damage.Damage,
-                    HitAt = damage.HitAt,
-                    HitFrom = damage.HitFrom
-                });
+                damage.Vertigo = 0;
+                base.OnHit(damage);
             }
             #endregion
         }
@@ -326,7 +319,7 @@ namespace CharacterSystem_V4
 
             public override void Update()
             {
-                Vector2 dodgeVector = 
+                Vector2 dodgeVector =
                     IsometricUtility.ToIsometricVector2(warrior.RunTimeData.Direction)
                     * warrior.Property.DodgeSpeed * Time.deltaTime;
 
@@ -387,7 +380,7 @@ namespace CharacterSystem_V4
             {
                 if (dodgeDistance < targetDistance)
                 {
-                    Vector2 dodgeVector = 
+                    Vector2 dodgeVector =
                         IsometricUtility.ToIsometricVector2(warrior.RunTimeData.Direction)
                         * warrior.Property.DodgeSpeed * Time.deltaTime;
 
@@ -508,7 +501,7 @@ namespace CharacterSystem_V4
             {
                 if (dodgeDistance < targetDistance)
                 {
-                    Vector2 dodgeVector = 
+                    Vector2 dodgeVector =
                         IsometricUtility.ToIsometricVector2(warrior.RunTimeData.Direction)
                         * warrior.Property.DodgeSpeed * Time.deltaTime;
 
@@ -558,12 +551,8 @@ namespace CharacterSystem_V4
             #region 外部操作
             public override void OnHit(DamageData damage)
             {
-                base.OnHit(new DamageData
-                {
-                    Damage = (int)(damage.Damage * 2.5),
-                    HitAt = damage.HitAt,
-                    HitFrom = damage.HitFrom
-                });
+                damage.Damage = (int)(damage.Damage * 2.5f);
+                base.OnHit(damage);
                 actionManager.SetAction(new WarriorFall(true));
             }
             #endregion
@@ -607,7 +596,7 @@ namespace CharacterSystem_V4
             #region 外部操作
             public override void Move(Vector2 direction)
             {
-                if(direction.magnitude > 0)
+                if (direction.magnitude > 0)
                     TryToRecurve();
             }
 
@@ -634,13 +623,11 @@ namespace CharacterSystem_V4
             public override void OnHit(DamageData damage)
             {
                 if (hitable)
-                    base.OnHit(new DamageData
-                    {
-                        Damage = (int)(damage.Damage * 0.5),
-                        Vertigo = damage.Vertigo * 0.5f,
-                        HitAt = damage.HitAt,
-                        HitFrom = damage.HitFrom
-                    });
+                {
+                    damage.Damage = (int)(damage.Damage * 0.5f);
+                    damage.Vertigo *= 0.5f;
+                    base.OnHit(damage);
+                }
             }
             #endregion
 

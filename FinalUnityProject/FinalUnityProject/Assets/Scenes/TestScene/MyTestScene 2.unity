@@ -6499,7 +6499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efae9e1eb656bae408dcc204823e9aec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effector: {fileID: 11400000, guid: 8c8d343e77460444a81232b5b646e646, type: 2}
+  Effect: {fileID: 11400000, guid: 8c8d343e77460444a81232b5b646e646, type: 2}
   HitFrom: {fileID: 106684895}
   HitAt: {fileID: 1425963853}
   test_Damage: 1234567890

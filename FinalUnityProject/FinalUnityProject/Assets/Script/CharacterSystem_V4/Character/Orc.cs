@@ -11,7 +11,7 @@ namespace CharacterSystem_V4
         public SpriteRenderer SpriteRenderer;
 
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
-        public SkillColliders LightAttackColliders;
+        public HitEffect DefalutHitEffect;
 
         void Start()
         {
@@ -64,6 +64,7 @@ namespace CharacterSystem_V4
                 orc.RunTimeData.Health -= damage.Damage;
                 orc.RunTimeData.VertigoConter += damage.Vertigo;
 
+                orc.DefalutHitEffect.PlayEffect(damage);
                 if (damage.KnockBackDistance > 0)
                     orc.SetAction(new OrcKnockBack(damage));
             }

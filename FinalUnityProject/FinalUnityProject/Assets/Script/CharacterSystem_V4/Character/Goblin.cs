@@ -11,8 +11,7 @@ namespace CharacterSystem_V4
         public SpriteRenderer SpriteRenderer;
 
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
-        public SkillColliders LightAttackColliders;
-        public ProjectorShooter ProjectorShooter;
+        public HitEffect DefaultHitEffect;
 
         void Start()
         {
@@ -65,6 +64,7 @@ namespace CharacterSystem_V4
                 goblin.RunTimeData.Health -= damage.Damage;
                 goblin.RunTimeData.VertigoConter += damage.Vertigo;
 
+                goblin.DefaultHitEffect.PlayEffect(damage);
                 if (damage.KnockBackDistance > 0)
                     goblin.SetAction(new GoblinKnockBack(damage));
             }
