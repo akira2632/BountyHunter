@@ -13,7 +13,7 @@ namespace CharacterSystem_V4.Controller
 
         #region StateControl
         private bool isInitial = false;
-        private IBasicAIState nowState;
+        private ISpiderAIState nowState;
 
         private void Start()
         {
@@ -22,7 +22,7 @@ namespace CharacterSystem_V4.Controller
 
         private void OnEnable()
         {
-            SetState(new AIIdel());
+            SetState(new AIIdel(this));
         }
 
         private void Update()
@@ -36,24 +36,25 @@ namespace CharacterSystem_V4.Controller
             nowState.Update();
         }
 
-        private void SetState(IBasicAIState nextState)
+        private void SetState(ISpiderAIState nextState)
         {
             nowState?.End();
             isInitial = false;
             nowState = nextState;
-            nowState.SetManager(this);
         }
         #endregion
 
         #region AIState
-        protected abstract class IBasicAIState
+        protected abstract class ISpiderAIState
         {
             protected SpiderAIController manager;
             protected bool? pathFinded;
             protected Vector3 nextPoint;
 
-            public void SetManager(SpiderAIController manager)
-                => this.manager = manager;
+            public ISpiderAIState(SpiderAIController manager)
+            {
+                this.manager = manager;
+            }
 
             protected void PathFinded(bool? finded)
             {
@@ -66,9 +67,11 @@ namespace CharacterSystem_V4.Controller
             public virtual void End() { }
         }
 
-        protected class AIIdel : IBasicAIState
+        protected class AIIdel : ISpiderAIState
         {
             float idelTimer;
+
+            public AIIdel(SpiderAIController manager) : base(manager) { }
 
             public override void Initial()
             {
@@ -84,17 +87,19 @@ namespace CharacterSystem_V4.Controller
             {
                 idelTimer -= Time.deltaTime;
                 if (idelTimer < 0)
-                    manager.SetState(new AIWandering());
+                    manager.SetState(new AIWandering(manager));
 
                 if (IsometricUtility.ToIsometricDistance
                         (manager.Character.transform.position, manager.player.transform.position)
                     <= manager.AISetting.DetectedDistance)
-                    manager.SetState(new AIChase());
+                    manager.SetState(new AIChase(manager));
             }
         }
 
-        protected class AIWandering : IBasicAIState
+        protected class AIWandering : ISpiderAIState
         {
+            public AIWandering(SpiderAIController manager) : base(manager) { }
+
             public override void Initial()
             {
                 //Debug.Log("Wandering Start");
@@ -115,7 +120,7 @@ namespace CharacterSystem_V4.Controller
                 if (IsometricUtility.ToIsometricDistance
                         (manager.Character.transform.position, manager.player.transform.position)
                     <= manager.AISetting.DetectedDistance)
-                    manager.SetState(new AIChase());
+                    manager.SetState(new AIChase(manager));
 
                 if (pathFinded == true)
                 {
@@ -126,15 +131,17 @@ namespace CharacterSystem_V4.Controller
                             (nextPoint - manager.Character.transform.position).normalized);
                     }
                     else if (!manager.Senser.NextWayPoint(out nextPoint))
-                        manager.SetState(new AIIdel());
+                        manager.SetState(new AIIdel(manager));
                 }
                 else if (pathFinded == null)
-                    manager.SetState(new AIWandering());
+                    manager.SetState(new AIWandering(manager));
             }
         }
 
-        protected class AIChase : IBasicAIState
+        protected class AIChase : ISpiderAIState
         {
+            public AIChase(SpiderAIController manager) : base(manager) { }
+
             public override void Initial()
             {
                 //Debug.Log("Chase Start");
@@ -146,14 +153,14 @@ namespace CharacterSystem_V4.Controller
             {
                 if (IsometricUtility.ToIsometricDistance(manager.Character.transform.position,
                     manager.player.transform.position) > manager.AISetting.DetectedDistance)
-                    manager.SetState(new AIIdel());
+                    manager.SetState(new AIIdel(manager));
 
                 if (pathFinded == true)
                 {
                     if (IsometricUtility.ToIsometricDistance(manager.player.transform.position, manager.Character.transform.position) < manager.AISetting.AttackDistance
                         && manager.Character.RunTimeData.BasicAttackTimer <= 0)
                     {
-                        manager.SetState(new AIAttack());
+                        manager.SetState(new AIAttack(manager));
                     }
                     else if (IsometricUtility.ToIsometricDistance(nextPoint, manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
@@ -163,12 +170,12 @@ namespace CharacterSystem_V4.Controller
                     }
                     else if (!manager.Senser.NextWayPoint(out nextPoint))
                     {
-                        manager.SetState(new AIChase());
+                        manager.SetState(new AIChase(manager));
                     }
                 }
                 else if (pathFinded == null)
                 {
-                    manager.SetState(new AIIdel());
+                    manager.SetState(new AIIdel(manager));
                 }
             }
 
@@ -178,80 +185,69 @@ namespace CharacterSystem_V4.Controller
             }
         }
 
-        protected class AIAttack : IBasicAIState
+        protected class AIAttack : ISpiderAIState
         {
+            public AIAttack(SpiderAIController manager) : base(manager) { }
+
             public override void Initial()
             {
                 //Debug.Log("AttackStart");
                 manager.Character.Move(
                     (manager.player.transform.position - manager.Character.transform.position).normalized);
                 manager.Character.BasicAttack();
-            }
-
-            public override void Update()
-            {
-                if (IsometricUtility.ToIsometricDistance(manager.Character.transform.position,
-                    manager.player.transform.position) > manager.AISetting.DetectedDistance)
-                    manager.SetState(new AIIdel());
-
-                if (IsometricUtility.ToIsometricDistance(manager.player.transform.position,
-                    manager.Character.transform.position) > manager.AISetting.AttackDistance)
-                    manager.SetState(new AIChase());
-
-                if (manager.Character.RunTimeData.BasicAttackTimer <= 0)
-                {
-                    manager.Character.Move(
-                        (manager.player.transform.position - manager.Character.transform.position).normalized);
-                    manager.Character.BasicAttack();
-                }
+                manager.SetState(new AIAround(manager));
             }
         }
 
-        protected class AIAround : IBasicAIState
+        protected class AIAround : ISpiderAIState
         {
-            private Queue<Vector3> wayPoints;
+            private Vector3 targetPoint;
+            private float angle;
+            private int roundTurnCount;
 
-            private AIAround(Queue<Vector3> wayPoints)
+            private AIAround(SpiderAIController manager, float angle, int roundTurnCount) : base(manager)
             {
-                this.wayPoints = wayPoints;
-            }
-
-            public AIAround()
-            {
-                wayPoints = new Queue<Vector3>();
-                var firstTarget = IsometricUtility
-                    .ToIsometricVector3(manager.player.transform.position - manager.Character.transform.position)
+                var orignalDirection = IsometricUtility.ToIsometricVector3(manager.Character.transform.position - manager.player.transform.position).normalized
                     * manager.AISetting.AroundRadius;
-                wayPoints.Enqueue(firstTarget);
+                var rotateDirection = Quaternion.AngleAxis(angle, Vector3.forward)
+                    * orignalDirection;
+                targetPoint = manager.player.transform.position + rotateDirection;
+                Debug.Log($"Orignal{orignalDirection}\nRotate{rotateDirection}\nTarget{targetPoint}");
 
-                float angle = Random.Range(1, 10) > 5 ? -manager.AISetting.AroundDegree : manager.AISetting.AroundDegree;
-                var rotate = Quaternion.AngleAxis(angle, manager.player.transform.position);
-                for (int i = 0; i < manager.AISetting.RoundTurn; i++)
-                {
-                    Vector3 nextTarget = firstTarget;
-
-                    for (int r = 0; r <= i; r++)
-                    {
-                        nextTarget = rotate * nextTarget;
-                    }
-
-                    wayPoints.Enqueue(nextTarget);
-                }            
+                this.angle = angle;
+                this.roundTurnCount = roundTurnCount - 1;
+                manager.Senser.FindPath(targetPoint, PathFinded);
             }
 
-            public override void Initial()
+            public AIAround(SpiderAIController manager) : base(manager)
             {
-                manager.Senser.FindPath(wayPoints.Dequeue(), PathFinded);
+                targetPoint = manager.player.transform.position
+                    + IsometricUtility.ToIsometricVector3(manager.Character.transform.position - manager.player.transform.position).normalized
+                    * manager.AISetting.AroundRadius;
+
+                angle = Random.Range(1, 10) > 5 ? -manager.AISetting.AroundDegree : manager.AISetting.AroundDegree;
+                roundTurnCount = manager.AISetting.RoundTurn;
+                manager.Senser.FindPath(targetPoint, PathFinded);
             }
 
             public override void Update()
             {
-                base.Update();
-            }
-
-            public override void End()
-            {
-                base.End();
+                if (pathFinded == true)
+                {
+                    if (IsometricUtility.ToIsometricDistance(nextPoint, manager.Character.transform.position)
+                        > manager.AISetting.StopDistance)
+                    {
+                        manager.Character.Move(
+                            (nextPoint - manager.Character.transform.position).normalized);
+                    }
+                    else if (!manager.Senser.NextWayPoint(out nextPoint))
+                    {
+                        if (roundTurnCount > 0)
+                            manager.SetState(new AIAround(manager, angle, roundTurnCount));
+                        else
+                            manager.SetState(new AIChase(manager));
+                    }
+                }
             }
         }
         #endregion
