@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b077caf63c531cc4d97c103310f5c224, type: 3}
-  m_Name: "\u8718\u86DBAI\u8A2D\u5B9A_Around"
+  m_Name: "\u8718\u86DBAI\u8A2D\u5B9A_\u7E5E\u6253"
   m_EditorClassIdentifier: 
   IdelTimeMax: 8
   IdelTimeMin: 4
@@ -19,6 +19,6 @@ MonoBehaviour:
   DetectedDistance: 10
   AttackDistance: 0.7
   StopDistance: 0.8
-  AroundDegree: 60
-  AroundRadius: 5
+  AroundDegree: 40
+  AroundRadius: 3
   RoundTurn: 3
