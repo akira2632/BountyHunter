@@ -36,7 +36,7 @@ MonoBehaviour:
   - Prafeb: {fileID: 1763249923191881444, guid: c7691365a86888c4ea1d9f75877c1e47,
       type: 3}
     DefaultDirection: 0
-    HorizontalMovement: 0
+    HorizontalMovement: 1
     VerticalMovement: 1
   NumberEffectTime: 0.4
   NumberDestroyDelayTime: 1

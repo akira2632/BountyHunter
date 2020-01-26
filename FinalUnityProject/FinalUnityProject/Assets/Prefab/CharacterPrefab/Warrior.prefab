@@ -173,9 +173,9 @@ MonoBehaviour:
   HeavyAttack1Sound: {fileID: 5073477300670149128}
   HeavyAttackChargeSound: {fileID: 8729913804834685735}
   HeavyAttack2Sound: {fileID: 7095724579835914524}
-  DefaultHitEffect: {fileID: 11400000, guid: f4a953a8e93c7c0459b79bb918a00806, type: 2}
-  DefaultDeffendEffect: {fileID: 11400000, guid: 375aa02693b531145b5158631a5f9b4b,
-    type: 2}
+  LightAttackColliders: {fileID: 5753775219149531396}
+  HeavyAttack1Colliders: {fileID: 1735412950629473227}
+  HeavyAttack2Colliders: {fileID: 1721766323955043404}
 --- !u!212 &906002252590915433
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1201,6 +1201,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6704382508476855882}
     m_Modifications:
+    - target: {fileID: 3228684796954368208, guid: d315a94b67268284eb08085507fbc2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: "Collider\u6230\u58EB\u91CD\u653B\u64CA"
+      objectReference: {fileID: 0}
     - target: {fileID: 3941319622196700308, guid: d315a94b67268284eb08085507fbc2a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1261,11 +1266,6 @@ PrefabInstance:
       propertyPath: Character
       value: 
       objectReference: {fileID: 54887327339312259}
-    - target: {fileID: 3228684796954368208, guid: d315a94b67268284eb08085507fbc2a6,
-        type: 3}
-      propertyPath: m_Name
-      value: "Collider\u6230\u58EB\u91CD\u653B\u64CA"
-      objectReference: {fileID: 0}
     - target: {fileID: 522867620182152049, guid: d315a94b67268284eb08085507fbc2a6,
         type: 3}
       propertyPath: m_Enabled
@@ -1314,6 +1314,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2800968648125690043}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1735412950629473227 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4524541782652382064, guid: d315a94b67268284eb08085507fbc2a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 2800968648125690043}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d954277cd2ec9141aab63b08791f711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5229004645363227849
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1321,16 +1333,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6704382508476855882}
     m_Modifications:
-    - target: {fileID: 6878642996417138821, guid: 877c37856f97b3849a5a52e0c9089c95,
-        type: 3}
-      propertyPath: Character
-      value: 
-      objectReference: {fileID: 54887327339312259}
     - target: {fileID: 7590902293743079173, guid: 877c37856f97b3849a5a52e0c9089c95,
         type: 3}
       propertyPath: m_Name
       value: "Collider\u6230\u58EB\u731B\u864E\u7A81\u570D\u65AC"
       objectReference: {fileID: 0}
+    - target: {fileID: 6878642996417138821, guid: 877c37856f97b3849a5a52e0c9089c95,
+        type: 3}
+      propertyPath: Character
+      value: 
+      objectReference: {fileID: 54887327339312259}
     - target: {fileID: 2000451556626100968, guid: 877c37856f97b3849a5a52e0c9089c95,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1428,6 +1440,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 877c37856f97b3849a5a52e0c9089c95, type: 3}
+--- !u!114 &1721766323955043404 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6878642996417138821, guid: 877c37856f97b3849a5a52e0c9089c95,
+    type: 3}
+  m_PrefabInstance: {fileID: 5229004645363227849}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d954277cd2ec9141aab63b08791f711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6003896518018166305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2000451556626100968, guid: 877c37856f97b3849a5a52e0c9089c95,
@@ -1521,16 +1545,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6704382508476855882}
     m_Modifications:
-    - target: {fileID: 3419315091385338913, guid: cba218fa807cc444ab152af20d87d12c,
-        type: 3}
-      propertyPath: Character
-      value: 
-      objectReference: {fileID: 54887327339312259}
     - target: {fileID: 3974376710465663930, guid: cba218fa807cc444ab152af20d87d12c,
         type: 3}
       propertyPath: m_Name
       value: "Collider\u6230\u58EB\u8F15\u653B\u64CA"
       objectReference: {fileID: 0}
+    - target: {fileID: 3419315091385338913, guid: cba218fa807cc444ab152af20d87d12c,
+        type: 3}
+      propertyPath: Character
+      value: 
+      objectReference: {fileID: 54887327339312259}
     - target: {fileID: 1991089383483126143, guid: cba218fa807cc444ab152af20d87d12c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1634,3 +1658,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6965481917197952293}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5753775219149531396 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3419315091385338913, guid: cba218fa807cc444ab152af20d87d12c,
+    type: 3}
+  m_PrefabInstance: {fileID: 6965481917197952293}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d954277cd2ec9141aab63b08791f711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

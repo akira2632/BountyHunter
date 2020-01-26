@@ -8,16 +8,44 @@ public class IsometricUtility
         HorizontalMin = Mathf.PI * 3 / 8,
         HorizontalMax = Mathf.PI * 5 / 8;
 
+    #region ToIsometricVector2
     public static Vector2 ToIsometricVector2(Vector2 vector)
     {
         float angle = Mathf.Atan2(vector.y, vector.x);
         return new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
     }
-    
+
     public static Vector2 ToIsometricVector2(Vector3 vector)
     {
         float angle = Mathf.Atan2(vector.y, vector.x);
         return new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
+    }
+
+    public static Vector2 ToIsometricVector2(Vector2 from, Vector2 to)
+    {
+        float angle = Mathf.Atan2(to.y - from.y, to.x - from.x);
+        float orignalDistance = Vector2.Distance(from, to);
+
+        return new Vector2(orignalDistance * Mathf.Cos(angle),
+            0.6f * orignalDistance * Mathf.Sin(angle));
+    }
+    
+    public static Vector2 ToIsometricVector2(Vector3 from, Vector3 to)
+    {
+        float angle = Mathf.Atan2(to.y - from.y, to.x - from.x);
+        float orignalDistance = Vector2.Distance(from, to);
+
+        return new Vector2(orignalDistance * Mathf.Cos(angle),
+            0.6f * orignalDistance * Mathf.Sin(angle));
+    }
+    #endregion
+
+    #region ToIsometricVector3
+    public static Vector3 ToIsometricVector3(Vector2 vector)
+    {
+        float angle = Mathf.Atan2(vector.y, vector.x);
+        return new Vector3(vector.magnitude * Mathf.Cos(angle),
+            0.6f * vector.magnitude * Mathf.Sin(angle));
     }
 
     public static Vector3 ToIsometricVector3(Vector3 vector)
@@ -27,22 +55,34 @@ public class IsometricUtility
             0.6f * vector.magnitude * Mathf.Sin(angle));
     }
 
-    public static Vector3 ToIsometricVector3(Vector2 vector)
-    {
-        float angle = Mathf.Atan2(vector.y, vector.x);
-        return new Vector3(vector.magnitude * Mathf.Cos(angle),
-            0.6f * vector.magnitude * Mathf.Sin(angle));
-    }
-
-    public static float ToIsometricDistance(Vector3 from, Vector3 to)
+    public static Vector3 ToIsometricVector3(Vector2 from, Vector2 to)
     {
         float angle = Mathf.Atan2(to.y - from.y, to.x - from.x);
-        float orignalDistance = Vector3.Distance(from, to);
+        float orignalDistance = Vector2.Distance(from, to);
 
         return new Vector2(orignalDistance * Mathf.Cos(angle),
-            0.6f * orignalDistance * Mathf.Sin(angle)).magnitude;
+            0.6f * orignalDistance * Mathf.Sin(angle));
     }
 
+    public static Vector3 ToIsometricVector3(Vector3 from, Vector3 to)
+    {
+        float angle = Mathf.Atan2(to.y - from.y, to.x - from.x);
+        float orignalDistance = Vector2.Distance(from, to);
+
+        return new Vector2(orignalDistance * Mathf.Cos(angle),
+            0.6f * orignalDistance * Mathf.Sin(angle));
+    }
+    #endregion
+
+    #region ToIsometricDistance
+    public static float ToIsometricDistance(Vector2 from, Vector2 to)
+        => ToIsometricVector2(from, to).magnitude;
+
+    public static float ToIsometricDistance(Vector3 from, Vector3 to)
+        => ToIsometricVector2(from, to).magnitude;
+    #endregion
+
+    #region VerticalAndHorizontal
     public static void GetVerticalAndHorizontal(Vector2 direction, out float vertical, out float horizontal)
     {
         var verticalAngle = Mathf.Atan2(direction.y, direction.x);
@@ -84,4 +124,5 @@ public class IsometricUtility
         else
             return 0;
     }
+    #endregion
 }
