@@ -2,7 +2,7 @@
 
 namespace CharacterSystem_V4.Controller
 {
-    [CreateAssetMenu(fileName = "AI設定", menuName = "賞金獵人_角色系統V4 /AI設定")]
+    [CreateAssetMenu(fileName = "基本AI設定", menuName = "賞金獵人_角色系統V4 /基本AI設定", order = 0)]
     public class BasicAISetting : ScriptableObject
     {
         public float IdelTimeMax, IdelTimeMin,

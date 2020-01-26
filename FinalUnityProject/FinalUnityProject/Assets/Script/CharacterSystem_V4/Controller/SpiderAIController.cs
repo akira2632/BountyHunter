@@ -7,7 +7,7 @@ namespace CharacterSystem_V4.Controller
     {
         public ICharacterActionManager Character;
         public BasicAISenser Senser;
-        public BasicAISetting AISetting;
+        public SpiderAISetting AISetting;
 
         private GameObject player;
 
@@ -214,6 +214,13 @@ namespace CharacterSystem_V4.Controller
             private AIAround(Queue<Vector3> wayPoints)
             {
                 this.wayPoints = wayPoints;
+            }
+
+            public AIAround()
+            {
+                wayPoints = new Queue<Vector3>();
+                float roundRad = Random.Range(1, 10) > 5 ? -manager.AISetting.AroundDegree : manager.AISetting.AroundDegree;
+                
             }
 
             public override void Initial()

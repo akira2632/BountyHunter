@@ -79,6 +79,7 @@
     <Compile Include="Assets\Script\CharacterSystem_V4\Controller\GoblinAIController.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Controller\PlayerController.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Controller\SpiderAIController.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\Controller\SpiderAISetting.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Skill\HitEffect.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Skill\ProjectorShooter.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Skill\ProjectSkillCollider.cs" />
