@@ -51,9 +51,9 @@ MonoBehaviour:
   BlockingLayer: 8
   HitAll: 0
   target: {x: 0, y: 0, z: 0}
-  BulletSpeed: 8
-  BulletRange: 6
-  BulletMoveEase: 21
+  BulletSpeed: 3.3
+  BulletRange: 4.01
+  BulletMoveEase: 1
 --- !u!212 &3466649796960702346
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -58,7 +58,7 @@ namespace CharacterSystem_V4.Skill
         private float HitEffectTime;
         [SerializeField]
         private float HitEndHight, HitEndHorizontal;
-        [Range(0, 1)]
+        [Range(0, 1), SerializeField]
         private float HitEndColorDelay;
         [SerializeField]
         private Vector3 HitStartSize, HitEndSize;
