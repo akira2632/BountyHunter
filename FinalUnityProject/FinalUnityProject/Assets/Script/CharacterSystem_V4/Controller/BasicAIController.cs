@@ -193,7 +193,7 @@ namespace CharacterSystem_V4.Controller
                     manager.player.transform.position) > manager.AISetting.DetectedDistance)
                     manager.SetState(new AIIdel());
 
-                if (IsometricUtility.ToIsometricDistance(manager.player.transform.position, 
+                if (IsometricUtility.ToIsometricDistance(manager.player.transform.position,
                     manager.Character.transform.position) > manager.AISetting.AttackDistance)
                     manager.SetState(new AIChase());
 
