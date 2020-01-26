@@ -17,7 +17,9 @@ MonoBehaviour:
   CharacterMaxHealth: 160
   CharacterMoveSpeed: 4
   CharacterDodgeSpeed: 8
-  CharacterAttack: 20
-  CharacterAttackSpeed: 0.5
-  CharacterCriticalDamage: 0
-  CharacterCriticalRate: 0
+  CharacterAttack: 43
+  CharacterAttackFloating: 26
+  CharacterBasicAttackSpeed: 2
+  CharacterSpacilAttackSpeed: 2
+  CharacterCriticalMagnifiction: 1.18
+  CharacterCriticalRate: 34.94
