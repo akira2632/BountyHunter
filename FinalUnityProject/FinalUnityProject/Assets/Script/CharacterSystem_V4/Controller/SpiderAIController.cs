@@ -219,8 +219,18 @@ namespace CharacterSystem_V4.Controller
             public AIAround()
             {
                 wayPoints = new Queue<Vector3>();
-                float roundRad = Random.Range(1, 10) > 5 ? -manager.AISetting.AroundDegree : manager.AISetting.AroundDegree;
-                
+                var firstTarget = IsometricUtility
+                    .ToIsometricVector3(manager.player.transform.position - manager.Character.transform.position)
+                    * manager.AISetting.AroundRadius;
+                wayPoints.Enqueue(firstTarget);
+
+                float angle = Random.Range(1, 10) > 5 ? -manager.AISetting.AroundDegree : manager.AISetting.AroundDegree;
+                for (int i = 0; i < manager.AISetting.RoundTurn; i++)
+                {
+                    wayPoints.Enqueue(
+                        Quaternion.AngleAxis(angle, manager.player.transform.position)
+                        * firstTarget);
+                }            
             }
 
             public override void Initial()

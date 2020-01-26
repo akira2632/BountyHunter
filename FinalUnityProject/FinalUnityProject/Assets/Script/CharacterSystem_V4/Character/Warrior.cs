@@ -438,8 +438,10 @@ namespace CharacterSystem_V4
                 {
                     ChargeTime += Time.deltaTime;
 
-                    warrior.CharacterAnimator.SetFloat("Vertical", Mathf.Floor(warrior.RunTimeData.Direction.y));
-                    warrior.CharacterAnimator.SetFloat("Horizontal", Mathf.Floor(warrior.RunTimeData.Direction.x));
+                    IsometricUtility.GetVerticalAndHorizontal(
+                        warrior.RunTimeData.Direction, out var vertical, out var horizontal);
+                    warrior.CharacterAnimator.SetFloat("Vertical", vertical);
+                    warrior.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                     if (!IsCharge || ChargeTime > 2.1)
                     {

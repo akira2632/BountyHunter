@@ -11,5 +11,9 @@ namespace CharacterSystem_V4.Controller
             AttackDistance, StopDistance;
         [Range(0, 360)]
         public float AroundDegree;
+        [Min(0)]
+        public float AroundRadius;
+        [Min(1)]
+        public int RoundTurn;
     }
 }
