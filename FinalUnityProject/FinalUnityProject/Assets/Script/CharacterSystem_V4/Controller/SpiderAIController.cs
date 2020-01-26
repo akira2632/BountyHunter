@@ -225,11 +225,17 @@ namespace CharacterSystem_V4.Controller
                 wayPoints.Enqueue(firstTarget);
 
                 float angle = Random.Range(1, 10) > 5 ? -manager.AISetting.AroundDegree : manager.AISetting.AroundDegree;
+                var rotate = Quaternion.AngleAxis(angle, manager.player.transform.position);
                 for (int i = 0; i < manager.AISetting.RoundTurn; i++)
                 {
-                    wayPoints.Enqueue(
-                        Quaternion.AngleAxis(angle, manager.player.transform.position)
-                        * firstTarget);
+                    Vector3 nextTarget = firstTarget;
+
+                    for (int r = 0; r <= i; r++)
+                    {
+                        nextTarget = rotate * nextTarget;
+                    }
+
+                    wayPoints.Enqueue(nextTarget);
                 }            
             }
 
