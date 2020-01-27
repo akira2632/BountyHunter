@@ -141,7 +141,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 270
+  spritePixelsToUnits: 250
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -156,34 +156,34 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
-    crunchedCompression: 1
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 4096
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
-    crunchedCompression: 1
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Android
-    maxTextureSize: 4096
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
-    crunchedCompression: 1
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
@@ -719,12 +719,12 @@ TextureImporter:
       name: "\u89D2\u82721\u91CD\u653B\u64CAslice(896x896)_25"
       rect:
         serializedVersion: 2
-        x: 440
-        y: 504
+        x: 437
+        y: 465
         width: 440
         height: 440
       alignment: 9
-      pivot: {x: 0.5151022, y: 0.3288416}
+      pivot: {x: 0.5219033, y: 0.3968521}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -805,10 +805,10 @@ TextureImporter:
         serializedVersion: 2
         x: 440
         y: 64
-        width: 440
-        height: 440
+        width: 435
+        height: 379
       alignment: 9
-      pivot: {x: 0.4194548, y: 0.2080238}
+      pivot: {x: 0.43321323, y: 0.25145003}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
