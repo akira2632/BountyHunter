@@ -676,10 +676,6 @@
       <Project>{25150A70-229E-D785-28C2-B3F13EF46876}</Project>
       <Name>AstarPathfindingProject</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity2DExtras.csproj">
-      <Project>{420594EA-5A4B-0E7E-E4EE-F2FB5A39CF79}</Project>
-      <Name>Unity2DExtras</Name>
-    </ProjectReference>
     <ProjectReference Include="PackageToolsEditor.csproj">
       <Project>{B4716752-3C42-8545-6A6F-1A67C096B979}</Project>
       <Name>PackageToolsEditor</Name>
@@ -687,6 +683,10 @@
     <ProjectReference Include="AstarPathfindingProjectEditor.csproj">
       <Project>{7526BB2E-CB58-B0B2-21EF-6B32EBBCD0A1}</Project>
       <Name>AstarPathfindingProjectEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity2DExtras.csproj">
+      <Project>{420594EA-5A4B-0E7E-E4EE-F2FB5A39CF79}</Project>
+      <Name>Unity2DExtras</Name>
     </ProjectReference>
     <ProjectReference Include="DOTween.Modules.csproj">
       <Project>{6EB31097-1CD9-0E5B-3130-4C845CC26628}</Project>
