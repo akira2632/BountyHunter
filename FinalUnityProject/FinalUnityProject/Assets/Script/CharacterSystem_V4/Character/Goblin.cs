@@ -97,7 +97,7 @@ namespace CharacterSystem
             public override void SpecialAttack(Vector3 tartgetPosition)
             {
                 goblin.RunTimeData.TargetPosition = tartgetPosition;
-                actionManager.SetAction(new GoblinSpacilAttack());
+                actionManager.SetAction(new GoblinSpacilAttack(tartgetPosition));
             }
 
             public override void Move(Vector2 direction)
@@ -152,7 +152,7 @@ namespace CharacterSystem
             public override void SpecialAttack(Vector3 tartgetPosition)
             {
                 goblin.RunTimeData.TargetPosition = tartgetPosition;
-                actionManager.SetAction(new GoblinSpacilAttack());
+                actionManager.SetAction(new GoblinSpacilAttack(tartgetPosition));
             }
 
             public override void Move(Vector2 direction)
@@ -195,6 +195,20 @@ namespace CharacterSystem
 
         private class GoblinSpacilAttack : IGoblinAction
         {
+            private Vector3 targetPosition;
+            private bool hasTarget;
+
+            public GoblinSpacilAttack()
+            {
+                hasTarget = false;
+            }
+
+            public GoblinSpacilAttack(Vector3 targetPosition)
+            {
+                this.targetPosition = targetPosition;
+                hasTarget = true;
+            }
+
             public override void Start()
             {
                 if (goblin.RunTimeData.SpacilAttackTimer > 0)
@@ -205,6 +219,13 @@ namespace CharacterSystem
 
                 goblin.animationEnd = false;
 
+                if (hasTarget)
+                {
+                    IsometricUtility.GetVerticalAndHorizontal(
+                        targetPosition - goblin.transform.position, out var vertical, out var horizontal);
+                    goblin.CharacterAnimator.SetFloat("Vertical", vertical);
+                    goblin.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                }
                 goblin.CharacterAnimator.SetTrigger("RangeAttack");
             }
 

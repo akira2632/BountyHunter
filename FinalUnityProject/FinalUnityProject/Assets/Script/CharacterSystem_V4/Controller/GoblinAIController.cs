@@ -228,7 +228,7 @@ namespace CharacterSystem.Controller
                 this.angle = angle;
                 this.roundTurnCount = roundTurnCount - 1;
                 manager.Senser.FindPath(targetPoint, PathFinded);
-                Debug.Log($"AroundStart turnCount = {roundTurnCount}");
+                //Debug.Log($"AroundStart turnCount = {roundTurnCount}");
             }
 
             public AIAround(GoblinAIController manager) : base(manager)
@@ -240,7 +240,7 @@ namespace CharacterSystem.Controller
                 angle = Random.Range(1, 10) > 5 ? -manager.AISetting.AroundDegree : manager.AISetting.AroundDegree;
                 roundTurnCount = manager.AISetting.RoundTurn;
                 manager.Senser.FindPath(targetPoint, PathFinded);
-                Debug.Log($"AroundStart turnCount = {roundTurnCount}");
+                //Debug.Log($"AroundStart turnCount = {roundTurnCount}");
             }
 
             public override void Update()
@@ -291,16 +291,8 @@ namespace CharacterSystem.Controller
 
         protected class AISpacilAttack : IBasicAIState
         {
-            private int changeSideConter;
-
             public AISpacilAttack(GoblinAIController manager) : base(manager)
             {
-            }
-
-            public override void Initial()
-            {
-                changeSideConter = manager.AISetting.SpacilAttackChangeSideConter;
-                Debug.Log($"SpacilAttackStart SideConter = {changeSideConter}");
             }
 
             public override void Update()
@@ -315,15 +307,8 @@ namespace CharacterSystem.Controller
 
                 if (manager.Character.RunTimeData.SpacilAttackTimer <= 0)
                 {
-                    manager.Character.Move(
-                        (manager.player.transform.position - manager.Character.transform.position).normalized);
                     manager.Character.SpecialAttack(manager.player.transform.position);
-                    
-                    if(--changeSideConter <= 0)
-                    {
-                        Debug.Log($"SideConter = {changeSideConter}");
-                        manager.SetState(new AIIdel(manager));
-                    }
+                    manager.SetState(new AIAround(manager));
                 }
             }
         }
