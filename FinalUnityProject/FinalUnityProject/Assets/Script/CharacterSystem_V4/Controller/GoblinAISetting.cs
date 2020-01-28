@@ -8,6 +8,8 @@ namespace CharacterSystem.Controller
         public float IdelTimeMax, IdelTimeMin,
             WounderDistanceMax, WounderDistanceMin,
             DetectedDistance,
-            BasicAttackDistance, SpacilAttackDistance, StopDistance;
+            BasicAttackDistance, SpacilAttackDistance, StopDistance
+            , AroundRadius, AroundDegree;
+        public int SpacilAttackChangeSideConter, RoundTurn;
     }
 }

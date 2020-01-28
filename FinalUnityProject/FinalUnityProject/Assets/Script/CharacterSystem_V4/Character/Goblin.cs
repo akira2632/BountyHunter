@@ -30,6 +30,8 @@ namespace CharacterSystem
             {
                 if (RunTimeData.BasicAttackTimer >= 0)
                     RunTimeData.BasicAttackTimer -= Time.deltaTime;
+                if (RunTimeData.SpacilAttackTimer >= 0)
+                    RunTimeData.SpacilAttackTimer -= Time.deltaTime;
 
                 RunTimeData.RegenTimer += Time.deltaTime;
                 if (RunTimeData.Health < Property.MaxHealth &&

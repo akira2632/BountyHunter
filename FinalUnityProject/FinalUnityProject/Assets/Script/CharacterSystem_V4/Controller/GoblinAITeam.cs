@@ -39,16 +39,18 @@ namespace CharacterSystem.Controller
         }
         #endregion
 
-        public int BasicAttackTeamWeight = 1, SpacilAttackTeamWeight = 2;
+        public float BasicAttackTeamWeight = 1, SpacilAttackTeamWeight = 2;
 
         [SerializeField]
         private List<GoblinAIController> AITeam = new List<GoblinAIController>();
-        private int basicAttackMemberCount, spacilAttackMemberCount;
+        private float basicAttackMemberCount, spacilAttackMemberCount;
 
         public void AddToTeam(GoblinAIController goblinAI)
         {
             if (!AITeam.Contains(goblinAI))
                 AITeam.Add(goblinAI);
+
+            SelectTeam(goblinAI);
         }
 
         public void RemoveFromTeam(GoblinAIController goblinAI)
@@ -63,39 +65,42 @@ namespace CharacterSystem.Controller
 
                 AITeam.Remove(goblinAI);
             }
+
+            foreach (GoblinAIController member in AITeam)
+                SelectTeam(member);
         }
 
-        private void Update()
+        private void SelectTeam(GoblinAIController member)
         {
-            foreach (GoblinAIController member in AITeam)
-            {
-                if (member.MemberType != MemberType.BasicAttacker
-                    && basicAttackMemberCount * BasicAttackTeamWeight
-                    <= spacilAttackMemberCount * SpacilAttackTeamWeight)
-                    SwitchToBasicTeam(member);
-
-                if (member.MemberType != MemberType.SpacilAttacker
-                    && basicAttackMemberCount > 0
-                    && basicAttackMemberCount * BasicAttackTeamWeight
-                    <= spacilAttackMemberCount * SpacilAttackTeamWeight)
-                    SwitchToSpacilTeam(member);
-            }
+            if (basicAttackMemberCount / BasicAttackTeamWeight
+                < spacilAttackMemberCount / SpacilAttackTeamWeight)
+                SwitchToBasicTeam(member);
+            else
+                SwitchToSpacilTeam(member);
         }
 
         private void SwitchToBasicTeam(GoblinAIController member)
         {
-            member.MemberType = MemberType.BasicAttacker;
-            basicAttackMemberCount++;
+            if (member.MemberType == MemberType.BasicAttacker)
+                return;
+
             if (member.MemberType == MemberType.SpacilAttacker)
                 spacilAttackMemberCount--;
+
+            member.MemberType = MemberType.BasicAttacker;
+            basicAttackMemberCount++;
         }
 
         private void SwitchToSpacilTeam(GoblinAIController member)
         {
-            member.MemberType = MemberType.SpacilAttacker;
-            spacilAttackMemberCount++;
+            if (member.MemberType == MemberType.SpacilAttacker)
+                return;
+
             if (member.MemberType == MemberType.BasicAttacker)
                 basicAttackMemberCount--;
+
+            member.MemberType = MemberType.SpacilAttacker;
+            spacilAttackMemberCount++;
         }
     }
 }
