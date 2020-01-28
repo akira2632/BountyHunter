@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CharacterSystem_V4.Skill
+namespace CharacterSystem.Skill
 {
     public class ProjectorShooter : MonoBehaviour
     {

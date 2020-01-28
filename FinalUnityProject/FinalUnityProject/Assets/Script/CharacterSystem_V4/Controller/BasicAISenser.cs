@@ -3,7 +3,7 @@ using System.Collections;
 using Pathfinding;
 using UnityEngine;
 
-namespace CharacterSystem_V4.Controller
+namespace CharacterSystem.Controller
 {
     public class BasicAISenser : MonoBehaviour
     {

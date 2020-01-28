@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CharacterSystem_V4
+namespace CharacterSystem
 {
     /// <summary>
     /// 角色執行期參數介面

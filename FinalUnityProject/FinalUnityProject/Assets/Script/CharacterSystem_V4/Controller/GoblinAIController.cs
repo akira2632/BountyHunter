@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 
-namespace CharacterSystem_V4.Controller
+namespace CharacterSystem.Controller
 {
     public class GoblinAIController : MonoBehaviour
     {
+        public MemberType MemberType;
+
         public ICharacterActionManager Character;
         public BasicAISenser Senser;
-        public BasicAISetting AISetting;
+        public GoblinAISetting AISetting;
 
         private GameObject player;
 
@@ -21,11 +23,19 @@ namespace CharacterSystem_V4.Controller
 
         private void OnEnable()
         {
-            SetState(new AIIdel());
+            SetState(new AIIdel(this));
+            MemberType = MemberType.None;
+            GoblinAITeam.Instance.AddToTeam(this);
         }
 
         private void Update()
         {
+            if(Character.RunTimeData.Health <= 0)
+            {
+                GoblinAITeam.Instance.RemoveFromTeam(this);
+                return;
+            }
+
             if (!isInitial)
             {
                 nowState.Initial();
@@ -40,7 +50,6 @@ namespace CharacterSystem_V4.Controller
             nowState?.End();
             isInitial = false;
             nowState = nextState;
-            nowState.SetManager(this);
         }
         #endregion
 
@@ -51,8 +60,10 @@ namespace CharacterSystem_V4.Controller
             protected bool? pathFinded;
             protected Vector3 nextPoint;
 
-            public void SetManager(GoblinAIController manager)
-                => this.manager = manager;
+            public IBasicAIState(GoblinAIController manager)
+            {
+                this.manager = manager;
+            }
 
             protected void PathFinded(bool? finded)
             {
@@ -69,6 +80,9 @@ namespace CharacterSystem_V4.Controller
         {
             float idelTimer;
 
+            public AIIdel(GoblinAIController manager) : base(manager)
+            { }
+
             public override void Initial()
             {
                 //Debug.Log("Idel Start");
@@ -83,17 +97,21 @@ namespace CharacterSystem_V4.Controller
             {
                 idelTimer -= Time.deltaTime;
                 if (idelTimer < 0)
-                    manager.SetState(new AIWandering());
+                    manager.SetState(new AIWandering(manager));
 
                 if (IsometricUtility.ToIsometricDistance
                         (manager.Character.transform.position, manager.player.transform.position)
                     <= manager.AISetting.DetectedDistance)
-                    manager.SetState(new AIChase());
+                    manager.SetState(new AIChase(manager));
             }
         }
 
         protected class AIWandering : IBasicAIState
         {
+            public AIWandering(GoblinAIController manager) : base(manager)
+            {
+            }
+
             public override void Initial()
             {
                 //Debug.Log("Wandering Start");
@@ -114,7 +132,7 @@ namespace CharacterSystem_V4.Controller
                 if (IsometricUtility.ToIsometricDistance
                         (manager.Character.transform.position, manager.player.transform.position)
                     <= manager.AISetting.DetectedDistance)
-                    manager.SetState(new AIChase());
+                    manager.SetState(new AIChase(manager));
 
                 if (pathFinded == true)
                 {
@@ -125,15 +143,19 @@ namespace CharacterSystem_V4.Controller
                             (nextPoint - manager.Character.transform.position).normalized);
                     }
                     else if (!manager.Senser.NextWayPoint(out nextPoint))
-                        manager.SetState(new AIIdel());
+                        manager.SetState(new AIIdel(manager));
                 }
                 else if (pathFinded == null)
-                    manager.SetState(new AIWandering());
+                    manager.SetState(new AIWandering(manager));
             }
         }
 
         protected class AIChase : IBasicAIState
         {
+            public AIChase(GoblinAIController manager) : base(manager)
+            {
+            }
+
             public override void Initial()
             {
                 //Debug.Log("Chase Start");
@@ -145,16 +167,19 @@ namespace CharacterSystem_V4.Controller
             {
                 if (IsometricUtility.ToIsometricDistance(manager.Character.transform.position,
                     manager.player.transform.position) > manager.AISetting.DetectedDistance)
-                    manager.SetState(new AIIdel());
+                    manager.SetState(new AIIdel(manager));
 
                 if (pathFinded == true)
                 {
-                    if (IsometricUtility.ToIsometricDistance(manager.player.transform.position, manager.Character.transform.position) < manager.AISetting.AttackDistance
+                    if(manager.MemberType == MemberType.BasicAttacker
+                        &&IsometricUtility.ToIsometricDistance(manager.player.transform.position,
+                        manager.Character.transform.position) < manager.AISetting.BasicAttackDistance
                         && manager.Character.RunTimeData.BasicAttackTimer <= 0)
-                    {
-                        manager.SetState(new AIAttack());
-                    }
-                    else if (IsometricUtility.ToIsometricDistance(nextPoint, manager.Character.transform.position)
+                        manager.SetState(new AIBasicAttack(manager));
+
+
+
+                    if (IsometricUtility.ToIsometricDistance(nextPoint, manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
                     {
                         manager.Character.Move(
@@ -162,12 +187,12 @@ namespace CharacterSystem_V4.Controller
                     }
                     else if (!manager.Senser.NextWayPoint(out nextPoint))
                     {
-                        manager.SetState(new AIChase());
+                        manager.SetState(new AIChase(manager));
                     }
                 }
                 else if (pathFinded == null)
                 {
-                    manager.SetState(new AIIdel());
+                    manager.SetState(new AIIdel(manager));
                 }
             }
 
@@ -177,8 +202,12 @@ namespace CharacterSystem_V4.Controller
             }
         }
 
-        protected class AIAttack : IBasicAIState
+        protected class AIBasicAttack : IBasicAIState
         {
+            public AIBasicAttack(GoblinAIController manager) : base(manager)
+            {
+            }
+
             public override void Initial()
             {
                 //Debug.Log("AttackStart");
@@ -191,11 +220,11 @@ namespace CharacterSystem_V4.Controller
             {
                 if (IsometricUtility.ToIsometricDistance(manager.Character.transform.position,
                     manager.player.transform.position) > manager.AISetting.DetectedDistance)
-                    manager.SetState(new AIIdel());
+                    manager.SetState(new AIIdel(manager));
 
                 if (IsometricUtility.ToIsometricDistance(manager.player.transform.position,
-                    manager.Character.transform.position) > manager.AISetting.AttackDistance)
-                    manager.SetState(new AIChase());
+                    manager.Character.transform.position) > manager.AISetting.BasicAttackDistance)
+                    manager.SetState(new AIChase(manager));
 
                 if (manager.Character.RunTimeData.BasicAttackTimer <= 0)
                 {
@@ -203,6 +232,23 @@ namespace CharacterSystem_V4.Controller
                         (manager.player.transform.position - manager.Character.transform.position).normalized);
                     manager.Character.BasicAttack();
                 }
+            }
+        }
+
+        protected class AISpacilAttack : IBasicAIState
+        {
+            public AISpacilAttack(GoblinAIController manager) : base(manager)
+            {
+            }
+
+            public override void Initial()
+            {
+                base.Initial();
+            }
+
+            public override void Update()
+            {
+                base.Update();
             }
         }
         #endregion

@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CharacterSystem_V4;
-using CharacterSystem_V4.Controller;
+using CharacterSystem;
+using CharacterSystem.Controller;
 
 public class SpwanPoint : MonoBehaviour
 {

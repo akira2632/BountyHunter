@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using CharacterSystem_V4.Skill;
+using CharacterSystem.Skill;
 
-namespace CharacterSystem_V4
+namespace CharacterSystem
 {
     /// <summary>
     /// 戰士角色

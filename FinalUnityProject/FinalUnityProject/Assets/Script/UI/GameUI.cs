@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using CharacterSystem_V4;
+using CharacterSystem;
 
 public class GameUI : MonoBehaviour
 {

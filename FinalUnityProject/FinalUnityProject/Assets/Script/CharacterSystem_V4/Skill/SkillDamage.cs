@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CharacterSystem_V4
+namespace CharacterSystem
 {
     [CreateAssetMenu(fileName = "技能傷害", menuName = "賞金獵人_角色系統V4/技能資料/技能傷害", order = 1)]
     public class SkillDamage : ScriptableObject

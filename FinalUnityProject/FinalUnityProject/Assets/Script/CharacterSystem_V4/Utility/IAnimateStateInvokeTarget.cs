@@ -1,4 +1,4 @@
-﻿namespace CharacterSystem_V4
+﻿namespace CharacterSystem
 {
     public interface IAnimateStateInvokeTarget
     {

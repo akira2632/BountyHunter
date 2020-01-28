@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace CharacterSystem_V4.Controller
+namespace CharacterSystem.Controller
 {
     public class SpiderAIController : MonoBehaviour
     {

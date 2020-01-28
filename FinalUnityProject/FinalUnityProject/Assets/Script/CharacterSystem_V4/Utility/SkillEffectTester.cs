@@ -1,5 +1,5 @@
-﻿using CharacterSystem_V4;
-using CharacterSystem_V4.Skill;
+﻿using CharacterSystem;
+using CharacterSystem.Skill;
 using UnityEngine;
 
 public class SkillEffectTester : MonoBehaviour

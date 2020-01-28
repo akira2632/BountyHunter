@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CharacterSystem_V4.Controller
+namespace CharacterSystem.Controller
 {
     [CreateAssetMenu(fileName = "基本AI設定", menuName = "賞金獵人_角色系統V4/AI設定/基本AI設定", order = 0)]
     public class BasicAISetting : ScriptableObject

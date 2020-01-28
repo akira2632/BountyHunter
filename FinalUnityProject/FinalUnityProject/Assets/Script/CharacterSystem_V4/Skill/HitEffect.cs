@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace CharacterSystem_V4.Skill
+namespace CharacterSystem.Skill
 {
     [CreateAssetMenu(fileName = "技能特效設定", menuName = "賞金獵人_角色系統V4/技能資料/技能效果", order = 0)]
     public class HitEffect : ScriptableObject
