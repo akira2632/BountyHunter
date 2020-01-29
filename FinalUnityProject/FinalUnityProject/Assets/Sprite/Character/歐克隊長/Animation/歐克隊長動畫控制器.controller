@@ -122,13 +122,28 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: UpOrDown
     m_Mirror: 0
-  m_BlendParameter: LeftOrRight
-  m_BlendParameterY: UpOrDown
+  m_BlendParameter: Vertical
+  m_BlendParameterY: Horizontal
   m_MinThreshold: 0
   m_MaxThreshold: 0.5
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 1
+--- !u!206 &-2755485983238642573
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BlendTree
+  m_Childs: []
+  m_BlendParameter: Vertical
+  m_BlendParameterY: Blend
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!206 &-2378721226870527242
 BlendTree:
   m_ObjectHideFlags: 3
@@ -201,8 +216,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftOrRight
     m_Mirror: 0
-  m_BlendParameter: LeftOrRight
-  m_BlendParameterY: UpOrDown
+  m_BlendParameter: Vertical
+  m_BlendParameterY: Horizontal
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -280,8 +295,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftOrRight
     m_Mirror: 0
-  m_BlendParameter: LeftOrRight
-  m_BlendParameterY: UpOrDown
+  m_BlendParameter: Vertical
+  m_BlendParameterY: Horizontal
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -350,42 +365,42 @@ AnimatorController:
   m_Name: "\u6B50\u514B\u968A\u9577\u52D5\u756B\u63A7\u5236\u5668"
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: LeftOrRight
+  - m_Name: Vertical
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: UpOrDown
+    m_Controller: {fileID: 0}
+  - m_Name: Horizontal
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: IsMove
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 1
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Attack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: hurt
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: die
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -416,7 +431,7 @@ AnimatorStateMachine:
     m_Position: {x: 180, y: 180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3070532279281790673}
-    m_Position: {x: 590, y: 200, z: 0}
+    m_Position: {x: 640, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2133352947381241819}
     m_Position: {x: 810, y: 150, z: 0}
@@ -430,7 +445,7 @@ AnimatorStateMachine:
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 620, y: 60, z: 0}
-  m_EntryPosition: {x: 190, y: 90, z: 0}
+  m_EntryPosition: {x: 160, y: 30, z: 0}
   m_ExitPosition: {x: 620, y: 350, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -299384834955920112}
@@ -684,8 +699,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
-  m_BlendParameter: LeftOrRight
-  m_BlendParameterY: UpOrDown
+  m_BlendParameter: Vertical
+  m_BlendParameterY: Horizontal
   m_MinThreshold: 0
   m_MaxThreshold: 0.765625
   m_UseAutomaticThresholds: 1
@@ -785,8 +800,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftOrRight
     m_Mirror: 0
-  m_BlendParameter: LeftOrRight
-  m_BlendParameterY: UpOrDown
+  m_BlendParameter: Vertical
+  m_BlendParameterY: Horizontal
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1

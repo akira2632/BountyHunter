@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 366440727930721154}
   - component: {fileID: 7506836439040696577}
   m_Layer: 0
-  m_Name: Goblin_ProjectorShooter
+  m_Name: "\u54E5\u5E03\u6797\u5B50\u5F48\u767C\u5C04\u5668"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Character: {fileID: 0}
   SkillDamage: {fileID: 11400000, guid: 96862db2957971344abca64facc415c4, type: 2}
+  shoot: 0
   ShottingPoints:
   - {fileID: 3725337983102571041}
   - {fileID: 3613966663644274725}
