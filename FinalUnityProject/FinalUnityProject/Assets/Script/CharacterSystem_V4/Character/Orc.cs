@@ -180,6 +180,7 @@ namespace CharacterSystem
 
             public override void End()
             {
+                orc.RunTimeData.VertigoConter = 0;
                 orc.CharacterAnimator.SetBool("IsFallDown", false);
             }
         }

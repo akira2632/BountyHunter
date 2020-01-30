@@ -286,6 +286,7 @@ namespace CharacterSystem
 
             public override void End()
             {
+                goblin.RunTimeData.VertigoConter = 0;
                 goblin.CharacterAnimator.SetBool("IsFallDown", false);
             }
         }

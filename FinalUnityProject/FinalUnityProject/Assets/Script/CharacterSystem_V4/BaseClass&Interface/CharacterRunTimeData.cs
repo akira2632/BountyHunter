@@ -32,6 +32,27 @@ namespace CharacterSystem
             _direction = new Vector2();
         }
 
+        public void UpDate()
+        {
+            if (Health > 0)
+            {
+                if (BasicAttackTimer >= 0)
+                    BasicAttackTimer -= Time.deltaTime;
+                if (SpacilAttackTimer >= 0)
+                    SpacilAttackTimer -= Time.deltaTime;
+
+                RegenTimer += Time.deltaTime;
+                if (Health < property.MaxHealth &&
+                    RegenTimer >= property.RegenSpeed)
+                {
+                    Health += property.RegenHealth;
+                    RegenTimer = 0;
+                }
+
+                VertigoConter -= Time.deltaTime / 10;
+            }
+        }
+
         public Vector2 Direction
         {
             get => _direction;

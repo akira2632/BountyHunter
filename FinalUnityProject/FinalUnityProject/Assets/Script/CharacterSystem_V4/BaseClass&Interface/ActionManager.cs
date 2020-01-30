@@ -31,39 +31,23 @@ namespace CharacterSystem
 
         public void FixedUpdate()
         {
-            ActionUpdate();
-        }
-
-        public virtual void ActionUpdate()
-        {
             if (RunTimeData.Health <= 0 && !hasInvoke)
             {
                 OnCharacterDead?.Invoke();
                 hasInvoke = true;
             }
 
+            RunTimeData.UpDate();
+
+            ActionUpdate();
+        }
+
+        public virtual void ActionUpdate()
+        {
             if(!IsStart)
             {
                 nowAction.Start();
                 IsStart = true;
-            }
-
-            if (RunTimeData.Health > 0)
-            {
-                if (RunTimeData.BasicAttackTimer >= 0)
-                    RunTimeData.BasicAttackTimer -= Time.deltaTime;
-                if (RunTimeData.SpacilAttackTimer >= 0)
-                    RunTimeData.SpacilAttackTimer -= Time.deltaTime;
-
-                RunTimeData.RegenTimer += Time.deltaTime;
-                if (RunTimeData.Health < Property.MaxHealth &&
-                    RunTimeData.RegenTimer >= Property.RegenSpeed)
-                {
-                    RunTimeData.Health += Property.RegenHealth;
-                    RunTimeData.RegenTimer = 0;
-                }
-
-                RunTimeData.VertigoConter -= Time.deltaTime / 10;
             }
 
             nowAction.Update();

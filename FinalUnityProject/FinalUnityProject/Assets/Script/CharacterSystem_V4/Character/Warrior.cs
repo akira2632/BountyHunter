@@ -68,7 +68,6 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                warrior.CharacterAnimator.SetBool("IsFallDown", false);
                 warrior.CharacterAnimator.SetBool("IsMove", false);
 
                 IsometricUtility.GetVerticalAndHorizontal(
@@ -579,6 +578,7 @@ namespace CharacterSystem
             public override void End()
             {
                 warrior.RunTimeData.VertigoConter = 0;
+                warrior.CharacterAnimator.SetBool("IsFallDown", false);
             }
             #endregion
 
