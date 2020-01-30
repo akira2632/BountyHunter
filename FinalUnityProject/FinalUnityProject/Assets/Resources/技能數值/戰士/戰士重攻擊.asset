@@ -17,5 +17,5 @@ MonoBehaviour:
   NoCritical: 0
   DamageMagnifiction: 2
   Vertigo: 3
-  KnockBackDistance: 0
+  KnockBackDistance: 2
   KnockBackSpeed: 0

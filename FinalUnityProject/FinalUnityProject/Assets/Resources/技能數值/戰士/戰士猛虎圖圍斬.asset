@@ -15,7 +15,7 @@ MonoBehaviour:
   BonusDamage: 0
   BonusCriticalRate: 0
   NoCritical: 0
-  DamageMagnifiction: 5
+  DamageMagnifiction: 3
   Vertigo: 3
-  KnockBackDistance: 0
+  KnockBackDistance: 3
   KnockBackSpeed: 0
