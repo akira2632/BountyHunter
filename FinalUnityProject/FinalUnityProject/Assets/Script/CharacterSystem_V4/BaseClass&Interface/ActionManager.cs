@@ -8,6 +8,10 @@ namespace CharacterSystem
     {
         public CharacterRunTimeData RunTimeData;
         public IScriptableCharacterProperty Property;
+        public Rigidbody2D MovementBody;
+        public Collider2D MovementCollider;
+        public Animator CharacterAnimator;
+        public SpriteRenderer SpriteRenderer;
 
         public event Action OnCharacterDead;
         private bool hasInvoke;
@@ -37,7 +41,7 @@ namespace CharacterSystem
                 hasInvoke = true;
             }
 
-            RunTimeData.UpDate();
+            RunTimeData.Update();
 
             ActionUpdate();
         }

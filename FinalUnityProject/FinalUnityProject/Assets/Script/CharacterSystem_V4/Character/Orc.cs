@@ -5,11 +5,6 @@ namespace CharacterSystem
 {
     public class Orc : ICharacterActionManager
     {
-        public Rigidbody2D MovementBody;
-        public Collider2D MovementCollider;
-        public Animator CharacterAnimator;
-        public SpriteRenderer SpriteRenderer;
-
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
         public HitEffect DefalutHitEffect;
 
@@ -48,8 +43,8 @@ namespace CharacterSystem
 
             public override void OnHit(DamageData damage)
             {
-                orc.RunTimeData.Health -= damage.Damage;
-                orc.RunTimeData.VertigoConter += damage.Vertigo;
+                actionManager.RunTimeData.Health -= damage.Damage;
+                actionManager.RunTimeData.VertigoConter += damage.Vertigo;
 
                 orc.DefalutHitEffect.PlayEffect(damage);
                 if (damage.KnockBackDistance > 0)
@@ -63,12 +58,12 @@ namespace CharacterSystem
             public override void Start()
             {
                 IsometricUtility.GetVerticalAndHorizontal(
-                    orc.RunTimeData.Direction, out var vertical, out var horizontal);
-                orc.CharacterAnimator.SetFloat("Vertical", vertical);
-                orc.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                    actionManager.RunTimeData.Direction, out var vertical, out var horizontal);
+                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
-                orc.CharacterAnimator.SetBool("IsFallDown", false);
-                orc.CharacterAnimator.SetBool("IsMove", false);
+                actionManager.CharacterAnimator.SetBool("IsFallDown", false);
+                actionManager.CharacterAnimator.SetBool("IsMove", false);
             }
             #endregion
 
@@ -80,7 +75,7 @@ namespace CharacterSystem
             {
                 if (direction.magnitude > 0)
                 {
-                    orc.RunTimeData.Direction = direction;
+                    actionManager.RunTimeData.Direction = direction;
                     actionManager.SetAction(new OrcMove());
                 }
             }
@@ -94,22 +89,22 @@ namespace CharacterSystem
             {
                 orc.MoveSound.Play();
                 IsometricUtility.GetVerticalAndHorizontal(
-                    orc.RunTimeData.Direction, out var vertical, out var horizontal);
-                orc.CharacterAnimator.SetFloat("Vertical", vertical);
-                orc.CharacterAnimator.SetFloat("Horizontal", horizontal);
-                orc.CharacterAnimator.SetBool("IsMove", true);
+                    actionManager.RunTimeData.Direction, out var vertical, out var horizontal);
+                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                actionManager.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
                 IsometricUtility.GetVerticalAndHorizontal(
-                    orc.RunTimeData.Direction, out var vertical, out var horizontal);
-                orc.CharacterAnimator.SetFloat("Vertical", vertical);
-                orc.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                    actionManager.RunTimeData.Direction, out var vertical, out var horizontal);
+                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
-                orc.MovementBody.MovePosition(orc.MovementBody.position +
-                    IsometricUtility.ToIsometricVector2(orc.RunTimeData.Direction)
-                    * orc.Property.MoveSpeed * Time.deltaTime);
+                actionManager.MovementBody.MovePosition(actionManager.MovementBody.position +
+                    IsometricUtility.ToIsometricVector2(actionManager.RunTimeData.Direction)
+                    * actionManager.Property.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()
@@ -127,7 +122,7 @@ namespace CharacterSystem
                 if (direction.magnitude <= 0)
                     actionManager.SetAction(new OrcIdle());
                 else
-                    orc.RunTimeData.Direction = direction;
+                    actionManager.RunTimeData.Direction = direction;
             }
             #endregion
         }
@@ -137,15 +132,15 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                if (orc.RunTimeData.BasicAttackTimer > 0)
+                if (actionManager.RunTimeData.BasicAttackTimer > 0)
                 {
-                    orc.SetAction(new OrcIdle());
+                    actionManager.SetAction(new OrcIdle());
                     return;
                 }
 
                 orc.animationEnd = false;
 
-                orc.CharacterAnimator.SetTrigger("LightAttack");
+                actionManager.CharacterAnimator.SetTrigger("LightAttack");
                 orc.LightAttackSound.Play();
             }
 
@@ -153,7 +148,7 @@ namespace CharacterSystem
             {
                 if (orc.animationEnd)
                 {
-                    orc.RunTimeData.BasicAttackTimer = orc.Property.BasicAttackSpeed;
+                    actionManager.RunTimeData.BasicAttackTimer = orc.Property.BasicAttackSpeed;
                     actionManager.SetAction(new OrcIdle());
                 }
             }
@@ -167,7 +162,7 @@ namespace CharacterSystem
             public override void Start()
             {
                 fallDownTimer = 2;
-                orc.CharacterAnimator.SetBool("IsFallDown", true);
+                actionManager.CharacterAnimator.SetBool("IsFallDown", true);
                 orc.HurtSound.Play();
             }
 
@@ -175,13 +170,13 @@ namespace CharacterSystem
             {
                 fallDownTimer -= Time.deltaTime;
                 if (fallDownTimer <= 0)
-                    orc.SetAction(new OrcIdle());
+                    actionManager.SetAction(new OrcIdle());
             }
 
             public override void End()
             {
-                orc.RunTimeData.VertigoConter = 0;
-                orc.CharacterAnimator.SetBool("IsFallDown", false);
+                actionManager.RunTimeData.VertigoConter = 0;
+                actionManager.CharacterAnimator.SetBool("IsFallDown", false);
             }
         }
 
@@ -201,8 +196,8 @@ namespace CharacterSystem
             {
                 nowDistance = 0;
                 knockBackDirection = IsometricUtility.ToIsometricVector2(
-                    orc.MovementBody.position - damage.HitFrom).normalized;
-                orc.CharacterAnimator.SetBool("IsHurt", true);
+                    actionManager.MovementBody.position - damage.HitFrom).normalized;
+                actionManager.CharacterAnimator.SetBool("IsHurt", true);
                 orc.HurtSound.Play();
             }
 
@@ -213,16 +208,15 @@ namespace CharacterSystem
                     Vector2 temp = damage.KnockBackSpeed * knockBackDirection * Time.deltaTime;
                     nowDistance += temp.magnitude;
 
-                    orc.MovementBody.MovePosition(orc.MovementBody.position
-                        + temp);
+                    actionManager.MovementBody.MovePosition(actionManager.MovementBody.position + temp);
                 }
                 else
-                    orc.SetAction(new OrcIdle());
+                    actionManager.SetAction(new OrcIdle());
             }
 
             public override void End()
             {
-                orc.CharacterAnimator.SetBool("IsHurt", false);
+                actionManager.CharacterAnimator.SetBool("IsHurt", false);
             }
             #endregion
         }
@@ -235,8 +229,8 @@ namespace CharacterSystem
             {
                 desdroyedTimer = 120;
 
-                orc.MovementCollider.enabled = false;
-                orc.CharacterAnimator.SetBool("IsFallDown", true);
+                actionManager.MovementCollider.enabled = false;
+                actionManager.CharacterAnimator.SetBool("IsFallDown", true);
                 orc.FallDownSound.Play();
             }
 
@@ -244,16 +238,16 @@ namespace CharacterSystem
             {
                 desdroyedTimer -= Time.deltaTime;
                 if (desdroyedTimer < 3)
-                    orc.SpriteRenderer.color = new Color(1, 1, 1, desdroyedTimer / 3);
+                    actionManager.SpriteRenderer.color = new Color(1, 1, 1, desdroyedTimer / 3);
 
                 if (desdroyedTimer <= 0)
-                    Destroy(orc.gameObject);
+                    Destroy(actionManager.gameObject);
             }
 
             public override void End()
             {
-                orc.MovementCollider.enabled = true;
-                orc.CharacterAnimator.SetBool("IsFallDown", false);
+                actionManager.MovementCollider.enabled = true;
+                actionManager.CharacterAnimator.SetBool("IsFallDown", false);
             }
             #endregion
         }

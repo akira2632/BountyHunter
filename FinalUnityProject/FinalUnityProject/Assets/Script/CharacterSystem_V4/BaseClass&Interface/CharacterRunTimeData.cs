@@ -32,7 +32,7 @@ namespace CharacterSystem
             _direction = new Vector2();
         }
 
-        public void UpDate()
+        public void Update()
         {
             if (Health > 0)
             {

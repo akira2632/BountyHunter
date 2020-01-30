@@ -5,11 +5,6 @@ namespace CharacterSystem
 {
     public class Spider : ICharacterActionManager
     {
-        public Rigidbody2D MovementBody;
-        public Collider2D MovementCollider;
-        public Animator CharacterAnimator;
-        public SpriteRenderer SpriteRenderer;
-
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
         public HitEffect DefaultHitEffect;
 
@@ -48,12 +43,12 @@ namespace CharacterSystem
 
             public override void OnHit(DamageData damage)
             {
-                spider.RunTimeData.Health -= damage.Damage;
-                spider.RunTimeData.VertigoConter += damage.Vertigo;
+                actionManager.RunTimeData.Health -= damage.Damage;
+                actionManager.RunTimeData.VertigoConter += damage.Vertigo;
 
                 spider.DefaultHitEffect.PlayEffect(damage);
                 if (damage.KnockBackDistance > 0)
-                    spider.SetAction(new SpiderKnockBack(damage));
+                    actionManager.SetAction(new SpiderKnockBack(damage));
             }
         }
 
@@ -63,12 +58,12 @@ namespace CharacterSystem
             public override void Start()
             {
                 IsometricUtility.GetVerticalAndHorizontal(
-                    spider.RunTimeData.Direction, out var vertical, out var horizontal);
-                spider.CharacterAnimator.SetFloat("Vertical", vertical);
-                spider.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                    actionManager.RunTimeData.Direction, out var vertical, out var horizontal);
+                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
-                spider.CharacterAnimator.SetBool("IsFallDown", false);
-                spider.CharacterAnimator.SetBool("IsMove", false);
+                actionManager.CharacterAnimator.SetBool("IsFallDown", false);
+                actionManager.CharacterAnimator.SetBool("IsMove", false);
             }
             #endregion
 
@@ -80,7 +75,7 @@ namespace CharacterSystem
             {
                 if (direction.magnitude > 0)
                 {
-                    spider.RunTimeData.Direction = direction;
+                    actionManager.RunTimeData.Direction = direction;
                     actionManager.SetAction(new SpiderMove());
                 }
             }
@@ -94,22 +89,22 @@ namespace CharacterSystem
             {
                 spider.MoveSound.Play();
                 IsometricUtility.GetVerticalAndHorizontal(
-                    spider.RunTimeData.Direction, out var vertical, out var horizontal);
-                spider.CharacterAnimator.SetFloat("Vertical", vertical);
-                spider.CharacterAnimator.SetFloat("Horizontal", horizontal);
-                spider.CharacterAnimator.SetBool("IsMove", true);
+                    actionManager.RunTimeData.Direction, out var vertical, out var horizontal);
+                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                actionManager.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
                 IsometricUtility.GetVerticalAndHorizontal(
-                    spider.RunTimeData.Direction, out var vertical, out var horizontal);
-                spider.CharacterAnimator.SetFloat("Vertical", vertical);
-                spider.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                    actionManager.RunTimeData.Direction, out var vertical, out var horizontal);
+                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
-                spider.MovementBody.MovePosition(spider.MovementBody.position +
-                    IsometricUtility.ToIsometricVector2(spider.RunTimeData.Direction)
-                    * spider.Property.MoveSpeed * Time.deltaTime);
+                actionManager.MovementBody.MovePosition(actionManager.MovementBody.position +
+                    IsometricUtility.ToIsometricVector2(actionManager.RunTimeData.Direction)
+                    * actionManager.Property.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()
@@ -127,7 +122,7 @@ namespace CharacterSystem
                 if (direction.magnitude <= 0)
                     actionManager.SetAction(new SpiderIdle());
                 else
-                    spider.RunTimeData.Direction = direction;
+                    actionManager.RunTimeData.Direction = direction;
             }
             #endregion
         }
@@ -137,15 +132,15 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                if (spider.RunTimeData.BasicAttackTimer > 0)
+                if (actionManager.RunTimeData.BasicAttackTimer > 0)
                 {
-                    spider.SetAction(new SpiderIdle());
+                    actionManager.SetAction(new SpiderIdle());
                     return;
                 }
 
                 spider.animationEnd = false;
 
-                spider.CharacterAnimator.SetTrigger("LightAttack");
+                actionManager.CharacterAnimator.SetTrigger("LightAttack");
                 spider.LightAttackSound.Play();
             }
 
@@ -153,7 +148,7 @@ namespace CharacterSystem
             {
                 if (spider.animationEnd)
                 {
-                    spider.RunTimeData.BasicAttackTimer = spider.Property.BasicAttackSpeed;
+                    actionManager.RunTimeData.BasicAttackTimer = actionManager.Property.BasicAttackSpeed;
                     actionManager.SetAction(new SpiderIdle());
                 }
             }
@@ -176,8 +171,8 @@ namespace CharacterSystem
             {
                 nowDistance = 0;
                 knockBackDirection = IsometricUtility.ToIsometricVector2(
-                    spider.MovementBody.position - damage.HitFrom).normalized;
-                spider.CharacterAnimator.SetBool("IsHurt", true);
+                    actionManager.MovementBody.position - damage.HitFrom).normalized;
+                actionManager.CharacterAnimator.SetBool("IsHurt", true);
                 spider.HurtSound.Play();
             }
 
@@ -188,16 +183,15 @@ namespace CharacterSystem
                     Vector2 temp = damage.KnockBackSpeed * knockBackDirection * Time.deltaTime;
                     nowDistance += temp.magnitude;
 
-                    spider.MovementBody.MovePosition(spider.MovementBody.position
-                        + temp);
+                    actionManager.MovementBody.MovePosition(actionManager.MovementBody.position + temp);
                 }
                 else
-                    spider.SetAction(new SpiderIdle());
+                    actionManager.SetAction(new SpiderIdle());
             }
 
             public override void End()
             {
-                spider.CharacterAnimator.SetBool("IsHurt", false);
+                actionManager.CharacterAnimator.SetBool("IsHurt", false);
             }
             #endregion
         }
@@ -209,7 +203,7 @@ namespace CharacterSystem
             public override void Start()
             {
                 fallDownTimer = 2;
-                spider.CharacterAnimator.SetBool("IsFallDown", true);
+                actionManager.CharacterAnimator.SetBool("IsFallDown", true);
                 spider.HurtSound.Play();
             }
 
@@ -217,13 +211,13 @@ namespace CharacterSystem
             {
                 fallDownTimer -= Time.deltaTime;
                 if (fallDownTimer <= 0)
-                    spider.SetAction(new SpiderIdle());
+                    actionManager.SetAction(new SpiderIdle());
             }
 
             public override void End()
             {
-                spider.RunTimeData.VertigoConter = 0;
-                spider.CharacterAnimator.SetBool("IsFallDown", false);
+                actionManager.RunTimeData.VertigoConter = 0;
+                actionManager.CharacterAnimator.SetBool("IsFallDown", false);
             }
         }
 
@@ -235,8 +229,8 @@ namespace CharacterSystem
             {
                 desdroyedTimer = 120;
 
-                spider.MovementCollider.enabled = false;
-                spider.CharacterAnimator.SetBool("IsFallDown", true);
+                actionManager.MovementCollider.enabled = false;
+                actionManager.CharacterAnimator.SetBool("IsFallDown", true);
                 spider.FallDownSound.Play();
             }
 
@@ -244,16 +238,16 @@ namespace CharacterSystem
             {
                 desdroyedTimer -= Time.deltaTime;
                 if (desdroyedTimer < 3)
-                    spider.SpriteRenderer.color = new Color(1, 1, 1, desdroyedTimer / 3);
+                    actionManager.SpriteRenderer.color = new Color(1, 1, 1, desdroyedTimer / 3);
 
                 if (desdroyedTimer <= 0)
-                    Destroy(spider.gameObject);
+                    Destroy(actionManager.gameObject);
             }
 
             public override void End()
             {
-                spider.MovementCollider.enabled = true;
-                spider.CharacterAnimator.SetBool("IsFallDown", false);
+                actionManager.MovementCollider.enabled = true;
+                actionManager.CharacterAnimator.SetBool("IsFallDown", false);
             }
             #endregion
         }

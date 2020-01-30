@@ -8,10 +8,6 @@ namespace CharacterSystem
     /// </summary>
     public class Warrior : ICharacterActionManager
     {
-        public Rigidbody2D MovementBody;
-        public Collider2D MovementCollider;
-        public Animator CharacterAnimator;
-
         public AudioSource MoveSound, DeffendSound, FallDownSound, LightAttackSound,
                 HeavyAttack1Sound, HeavyAttackChargeSound, HeavyAttack2Sound;
         public HitEffect DefaultHitEffect, DefaultDeffendEffect;
@@ -54,8 +50,8 @@ namespace CharacterSystem
 
             public override void OnHit(DamageData damage)
             {
-                warrior.RunTimeData.Health -= damage.Damage;
-                warrior.RunTimeData.VertigoConter += damage.Vertigo;
+                actionManager.RunTimeData.Health -= damage.Damage;
+                actionManager.RunTimeData.VertigoConter += damage.Vertigo;
                 warrior.DefaultHitEffect.PlayEffect(damage);
             }
         }
@@ -68,12 +64,12 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                warrior.CharacterAnimator.SetBool("IsMove", false);
+                actionManager.CharacterAnimator.SetBool("IsMove", false);
 
                 IsometricUtility.GetVerticalAndHorizontal(
-                    warrior.RunTimeData.Direction, out var vertical, out var horizontal);
-                warrior.CharacterAnimator.SetFloat("Vertical", vertical);
-                warrior.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                    actionManager.RunTimeData.Direction, out var vertical, out var horizontal);
+                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
             }
             #endregion
 
@@ -94,7 +90,7 @@ namespace CharacterSystem
             {
                 if (direction.magnitude > 0)
                 {
-                    warrior.RunTimeData.Direction = direction;
+                    actionManager.RunTimeData.Direction = direction;
                     actionManager.SetAction(new WarriorMove());
                 }
             }
@@ -111,22 +107,22 @@ namespace CharacterSystem
             {
                 warrior.MoveSound.Play();
                 IsometricUtility.GetVerticalAndHorizontal(
-                    warrior.RunTimeData.Direction, out var vertical, out var horizontal);
-                warrior.CharacterAnimator.SetFloat("Vertical", vertical);
-                warrior.CharacterAnimator.SetFloat("Horizontal", horizontal);
-                warrior.CharacterAnimator.SetBool("IsMove", true);
+                    actionManager.RunTimeData.Direction, out var vertical, out var horizontal);
+                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                actionManager.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
                 IsometricUtility.GetVerticalAndHorizontal(
-                    warrior.RunTimeData.Direction, out var vertical, out var horizontal);
-                warrior.CharacterAnimator.SetFloat("Vertical", vertical);
-                warrior.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                    actionManager.RunTimeData.Direction, out var vertical, out var horizontal);
+                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
-                warrior.MovementBody.MovePosition(warrior.MovementBody.position +
-                    IsometricUtility.ToIsometricVector2(warrior.RunTimeData.Direction)
-                    * warrior.Property.MoveSpeed * Time.deltaTime);
+                actionManager.MovementBody.MovePosition(actionManager.MovementBody.position +
+                    IsometricUtility.ToIsometricVector2(actionManager.RunTimeData.Direction)
+                    * actionManager.Property.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()
@@ -141,7 +137,7 @@ namespace CharacterSystem
                 if (direction.magnitude <= 0)
                     actionManager.SetAction(new WarriorIdel());
                 else
-                    warrior.RunTimeData.Direction = direction;
+                    actionManager.RunTimeData.Direction = direction;
             }
 
             public override void Deffend(bool deffend)
@@ -170,20 +166,20 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                warrior.CharacterAnimator.SetBool("IsDeffend", true);
+                actionManager.CharacterAnimator.SetBool("IsDeffend", true);
             }
 
             public override void Update()
             {
                 IsometricUtility.GetVerticalAndHorizontal(
-                    warrior.RunTimeData.Direction, out var vertical, out var horizontal);
-                warrior.CharacterAnimator.SetFloat("Vertical", vertical);
-                warrior.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                    actionManager.RunTimeData.Direction, out var vertical, out var horizontal);
+                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
             }
 
             public override void End()
             {
-                warrior.CharacterAnimator.SetBool("IsDeffend", false);
+                actionManager.CharacterAnimator.SetBool("IsDeffend", false);
             }
             #endregion
 
@@ -191,7 +187,7 @@ namespace CharacterSystem
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude > 0)
-                    warrior.RunTimeData.Direction = direction;
+                    actionManager.RunTimeData.Direction = direction;
             }
 
             public override void Deffend(bool deffend)
@@ -207,7 +203,7 @@ namespace CharacterSystem
 
             public override void OnHit(DamageData damage)
             {
-                warrior.RunTimeData.Health -= (int)(damage.Damage * 0.1f);
+                actionManager.RunTimeData.Health -= (int)(damage.Damage * 0.1f);
                 warrior.DeffendSound.Play();
                 warrior.DefaultDeffendEffect.PlayEffect(damage);
             }
@@ -222,15 +218,15 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                if (warrior.RunTimeData.BasicAttackTimer > 0)
+                if (actionManager.RunTimeData.BasicAttackTimer > 0)
                 {
-                    warrior.SetAction(new WarriorIdel());
+                    actionManager.SetAction(new WarriorIdel());
                     return;
                 }
 
                 warrior.animationEnd = false;
 
-                warrior.CharacterAnimator.SetTrigger("LightAttack");
+                actionManager.CharacterAnimator.SetTrigger("LightAttack");
                 warrior.LightAttackSound.Play();
             }
 
@@ -238,7 +234,7 @@ namespace CharacterSystem
             {
                 if (warrior.animationEnd)
                 {
-                    warrior.RunTimeData.BasicAttackTimer = warrior.Property.BasicAttackSpeed;
+                    actionManager.RunTimeData.BasicAttackTimer = actionManager.Property.BasicAttackSpeed;
                     actionManager.SetAction(new WarriorIdel());
                 }
             }
@@ -257,7 +253,7 @@ namespace CharacterSystem
             {
                 isCharge = true;
                 warrior.animationEnd = false;
-                warrior.CharacterAnimator.SetBool("HeavyAttackStart", true);
+                actionManager.CharacterAnimator.SetBool("HeavyAttackStart", true);
             }
 
             public override void Update()
@@ -299,20 +295,20 @@ namespace CharacterSystem
             public override void Start()
             {
                 //GameManager.Instance.WarriorDodge(true);
-                warrior.MovementCollider.isTrigger = true;
+                actionManager.MovementCollider.isTrigger = true;
                 dodgeDistance = 0;
             }
 
             public override void Update()
             {
                 Vector2 dodgeVector =
-                    IsometricUtility.ToIsometricVector2(warrior.RunTimeData.Direction)
-                    * warrior.Property.DodgeSpeed * Time.deltaTime;
+                    IsometricUtility.ToIsometricVector2(actionManager.RunTimeData.Direction)
+                    * actionManager.Property.DodgeSpeed * Time.deltaTime;
 
                 dodgeDistance += dodgeVector.magnitude;
 
-                warrior.MovementBody.MovePosition(
-                    warrior.MovementBody.position + dodgeVector);
+                actionManager.MovementBody.MovePosition(
+                    actionManager.MovementBody.position + dodgeVector);
 
                 if (dodgeDistance >= targetDistance)
                     actionManager.SetAction(new WarriorHeavyAttack1(isCharge));
@@ -321,7 +317,7 @@ namespace CharacterSystem
             public override void End()
             {
                 //GameManager.Instance.WarriorDodge(false);
-                warrior.MovementCollider.isTrigger = false;
+                actionManager.MovementCollider.isTrigger = false;
             }
             #endregion
 
@@ -356,9 +352,9 @@ namespace CharacterSystem
                 warrior.animationEnd = false;
 
                 if (isCharge)
-                    warrior.CharacterAnimator.SetBool("HeavyAttackCharge", true);
+                    actionManager.CharacterAnimator.SetBool("HeavyAttackCharge", true);
 
-                warrior.CharacterAnimator.SetBool("HeavyAttackStart", false);
+                actionManager.CharacterAnimator.SetBool("HeavyAttackStart", false);
                 warrior.HeavyAttack1Sound.Play();
             }
 
@@ -367,13 +363,13 @@ namespace CharacterSystem
                 if (dodgeDistance < targetDistance)
                 {
                     Vector2 dodgeVector =
-                        IsometricUtility.ToIsometricVector2(warrior.RunTimeData.Direction)
-                        * warrior.Property.DodgeSpeed * Time.deltaTime;
+                        IsometricUtility.ToIsometricVector2(actionManager.RunTimeData.Direction)
+                        * actionManager.Property.DodgeSpeed * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;
 
-                    warrior.MovementBody.MovePosition(
-                        warrior.MovementBody.position + dodgeVector);
+                    actionManager.MovementBody.MovePosition(
+                        actionManager.MovementBody.position + dodgeVector);
                 }
 
                 if (warrior.animationEnd)
@@ -392,7 +388,7 @@ namespace CharacterSystem
                 if (!hold)
                 {
                     isCharge = false;
-                    warrior.CharacterAnimator.SetBool("HeavyAttackCharge", false);
+                    actionManager.CharacterAnimator.SetBool("HeavyAttackCharge", false);
                 }
             }
 
@@ -425,9 +421,9 @@ namespace CharacterSystem
                     ChargeTime += Time.deltaTime;
 
                     IsometricUtility.GetVerticalAndHorizontal(
-                        warrior.RunTimeData.Direction, out var vertical, out var horizontal);
-                    warrior.CharacterAnimator.SetFloat("Vertical", vertical);
-                    warrior.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                        actionManager.RunTimeData.Direction, out var vertical, out var horizontal);
+                    actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
+                    actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                     if (!IsCharge || ChargeTime > 2.1)
                     {
@@ -457,7 +453,7 @@ namespace CharacterSystem
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude > 0)
-                    warrior.RunTimeData.Direction = direction;
+                    actionManager.RunTimeData.Direction = direction;
             }
             #endregion
         }
@@ -481,7 +477,7 @@ namespace CharacterSystem
                 dodgeDistance = 0;
                 warrior.animationEnd = false;
 
-                warrior.CharacterAnimator.SetBool("HeavyAttackCharge", false);
+                actionManager.CharacterAnimator.SetBool("HeavyAttackCharge", false);
                 warrior.HeavyAttack2Sound.Play();
             }
 
@@ -490,13 +486,13 @@ namespace CharacterSystem
                 if (dodgeDistance < targetDistance)
                 {
                     Vector2 dodgeVector =
-                        IsometricUtility.ToIsometricVector2(warrior.RunTimeData.Direction)
-                        * warrior.Property.DodgeSpeed * Time.deltaTime;
+                        IsometricUtility.ToIsometricVector2(actionManager.RunTimeData.Direction)
+                        * actionManager.Property.DodgeSpeed * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;
 
-                    warrior.MovementBody.MovePosition(
-                        warrior.MovementBody.position + dodgeVector);
+                    actionManager.MovementBody.MovePosition(
+                        actionManager.MovementBody.position + dodgeVector);
                 }
 
                 if (warrior.animationEnd)
@@ -525,7 +521,7 @@ namespace CharacterSystem
             public override void Start()
             {
                 recoveryTime = 0;
-                warrior.CharacterAnimator.SetBool("IsMove", false);
+                actionManager.CharacterAnimator.SetBool("IsMove", false);
             }
 
             public override void Update()
@@ -564,7 +560,7 @@ namespace CharacterSystem
             {
                 fallDownTime = 0;
 
-                warrior.CharacterAnimator.SetBool("IsFallDown", true);
+                actionManager.CharacterAnimator.SetBool("IsFallDown", true);
                 warrior.FallDownSound.Play();
             }
 
@@ -577,8 +573,8 @@ namespace CharacterSystem
 
             public override void End()
             {
-                warrior.RunTimeData.VertigoConter = 0;
-                warrior.CharacterAnimator.SetBool("IsFallDown", false);
+                actionManager.RunTimeData.VertigoConter = 0;
+                actionManager.CharacterAnimator.SetBool("IsFallDown", false);
             }
             #endregion
 
@@ -637,15 +633,15 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                warrior.MovementCollider.enabled = false;
-                warrior.CharacterAnimator.SetBool("IsFallDown", true);
+                actionManager.MovementCollider.enabled = false;
+                actionManager.CharacterAnimator.SetBool("IsFallDown", true);
                 warrior.FallDownSound.Play();
             }
 
             public override void End()
             {
-                warrior.MovementCollider.enabled = true;
-                warrior.CharacterAnimator.SetBool("IsFallDown", false);
+                actionManager.MovementCollider.enabled = true;
+                actionManager.CharacterAnimator.SetBool("IsFallDown", false);
             }
             #endregion
         }
