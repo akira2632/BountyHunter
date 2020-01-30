@@ -26,24 +26,11 @@ namespace CharacterSystem
         {
             if (RunTimeData.Health <= 0 && !(nowAction is OrcDead))
                 SetAction(new OrcDead());
-            else if (RunTimeData.Health > 0)
-            {
-                if (RunTimeData.BasicAttackTimer >= 0)
-                    RunTimeData.BasicAttackTimer -= Time.deltaTime;
 
-                RunTimeData.RegenTimer += Time.deltaTime;
-                if (RunTimeData.Health < Property.MaxHealth &&
-                    RunTimeData.RegenTimer >= Property.RegenSpeed)
-                {
-                    RunTimeData.Health += Property.RegenHealth;
-                    RunTimeData.RegenTimer = 0;
-                }
-
-                if (RunTimeData.VertigoConter >= 4 && !(nowAction is OrcFall))
-                    SetAction(new OrcFall());
-
-                RunTimeData.VertigoConter -= Time.deltaTime / 10;
-            }
+            if (RunTimeData.Health > 0
+                && RunTimeData.VertigoConter >= 4
+                && !(nowAction is OrcFall))
+                SetAction(new OrcFall());
 
             base.ActionUpdate();
         }

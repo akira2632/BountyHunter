@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6290949611009681586}
-  - component: {fileID: 758239376730565243}
   - component: {fileID: 492569348681318801}
   - component: {fileID: 5248432054432490380}
   - component: {fileID: 3454115250626947177}
@@ -38,40 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &758239376730565243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1398184445629926408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7662d1197001dda4da5ceed2d8ba6a86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RunTimeData:
-    _health: 0
-    _basicAttackTimer: 0
-    _spacilAttackTimer: 0
-    _regenTimer: 0
-    _vertigoConter: 0
-    _direction: {x: 0, y: 0}
-    _target: {x: 0, y: 0, z: 0}
-  Property: {fileID: 11400000, guid: 113f9eee90be3094baf36d5b754311ef, type: 2}
-  MovementBody: {fileID: 3454115250626947177}
-  MovementCollider: {fileID: 0}
-  CharacterAnimator: {fileID: 5248432054432490380}
-  MoveSound: {fileID: 4763439504163845256}
-  DeffendSound: {fileID: 0}
-  FallDownSound: {fileID: 410336299238569484}
-  LightAttackSound: {fileID: 7087433210502606598}
-  HeavyAttack1Sound: {fileID: 0}
-  HeavyAttackChargeSound: {fileID: 0}
-  HeavyAttack2Sound: {fileID: 0}
-  DefaultHitEffect: {fileID: 11400000, guid: bd0abba3180e4034da92aac916d4bfe9, type: 2}
-  DefaultDeffendEffect: {fileID: 11400000, guid: 375aa02693b531145b5158631a5f9b4b,
-    type: 2}
 --- !u!212 &492569348681318801
 SpriteRenderer:
   m_ObjectHideFlags: 0

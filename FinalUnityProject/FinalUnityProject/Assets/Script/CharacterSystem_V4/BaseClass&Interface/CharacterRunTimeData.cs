@@ -90,6 +90,8 @@ namespace CharacterSystem
             {
                 if (value >= 0)
                     _vertigoConter = value;
+                else
+                    _vertigoConter = 0;
             }
         }
         public int Health

@@ -26,26 +26,11 @@ namespace CharacterSystem
         {
             if (RunTimeData.Health <= 0 && !(nowAction is GoblinDead))
                 SetAction(new GoblinDead());
-            else if (RunTimeData.Health > 0)
-            {
-                if (RunTimeData.BasicAttackTimer >= 0)
-                    RunTimeData.BasicAttackTimer -= Time.deltaTime;
-                if (RunTimeData.SpacilAttackTimer >= 0)
-                    RunTimeData.SpacilAttackTimer -= Time.deltaTime;
 
-                RunTimeData.RegenTimer += Time.deltaTime;
-                if (RunTimeData.Health < Property.MaxHealth &&
-                    RunTimeData.RegenTimer >= Property.RegenSpeed)
-                {
-                    RunTimeData.Health += Property.RegenHealth;
-                    RunTimeData.RegenTimer = 0;
-                }
-
-                if (RunTimeData.VertigoConter >= 4 && !(nowAction is GoblinFall))
-                    SetAction(new GoblinFall());
-
-                RunTimeData.VertigoConter -= Time.deltaTime / 10;
-            }
+            if (RunTimeData.Health > 0
+                && RunTimeData.VertigoConter >= 4
+                && !(nowAction is GoblinFall))
+                SetAction(new GoblinFall());
 
             base.ActionUpdate();
         }
