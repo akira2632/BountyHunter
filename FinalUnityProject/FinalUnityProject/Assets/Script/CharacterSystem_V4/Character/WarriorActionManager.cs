@@ -6,19 +6,23 @@ namespace CharacterSystem
     /// <summary>
     /// 戰士角色
     /// </summary>
-    public class Warrior : ICharacterActionManager
+    public class WarriorActionManager : ICharacterActionManager
     {
         public AudioSource MoveSound, DeffendSound, FallDownSound, LightAttackSound,
                 HeavyAttack1Sound, HeavyAttackChargeSound, HeavyAttack2Sound;
         public HitEffect DefaultHitEffect, DefaultDeffendEffect;
 
-        public void Start()
-        {
-            RunTimeData = new CharacterRunTimeData();
-            RunTimeData.SetData(Property, transform);
+        private ICharacterAction _idelAction;
 
-            nowAction = new WarriorIdel();
-            nowAction.SetManager(this);
+        protected override ICharacterAction IdelAction
+        {
+            get
+            {
+                if (_idelAction == null)
+                    _idelAction = new WarriorIdel();
+
+                return _idelAction;
+            }
         }
 
         public override void ActionUpdate()
@@ -40,11 +44,11 @@ namespace CharacterSystem
         /// </summary>
         private class IWarriorAction : ICharacterAction
         {
-            protected Warrior warrior;
+            protected WarriorActionManager warrior;
 
             public override void SetManager(ICharacterActionManager actionManager)
             {
-                warrior = (Warrior)actionManager;
+                warrior = (WarriorActionManager)actionManager;
                 base.SetManager(actionManager);
             }
 
@@ -135,7 +139,7 @@ namespace CharacterSystem
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude <= 0)
-                    actionManager.SetAction(new WarriorIdel());
+                    actionManager.SetAction(warrior.IdelAction);
                 else
                     actionManager.RunTimeData.Direction = direction;
             }

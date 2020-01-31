@@ -8,6 +8,8 @@ namespace CharacterSystem
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
         public HitEffect DefaultHitEffect;
 
+        protected override ICharacterAction IdelAction => throw new System.NotImplementedException();
+
         void Start()
         {
             RunTimeData = new CharacterRunTimeData();
