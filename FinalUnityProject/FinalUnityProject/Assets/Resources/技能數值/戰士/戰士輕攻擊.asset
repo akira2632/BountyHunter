@@ -18,4 +18,4 @@ MonoBehaviour:
   DamageMagnifiction: 1
   Vertigo: 1
   KnockBackDistance: 1
-  KnockBackSpeed: 0
+  KnockBackSpeed: 3

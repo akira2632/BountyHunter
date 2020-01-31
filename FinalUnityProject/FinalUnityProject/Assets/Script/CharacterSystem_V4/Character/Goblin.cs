@@ -156,19 +156,16 @@ namespace CharacterSystem
                     return;
                 }
 
-                goblin.animationEnd = false;
-
                 actionManager.CharacterAnimator.SetTrigger("LightAttack");
                 goblin.LightAttackSound.Play();
             }
+            #endregion
 
-            public override void Update()
+            #region 外部操作
+            public override void OnAnimationEnd()
             {
-                if (goblin.animationEnd)
-                {
-                    actionManager.RunTimeData.BasicAttackTimer = actionManager.Property.BasicAttackSpeed;
-                    actionManager.SetAction(new GoblinIdle());
-                }
+                actionManager.RunTimeData.BasicAttackTimer = actionManager.Property.BasicAttackSpeed;
+                actionManager.SetAction(new GoblinIdle());
             }
             #endregion
         }
@@ -189,6 +186,7 @@ namespace CharacterSystem
                 hasTarget = true;
             }
 
+            #region 動作更新
             public override void Start()
             {
                 if (actionManager.RunTimeData.SpacilAttackTimer > 0)
@@ -196,8 +194,6 @@ namespace CharacterSystem
                     actionManager.SetAction(new GoblinIdle());
                     return;
                 }
-
-                goblin.animationEnd = false;
 
                 if (hasTarget)
                 {
@@ -208,15 +204,15 @@ namespace CharacterSystem
                 }
                 actionManager.CharacterAnimator.SetTrigger("RangeAttack");
             }
+            #endregion
 
-            public override void Update()
+            #region 外部操作
+            public override void OnAnimationEnd()
             {
-                if (goblin.animationEnd)
-                {
-                    actionManager.RunTimeData.SpacilAttackTimer = actionManager.Property.SpacilAttackSpeed;
-                    actionManager.SetAction(new GoblinIdle());
-                }
+                actionManager.RunTimeData.SpacilAttackTimer = actionManager.Property.SpacilAttackSpeed;
+                actionManager.SetAction(new GoblinIdle());
             }
+            #endregion
         }
 
         private class GoblinKnockBack : IGoblinAction
@@ -264,7 +260,7 @@ namespace CharacterSystem
         private class GoblinFall : IGoblinAction
         {
             float fallDownTimer;
-
+            #region 動作更新
             public override void Start()
             {
                 fallDownTimer = 2;
@@ -284,6 +280,7 @@ namespace CharacterSystem
                 actionManager.RunTimeData.VertigoConter = 0;
                 actionManager.CharacterAnimator.SetBool("IsFallDown", false);
             }
+            #endregion
         }
 
         private class GoblinDead : IGoblinAction

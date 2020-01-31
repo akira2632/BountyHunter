@@ -138,21 +138,18 @@ namespace CharacterSystem
                     return;
                 }
 
-                spider.animationEnd = false;
-
                 actionManager.CharacterAnimator.SetTrigger("LightAttack");
                 spider.LightAttackSound.Play();
             }
+            #endregion
 
-            public override void Update()
+            #region 外部操作
+            public override void OnAnimationEnd()
             {
-                if (spider.animationEnd)
-                {
-                    actionManager.RunTimeData.BasicAttackTimer = actionManager.Property.BasicAttackSpeed;
-                    actionManager.SetAction(new SpiderIdle());
-                }
+                actionManager.RunTimeData.BasicAttackTimer = actionManager.Property.BasicAttackSpeed;
+                actionManager.SetAction(new SpiderIdle());
             }
-            #endregion            
+            #endregion
         }
 
         private class SpiderKnockBack : ISpiderAction

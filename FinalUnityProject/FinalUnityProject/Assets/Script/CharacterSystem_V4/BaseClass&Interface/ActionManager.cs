@@ -16,19 +16,6 @@ namespace CharacterSystem
         public event Action OnCharacterDead;
         private bool hasInvoke;
 
-        #region AnimationControll
-        public void OnAnimationEnd()
-        {
-            animationEnd = true;
-        }
-
-        public void OnAnimationStart()
-        {
-            animationStart = true;
-        }
-        protected bool animationStart, animationEnd;
-        #endregion
-
         #region 流程控制
         protected ICharacterAction nowAction;
         private bool IsStart;
@@ -66,6 +53,11 @@ namespace CharacterSystem
         }
         #endregion
 
+        #region AnimationControll委派
+        public void OnAnimationStart() => nowAction.OnAnimationStart();
+        public void OnAnimationEnd() => nowAction.OnAnimationEnd();
+        #endregion
+
         #region ICharacterActionControll委派
         public void Move(Vector2 direction) => nowAction.Move(direction);
 
@@ -80,7 +72,7 @@ namespace CharacterSystem
         #endregion
     }
 
-    public abstract class ICharacterAction : ICharacterActionControll
+    public abstract class ICharacterAction : ICharacterActionControll, IAnimateStateInvokeTarget
     {
         protected ICharacterActionManager actionManager;
 
@@ -92,6 +84,11 @@ namespace CharacterSystem
         public virtual void Start() { }
         public virtual void Update() { }
         public virtual void End() { }
+
+        #region AnimationControll抽象實作
+        public virtual void OnAnimationStart() { }
+        public virtual void OnAnimationEnd() { }
+        #endregion
 
         #region ICharacterActionControll抽象實作
         public virtual void Move(Vector2 direction) { }

@@ -29,7 +29,7 @@ namespace CharacterSystem
             if (RunTimeData.Health > 0
                 && RunTimeData.VertigoConter >= 4
                 && !(nowAction is WarriorFall))
-                SetAction(new WarriorFall(false));
+                SetAction(new WarriorFall());
 
             base.ActionUpdate();
         }
@@ -224,19 +224,16 @@ namespace CharacterSystem
                     return;
                 }
 
-                warrior.animationEnd = false;
-
                 actionManager.CharacterAnimator.SetTrigger("LightAttack");
                 warrior.LightAttackSound.Play();
             }
+            #endregion
 
-            public override void Update()
+            #region 外部操作
+            public override void OnAnimationEnd()
             {
-                if (warrior.animationEnd)
-                {
-                    actionManager.RunTimeData.BasicAttackTimer = actionManager.Property.BasicAttackSpeed;
-                    actionManager.SetAction(new WarriorIdel());
-                }
+                actionManager.RunTimeData.BasicAttackTimer = actionManager.Property.BasicAttackSpeed;
+                actionManager.SetAction(new WarriorIdel());
             }
             #endregion
         }
@@ -252,14 +249,7 @@ namespace CharacterSystem
             public override void Start()
             {
                 isCharge = true;
-                warrior.animationEnd = false;
                 actionManager.CharacterAnimator.SetBool("HeavyAttackStart", true);
-            }
-
-            public override void Update()
-            {
-                if (warrior.animationEnd)
-                    actionManager.SetAction(new WarriorHeavyAttack_Dodge(isCharge));
             }
             #endregion
 
@@ -268,6 +258,11 @@ namespace CharacterSystem
             {
                 if (!hold)
                     isCharge = false;
+            }
+
+            public override void OnAnimationEnd()
+            {
+                actionManager.SetAction(new WarriorHeavyAttack_Dodge(isCharge));
             }
 
             public override void OnHit(DamageData damage)
@@ -349,7 +344,6 @@ namespace CharacterSystem
             public override void Start()
             {
                 dodgeDistance = 0;
-                warrior.animationEnd = false;
 
                 if (isCharge)
                     actionManager.CharacterAnimator.SetBool("HeavyAttackCharge", true);
@@ -371,14 +365,6 @@ namespace CharacterSystem
                     actionManager.MovementBody.MovePosition(
                         actionManager.MovementBody.position + dodgeVector);
                 }
-
-                if (warrior.animationEnd)
-                {
-                    if (isCharge)
-                        actionManager.SetAction(new WarriorHeavyAttackCharge());
-                    else
-                        actionManager.SetAction(new WarriorIdel());
-                }
             }
             #endregion
 
@@ -390,6 +376,14 @@ namespace CharacterSystem
                     isCharge = false;
                     actionManager.CharacterAnimator.SetBool("HeavyAttackCharge", false);
                 }
+            }
+
+            public override void OnAnimationEnd()
+            {
+                if (isCharge)
+                    actionManager.SetAction(new WarriorHeavyAttackCharge());
+                else
+                    actionManager.SetAction(new WarriorIdel());
             }
 
             public override void OnHit(DamageData damage) { }
@@ -426,14 +420,7 @@ namespace CharacterSystem
                     actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                     if (!IsCharge || ChargeTime > 2.1)
-                    {
-                        if (ChargeTime < 0.7)
-                            actionManager.SetAction(new WarriorHeavyAttack2(0));
-                        else if (ChargeTime < 1.4)
-                            actionManager.SetAction(new WarriorHeavyAttack2(1));
-                        else
-                            actionManager.SetAction(new WarriorHeavyAttack2(2));
-                    }
+                        actionManager.SetAction(new WarriorHeavyAttack2());
                 }
             }
 
@@ -464,19 +451,11 @@ namespace CharacterSystem
         private class WarriorHeavyAttack2 : IWarriorAction
         {
             float dodgeDistance, targetDistance = 0.4f;
-            int chargeState;
-
-            public WarriorHeavyAttack2(int chargeState)
-            {
-                this.chargeState = chargeState;
-            }
 
             #region 動作更新
             public override void Start()
             {
                 dodgeDistance = 0;
-                warrior.animationEnd = false;
-
                 actionManager.CharacterAnimator.SetBool("HeavyAttackCharge", false);
                 warrior.HeavyAttack2Sound.Play();
             }
@@ -494,52 +473,17 @@ namespace CharacterSystem
                     actionManager.MovementBody.MovePosition(
                         actionManager.MovementBody.position + dodgeVector);
                 }
-
-                if (warrior.animationEnd)
-                {
-                    if (chargeState == 2)
-                        actionManager.SetAction(new WarriorHeavyAttackRecovery());
-                    else
-                        actionManager.SetAction(new WarriorIdel());
-                }
             }
             #endregion
 
             #region 外部操作
+            public override void OnAnimationEnd()
+            {
+                actionManager.SetAction(new WarriorIdel());
+            }
+
             public override void OnHit(DamageData damage) { }
             #endregion 
-        }
-
-        /// <summary>
-        /// 戰士重攻擊硬直
-        /// </summary>
-        private class WarriorHeavyAttackRecovery : IWarriorAction
-        {
-            float recoveryTime;
-
-            #region 動作更新
-            public override void Start()
-            {
-                recoveryTime = 0;
-                actionManager.CharacterAnimator.SetBool("IsMove", false);
-            }
-
-            public override void Update()
-            {
-                recoveryTime += Time.deltaTime;
-                if (recoveryTime > 0.5f)
-                    actionManager.SetAction(new WarriorIdel());
-            }
-            #endregion
-
-            #region 外部操作
-            public override void OnHit(DamageData damage)
-            {
-                damage.Damage = (int)(damage.Damage * 2.5f);
-                base.OnHit(damage);
-                actionManager.SetAction(new WarriorFall(true));
-            }
-            #endregion
         }
 
         /// <summary>
@@ -547,13 +491,7 @@ namespace CharacterSystem
         /// </summary>
         private class WarriorFall : IWarriorAction
         {
-            bool hitable;
             float fallDownTime;
-
-            public WarriorFall(bool hitable)
-            {
-                this.hitable = hitable;
-            }
 
             #region 動作更新
             public override void Start()
@@ -605,23 +543,12 @@ namespace CharacterSystem
                 TryToRecurve();
             }
 
-            public override void OnHit(DamageData damage)
-            {
-                if (hitable)
-                {
-                    damage.Damage = (int)(damage.Damage * 0.5f);
-                    damage.Vertigo *= 0.5f;
-                    base.OnHit(damage);
-                }
-            }
+            public override void OnHit(DamageData damage) { }
             #endregion
 
             private void TryToRecurve()
             {
-                if (hitable)
-                    fallDownTime += 0.1f;
-                else
-                    fallDownTime += 0.2f;
+                fallDownTime += 0.2f;
             }
         }
 

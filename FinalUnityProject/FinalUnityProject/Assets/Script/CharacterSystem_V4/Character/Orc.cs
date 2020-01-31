@@ -138,19 +138,16 @@ namespace CharacterSystem
                     return;
                 }
 
-                orc.animationEnd = false;
-
                 actionManager.CharacterAnimator.SetTrigger("LightAttack");
                 orc.LightAttackSound.Play();
             }
+            #endregion
 
-            public override void Update()
+            #region 外部操作
+            public override void OnAnimationEnd()
             {
-                if (orc.animationEnd)
-                {
-                    actionManager.RunTimeData.BasicAttackTimer = orc.Property.BasicAttackSpeed;
-                    actionManager.SetAction(new OrcIdle());
-                }
+                actionManager.RunTimeData.BasicAttackTimer = orc.Property.BasicAttackSpeed;
+                actionManager.SetAction(new OrcIdle());
             }
             #endregion
         }

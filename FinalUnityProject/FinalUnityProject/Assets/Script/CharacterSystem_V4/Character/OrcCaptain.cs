@@ -157,7 +157,7 @@ namespace CharacterSystem
                 else
                 {
                     resetTimer = true;
-                    orcCaptain.animationEnd = false;
+                    //orcCaptain.animationEnd = false;
 
                     orcCaptain.CharacterAnimator.SetTrigger("LightAttack");
                     orcCaptain.LightAttackSound.Play();
@@ -166,8 +166,8 @@ namespace CharacterSystem
 
             public override void Update()
             {
-                if (orcCaptain.animationEnd)
-                    actionManager.SetAction(new OrcCaptainIdle());
+                //if (orcCaptain.animationEnd)
+                //    actionManager.SetAction(new OrcCaptainIdle());
             }
 
             public override void End()
