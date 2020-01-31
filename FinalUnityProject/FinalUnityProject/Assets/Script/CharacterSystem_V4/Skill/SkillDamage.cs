@@ -22,7 +22,7 @@ namespace CharacterSystem
         [SerializeField, Header("擊退速度"), Tooltip("使技將敵人擊退的速度、若有將敵人擊退時請不要設0"), Min(0)]
         private float KnockBackSpeed;
 
-        public DamageData GetDamageData(IScriptableCharacterProperty property)
+        public DamageData GetDamageData(ICharacterProperty property)
         {
             float damage = (BonusDamage + DamageMagnifiction
                 * (property.Attack + Random.Range(-property.AttackFloating, property.AttackFloating)));

@@ -166,6 +166,7 @@ MonoBehaviour:
   MovementBody: {fileID: 2713500744654730897}
   MovementCollider: {fileID: 270039640594804951}
   CharacterAnimator: {fileID: 4796646055716273524}
+  SpriteRenderer: {fileID: 0}
   MoveSound: {fileID: 5214064407863650928}
   DeffendSound: {fileID: 5287185911749735589}
   FallDownSound: {fileID: 1150387926125242612}
@@ -386,9 +387,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -422,6 +423,15 @@ AudioSource:
     - serializedVersion: 3
       time: 0
       value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.75
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

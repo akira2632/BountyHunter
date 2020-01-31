@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 022664a6e7705cd439bf060faf65cb48, type: 3}
-  m_Name: "\u6230\u58EB\u80FD\u529B"
+  m_Name: "\u6E2C\u8A66\u7528\u80FD\u529B"
   m_EditorClassIdentifier: 
-  CharacterRegenSpeed: 0.1
+  CharacterRegenSpeed: 0.01
   CharacterRegenHealth: 1
   CharacterMaxHealth: 200
   CharacterMoveSpeed: 5

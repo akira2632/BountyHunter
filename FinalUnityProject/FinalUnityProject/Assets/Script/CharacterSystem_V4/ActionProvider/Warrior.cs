@@ -8,6 +8,7 @@ namespace CharacterSystem
     /// </summary>
     public class Warrior : ICharacterActionManager
     {
+        public AudioClip clip;
         public AudioSource MoveSound, DeffendSound, FallDownSound, LightAttackSound,
                 HeavyAttack1Sound, HeavyAttackChargeSound, HeavyAttack2Sound;
         public HitEffect DefaultHitEffect, DefaultDeffendEffect;

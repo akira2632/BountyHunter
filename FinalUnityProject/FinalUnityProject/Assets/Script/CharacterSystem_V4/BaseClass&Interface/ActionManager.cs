@@ -11,6 +11,7 @@ namespace CharacterSystem
         public Rigidbody2D MovementBody;
         public Collider2D MovementCollider;
         public Animator CharacterAnimator;
+        public AudioSource AudioSource;
         public SpriteRenderer SpriteRenderer;
 
         public event Action OnCharacterDead;
@@ -102,5 +103,12 @@ namespace CharacterSystem
 
         public virtual void OnHit(DamageData damage) { }
         #endregion
+    }
+
+    public abstract class ICharacterActionProvider : MonoBehaviour
+    {
+        public abstract ICharacterAction Idel { get; }
+        public abstract ICharacterAction Dead { get; }
+        public abstract ICharacterAction FallDown { get; }
     }
 }
