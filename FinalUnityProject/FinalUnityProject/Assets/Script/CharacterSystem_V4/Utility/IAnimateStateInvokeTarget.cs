@@ -1,6 +1,6 @@
 ﻿namespace CharacterSystem
 {
-    public interface IAnimateStateInvokeTarget
+    public interface IAnimationStateHandler
     {
         void OnAnimationStart();
         void OnAnimationEnd();

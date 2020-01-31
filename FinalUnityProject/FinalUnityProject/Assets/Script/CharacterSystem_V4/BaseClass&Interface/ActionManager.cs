@@ -4,7 +4,7 @@ using UnityEngine;
 namespace CharacterSystem
 {
     public abstract class ICharacterActionManager : MonoBehaviour,
-        ICharacterActionControll, IAnimateStateInvokeTarget
+        ICharacterActionControll, IAnimationStateHandler
     {
         public CharacterRunTimeData RunTimeData;
         public IScriptableCharacterProperty Property;
@@ -72,7 +72,7 @@ namespace CharacterSystem
         #endregion
     }
 
-    public abstract class ICharacterAction : ICharacterActionControll, IAnimateStateInvokeTarget
+    public abstract class ICharacterAction : ICharacterActionControll, IAnimationStateHandler
     {
         protected ICharacterActionManager actionManager;
 
