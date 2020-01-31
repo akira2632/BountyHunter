@@ -176,15 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7662d1197001dda4da5ceed2d8ba6a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunTimeData:
-    _health: 0
-    _basicAttackTimer: 0
-    _spacilAttackTimer: 0
-    _regenTimer: 0
-    _vertigoConter: 0
-    _direction: {x: 0, y: 0}
-    _target: {x: 0, y: 0, z: 0}
-  Property: {fileID: 11400000, guid: 3a54ff655ea72e845bf16927c56772fa, type: 2}
+  CharacterData: {fileID: 2970449785708486821}
   MovementBody: {fileID: 2713500744654730897}
   MovementCollider: {fileID: 270039640594804951}
   CharacterAnimator: {fileID: 4796646055716273524}

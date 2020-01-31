@@ -10,20 +10,17 @@ namespace CharacterSystem
 
         void Start()
         {
-            RunTimeData = new CharacterRunTimeData();
-            RunTimeData.SetData(Property, transform);
-
             nowAction = new GoblinIdle();
             nowAction.SetManager(this);
         }
 
         public override void ActionUpdate()
         {
-            if (RunTimeData.Health <= 0 && !(nowAction is GoblinDead))
+            if (CharacterData.Health <= 0 && !(nowAction is GoblinDead))
                 SetAction(new GoblinDead());
 
-            if (RunTimeData.Health > 0
-                && RunTimeData.VertigoConter >= 4
+            if (CharacterData.Health > 0
+                && CharacterData.VertigoConter >= 4
                 && !(nowAction is GoblinFall))
                 SetAction(new GoblinFall());
 
@@ -43,8 +40,8 @@ namespace CharacterSystem
 
             public override void OnHit(DamageData damage)
             {
-                actionManager.RunTimeData.Health -= damage.Damage;
-                actionManager.RunTimeData.VertigoConter += damage.Vertigo;
+                actionManager.CharacterData.Health -= damage.Damage;
+                actionManager.CharacterData.VertigoConter += damage.Vertigo;
 
                 goblin.DefaultHitEffect.PlayEffect(damage);
                 if (damage.KnockBackDistance > 0)
@@ -58,7 +55,7 @@ namespace CharacterSystem
             public override void Start()
             {
                 IsometricUtility.GetVerticalAndHorizontal(
-                    actionManager.RunTimeData.Direction, out var vertical, out var horizontal);
+                    actionManager.CharacterData.Direction, out var vertical, out var horizontal);
                 actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
                 actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
@@ -76,7 +73,7 @@ namespace CharacterSystem
 
             public override void SpecialAttack(Vector3 tartgetPosition)
             {
-                actionManager.RunTimeData.TargetPosition = tartgetPosition;
+                actionManager.CharacterData.TargetPosition = tartgetPosition;
                 actionManager.SetAction(new GoblinSpacilAttack(tartgetPosition));
             }
 
@@ -84,7 +81,7 @@ namespace CharacterSystem
             {
                 if (direction.magnitude > 0)
                 {
-                    actionManager.RunTimeData.Direction = direction;
+                    actionManager.CharacterData.Direction = direction;
                     actionManager.SetAction(new GoblinMove());
                 }
             }
@@ -98,7 +95,7 @@ namespace CharacterSystem
             {
                 goblin.MoveSound.Play();
                 IsometricUtility.GetVerticalAndHorizontal(
-                    actionManager.RunTimeData.Direction, out var vertical, out var horizontal);
+                    actionManager.CharacterData.Direction, out var vertical, out var horizontal);
                 actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
                 actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
                 actionManager.CharacterAnimator.SetBool("IsMove", true);
@@ -107,13 +104,13 @@ namespace CharacterSystem
             public override void Update()
             {
                 IsometricUtility.GetVerticalAndHorizontal(
-                    actionManager.RunTimeData.Direction, out var vertical, out var horizontal);
+                    actionManager.CharacterData.Direction, out var vertical, out var horizontal);
                 actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
                 actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                 actionManager.MovementBody.MovePosition(actionManager.MovementBody.position +
-                    IsometricUtility.ToIsometricVector2(actionManager.RunTimeData.Direction)
-                    * actionManager.Property.MoveSpeed * Time.deltaTime);
+                    IsometricUtility.ToIsometricVector2(actionManager.CharacterData.Direction)
+                    * actionManager.CharacterData.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()
@@ -131,7 +128,7 @@ namespace CharacterSystem
 
             public override void SpecialAttack(Vector3 tartgetPosition)
             {
-                actionManager.RunTimeData.TargetPosition = tartgetPosition;
+                actionManager.CharacterData.TargetPosition = tartgetPosition;
                 actionManager.SetAction(new GoblinSpacilAttack(tartgetPosition));
             }
 
@@ -140,7 +137,7 @@ namespace CharacterSystem
                 if (direction.magnitude <= 0)
                     actionManager.SetAction(new GoblinIdle());
                 else
-                    actionManager.RunTimeData.Direction = direction;
+                    actionManager.CharacterData.Direction = direction;
             }
             #endregion
         }
@@ -150,7 +147,7 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                if (actionManager.RunTimeData.BasicAttackTimer > 0)
+                if (actionManager.CharacterData.BasicAttackTimer > 0)
                 {
                     actionManager.SetAction(new GoblinIdle());
                     return;
@@ -164,7 +161,7 @@ namespace CharacterSystem
             #region 外部操作
             public override void OnAnimationEnd()
             {
-                actionManager.RunTimeData.BasicAttackTimer = actionManager.Property.BasicAttackSpeed;
+                actionManager.CharacterData.BasicAttackTimer = actionManager.CharacterData.BasicAttackSpeed;
                 actionManager.SetAction(new GoblinIdle());
             }
             #endregion
@@ -189,7 +186,7 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                if (actionManager.RunTimeData.SpacilAttackTimer > 0)
+                if (actionManager.CharacterData.SpacilAttackTimer > 0)
                 {
                     actionManager.SetAction(new GoblinIdle());
                     return;
@@ -209,7 +206,7 @@ namespace CharacterSystem
             #region 外部操作
             public override void OnAnimationEnd()
             {
-                actionManager.RunTimeData.SpacilAttackTimer = actionManager.Property.SpacilAttackSpeed;
+                actionManager.CharacterData.SpacilAttackTimer = actionManager.CharacterData.SpacilAttackSpeed;
                 actionManager.SetAction(new GoblinIdle());
             }
             #endregion
@@ -277,7 +274,7 @@ namespace CharacterSystem
 
             public override void End()
             {
-                actionManager.RunTimeData.VertigoConter = 0;
+                actionManager.CharacterData.VertigoConter = 0;
                 actionManager.CharacterAnimator.SetBool("IsFallDown", false);
             }
             #endregion

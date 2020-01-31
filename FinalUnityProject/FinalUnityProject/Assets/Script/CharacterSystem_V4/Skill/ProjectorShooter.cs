@@ -30,18 +30,18 @@ namespace CharacterSystem.Skill
         private void ShootingProjector()
         {
             #region 取得發射位置
-            IsometricUtility.GetVerticalAndHorizontal(Character.RunTimeData.Direction
+            IsometricUtility.GetVerticalAndHorizontal(Character.CharacterData.Direction
                 ,out float vertical, out float horizontal);
             var positionIndex = ((int)vertical + 1) * 3 + (int)horizontal + 1;
             positionIndex = positionIndex > 4 ? positionIndex - 1 : positionIndex;
             var startPosition = ShottingPoints[positionIndex].position;
             #endregion
 
-            var damage = SkillDamage.GetDamageData(Character.Property);
+            var damage = SkillDamage.GetDamageData(Character.CharacterData);
             damage.HitFrom = gameObject.gameObject.transform.position;
             Instantiate(Bullet, startPosition, Quaternion.identity)
                 .GetComponent<ProjectSkillCollider>()
-                .Shooting(Character.RunTimeData.TargetPosition, damage);
+                .Shooting(Character.CharacterData.TargetPosition, damage);
         }
     }
 }

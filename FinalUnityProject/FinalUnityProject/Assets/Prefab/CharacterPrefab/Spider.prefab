@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6704382508476855882}
+  - component: {fileID: 3583344827891391718}
   - component: {fileID: 4835822839643871109}
   - component: {fileID: 906002252590915433}
   - component: {fileID: 4796646055716273524}
@@ -38,6 +39,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3583344827891391718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810561749657080560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c48bb45d496054faaaa84cc088a7a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RunTimeData:
+    _health: 0
+    _basicAttackTimer: 0
+    _spacilAttackTimer: 0
+    _regenTimer: 0
+    _vertigoConter: 0
+    _direction: {x: 0, y: 0}
+    _target: {x: 0, y: 0, z: 0}
+  Property: {fileID: 11400000, guid: ac6bc9dc07cd5014abb41cd92a0bc8bb, type: 2}
 --- !u!114 &4835822839643871109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50,18 +72,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830306be478938041aa1b93b2bf20a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunTimeData:
-    _health: 0
-    _basicAttackTimer: 0
-    _spacilAttackTimer: 0
-    _regenTimer: 0
-    _vertigoConter: 0
-    _direction: {x: 0, y: 0}
-    _target: {x: 0, y: 0, z: 0}
-  Property: {fileID: 11400000, guid: ac6bc9dc07cd5014abb41cd92a0bc8bb, type: 2}
+  CharacterData: {fileID: 3583344827891391718}
   MovementBody: {fileID: 2713500744654730897}
   MovementCollider: {fileID: 270039640594804951}
   CharacterAnimator: {fileID: 4796646055716273524}
+  AudioSource: {fileID: 0}
   SpriteRenderer: {fileID: 906002252590915433}
   MoveSound: {fileID: 5214064407863650928}
   FallDownSound: {fileID: 1150387926125242612}
@@ -645,11 +660,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6704382508476855882}
     m_Modifications:
-    - target: {fileID: -8334081721910039551, guid: adf700287299c484b9957e388607e98b,
-        type: 3}
-      propertyPath: Character
-      value: 
-      objectReference: {fileID: 4835822839643871109}
     - target: {fileID: 3190235242059812745, guid: adf700287299c484b9957e388607e98b,
         type: 3}
       propertyPath: m_Name
@@ -710,6 +720,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8334081721910039551, guid: adf700287299c484b9957e388607e98b,
+        type: 3}
+      propertyPath: Character
+      value: 
+      objectReference: {fileID: 4835822839643871109}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adf700287299c484b9957e388607e98b, type: 3}
 --- !u!4 &8564521126100410435 stripped

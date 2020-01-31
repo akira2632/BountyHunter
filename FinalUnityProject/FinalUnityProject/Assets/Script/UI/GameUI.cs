@@ -92,7 +92,7 @@ public class GameUI : MonoBehaviour
 
     private void Update()
     {
-        float bloodHp = character.RunTimeData.Health;
+        float bloodHp = character.CharacterData.Health;
 
         //BloodHP = Mathf.Clamp(BloodHP, 0, 200);
 

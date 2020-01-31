@@ -21,7 +21,7 @@ namespace CharacterSystem.Skill
             {
                 //Debug.Log($"Target Enter : {TargetTag}");
                 hittedTargets.Add(collision);
-                var damage = SkillDamage.GetDamageData(Character.Property);
+                var damage = SkillDamage.GetDamageData(Character.CharacterData);
                 damage.HitAt = collision.transform.position;
                 damage.HitFrom = Character.transform.position;
                 collision.gameObject.GetComponentInParent<ICharacterActionManager>()

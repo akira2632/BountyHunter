@@ -150,7 +150,7 @@ namespace CharacterSystem.Controller
                 if (pathFinded == true)
                 {
                     if (IsometricUtility.ToIsometricDistance(manager.player.transform.position, manager.Character.transform.position) < manager.AISetting.AttackDistance
-                        && manager.Character.RunTimeData.BasicAttackTimer <= 0)
+                        && manager.Character.CharacterData.BasicAttackTimer <= 0)
                     {
                         manager.SetState(new AIAttack());
                     }
@@ -197,7 +197,7 @@ namespace CharacterSystem.Controller
                     manager.Character.transform.position) > manager.AISetting.AttackDistance)
                     manager.SetState(new AIChase());
 
-                if (manager.Character.RunTimeData.BasicAttackTimer <= 0)
+                if (manager.Character.CharacterData.BasicAttackTimer <= 0)
                 {
                     manager.Character.Move(
                         (manager.player.transform.position - manager.Character.transform.position).normalized);

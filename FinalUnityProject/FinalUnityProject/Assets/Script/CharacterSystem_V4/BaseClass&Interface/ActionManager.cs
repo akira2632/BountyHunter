@@ -6,8 +6,7 @@ namespace CharacterSystem
     public abstract class ICharacterActionManager : MonoBehaviour,
         ICharacterActionControll, IAnimationStateHandler
     {
-        public CharacterRunTimeData RunTimeData;
-        public IScriptableCharacterProperty Property;
+        public CharacterData CharacterData;
         public Rigidbody2D MovementBody;
         public Collider2D MovementCollider;
         public Animator CharacterAnimator;
@@ -23,13 +22,11 @@ namespace CharacterSystem
 
         public void FixedUpdate()
         {
-            if (RunTimeData.Health <= 0 && !hasInvoke)
+            if (CharacterData.Health <= 0 && !hasInvoke)
             {
                 OnCharacterDead?.Invoke();
                 hasInvoke = true;
             }
-
-            RunTimeData.Update();
 
             ActionUpdate();
         }

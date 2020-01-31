@@ -158,7 +158,7 @@ namespace CharacterSystem.Controller
                 if (pathFinded == true)
                 {
                     if (IsometricUtility.ToIsometricDistance(manager.player.transform.position, manager.Character.transform.position) < manager.AISetting.AttackDistance
-                        && manager.Character.RunTimeData.BasicAttackTimer <= 0)
+                        && manager.Character.CharacterData.BasicAttackTimer <= 0)
                     {
                         manager.SetState(new AIAttack(manager));
                     }

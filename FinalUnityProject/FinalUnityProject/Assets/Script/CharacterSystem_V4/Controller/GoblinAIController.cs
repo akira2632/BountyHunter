@@ -30,7 +30,7 @@ namespace CharacterSystem.Controller
 
         private void Update()
         {
-            if (Character.RunTimeData.Health <= 0)
+            if (Character.CharacterData.Health <= 0)
             {
                 GoblinAITeam.Instance.RemoveFromTeam(this);
                 return;
@@ -280,7 +280,7 @@ namespace CharacterSystem.Controller
                     manager.Character.transform.position) > manager.AISetting.BasicAttackDistance)
                     manager.SetState(new AIChase(manager));
 
-                if (manager.Character.RunTimeData.BasicAttackTimer <= 0)
+                if (manager.Character.CharacterData.BasicAttackTimer <= 0)
                 {
                     manager.Character.Move(
                         (manager.player.transform.position - manager.Character.transform.position).normalized);
@@ -305,7 +305,7 @@ namespace CharacterSystem.Controller
                     manager.Character.transform.position) > manager.AISetting.SpacilAttackDistance)
                     manager.SetState(new AIChase(manager));
 
-                if (manager.Character.RunTimeData.SpacilAttackTimer <= 0)
+                if (manager.Character.CharacterData.SpacilAttackTimer <= 0)
                 {
                     manager.Character.SpecialAttack(manager.player.transform.position);
                     manager.SetState(new AIAround(manager));
