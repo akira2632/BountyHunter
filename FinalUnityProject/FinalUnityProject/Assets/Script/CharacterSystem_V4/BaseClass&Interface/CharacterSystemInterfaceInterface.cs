@@ -52,6 +52,25 @@ namespace CharacterSystem
         float CriticalRate { get; }
     }
 
+    /// <summary>
+    /// 角色執行期參數介面
+    /// </summary>
+    public interface ICharacterData
+    {
+        void SetData(ICharacterProperty characterProperty, Transform characterTransform);
+        void Update();
+
+        Vector2 Direction { get; set; }
+        Vector3 TargetPosition { get; set; }
+
+        float BasicAttackTimer { get; set; }
+        float SpacilAttackTimer { get; set; }
+
+        float RegenTimer { get; set; }
+        int Health { get; set; }
+        float VertigoConter { get; set; }
+    }
+
     public abstract class IScriptableCharacterProperty : ScriptableObject, ICharacterProperty
     {
         public abstract float MoveSpeed { get; }

@@ -6,14 +6,14 @@ namespace CharacterSystem
     /// 角色執行期參數介面
     /// </summary>
     [System.Serializable]
-    public class CharacterRunTimeData
+    public class CharacterRunTimeData : ICharacterData
     {
         ICharacterProperty property;
         Transform transform;
         [SerializeField]
         int _health;
         [SerializeField]
-        float _basicAttackTimer, _spacilAttackTimer , _regenTimer, _vertigoConter;
+        float _basicAttackTimer, _spacilAttackTimer, _regenTimer, _vertigoConter;
         [SerializeField]
         Vector2 _direction;
         [SerializeField]

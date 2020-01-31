@@ -108,6 +108,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6704382508476855882}
+  - component: {fileID: 2970449785708486821}
   - component: {fileID: 54887327339312259}
   - component: {fileID: 906002252590915433}
   - component: {fileID: 4796646055716273524}
@@ -142,6 +143,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2970449785708486821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810561749657080560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c48bb45d496054faaaa84cc088a7a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RunTimeData:
+    _health: 0
+    _basicAttackTimer: 0
+    _spacilAttackTimer: 0
+    _regenTimer: 0
+    _vertigoConter: 0
+    _direction: {x: 0, y: 0}
+    _target: {x: 0, y: 0, z: 0}
+  Property: {fileID: 11400000, guid: 3a54ff655ea72e845bf16927c56772fa, type: 2}
 --- !u!114 &54887327339312259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,7 +188,9 @@ MonoBehaviour:
   MovementBody: {fileID: 2713500744654730897}
   MovementCollider: {fileID: 270039640594804951}
   CharacterAnimator: {fileID: 4796646055716273524}
+  AudioSource: {fileID: 0}
   SpriteRenderer: {fileID: 0}
+  clip: {fileID: 0}
   MoveSound: {fileID: 5214064407863650928}
   DeffendSound: {fileID: 5287185911749735589}
   FallDownSound: {fileID: 1150387926125242612}
