@@ -166,7 +166,6 @@ MonoBehaviour:
   MovementBody: {fileID: 2713500744654730897}
   MovementCollider: {fileID: 270039640594804951}
   CharacterAnimator: {fileID: 4796646055716273524}
-  SpriteRenderer: {fileID: 906002252590915433}
   MoveSound: {fileID: 5214064407863650928}
   DeffendSound: {fileID: 5287185911749735589}
   FallDownSound: {fileID: 1150387926125242612}

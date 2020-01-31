@@ -13,8 +13,6 @@ namespace CharacterSystem
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
         public SkillColliders LightAttackColliders;
 
-        protected override ICharacterAction IdelAction => throw new System.NotImplementedException();
-
         void Start()
         {
             RunTimeData = new CharacterRunTimeData();

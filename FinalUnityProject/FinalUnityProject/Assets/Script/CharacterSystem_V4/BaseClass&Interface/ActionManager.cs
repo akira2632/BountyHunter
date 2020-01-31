@@ -16,22 +16,9 @@ namespace CharacterSystem
         public event Action OnCharacterDead;
         private bool hasInvoke;
 
-        #region MyRegion
-        protected abstract ICharacterAction IdelAction { get; }
-        #endregion
-
         #region 流程控制
         protected ICharacterAction nowAction;
         private bool IsStart;
-
-        public void Start()
-        {
-            RunTimeData = new CharacterRunTimeData();
-            RunTimeData.SetData(Property, transform);
-
-            nowAction = IdelAction;
-            nowAction.SetManager(this);
-        }
 
         public void FixedUpdate()
         {
@@ -66,7 +53,7 @@ namespace CharacterSystem
         }
         #endregion
 
-        #region IAnimationStateHandler委派
+        #region AnimationControll委派
         public void OnAnimationStart() => nowAction.OnAnimationStart();
         public void OnAnimationEnd() => nowAction.OnAnimationEnd();
         #endregion
@@ -98,7 +85,7 @@ namespace CharacterSystem
         public virtual void Update() { }
         public virtual void End() { }
 
-        #region IAnimationStateHandler抽象實作
+        #region AnimationControll抽象實作
         public virtual void OnAnimationStart() { }
         public virtual void OnAnimationEnd() { }
         #endregion
