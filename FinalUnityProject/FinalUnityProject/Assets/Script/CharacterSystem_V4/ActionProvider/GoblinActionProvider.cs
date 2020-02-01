@@ -3,39 +3,85 @@ using CharacterSystem.Skill;
 
 namespace CharacterSystem
 {
-    public class Goblin : CharacterActionManager
+    public class GoblinActionProvider : ICharacterActionProvider
     {
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
         public HitEffect DefaultHitEffect;
 
-        void Start()
+        #region FactoryMethod
+        public override ICharacterAction GetIdelAction(CharacterActionManager manager)
         {
-            nowAction = new GoblinIdle();
-            nowAction.SetManager(this);
+            var temp = new GoblinIdle();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
         }
 
-        public override void ActionUpdate()
+        public override ICharacterAction GetDeadAction(CharacterActionManager manager)
         {
-            if (CharacterData.Health <= 0 && !(nowAction is GoblinDead))
-                SetAction(new GoblinDead());
-
-            if (CharacterData.Health > 0
-                && CharacterData.VertigoConter >= 4
-                && !(nowAction is GoblinFall))
-                SetAction(new GoblinFall());
-
-            base.ActionUpdate();
+            var temp = new GoblinDead();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
         }
+
+        public override ICharacterAction GetFallDownAction(CharacterActionManager manager)
+        {
+            var temp = new GoblinFall();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+
+        public ICharacterAction GetKnockBackAction(CharacterActionManager manager, DamageData damage)
+        {
+            var temp = new GoblinKnockBack(damage);
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+
+        public ICharacterAction GetMoveAction(CharacterActionManager manager)
+        {
+            var temp = new GoblinMove();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+
+        public ICharacterAction GetBasicAttackAction(CharacterActionManager manager)
+        {
+            var temp = new GoblinBasicAttack();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+
+        public ICharacterAction GetSpecailAttackAction(CharacterActionManager manager)
+        {
+            var temp = new GoblinSpacilAttack();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+
+        public ICharacterAction GetSpecailAttackAction(CharacterActionManager manager, Vector3 targetPosition)
+        {
+            var temp = new GoblinSpacilAttack(targetPosition);
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+        #endregion
 
         #region GoblinActions
         private class IGoblinAction : ICharacterAction
         {
-            protected Goblin goblin;
+            protected GoblinActionProvider provider;
 
-            public override void SetManager(CharacterActionManager actionManager)
+            public void SetProvider(GoblinActionProvider provider)
             {
-                goblin = (Goblin)actionManager;
-                base.SetManager(actionManager);
+                this.provider = provider;
             }
 
             public override void OnHit(DamageData damage)
@@ -43,9 +89,9 @@ namespace CharacterSystem
                 actionManager.CharacterData.Health -= damage.Damage;
                 actionManager.CharacterData.VertigoConter += damage.Vertigo;
 
-                goblin.DefaultHitEffect.PlayEffect(damage);
+                provider.DefaultHitEffect.PlayEffect(damage);
                 if (damage.KnockBackDistance > 0)
-                    goblin.SetAction(new GoblinKnockBack(damage));
+                    actionManager.SetAction(provider.GetKnockBackAction(actionManager, damage));
             }
         }
 
@@ -66,15 +112,15 @@ namespace CharacterSystem
 
             #region 外部操作
             public override void BasicAttack() =>
-                actionManager.SetAction(new GoblinBasicAttack());
+                actionManager.SetAction(provider.GetBasicAttackAction(actionManager));
 
             public override void SpecialAttack() =>
-                actionManager.SetAction(new GoblinSpacilAttack());
+                actionManager.SetAction(provider.GetSpecailAttackAction(actionManager));
 
             public override void SpecialAttack(Vector3 tartgetPosition)
             {
                 actionManager.CharacterData.TargetPosition = tartgetPosition;
-                actionManager.SetAction(new GoblinSpacilAttack(tartgetPosition));
+                actionManager.SetAction(provider.GetSpecailAttackAction(actionManager, tartgetPosition));
             }
 
             public override void Move(Vector2 direction)
@@ -82,7 +128,7 @@ namespace CharacterSystem
                 if (direction.magnitude > 0)
                 {
                     actionManager.CharacterData.Direction = direction;
-                    actionManager.SetAction(new GoblinMove());
+                    actionManager.SetAction(provider.GetMoveAction(actionManager));
                 }
             }
             #endregion
@@ -93,7 +139,7 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                goblin.MoveSound.Play();
+                provider.MoveSound.Play();
                 IsometricUtility.GetVerticalAndHorizontal(
                     actionManager.CharacterData.Direction, out var vertical, out var horizontal);
                 actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
@@ -115,27 +161,27 @@ namespace CharacterSystem
 
             public override void End()
             {
-                goblin.MoveSound.Stop();
+                provider.MoveSound.Stop();
             }
             #endregion
 
             #region 外部操作
             public override void BasicAttack() =>
-                actionManager.SetAction(new GoblinBasicAttack());
+                actionManager.SetAction(provider.GetBasicAttackAction(actionManager));
 
             public override void SpecialAttack() =>
-                actionManager.SetAction(new GoblinSpacilAttack());
+                actionManager.SetAction(provider.GetSpecailAttackAction(actionManager));
 
             public override void SpecialAttack(Vector3 tartgetPosition)
             {
                 actionManager.CharacterData.TargetPosition = tartgetPosition;
-                actionManager.SetAction(new GoblinSpacilAttack(tartgetPosition));
+                actionManager.SetAction(provider.GetSpecailAttackAction(actionManager, tartgetPosition));
             }
 
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude <= 0)
-                    actionManager.SetAction(new GoblinIdle());
+                    actionManager.SetAction(provider.GetIdelAction(actionManager));
                 else
                     actionManager.CharacterData.Direction = direction;
             }
@@ -149,12 +195,12 @@ namespace CharacterSystem
             {
                 if (actionManager.CharacterData.BasicAttackTimer > 0)
                 {
-                    actionManager.SetAction(new GoblinIdle());
+                    actionManager.SetAction(provider.GetIdelAction(actionManager));
                     return;
                 }
 
                 actionManager.CharacterAnimator.SetTrigger("LightAttack");
-                goblin.LightAttackSound.Play();
+                provider.LightAttackSound.Play();
             }
             #endregion
 
@@ -162,7 +208,7 @@ namespace CharacterSystem
             public override void OnAnimationEnd()
             {
                 actionManager.CharacterData.BasicAttackTimer = actionManager.CharacterData.BasicAttackSpeed;
-                actionManager.SetAction(new GoblinIdle());
+                actionManager.SetAction(provider.GetIdelAction(actionManager));
             }
             #endregion
         }
@@ -188,7 +234,7 @@ namespace CharacterSystem
             {
                 if (actionManager.CharacterData.SpacilAttackTimer > 0)
                 {
-                    actionManager.SetAction(new GoblinIdle());
+                    actionManager.SetAction(provider.GetIdelAction(actionManager));
                     return;
                 }
 
@@ -207,7 +253,7 @@ namespace CharacterSystem
             public override void OnAnimationEnd()
             {
                 actionManager.CharacterData.SpacilAttackTimer = actionManager.CharacterData.SpacilAttackSpeed;
-                actionManager.SetAction(new GoblinIdle());
+                actionManager.SetAction(provider.GetIdelAction(actionManager));
             }
             #endregion
         }
@@ -228,9 +274,9 @@ namespace CharacterSystem
             {
                 nowDistance = 0;
                 knockBackDirection = IsometricUtility.ToIsometricVector2(
-                    goblin.MovementBody.position - damage.HitFrom).normalized;
+                    actionManager.MovementBody.position - damage.HitFrom).normalized;
                 actionManager.CharacterAnimator.SetBool("IsHurt", true);
-                goblin.HurtSound.Play();
+                provider.HurtSound.Play();
             }
 
             public override void Update()
@@ -240,11 +286,11 @@ namespace CharacterSystem
                     Vector2 temp = damage.KnockBackSpeed * knockBackDirection * Time.deltaTime;
                     nowDistance += temp.magnitude;
 
-                    actionManager.MovementBody.MovePosition(goblin.MovementBody.position
+                    actionManager.MovementBody.MovePosition(actionManager.MovementBody.position
                         + temp);
                 }
                 else
-                    actionManager.SetAction(new GoblinIdle());
+                    actionManager.SetAction(provider.GetIdelAction(actionManager));
             }
 
             public override void End()
@@ -261,20 +307,20 @@ namespace CharacterSystem
             public override void Start()
             {
                 fallDownTimer = 2;
+                actionManager.CharacterData.VertigoConter = 0;
                 actionManager.CharacterAnimator.SetBool("IsFallDown", true);
-                goblin.HurtSound.Play();
+                provider.HurtSound.Play();
             }
 
             public override void Update()
             {
                 fallDownTimer -= Time.deltaTime;
                 if (fallDownTimer <= 0)
-                    actionManager.SetAction(new GoblinIdle());
+                    actionManager.SetAction(provider.GetIdelAction(actionManager));
             }
 
             public override void End()
             {
-                actionManager.CharacterData.VertigoConter = 0;
                 actionManager.CharacterAnimator.SetBool("IsFallDown", false);
             }
             #endregion
@@ -290,7 +336,7 @@ namespace CharacterSystem
 
                 actionManager.MovementCollider.enabled = false;
                 actionManager.CharacterAnimator.SetBool("IsFallDown", true);
-                goblin.FallDownSound.Play();
+                provider.FallDownSound.Play();
             }
 
             public override void Update()

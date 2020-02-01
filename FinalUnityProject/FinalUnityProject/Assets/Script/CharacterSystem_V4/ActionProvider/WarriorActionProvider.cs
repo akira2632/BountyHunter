@@ -62,7 +62,7 @@ namespace CharacterSystem
             return temp;
         }
 
-        private ICharacterAction GetSpacilAttackStart(CharacterActionManager manager)
+        private ICharacterAction GetSpacilAttackStartAction(CharacterActionManager manager)
         {
             var temp = new WarriorSpecailAttackStart();
             temp.SetManager(manager);
@@ -70,7 +70,7 @@ namespace CharacterSystem
             return temp;
         }
 
-        private ICharacterAction GetSpecailAttackDodge(CharacterActionManager manager, bool isCharge)
+        private ICharacterAction GetSpecailAttackDodgeAction(CharacterActionManager manager, bool isCharge)
         {
             var temp = new WarriorSpecailAttackDodge(isCharge);
             temp.SetManager(manager);
@@ -78,7 +78,7 @@ namespace CharacterSystem
             return temp;
         }
 
-        private ICharacterAction GetSpecailAttack1(CharacterActionManager manager, bool isCharge)
+        private ICharacterAction GetSpecailAttack1Action(CharacterActionManager manager, bool isCharge)
         {
             var temp = new WarriorSpacilAttack1(isCharge);
             temp.SetManager(manager);
@@ -86,7 +86,7 @@ namespace CharacterSystem
             return temp;
         }
 
-        private ICharacterAction GetSpecailAttackCharge(CharacterActionManager manager)
+        private ICharacterAction GetSpecailAttackChargeAction(CharacterActionManager manager)
         {
             var temp = new WarriorSpecailAttackCharge();
             temp.SetManager(manager);
@@ -94,7 +94,7 @@ namespace CharacterSystem
             return temp;
         }
 
-        private ICharacterAction GetSpecailAttack2(CharacterActionManager manager)
+        private ICharacterAction GetSpecailAttack2Action(CharacterActionManager manager)
         {
             var temp = new WarriorSpacilAttack2();
             temp.SetManager(manager);
@@ -149,7 +149,7 @@ namespace CharacterSystem
             }
 
             public override void SpecialAttack() =>
-               actionManager.SetAction(provider.GetSpacilAttackStart(actionManager));
+               actionManager.SetAction(provider.GetSpacilAttackStartAction(actionManager));
 
             public override void BasicAttack() =>
                actionManager.SetAction(provider.GetBasicAttackAction(actionManager));
@@ -216,7 +216,7 @@ namespace CharacterSystem
 
             public override void SpecialAttack()
             {
-                actionManager.SetAction(provider.GetSpacilAttackStart(actionManager));
+                actionManager.SetAction(provider.GetSpacilAttackStartAction(actionManager));
             }
 
             public override void BasicAttack()
@@ -330,7 +330,7 @@ namespace CharacterSystem
 
             public override void OnAnimationEnd()
             {
-                actionManager.SetAction(provider.GetSpecailAttackDodge(actionManager, isCharge));
+                actionManager.SetAction(provider.GetSpecailAttackDodgeAction(actionManager, isCharge));
             }
 
             public override void OnHit(DamageData damage)
@@ -374,7 +374,7 @@ namespace CharacterSystem
                     actionManager.MovementBody.position + dodgeVector);
 
                 if (dodgeDistance >= targetDistance)
-                    actionManager.SetAction(provider.GetSpecailAttack1(actionManager, isCharge));
+                    actionManager.SetAction(provider.GetSpecailAttack1Action(actionManager, isCharge));
             }
 
             public override void End()
@@ -449,7 +449,7 @@ namespace CharacterSystem
             public override void OnAnimationEnd()
             {
                 if (isCharge)
-                    actionManager.SetAction(provider.GetSpecailAttackCharge(actionManager));
+                    actionManager.SetAction(provider.GetSpecailAttackChargeAction(actionManager));
                 else
                     actionManager.SetAction(provider.GetIdelAction(actionManager));
             }
@@ -488,7 +488,7 @@ namespace CharacterSystem
                     actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                     if (!IsCharge || ChargeTime > 2.1)
-                        actionManager.SetAction(provider.GetSpecailAttack2(actionManager));
+                        actionManager.SetAction(provider.GetSpecailAttack2Action(actionManager));
                 }
             }
 

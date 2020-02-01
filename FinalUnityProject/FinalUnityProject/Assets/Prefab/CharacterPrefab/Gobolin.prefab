@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6704382508476855882}
   - component: {fileID: 4375636513553357640}
   - component: {fileID: 8612497687333612445}
+  - component: {fileID: 4722499259949507293}
   - component: {fileID: 906002252590915433}
   - component: {fileID: 4796646055716273524}
   - component: {fileID: 2713500744654730897}
@@ -73,17 +74,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273ade9c1b0bd7046a7c344a13ca484a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterData: {fileID: 4375636513553357640}
-  MovementBody: {fileID: 2713500744654730897}
-  MovementCollider: {fileID: 270039640594804951}
-  CharacterAnimator: {fileID: 4796646055716273524}
-  AudioSource: {fileID: 0}
-  SpriteRenderer: {fileID: 906002252590915433}
   MoveSound: {fileID: 5214064407863650928}
   FallDownSound: {fileID: 1150387926125242612}
   LightAttackSound: {fileID: 7502064583160869374}
   HurtSound: {fileID: 5463490643344342028}
   DefaultHitEffect: {fileID: 11400000, guid: bd0abba3180e4034da92aac916d4bfe9, type: 2}
+--- !u!114 &4722499259949507293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810561749657080560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af666fe5f9f05e74d90be0f6b2fefbf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterData: {fileID: 4375636513553357640}
+  ActionProvider: {fileID: 8612497687333612445}
+  MovementBody: {fileID: 2713500744654730897}
+  MovementCollider: {fileID: 270039640594804951}
+  CharacterAnimator: {fileID: 4796646055716273524}
+  AudioSource: {fileID: 0}
+  SpriteRenderer: {fileID: 906002252590915433}
 --- !u!212 &906002252590915433
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -730,7 +744,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Character
       value: 
-      objectReference: {fileID: 8612497687333612445}
+      objectReference: {fileID: 0}
     - target: {fileID: 1525498023663958286, guid: c129a303a96bef44588eb06656e9f715,
         type: 3}
       propertyPath: m_IsTrigger
@@ -1245,7 +1259,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Character
       value: 
-      objectReference: {fileID: 8612497687333612445}
+      objectReference: {fileID: 4722499259949507293}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66d1210ca6791af439a011b88129fae4, type: 3}
 --- !u!4 &6334744418341242486 stripped
