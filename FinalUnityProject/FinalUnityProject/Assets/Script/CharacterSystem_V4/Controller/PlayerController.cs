@@ -5,7 +5,7 @@ namespace CharacterSystem.Controller
     public class PlayerController : MonoBehaviour
     {
         public KeySetting PlayerKeySetting;
-        public ICharacterActionManager MyCharacter;
+        public CharacterActionManager MyCharacter;
 
         [SerializeField]
         private Vector2 direction;

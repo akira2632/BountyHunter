@@ -5,7 +5,7 @@ namespace CharacterSystem.Skill
 {
     public class SkillColliders : MonoBehaviour
     {
-        public ICharacterActionManager Character;
+        public CharacterActionManager Character;
         public SkillDamage SkillDamage;
 
         public string TargetTag;
@@ -24,7 +24,7 @@ namespace CharacterSystem.Skill
                 var damage = SkillDamage.GetDamageData(Character.CharacterData);
                 damage.HitAt = collision.transform.position;
                 damage.HitFrom = Character.transform.position;
-                collision.gameObject.GetComponentInParent<ICharacterActionManager>()
+                collision.gameObject.GetComponentInParent<CharacterActionManager>()
                     .OnHit(damage);
             }
         }

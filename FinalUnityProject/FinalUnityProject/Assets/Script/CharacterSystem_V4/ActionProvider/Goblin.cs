@@ -3,7 +3,7 @@ using CharacterSystem.Skill;
 
 namespace CharacterSystem
 {
-    public class Goblin : ICharacterActionManager
+    public class Goblin : CharacterActionManager
     {
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
         public HitEffect DefaultHitEffect;
@@ -32,7 +32,7 @@ namespace CharacterSystem
         {
             protected Goblin goblin;
 
-            public override void SetManager(ICharacterActionManager actionManager)
+            public override void SetManager(CharacterActionManager actionManager)
             {
                 goblin = (Goblin)actionManager;
                 base.SetManager(actionManager);

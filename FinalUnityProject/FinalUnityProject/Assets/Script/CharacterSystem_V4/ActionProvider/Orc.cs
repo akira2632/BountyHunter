@@ -3,7 +3,7 @@ using CharacterSystem.Skill;
 
 namespace CharacterSystem
 {
-    public class Orc : ICharacterActionManager
+    public class Orc : CharacterActionManager
     {
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
         public HitEffect DefalutHitEffect;
@@ -32,7 +32,7 @@ namespace CharacterSystem
         {
             protected Orc orc;
 
-            public override void SetManager(ICharacterActionManager actionManager)
+            public override void SetManager(CharacterActionManager actionManager)
             {
                 orc = (Orc)actionManager;
                 base.SetManager(actionManager);

@@ -6,7 +6,7 @@ namespace CharacterSystem.Controller
     {
         public MemberType MemberType;
 
-        public ICharacterActionManager Character;
+        public CharacterActionManager Character;
         public BasicAISenser Senser;
         public GoblinAISetting AISetting;
 

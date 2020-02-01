@@ -87,7 +87,7 @@ public class GameUI : MonoBehaviour
 
     public int BloodHP;
 
-    public ICharacterActionManager character;
+    public CharacterActionManager character;
     #endregion
 
     private void Update()

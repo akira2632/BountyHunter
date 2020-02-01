@@ -5,7 +5,7 @@ namespace CharacterSystem.Controller
 {
     public class SpiderAIController : MonoBehaviour
     {
-        public ICharacterActionManager Character;
+        public CharacterActionManager Character;
         public BasicAISenser Senser;
         public SpiderAISetting AISetting;
 

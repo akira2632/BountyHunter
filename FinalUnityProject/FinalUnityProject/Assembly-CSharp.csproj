@@ -66,8 +66,8 @@
     <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\Goblin.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\Orc.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\Spider.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\Warrior.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\ActionManager.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\WarriorActionProvider.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterActionManager.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterData.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterProperty.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterRunTimeData.cs" />

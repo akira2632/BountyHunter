@@ -124,7 +124,7 @@ public class SpwanPoint : MonoBehaviour
             Timer = SpwanRate;
 
             myMob = Instantiate(MobPrefab, mySpwanPoint.transform.position, Quaternion.identity);
-            myMob.GetComponent<ICharacterActionManager>().OnCharacterDead
+            myMob.GetComponent<CharacterActionManager>().OnCharacterDead
                 += () => IsAlive = false;
         }
     }

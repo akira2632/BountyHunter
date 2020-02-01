@@ -4,7 +4,7 @@ namespace CharacterSystem.Controller
 {
     public class BasicAIController : MonoBehaviour
     {
-        public ICharacterActionManager Character;
+        public CharacterActionManager Character;
         public BasicAISenser Senser;
         public BasicAISetting AISetting;
 

@@ -88,4 +88,43 @@ namespace CharacterSystem
         public abstract float CriticalMagnifiction { get; }
         public abstract float CriticalRate { get; }
     }
+
+    public abstract class ICharacterAction : ICharacterActionControll, IAnimationStateHandler
+    {
+        protected CharacterActionManager actionManager;
+
+        public virtual void SetManager(CharacterActionManager actionManager)
+        {
+            this.actionManager = actionManager;
+        }
+
+        public virtual void Start() { }
+        public virtual void Update() { }
+        public virtual void End() { }
+
+        #region AnimationControll抽象實作
+        public virtual void OnAnimationStart() { }
+        public virtual void OnAnimationEnd() { }
+        #endregion
+
+        #region ICharacterActionControll抽象實作
+        public virtual void Move(Vector2 direction) { }
+
+        public virtual void Deffend(bool deffend) { }
+        public virtual void Dodge() { }
+        public virtual void SpecialAttack() { }
+        public virtual void SpecialAttack(bool hold) { }
+        public virtual void SpecialAttack(Vector3 tartgetPosition) { }
+        public virtual void BasicAttack() { }
+
+        public virtual void OnHit(DamageData damage) { }
+        #endregion
+    }
+
+    public abstract class ICharacterActionProvider : MonoBehaviour
+    {
+        public abstract ICharacterAction GetIdelAction(CharacterActionManager manager);
+        public abstract ICharacterAction GetDeadAction(CharacterActionManager manager);
+        public abstract ICharacterAction GetFallDownAction(CharacterActionManager manager);
+    }
 }

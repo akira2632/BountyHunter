@@ -3,10 +3,13 @@ using UnityEngine;
 
 namespace CharacterSystem
 {
-    public abstract class ICharacterActionManager : MonoBehaviour,
+    public class CharacterActionManager : MonoBehaviour,
         ICharacterActionControll, IAnimationStateHandler
     {
         public CharacterData CharacterData;
+        [SerializeField]
+        private ICharacterActionProvider ActionProvider;
+
         public Rigidbody2D MovementBody;
         public Collider2D MovementCollider;
         public Animator CharacterAnimator;
@@ -20,13 +23,23 @@ namespace CharacterSystem
         protected ICharacterAction nowAction;
         private bool IsStart;
 
+        private void Start()
+        {
+            nowAction = ActionProvider.GetIdelAction(this);
+        }
+
         public void FixedUpdate()
         {
             if (CharacterData.Health <= 0 && !hasInvoke)
             {
                 OnCharacterDead?.Invoke();
+                SetAction(ActionProvider.GetDeadAction(this));
                 hasInvoke = true;
             }
+
+            if (CharacterData.Health > 0
+                && CharacterData.VertigoConter >= 4)
+                SetAction(ActionProvider.GetFallDownAction(this));
 
             ActionUpdate();
         }
@@ -68,44 +81,5 @@ namespace CharacterSystem
 
         public void OnHit(DamageData wound) => nowAction.OnHit(wound);
         #endregion
-    }
-
-    public abstract class ICharacterAction : ICharacterActionControll, IAnimationStateHandler
-    {
-        protected ICharacterActionManager actionManager;
-
-        public virtual void SetManager(ICharacterActionManager actionManager)
-        {
-            this.actionManager = actionManager;
-        }
-
-        public virtual void Start() { }
-        public virtual void Update() { }
-        public virtual void End() { }
-
-        #region AnimationControll抽象實作
-        public virtual void OnAnimationStart() { }
-        public virtual void OnAnimationEnd() { }
-        #endregion
-
-        #region ICharacterActionControll抽象實作
-        public virtual void Move(Vector2 direction) { }
-
-        public virtual void Deffend(bool deffend) { }
-        public virtual void Dodge() { }
-        public virtual void SpecialAttack() { }
-        public virtual void SpecialAttack(bool hold) { }
-        public virtual void SpecialAttack(Vector3 tartgetPosition){ }
-        public virtual void BasicAttack() { }
-
-        public virtual void OnHit(DamageData damage) { }
-        #endregion
-    }
-
-    public abstract class ICharacterActionProvider : MonoBehaviour
-    {
-        public abstract ICharacterAction Idel { get; }
-        public abstract ICharacterAction Dead { get; }
-        public abstract ICharacterAction FallDown { get; }
     }
 }

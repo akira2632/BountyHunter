@@ -6,31 +6,74 @@ namespace CharacterSystem
     /// <summary>
     /// 戰士角色
     /// </summary>
-    public class Warrior : ICharacterActionManager
+    public class WarriorActionProvider : ICharacterActionProvider
     {
         public AudioClip clip;
         public AudioSource MoveSound, DeffendSound, FallDownSound, LightAttackSound,
                 HeavyAttack1Sound, HeavyAttackChargeSound, HeavyAttack2Sound;
         public HitEffect DefaultHitEffect, DefaultDeffendEffect;
 
-        public void Start()
+        #region FactoryMethod
+        public override ICharacterAction GetIdelAction(CharacterActionManager manager)
         {
-            nowAction = new WarriorIdel();
-            nowAction.SetManager(this);
+            var temp = new WarriorIdel();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
         }
 
-        public override void ActionUpdate()
+        public override ICharacterAction GetDeadAction(CharacterActionManager manager)
         {
-            if (CharacterData.Health <= 0 && !(nowAction is WarriorDead))
-                SetAction(new WarriorDead());
-
-            if (CharacterData.Health > 0
-                && CharacterData.VertigoConter >= 4
-                && !(nowAction is WarriorFall))
-                SetAction(new WarriorFall());
-
-            base.ActionUpdate();
+            var temp = new WarriorDead();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
         }
+
+        public override ICharacterAction GetFallDownAction(CharacterActionManager manager)
+        {
+            var temp = new WarriorFall();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+
+        private ICharacterAction GetMoveAction(CharacterActionManager manager)
+        {
+            var temp = new WarriorMove();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+
+        private ICharacterAction GetDeffendAction(CharacterActionManager manager)
+        {
+            var temp = new WarriorDeffend();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+
+        private ICharacterAction GetBasicAttackAction(CharacterActionManager manager)
+        {
+            var temp = new WarriorBasicAttack();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+
+        private ICharacterAction GetSpacilAttackStart(CharacterActionManager manager)
+        {
+            var temp = new WarriorSpecailAttackStart();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+
+        private ICharacterAction GetWarriorSpecailAttackDodge(CharacterActionManager manager)
+        { 
+        }
+        #endregion
 
         #region WarriorActions
         /// <summary>
@@ -38,19 +81,18 @@ namespace CharacterSystem
         /// </summary>
         private class IWarriorAction : ICharacterAction
         {
-            protected Warrior warrior;
+            protected WarriorActionProvider provider;
 
-            public override void SetManager(ICharacterActionManager actionManager)
+            public void SetProvider(WarriorActionProvider provider)
             {
-                warrior = (Warrior)actionManager;
-                base.SetManager(actionManager);
+                this.provider = provider;
             }
 
             public override void OnHit(DamageData damage)
             {
                 actionManager.CharacterData.Health -= damage.Damage;
                 actionManager.CharacterData.VertigoConter += damage.Vertigo;
-                warrior.DefaultHitEffect.PlayEffect(damage);
+                provider.DefaultHitEffect.PlayEffect(damage);
             }
         }
 
@@ -75,21 +117,21 @@ namespace CharacterSystem
             public override void Deffend(bool deffend)
             {
                 if (deffend)
-                    actionManager.SetAction(new WarriorDeffend());
+                    actionManager.SetAction(provider.GetDeffendAction(actionManager));
             }
 
             public override void SpecialAttack() =>
-               actionManager.SetAction(new WarriorHeavyAttack_Start());
+               actionManager.SetAction(provider.GetSpacilAttackStart(actionManager));
 
             public override void BasicAttack() =>
-               actionManager.SetAction(new WarriorLightAttack());
+               actionManager.SetAction(provider.GetBasicAttackAction(actionManager));
 
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude > 0)
                 {
                     actionManager.CharacterData.Direction = direction;
-                    actionManager.SetAction(new WarriorMove());
+                    actionManager.SetAction(provider.GetMoveAction(actionManager));
                 }
             }
             #endregion
@@ -103,7 +145,7 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                warrior.MoveSound.Play();
+                provider.MoveSound.Play();
                 IsometricUtility.GetVerticalAndHorizontal(
                     actionManager.CharacterData.Direction, out var vertical, out var horizontal);
                 actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
@@ -125,7 +167,7 @@ namespace CharacterSystem
 
             public override void End()
             {
-                warrior.MoveSound.Stop();
+                provider.MoveSound.Stop();
             }
             #endregion
 
@@ -133,7 +175,7 @@ namespace CharacterSystem
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude <= 0)
-                    actionManager.SetAction(new WarriorIdel());
+                    actionManager.SetAction(provider.GetIdelAction(actionManager));
                 else
                     actionManager.CharacterData.Direction = direction;
             }
@@ -141,17 +183,17 @@ namespace CharacterSystem
             public override void Deffend(bool deffend)
             {
                 if (deffend)
-                    actionManager.SetAction(new WarriorDeffend());
+                    actionManager.SetAction(provider.GetDeffendAction(actionManager));
             }
 
             public override void SpecialAttack()
             {
-                actionManager.SetAction(new WarriorHeavyAttack_Start());
+                actionManager.SetAction(new WarriorSpecailAttackStart());
             }
 
             public override void BasicAttack()
             {
-                actionManager.SetAction(new WarriorLightAttack());
+                actionManager.SetAction(provider.GetBasicAttackAction(actionManager));
             }
             #endregion
         }
@@ -191,19 +233,19 @@ namespace CharacterSystem
             public override void Deffend(bool deffend)
             {
                 if (!deffend)
-                    actionManager.SetAction(new WarriorIdel());
+                    actionManager.SetAction(provider.GetIdelAction(actionManager));
             }
 
             public override void BasicAttack()
             {
-                actionManager.SetAction(new WarriorLightAttack());
+                actionManager.SetAction(provider.GetBasicAttackAction(actionManager));
             }
 
             public override void OnHit(DamageData damage)
             {
                 actionManager.CharacterData.Health -= (int)(damage.Damage * 0.1f);
-                warrior.DeffendSound.Play();
-                warrior.DefaultDeffendEffect.PlayEffect(damage);
+                provider.DeffendSound.Play();
+                provider.DefaultDeffendEffect.PlayEffect(damage);
             }
             #endregion
         }
@@ -211,19 +253,19 @@ namespace CharacterSystem
         /// <summary>
         /// 戰士輕攻擊
         /// </summary>
-        private class WarriorLightAttack : IWarriorAction
+        private class WarriorBasicAttack : IWarriorAction
         {
             #region 動作更新
             public override void Start()
             {
                 if (actionManager.CharacterData.BasicAttackTimer > 0)
                 {
-                    actionManager.SetAction(new WarriorIdel());
+                    actionManager.SetAction(provider.GetIdelAction(actionManager));
                     return;
                 }
 
                 actionManager.CharacterAnimator.SetTrigger("LightAttack");
-                warrior.LightAttackSound.Play();
+                provider.LightAttackSound.Play();
             }
             #endregion
 
@@ -231,7 +273,7 @@ namespace CharacterSystem
             public override void OnAnimationEnd()
             {
                 actionManager.CharacterData.BasicAttackTimer = actionManager.CharacterData.BasicAttackSpeed;
-                actionManager.SetAction(new WarriorIdel());
+                actionManager.SetAction(provider.GetIdelAction(actionManager));
             }
             #endregion
         }
@@ -239,7 +281,7 @@ namespace CharacterSystem
         /// <summary>
         /// 戰士重攻擊預備
         /// </summary>
-        private class WarriorHeavyAttack_Start : IWarriorAction
+        private class WarriorSpecailAttackStart : IWarriorAction
         {
             bool isCharge;
 
@@ -260,7 +302,7 @@ namespace CharacterSystem
 
             public override void OnAnimationEnd()
             {
-                actionManager.SetAction(new WarriorHeavyAttack_Dodge(isCharge));
+                actionManager.SetAction(new WarriorSpecailAttackDodge(isCharge));
             }
 
             public override void OnHit(DamageData damage)
@@ -274,12 +316,12 @@ namespace CharacterSystem
         /// <summary>
         /// 戰士重攻擊衝刺
         /// </summary>
-        private class WarriorHeavyAttack_Dodge : IWarriorAction
+        private class WarriorSpecailAttackDodge : IWarriorAction
         {
             float dodgeDistance, targetDistance = 2f;
             bool isCharge;
 
-            public WarriorHeavyAttack_Dodge(bool isCharge)
+            public WarriorSpecailAttackDodge(bool isCharge)
             {
                 this.isCharge = isCharge;
             }
@@ -347,7 +389,7 @@ namespace CharacterSystem
                     actionManager.CharacterAnimator.SetBool("HeavyAttackCharge", true);
 
                 actionManager.CharacterAnimator.SetBool("HeavyAttackStart", false);
-                warrior.HeavyAttack1Sound.Play();
+                provider.HeavyAttack1Sound.Play();
             }
 
             public override void Update()
@@ -381,7 +423,7 @@ namespace CharacterSystem
                 if (isCharge)
                     actionManager.SetAction(new WarriorHeavyAttackCharge());
                 else
-                    actionManager.SetAction(new WarriorIdel());
+                    actionManager.SetAction(provider.GetIdelAction(actionManager));
             }
 
             public override void OnHit(DamageData damage) { }
@@ -403,7 +445,7 @@ namespace CharacterSystem
                 ChargeEnd = false;
                 ChargeTime = 0;
 
-                warrior.HeavyAttackChargeSound.Play();
+                provider.HeavyAttackChargeSound.Play();
             }
 
             public override void Update()
@@ -424,7 +466,7 @@ namespace CharacterSystem
 
             public override void End()
             {
-                warrior.HeavyAttackChargeSound.Stop();
+                provider.HeavyAttackChargeSound.Stop();
             }
             #endregion
 
@@ -455,7 +497,7 @@ namespace CharacterSystem
             {
                 dodgeDistance = 0;
                 actionManager.CharacterAnimator.SetBool("HeavyAttackCharge", false);
-                warrior.HeavyAttack2Sound.Play();
+                provider.HeavyAttack2Sound.Play();
             }
 
             public override void Update()
@@ -477,7 +519,7 @@ namespace CharacterSystem
             #region 外部操作
             public override void OnAnimationEnd()
             {
-                actionManager.SetAction(new WarriorIdel());
+                actionManager.SetAction(provider.GetIdelAction(actionManager));
             }
 
             public override void OnHit(DamageData damage) { }
@@ -495,21 +537,21 @@ namespace CharacterSystem
             public override void Start()
             {
                 fallDownTime = 0;
+                actionManager.CharacterData.VertigoConter = 0;
 
                 actionManager.CharacterAnimator.SetBool("IsFallDown", true);
-                warrior.FallDownSound.Play();
+                provider.FallDownSound.Play();
             }
 
             public override void Update()
             {
                 fallDownTime += Time.deltaTime;
                 if (fallDownTime > 5)
-                    actionManager.SetAction(new WarriorIdel());
+                    actionManager.SetAction(provider.GetIdelAction(actionManager));
             }
 
             public override void End()
             {
-                actionManager.CharacterData.VertigoConter = 0;
                 actionManager.CharacterAnimator.SetBool("IsFallDown", false);
             }
             #endregion
@@ -560,7 +602,7 @@ namespace CharacterSystem
             {
                 actionManager.MovementCollider.enabled = false;
                 actionManager.CharacterAnimator.SetBool("IsFallDown", true);
-                warrior.FallDownSound.Play();
+                provider.FallDownSound.Play();
             }
 
             public override void End()

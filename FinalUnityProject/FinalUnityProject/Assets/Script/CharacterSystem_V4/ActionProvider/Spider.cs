@@ -3,7 +3,7 @@ using CharacterSystem.Skill;
 
 namespace CharacterSystem
 {
-    public class Spider : ICharacterActionManager
+    public class Spider : CharacterActionManager
     {
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
         public HitEffect DefaultHitEffect;
@@ -32,7 +32,7 @@ namespace CharacterSystem
         {
             protected Spider spider;
 
-            public override void SetManager(ICharacterActionManager actionManager)
+            public override void SetManager(CharacterActionManager actionManager)
             {
                 spider = (Spider)actionManager;
                 base.SetManager(actionManager);

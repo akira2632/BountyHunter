@@ -6540,18 +6540,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb49ace21592d93419e2d44f5cf3b062, type: 3}
---- !u!114 &679963311 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 54887327339312259, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1815160162}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7662d1197001dda4da5ceed2d8ba6a86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &967318205
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6656,7 +6644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerKeySetting: {fileID: 11400000, guid: aeb0aaa3a4dd6304cb004cf477e1dffa, type: 2}
-  MyCharacter: {fileID: 679963311}
+  MyCharacter: {fileID: 1641260950}
   direction: {x: 0, y: 0}
 --- !u!4 &994114082
 Transform:
@@ -6938,6 +6926,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7f05e6740797fb439b4bac1eb839ddf, type: 3}
+--- !u!114 &1641260950 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6875937971818516457, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1815160162}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af666fe5f9f05e74d90be0f6b2fefbf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1683099337
 PrefabInstance:
   m_ObjectHideFlags: 0
