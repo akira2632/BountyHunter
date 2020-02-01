@@ -70,8 +70,36 @@ namespace CharacterSystem
             return temp;
         }
 
-        private ICharacterAction GetWarriorSpecailAttackDodge(CharacterActionManager manager)
-        { 
+        private ICharacterAction GetSpecailAttackDodge(CharacterActionManager manager, bool isCharge)
+        {
+            var temp = new WarriorSpecailAttackDodge(isCharge);
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+
+        private ICharacterAction GetSpecailAttack1(CharacterActionManager manager, bool isCharge)
+        {
+            var temp = new WarriorSpacilAttack1(isCharge);
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+
+        private ICharacterAction GetSpecailAttackCharge(CharacterActionManager manager)
+        {
+            var temp = new WarriorSpecailAttackCharge();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+
+        private ICharacterAction GetSpecailAttack2(CharacterActionManager manager)
+        {
+            var temp = new WarriorSpacilAttack2();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
         }
         #endregion
 
@@ -188,7 +216,7 @@ namespace CharacterSystem
 
             public override void SpecialAttack()
             {
-                actionManager.SetAction(new WarriorSpecailAttackStart());
+                actionManager.SetAction(provider.GetSpacilAttackStart(actionManager));
             }
 
             public override void BasicAttack()
@@ -302,7 +330,7 @@ namespace CharacterSystem
 
             public override void OnAnimationEnd()
             {
-                actionManager.SetAction(new WarriorSpecailAttackDodge(isCharge));
+                actionManager.SetAction(provider.GetSpecailAttackDodge(actionManager, isCharge));
             }
 
             public override void OnHit(DamageData damage)
@@ -346,7 +374,7 @@ namespace CharacterSystem
                     actionManager.MovementBody.position + dodgeVector);
 
                 if (dodgeDistance >= targetDistance)
-                    actionManager.SetAction(new WarriorHeavyAttack1(isCharge));
+                    actionManager.SetAction(provider.GetSpecailAttack1(actionManager, isCharge));
             }
 
             public override void End()
@@ -370,12 +398,12 @@ namespace CharacterSystem
         /// <summary>
         /// 戰士重攻擊第一段
         /// </summary>
-        private class WarriorHeavyAttack1 : IWarriorAction
+        private class WarriorSpacilAttack1 : IWarriorAction
         {
             float dodgeDistance, targetDistance = 0.4f;
             bool isCharge;
 
-            public WarriorHeavyAttack1(bool isCharge)
+            public WarriorSpacilAttack1(bool isCharge)
             {
                 this.isCharge = isCharge;
             }
@@ -421,7 +449,7 @@ namespace CharacterSystem
             public override void OnAnimationEnd()
             {
                 if (isCharge)
-                    actionManager.SetAction(new WarriorHeavyAttackCharge());
+                    actionManager.SetAction(provider.GetSpecailAttackCharge(actionManager));
                 else
                     actionManager.SetAction(provider.GetIdelAction(actionManager));
             }
@@ -433,7 +461,7 @@ namespace CharacterSystem
         /// <summary>
         /// 戰士重攻擊蓄力
         /// </summary>
-        private class WarriorHeavyAttackCharge : IWarriorAction
+        private class WarriorSpecailAttackCharge : IWarriorAction
         {
             bool IsCharge, ChargeEnd;
             float ChargeTime;
@@ -460,7 +488,7 @@ namespace CharacterSystem
                     actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                     if (!IsCharge || ChargeTime > 2.1)
-                        actionManager.SetAction(new WarriorHeavyAttack2());
+                        actionManager.SetAction(provider.GetSpecailAttack2(actionManager));
                 }
             }
 
@@ -488,7 +516,7 @@ namespace CharacterSystem
         /// <summary>
         /// 戰士重攻擊第二段
         /// </summary>
-        private class WarriorHeavyAttack2 : IWarriorAction
+        private class WarriorSpacilAttack2 : IWarriorAction
         {
             float dodgeDistance, targetDistance = 0.4f;
 
