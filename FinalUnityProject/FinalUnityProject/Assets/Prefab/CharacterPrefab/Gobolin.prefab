@@ -744,7 +744,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Character
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4722499259949507293}
     - target: {fileID: 1525498023663958286, guid: c129a303a96bef44588eb06656e9f715,
         type: 3}
       propertyPath: m_IsTrigger

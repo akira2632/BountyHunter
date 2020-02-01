@@ -58,7 +58,6 @@ namespace CharacterSystem
         public void SetAction(ICharacterAction nextAction)
         {
             nowAction.End();
-            nextAction.SetManager(this);
             nowAction = nextAction;
             IsStart = false;
         }

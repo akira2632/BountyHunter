@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 6704382508476855882}
   - component: {fileID: 5906194133313412482}
   - component: {fileID: 2072704109068948732}
+  - component: {fileID: 8873422842012986001}
   - component: {fileID: 906002252590915433}
   - component: {fileID: 4796646055716273524}
   - component: {fileID: 2713500744654730897}
@@ -119,17 +120,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9b96be58fb5364e9717ee6188486da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterData: {fileID: 5906194133313412482}
-  MovementBody: {fileID: 2713500744654730897}
-  MovementCollider: {fileID: 270039640594804951}
-  CharacterAnimator: {fileID: 4796646055716273524}
-  AudioSource: {fileID: 0}
-  SpriteRenderer: {fileID: 906002252590915433}
   MoveSound: {fileID: 5214064407863650928}
   FallDownSound: {fileID: 3536777300869806681}
   LightAttackSound: {fileID: 7502064583160869374}
   HurtSound: {fileID: 1150387926125242612}
   DefalutHitEffect: {fileID: 11400000, guid: bd0abba3180e4034da92aac916d4bfe9, type: 2}
+--- !u!114 &8873422842012986001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810561749657080560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af666fe5f9f05e74d90be0f6b2fefbf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterData: {fileID: 5906194133313412482}
+  ActionProvider: {fileID: 2072704109068948732}
+  MovementBody: {fileID: 2713500744654730897}
+  MovementCollider: {fileID: 270039640594804951}
+  CharacterAnimator: {fileID: 4796646055716273524}
+  AudioSource: {fileID: 0}
+  SpriteRenderer: {fileID: 906002252590915433}
 --- !u!212 &906002252590915433
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -724,7 +738,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Character
       value: 
-      objectReference: {fileID: 2072704109068948732}
+      objectReference: {fileID: 8873422842012986001}
     - target: {fileID: 4305532473013405785, guid: 34de69e531423614fbd2278c4fdbbc50,
         type: 3}
       propertyPath: m_IsTrigger

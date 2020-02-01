@@ -18,6 +18,9 @@ namespace CharacterSystem.Controller
         // Update is called once per frame
         void Update()
         {
+            if (MyCharacter == null)
+                return;
+
             if (Input.GetKey(PlayerKeySetting.UpKey))
                 direction.y = 1;
             else if (Input.GetKey(PlayerKeySetting.DownKey))

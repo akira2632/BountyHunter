@@ -109,18 +109,18 @@ namespace CharacterSystem
         /// </summary>
         private class IWarriorAction : ICharacterAction
         {
-            protected WarriorActionProvider provider;
+            protected WarriorActionProvider actionProvider;
 
-            public void SetProvider(WarriorActionProvider provider)
+            public void SetProvider(WarriorActionProvider actionProvider)
             {
-                this.provider = provider;
+                this.actionProvider = actionProvider;
             }
 
             public override void OnHit(DamageData damage)
             {
                 actionManager.CharacterData.Health -= damage.Damage;
                 actionManager.CharacterData.VertigoConter += damage.Vertigo;
-                provider.DefaultHitEffect.PlayEffect(damage);
+                actionProvider.DefaultHitEffect.PlayEffect(damage);
             }
         }
 
@@ -145,21 +145,21 @@ namespace CharacterSystem
             public override void Deffend(bool deffend)
             {
                 if (deffend)
-                    actionManager.SetAction(provider.GetDeffendAction(actionManager));
+                    actionManager.SetAction(actionProvider.GetDeffendAction(actionManager));
             }
 
             public override void SpecialAttack() =>
-               actionManager.SetAction(provider.GetSpacilAttackStartAction(actionManager));
+               actionManager.SetAction(actionProvider.GetSpacilAttackStartAction(actionManager));
 
             public override void BasicAttack() =>
-               actionManager.SetAction(provider.GetBasicAttackAction(actionManager));
+               actionManager.SetAction(actionProvider.GetBasicAttackAction(actionManager));
 
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude > 0)
                 {
                     actionManager.CharacterData.Direction = direction;
-                    actionManager.SetAction(provider.GetMoveAction(actionManager));
+                    actionManager.SetAction(actionProvider.GetMoveAction(actionManager));
                 }
             }
             #endregion
@@ -173,7 +173,7 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                provider.MoveSound.Play();
+                actionProvider.MoveSound.Play();
                 IsometricUtility.GetVerticalAndHorizontal(
                     actionManager.CharacterData.Direction, out var vertical, out var horizontal);
                 actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
@@ -195,7 +195,7 @@ namespace CharacterSystem
 
             public override void End()
             {
-                provider.MoveSound.Stop();
+                actionProvider.MoveSound.Stop();
             }
             #endregion
 
@@ -203,7 +203,7 @@ namespace CharacterSystem
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude <= 0)
-                    actionManager.SetAction(provider.GetIdelAction(actionManager));
+                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
                 else
                     actionManager.CharacterData.Direction = direction;
             }
@@ -211,17 +211,17 @@ namespace CharacterSystem
             public override void Deffend(bool deffend)
             {
                 if (deffend)
-                    actionManager.SetAction(provider.GetDeffendAction(actionManager));
+                    actionManager.SetAction(actionProvider.GetDeffendAction(actionManager));
             }
 
             public override void SpecialAttack()
             {
-                actionManager.SetAction(provider.GetSpacilAttackStartAction(actionManager));
+                actionManager.SetAction(actionProvider.GetSpacilAttackStartAction(actionManager));
             }
 
             public override void BasicAttack()
             {
-                actionManager.SetAction(provider.GetBasicAttackAction(actionManager));
+                actionManager.SetAction(actionProvider.GetBasicAttackAction(actionManager));
             }
             #endregion
         }
@@ -261,19 +261,19 @@ namespace CharacterSystem
             public override void Deffend(bool deffend)
             {
                 if (!deffend)
-                    actionManager.SetAction(provider.GetIdelAction(actionManager));
+                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
             }
 
             public override void BasicAttack()
             {
-                actionManager.SetAction(provider.GetBasicAttackAction(actionManager));
+                actionManager.SetAction(actionProvider.GetBasicAttackAction(actionManager));
             }
 
             public override void OnHit(DamageData damage)
             {
                 actionManager.CharacterData.Health -= (int)(damage.Damage * 0.1f);
-                provider.DeffendSound.Play();
-                provider.DefaultDeffendEffect.PlayEffect(damage);
+                actionProvider.DeffendSound.Play();
+                actionProvider.DefaultDeffendEffect.PlayEffect(damage);
             }
             #endregion
         }
@@ -288,12 +288,12 @@ namespace CharacterSystem
             {
                 if (actionManager.CharacterData.BasicAttackTimer > 0)
                 {
-                    actionManager.SetAction(provider.GetIdelAction(actionManager));
+                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
                     return;
                 }
 
                 actionManager.CharacterAnimator.SetTrigger("LightAttack");
-                provider.LightAttackSound.Play();
+                actionProvider.LightAttackSound.Play();
             }
             #endregion
 
@@ -301,7 +301,7 @@ namespace CharacterSystem
             public override void OnAnimationEnd()
             {
                 actionManager.CharacterData.BasicAttackTimer = actionManager.CharacterData.BasicAttackSpeed;
-                actionManager.SetAction(provider.GetIdelAction(actionManager));
+                actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
             }
             #endregion
         }
@@ -330,7 +330,7 @@ namespace CharacterSystem
 
             public override void OnAnimationEnd()
             {
-                actionManager.SetAction(provider.GetSpecailAttackDodgeAction(actionManager, isCharge));
+                actionManager.SetAction(actionProvider.GetSpecailAttackDodgeAction(actionManager, isCharge));
             }
 
             public override void OnHit(DamageData damage)
@@ -374,7 +374,7 @@ namespace CharacterSystem
                     actionManager.MovementBody.position + dodgeVector);
 
                 if (dodgeDistance >= targetDistance)
-                    actionManager.SetAction(provider.GetSpecailAttack1Action(actionManager, isCharge));
+                    actionManager.SetAction(actionProvider.GetSpecailAttack1Action(actionManager, isCharge));
             }
 
             public override void End()
@@ -417,7 +417,7 @@ namespace CharacterSystem
                     actionManager.CharacterAnimator.SetBool("HeavyAttackCharge", true);
 
                 actionManager.CharacterAnimator.SetBool("HeavyAttackStart", false);
-                provider.HeavyAttack1Sound.Play();
+                actionProvider.HeavyAttack1Sound.Play();
             }
 
             public override void Update()
@@ -449,9 +449,9 @@ namespace CharacterSystem
             public override void OnAnimationEnd()
             {
                 if (isCharge)
-                    actionManager.SetAction(provider.GetSpecailAttackChargeAction(actionManager));
+                    actionManager.SetAction(actionProvider.GetSpecailAttackChargeAction(actionManager));
                 else
-                    actionManager.SetAction(provider.GetIdelAction(actionManager));
+                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
             }
 
             public override void OnHit(DamageData damage) { }
@@ -473,7 +473,7 @@ namespace CharacterSystem
                 ChargeEnd = false;
                 ChargeTime = 0;
 
-                provider.HeavyAttackChargeSound.Play();
+                actionProvider.HeavyAttackChargeSound.Play();
             }
 
             public override void Update()
@@ -488,13 +488,13 @@ namespace CharacterSystem
                     actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                     if (!IsCharge || ChargeTime > 2.1)
-                        actionManager.SetAction(provider.GetSpecailAttack2Action(actionManager));
+                        actionManager.SetAction(actionProvider.GetSpecailAttack2Action(actionManager));
                 }
             }
 
             public override void End()
             {
-                provider.HeavyAttackChargeSound.Stop();
+                actionProvider.HeavyAttackChargeSound.Stop();
             }
             #endregion
 
@@ -525,7 +525,7 @@ namespace CharacterSystem
             {
                 dodgeDistance = 0;
                 actionManager.CharacterAnimator.SetBool("HeavyAttackCharge", false);
-                provider.HeavyAttack2Sound.Play();
+                actionProvider.HeavyAttack2Sound.Play();
             }
 
             public override void Update()
@@ -547,7 +547,7 @@ namespace CharacterSystem
             #region 外部操作
             public override void OnAnimationEnd()
             {
-                actionManager.SetAction(provider.GetIdelAction(actionManager));
+                actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
             }
 
             public override void OnHit(DamageData damage) { }
@@ -568,14 +568,14 @@ namespace CharacterSystem
                 actionManager.CharacterData.VertigoConter = 0;
 
                 actionManager.CharacterAnimator.SetBool("IsFallDown", true);
-                provider.FallDownSound.Play();
+                actionProvider.FallDownSound.Play();
             }
 
             public override void Update()
             {
                 fallDownTime += Time.deltaTime;
                 if (fallDownTime > 5)
-                    actionManager.SetAction(provider.GetIdelAction(actionManager));
+                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
             }
 
             public override void End()
@@ -630,7 +630,7 @@ namespace CharacterSystem
             {
                 actionManager.MovementCollider.enabled = false;
                 actionManager.CharacterAnimator.SetBool("IsFallDown", true);
-                provider.FallDownSound.Play();
+                actionProvider.FallDownSound.Play();
             }
 
             public override void End()

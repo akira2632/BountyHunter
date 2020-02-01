@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1376292349497022161}
-  - component: {fileID: 3004760154123527928}
+  - component: {fileID: 3838703293417618978}
   - component: {fileID: 7644059388813134094}
   - component: {fileID: 1250603172488141824}
   m_Layer: 0
-  m_Name: AIController
+  m_Name: GoblinAIController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3004760154123527928
+--- !u!114 &3838703293417618978
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,9 +42,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 875525872581199544}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c333926de73f2a7479a1abfaf442994e, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f353e8d52b35f84ba9b1eebd76c3b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MemberType: 0
   Character: {fileID: 0}
   Senser: {fileID: 7644059388813134094}
   AISetting: {fileID: 0}
@@ -60,7 +61,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e25284fa62fe6043a1c40d54ecb1a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Character: {fileID: 0}
   seeker: {fileID: 1250603172488141824}
 --- !u!114 &1250603172488141824
 MonoBehaviour:

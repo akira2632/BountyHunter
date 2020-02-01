@@ -3,39 +3,69 @@ using CharacterSystem.Skill;
 
 namespace CharacterSystem
 {
-    public class Orc : CharacterActionManager
+    public class SpiderActionProvidedr : ICharacterActionProvider
     {
         public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
-        public HitEffect DefalutHitEffect;
+        public HitEffect DefaultHitEffect;
 
-        void Start()
+        #region FactoryMethod
+        public override ICharacterAction GetIdelAction(CharacterActionManager manager)
         {
-            nowAction = new OrcIdle();
-            nowAction.SetManager(this);
+            var temp = new SpiderIdle();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
         }
 
-        public override void ActionUpdate()
+        public override ICharacterAction GetDeadAction(CharacterActionManager manager)
         {
-            if (CharacterData.Health <= 0 && !(nowAction is OrcDead))
-                SetAction(new OrcDead());
-
-            if (CharacterData.Health > 0
-                && CharacterData.VertigoConter >= 4
-                && !(nowAction is OrcFall))
-                SetAction(new OrcFall());
-
-            base.ActionUpdate();
+            var temp = new SpiderDead();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
         }
 
-        #region OrkActions
-        private class IOrcAction : ICharacterAction
+        public override ICharacterAction GetFallDownAction(CharacterActionManager manager)
         {
-            protected Orc orc;
+            var temp = new SpiderFall();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
 
-            public override void SetManager(CharacterActionManager actionManager)
+        public ICharacterAction GetMoveAction(CharacterActionManager manager)
+        {
+            var temp = new SpiderMove();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+
+        public ICharacterAction GetBasicAttackAction(CharacterActionManager manager)
+        {
+            var temp = new SpiderBasicAttack();
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+
+        public ICharacterAction GetKnockBackAction(CharacterActionManager manager, DamageData damage)
+        {
+            var temp = new SpiderKnockBack(damage);
+            temp.SetManager(manager);
+            temp.SetProvider(this);
+            return temp;
+        }
+        #endregion
+
+        #region SpiderActions
+        private class ISpiderAction : ICharacterAction
+        {
+            protected SpiderActionProvidedr actionProvider;
+
+            public void SetProvider(SpiderActionProvidedr actionProvider)
             {
-                orc = (Orc)actionManager;
-                base.SetManager(actionManager);
+                this.actionProvider = actionProvider;
             }
 
             public override void OnHit(DamageData damage)
@@ -43,13 +73,13 @@ namespace CharacterSystem
                 actionManager.CharacterData.Health -= damage.Damage;
                 actionManager.CharacterData.VertigoConter += damage.Vertigo;
 
-                orc.DefalutHitEffect.PlayEffect(damage);
+                actionProvider.DefaultHitEffect.PlayEffect(damage);
                 if (damage.KnockBackDistance > 0)
-                    orc.SetAction(new OrcKnockBack(damage));
+                    actionManager.SetAction(actionProvider.GetKnockBackAction(actionManager, damage));
             }
         }
 
-        private class OrcIdle : IOrcAction
+        private class SpiderIdle : ISpiderAction
         {
             #region 動作更新
             public override void Start()
@@ -66,25 +96,25 @@ namespace CharacterSystem
 
             #region 外部操作
             public override void BasicAttack() =>
-                actionManager.SetAction(new OrcLightAttack());
+                actionManager.SetAction(actionProvider.GetBasicAttackAction(actionManager));
 
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude > 0)
                 {
                     actionManager.CharacterData.Direction = direction;
-                    actionManager.SetAction(new OrcMove());
+                    actionManager.SetAction(actionProvider.GetMoveAction(actionManager));
                 }
             }
             #endregion
         }
 
-        private class OrcMove : IOrcAction
+        private class SpiderMove : ISpiderAction
         {
             #region 動作更新
             public override void Start()
             {
-                orc.MoveSound.Play();
+                actionProvider.MoveSound.Play();
                 IsometricUtility.GetVerticalAndHorizontal(
                     actionManager.CharacterData.Direction, out var vertical, out var horizontal);
                 actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
@@ -106,81 +136,56 @@ namespace CharacterSystem
 
             public override void End()
             {
-                orc.MoveSound.Stop();
+                actionProvider.MoveSound.Stop();
             }
             #endregion
 
             #region 外部操作
             public override void BasicAttack() =>
-               actionManager.SetAction(new OrcLightAttack());
+               actionManager.SetAction(actionProvider.GetBasicAttackAction(actionManager));
 
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude <= 0)
-                    actionManager.SetAction(new OrcIdle());
+                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
                 else
                     actionManager.CharacterData.Direction = direction;
             }
             #endregion
         }
 
-        private class OrcLightAttack : IOrcAction
+        private class SpiderBasicAttack : ISpiderAction
         {
             #region 動作更新
             public override void Start()
             {
                 if (actionManager.CharacterData.BasicAttackTimer > 0)
                 {
-                    actionManager.SetAction(new OrcIdle());
+                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
                     return;
                 }
 
                 actionManager.CharacterAnimator.SetTrigger("LightAttack");
-                orc.LightAttackSound.Play();
+                actionProvider.LightAttackSound.Play();
             }
             #endregion
 
             #region 外部操作
             public override void OnAnimationEnd()
             {
-                actionManager.CharacterData.BasicAttackTimer = orc.CharacterData.BasicAttackSpeed;
-                actionManager.SetAction(new OrcIdle());
+                actionManager.CharacterData.BasicAttackTimer = actionManager.CharacterData.BasicAttackSpeed;
+                actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
             }
             #endregion
         }
 
-        private class OrcFall : IOrcAction
-        {
-            float fallDownTimer;
-
-            public override void Start()
-            {
-                fallDownTimer = 2;
-                actionManager.CharacterAnimator.SetBool("IsFallDown", true);
-                orc.HurtSound.Play();
-            }
-
-            public override void Update()
-            {
-                fallDownTimer -= Time.deltaTime;
-                if (fallDownTimer <= 0)
-                    actionManager.SetAction(new OrcIdle());
-            }
-
-            public override void End()
-            {
-                actionManager.CharacterData.VertigoConter = 0;
-                actionManager.CharacterAnimator.SetBool("IsFallDown", false);
-            }
-        }
-
-        private class OrcKnockBack : IOrcAction
+        private class SpiderKnockBack : ISpiderAction
         {
             float nowDistance;
             Vector2 knockBackDirection;
             private DamageData damage;
 
-            public OrcKnockBack(DamageData damage)
+            public SpiderKnockBack(DamageData damage)
             {
                 this.damage = damage;
             }
@@ -192,7 +197,7 @@ namespace CharacterSystem
                 knockBackDirection = IsometricUtility.ToIsometricVector2(
                     actionManager.MovementBody.position - damage.HitFrom).normalized;
                 actionManager.CharacterAnimator.SetBool("IsHurt", true);
-                orc.HurtSound.Play();
+                actionProvider.HurtSound.Play();
             }
 
             public override void Update()
@@ -205,7 +210,7 @@ namespace CharacterSystem
                     actionManager.MovementBody.MovePosition(actionManager.MovementBody.position + temp);
                 }
                 else
-                    actionManager.SetAction(new OrcIdle());
+                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
             }
 
             public override void End()
@@ -215,7 +220,32 @@ namespace CharacterSystem
             #endregion
         }
 
-        private class OrcDead : IOrcAction
+        private class SpiderFall : ISpiderAction
+        {
+            float fallDownTimer;
+
+            public override void Start()
+            {
+                fallDownTimer = 2;
+                actionManager.CharacterAnimator.SetBool("IsFallDown", true);
+                actionProvider.HurtSound.Play();
+            }
+
+            public override void Update()
+            {
+                fallDownTimer -= Time.deltaTime;
+                if (fallDownTimer <= 0)
+                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
+            }
+
+            public override void End()
+            {
+                actionManager.CharacterData.VertigoConter = 0;
+                actionManager.CharacterAnimator.SetBool("IsFallDown", false);
+            }
+        }
+
+        private class SpiderDead : ISpiderAction
         {
             float desdroyedTimer;
             #region 動作更新
@@ -225,7 +255,7 @@ namespace CharacterSystem
 
                 actionManager.MovementCollider.enabled = false;
                 actionManager.CharacterAnimator.SetBool("IsFallDown", true);
-                orc.FallDownSound.Play();
+                actionProvider.FallDownSound.Play();
             }
 
             public override void Update()

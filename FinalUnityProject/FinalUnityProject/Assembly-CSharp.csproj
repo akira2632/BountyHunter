@@ -64,8 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\GoblinActionProvider.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\Orc.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\Spider.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\OrcActionProvider.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\SpiderActionProvidedr.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\WarriorActionProvider.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterActionManager.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterData.cs" />

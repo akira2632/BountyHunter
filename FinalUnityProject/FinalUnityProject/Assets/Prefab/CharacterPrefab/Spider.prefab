@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6704382508476855882}
   - component: {fileID: 3583344827891391718}
   - component: {fileID: 4835822839643871109}
+  - component: {fileID: 6181703732106473976}
   - component: {fileID: 906002252590915433}
   - component: {fileID: 4796646055716273524}
   - component: {fileID: 2713500744654730897}
@@ -72,17 +73,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830306be478938041aa1b93b2bf20a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterData: {fileID: 3583344827891391718}
-  MovementBody: {fileID: 2713500744654730897}
-  MovementCollider: {fileID: 270039640594804951}
-  CharacterAnimator: {fileID: 4796646055716273524}
-  AudioSource: {fileID: 0}
-  SpriteRenderer: {fileID: 906002252590915433}
   MoveSound: {fileID: 5214064407863650928}
   FallDownSound: {fileID: 1150387926125242612}
   LightAttackSound: {fileID: 7502064583160869374}
   HurtSound: {fileID: 524092908601169108}
   DefaultHitEffect: {fileID: 11400000, guid: fdc35bb4c196d304b8197b14848b02ab, type: 2}
+--- !u!114 &6181703732106473976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810561749657080560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af666fe5f9f05e74d90be0f6b2fefbf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterData: {fileID: 3583344827891391718}
+  ActionProvider: {fileID: 4835822839643871109}
+  MovementBody: {fileID: 2713500744654730897}
+  MovementCollider: {fileID: 270039640594804951}
+  CharacterAnimator: {fileID: 4796646055716273524}
+  AudioSource: {fileID: 0}
+  SpriteRenderer: {fileID: 906002252590915433}
 --- !u!212 &906002252590915433
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -724,7 +738,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Character
       value: 
-      objectReference: {fileID: 4835822839643871109}
+      objectReference: {fileID: 6181703732106473976}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adf700287299c484b9957e388607e98b, type: 3}
 --- !u!4 &8564521126100410435 stripped

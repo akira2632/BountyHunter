@@ -77,11 +77,11 @@ namespace CharacterSystem
         #region GoblinActions
         private class IGoblinAction : ICharacterAction
         {
-            protected GoblinActionProvider provider;
+            protected GoblinActionProvider actionProvider;
 
-            public void SetProvider(GoblinActionProvider provider)
+            public void SetProvider(GoblinActionProvider actionProvider)
             {
-                this.provider = provider;
+                this.actionProvider = actionProvider;
             }
 
             public override void OnHit(DamageData damage)
@@ -89,9 +89,9 @@ namespace CharacterSystem
                 actionManager.CharacterData.Health -= damage.Damage;
                 actionManager.CharacterData.VertigoConter += damage.Vertigo;
 
-                provider.DefaultHitEffect.PlayEffect(damage);
+                actionProvider.DefaultHitEffect.PlayEffect(damage);
                 if (damage.KnockBackDistance > 0)
-                    actionManager.SetAction(provider.GetKnockBackAction(actionManager, damage));
+                    actionManager.SetAction(actionProvider.GetKnockBackAction(actionManager, damage));
             }
         }
 
@@ -112,15 +112,15 @@ namespace CharacterSystem
 
             #region 外部操作
             public override void BasicAttack() =>
-                actionManager.SetAction(provider.GetBasicAttackAction(actionManager));
+                actionManager.SetAction(actionProvider.GetBasicAttackAction(actionManager));
 
             public override void SpecialAttack() =>
-                actionManager.SetAction(provider.GetSpecailAttackAction(actionManager));
+                actionManager.SetAction(actionProvider.GetSpecailAttackAction(actionManager));
 
             public override void SpecialAttack(Vector3 tartgetPosition)
             {
                 actionManager.CharacterData.TargetPosition = tartgetPosition;
-                actionManager.SetAction(provider.GetSpecailAttackAction(actionManager, tartgetPosition));
+                actionManager.SetAction(actionProvider.GetSpecailAttackAction(actionManager, tartgetPosition));
             }
 
             public override void Move(Vector2 direction)
@@ -128,7 +128,7 @@ namespace CharacterSystem
                 if (direction.magnitude > 0)
                 {
                     actionManager.CharacterData.Direction = direction;
-                    actionManager.SetAction(provider.GetMoveAction(actionManager));
+                    actionManager.SetAction(actionProvider.GetMoveAction(actionManager));
                 }
             }
             #endregion
@@ -139,7 +139,7 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                provider.MoveSound.Play();
+                actionProvider.MoveSound.Play();
                 IsometricUtility.GetVerticalAndHorizontal(
                     actionManager.CharacterData.Direction, out var vertical, out var horizontal);
                 actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
@@ -161,27 +161,27 @@ namespace CharacterSystem
 
             public override void End()
             {
-                provider.MoveSound.Stop();
+                actionProvider.MoveSound.Stop();
             }
             #endregion
 
             #region 外部操作
             public override void BasicAttack() =>
-                actionManager.SetAction(provider.GetBasicAttackAction(actionManager));
+                actionManager.SetAction(actionProvider.GetBasicAttackAction(actionManager));
 
             public override void SpecialAttack() =>
-                actionManager.SetAction(provider.GetSpecailAttackAction(actionManager));
+                actionManager.SetAction(actionProvider.GetSpecailAttackAction(actionManager));
 
             public override void SpecialAttack(Vector3 tartgetPosition)
             {
                 actionManager.CharacterData.TargetPosition = tartgetPosition;
-                actionManager.SetAction(provider.GetSpecailAttackAction(actionManager, tartgetPosition));
+                actionManager.SetAction(actionProvider.GetSpecailAttackAction(actionManager, tartgetPosition));
             }
 
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude <= 0)
-                    actionManager.SetAction(provider.GetIdelAction(actionManager));
+                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
                 else
                     actionManager.CharacterData.Direction = direction;
             }
@@ -195,12 +195,12 @@ namespace CharacterSystem
             {
                 if (actionManager.CharacterData.BasicAttackTimer > 0)
                 {
-                    actionManager.SetAction(provider.GetIdelAction(actionManager));
+                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
                     return;
                 }
 
                 actionManager.CharacterAnimator.SetTrigger("LightAttack");
-                provider.LightAttackSound.Play();
+                actionProvider.LightAttackSound.Play();
             }
             #endregion
 
@@ -208,7 +208,7 @@ namespace CharacterSystem
             public override void OnAnimationEnd()
             {
                 actionManager.CharacterData.BasicAttackTimer = actionManager.CharacterData.BasicAttackSpeed;
-                actionManager.SetAction(provider.GetIdelAction(actionManager));
+                actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
             }
             #endregion
         }
@@ -234,7 +234,7 @@ namespace CharacterSystem
             {
                 if (actionManager.CharacterData.SpacilAttackTimer > 0)
                 {
-                    actionManager.SetAction(provider.GetIdelAction(actionManager));
+                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
                     return;
                 }
 
@@ -253,7 +253,7 @@ namespace CharacterSystem
             public override void OnAnimationEnd()
             {
                 actionManager.CharacterData.SpacilAttackTimer = actionManager.CharacterData.SpacilAttackSpeed;
-                actionManager.SetAction(provider.GetIdelAction(actionManager));
+                actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
             }
             #endregion
         }
@@ -276,7 +276,7 @@ namespace CharacterSystem
                 knockBackDirection = IsometricUtility.ToIsometricVector2(
                     actionManager.MovementBody.position - damage.HitFrom).normalized;
                 actionManager.CharacterAnimator.SetBool("IsHurt", true);
-                provider.HurtSound.Play();
+                actionProvider.HurtSound.Play();
             }
 
             public override void Update()
@@ -290,7 +290,7 @@ namespace CharacterSystem
                         + temp);
                 }
                 else
-                    actionManager.SetAction(provider.GetIdelAction(actionManager));
+                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
             }
 
             public override void End()
@@ -309,14 +309,14 @@ namespace CharacterSystem
                 fallDownTimer = 2;
                 actionManager.CharacterData.VertigoConter = 0;
                 actionManager.CharacterAnimator.SetBool("IsFallDown", true);
-                provider.HurtSound.Play();
+                actionProvider.HurtSound.Play();
             }
 
             public override void Update()
             {
                 fallDownTimer -= Time.deltaTime;
                 if (fallDownTimer <= 0)
-                    actionManager.SetAction(provider.GetIdelAction(actionManager));
+                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
             }
 
             public override void End()
@@ -336,7 +336,7 @@ namespace CharacterSystem
 
                 actionManager.MovementCollider.enabled = false;
                 actionManager.CharacterAnimator.SetBool("IsFallDown", true);
-                provider.FallDownSound.Play();
+                actionProvider.FallDownSound.Play();
             }
 
             public override void Update()

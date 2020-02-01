@@ -1305,7 +1305,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Character
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6875937971818516457}
     - target: {fileID: 522867620182152049, guid: d315a94b67268284eb08085507fbc2a6,
         type: 3}
       propertyPath: m_Enabled
@@ -1425,7 +1425,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Character
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6875937971818516457}
     - target: {fileID: 6216947182369936486, guid: 877c37856f97b3849a5a52e0c9089c95,
         type: 3}
       propertyPath: m_Enabled
@@ -1625,7 +1625,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Character
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6875937971818516457}
     - target: {fileID: 9009447261881432264, guid: cba218fa807cc444ab152af20d87d12c,
         type: 3}
       propertyPath: m_Enabled

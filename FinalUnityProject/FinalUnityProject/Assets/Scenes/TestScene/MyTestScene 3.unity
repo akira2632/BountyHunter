@@ -6644,7 +6644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerKeySetting: {fileID: 11400000, guid: aeb0aaa3a4dd6304cb004cf477e1dffa, type: 2}
-  MyCharacter: {fileID: 1707875097}
+  MyCharacter: {fileID: 1641260950}
   direction: {x: 0, y: 0}
 --- !u!4 &994114082
 Transform:
@@ -6867,7 +6867,7 @@ PrefabInstance:
     - target: {fileID: 1810561749657080560, guid: d7f05e6740797fb439b4bac1eb839ddf,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6704382508476855882, guid: d7f05e6740797fb439b4bac1eb839ddf,
         type: 3}
@@ -6926,6 +6926,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7f05e6740797fb439b4bac1eb839ddf, type: 3}
+--- !u!114 &1641260950 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6875937971818516457, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1815160162}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af666fe5f9f05e74d90be0f6b2fefbf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1683099337
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7000,18 +7012,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99152fe1a81154c448ea8fa5b744de0c, type: 3}
---- !u!114 &1707875097 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4722499259949507293, guid: d7f05e6740797fb439b4bac1eb839ddf,
-    type: 3}
-  m_PrefabInstance: {fileID: 1385657878}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af666fe5f9f05e74d90be0f6b2fefbf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1815160162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7027,7 +7027,7 @@ PrefabInstance:
     - target: {fileID: 1810561749657080560, guid: 983b491c307ee2d459e2de15d1d3e5d1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 54887327339312259, guid: 983b491c307ee2d459e2de15d1d3e5d1,
         type: 3}
