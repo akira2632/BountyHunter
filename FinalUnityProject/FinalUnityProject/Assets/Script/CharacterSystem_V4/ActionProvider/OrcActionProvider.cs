@@ -5,7 +5,7 @@ namespace CharacterSystem
 {
     public class OrcActionProvider : ICharacterActionProvider
     {
-        public AudioSource MoveSound, FallDownSound, LightAttackSound, HurtSound;
+        public AudioClip MoveSound, FallDownSound, BasicAttackSound, HurtSound;
         public HitEffect DefalutHitEffect;
 
         #region FactoryMethod
@@ -114,7 +114,10 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                actionProvider.MoveSound.Play();
+                actionManager.AudioSource.clip = actionProvider.MoveSound;
+                actionManager.AudioSource.loop = true;
+                actionManager.AudioSource.Play();
+
                 IsometricUtility.GetVerticalAndHorizontal(
                     actionManager.CharacterData.Direction, out var vertical, out var horizontal);
                 actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
@@ -136,7 +139,8 @@ namespace CharacterSystem
 
             public override void End()
             {
-                actionProvider.MoveSound.Stop();
+                actionManager.AudioSource.Stop();
+                actionManager.AudioSource.loop = false;
             }
             #endregion
 
@@ -165,8 +169,10 @@ namespace CharacterSystem
                     return;
                 }
 
+                actionManager.AudioSource.clip = actionProvider.BasicAttackSound;
+                actionManager.AudioSource.Play();
+
                 actionManager.CharacterAnimator.SetTrigger("LightAttack");
-                actionProvider.LightAttackSound.Play();
             }
             #endregion
 
@@ -186,8 +192,11 @@ namespace CharacterSystem
             public override void Start()
             {
                 fallDownTimer = 2;
+
+                actionManager.AudioSource.clip = actionProvider.HurtSound;
+                actionManager.AudioSource.Play();
+
                 actionManager.CharacterAnimator.SetBool("IsFallDown", true);
-                actionProvider.HurtSound.Play();
             }
 
             public override void Update()
@@ -221,8 +230,11 @@ namespace CharacterSystem
                 nowDistance = 0;
                 knockBackDirection = IsometricUtility.ToIsometricVector2(
                     actionManager.MovementBody.position - damage.HitFrom).normalized;
+
+                actionManager.AudioSource.clip = actionProvider.HurtSound;
+                actionManager.AudioSource.Play();
+
                 actionManager.CharacterAnimator.SetBool("IsHurt", true);
-                actionProvider.HurtSound.Play();
             }
 
             public override void Update()
@@ -253,9 +265,11 @@ namespace CharacterSystem
             {
                 desdroyedTimer = 120;
 
+                actionManager.AudioSource.clip = actionProvider.FallDownSound;
+                actionManager.AudioSource.Play();
+
                 actionManager.MovementCollider.enabled = false;
                 actionManager.CharacterAnimator.SetBool("IsFallDown", true);
-                actionProvider.FallDownSound.Play();
             }
 
             public override void Update()

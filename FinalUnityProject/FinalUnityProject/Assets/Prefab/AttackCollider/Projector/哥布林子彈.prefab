@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 4330284892423590853}
   - component: {fileID: 3466649796960702346}
   - component: {fileID: 4497522118854551419}
-  - component: {fileID: 10178570810465904}
+  - component: {fileID: 5503926773629964742}
   - component: {fileID: 6078343802123210327}
   m_Layer: 0
-  m_Name: GoblinBullet
+  m_Name: "\u54E5\u5E03\u6797\u5B50\u5F48"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,7 +122,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!82 &10178570810465904
+--- !u!82 &5503926773629964742
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,9 +143,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -179,6 +179,15 @@ AudioSource:
     - serializedVersion: 3
       time: 0
       value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.75
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1fa70b0ebfc18e49aa9216751fd6cdc, type: 3}
-  m_Name: "\u80D6\u6B50\u514B\u57FA\u672C\u653B\u64CA"
+  m_Script: {fileID: 11500000, guid: 18dba907e6d46434c931e210bad51798, type: 3}
+  m_Name: "\u6B50\u514BAI\u8A2D\u5B9A"
   m_EditorClassIdentifier: 
-  BonusDamage: 0
-  BonusCriticalRate: 0
-  NoCritical: 0
-  DamageMagnifiction: 1
-  Vertigo: 0.4
-  KnockBackDistance: 1
-  KnockBackSpeed: 0
+  IdelTimeMax: 10
+  IdelTimeMin: 6
+  WounderDistanceMax: 8
+  WounderDistanceMin: 5
+  DetectedDistance: 5
+  AttackDistance: 1.2
+  StopDistance: 0.8
