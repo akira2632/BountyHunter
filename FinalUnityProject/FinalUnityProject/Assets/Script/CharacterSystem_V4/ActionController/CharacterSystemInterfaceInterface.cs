@@ -91,11 +91,11 @@ namespace CharacterSystem
 
     public abstract class ICharacterAction : ICharacterActionControll, IAnimationStateHandler
     {
-        protected CharacterActionManager actionManager;
+        protected CharacterActionController actionController;
 
-        public virtual void SetManager(CharacterActionManager actionManager)
+        public virtual void SetManager(CharacterActionController actionController)
         {
-            this.actionManager = actionManager;
+            this.actionController = actionController;
         }
 
         public virtual void Start() { }
@@ -123,8 +123,8 @@ namespace CharacterSystem
 
     public abstract class ICharacterActionProvider : MonoBehaviour
     {
-        public abstract ICharacterAction GetIdelAction(CharacterActionManager manager);
-        public abstract ICharacterAction GetDeadAction(CharacterActionManager manager);
-        public abstract ICharacterAction GetFallDownAction(CharacterActionManager manager);
+        public abstract ICharacterAction GetIdelAction(CharacterActionController manager);
+        public abstract ICharacterAction GetDeadAction(CharacterActionController manager);
+        public abstract ICharacterAction GetFallDownAction(CharacterActionController manager);
     }
 }

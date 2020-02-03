@@ -4,7 +4,7 @@ namespace CharacterSystem.Skill
 {
     public class ProjectorShooter : MonoBehaviour
     {
-        public CharacterActionManager Character;
+        public CharacterActionController Character;
         public SkillDamage SkillDamage;
         public bool shoot;
         private bool hasShoot;

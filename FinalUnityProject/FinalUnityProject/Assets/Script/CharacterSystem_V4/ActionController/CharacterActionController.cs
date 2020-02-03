@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CharacterSystem
 {
-    public class CharacterActionManager : MonoBehaviour,
+    public class CharacterActionController : MonoBehaviour,
         ICharacterActionControll, IAnimationStateHandler
     {
         public CharacterData CharacterData;

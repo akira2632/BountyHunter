@@ -63,16 +63,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\CharacterSystem_V4\ActionController\CharacterActionController.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\ActionController\CharacterData.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\ActionController\CharacterProperty.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\ActionController\CharacterRunTimeData.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\ActionController\CharacterSystemInterfaceInterface.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\ActionController\KeySetting.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\GoblinActionProvider.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\OrcActionProvider.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\SpiderActionProvidedr.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\WarriorActionProvider.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterActionManager.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterData.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterProperty.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterRunTimeData.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\CharacterSystemInterfaceInterface.cs" />
-    <Compile Include="Assets\Script\CharacterSystem_V4\BaseClass&amp;Interface\KeySetting.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Controller\BasicAIController.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Controller\BasicAISenser.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Controller\BasicAISetting.cs" />

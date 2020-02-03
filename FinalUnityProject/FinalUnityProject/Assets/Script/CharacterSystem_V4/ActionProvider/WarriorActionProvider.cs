@@ -13,90 +13,90 @@ namespace CharacterSystem
         public HitEffect DefaultHitEffect, DefaultDeffendEffect;
 
         #region FactoryMethod
-        public override ICharacterAction GetIdelAction(CharacterActionManager manager)
+        public override ICharacterAction GetIdelAction(CharacterActionController comtroller)
         {
             var temp = new WarriorIdel();
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
 
-        public override ICharacterAction GetDeadAction(CharacterActionManager manager)
+        public override ICharacterAction GetDeadAction(CharacterActionController comtroller)
         {
             var temp = new WarriorDead();
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
 
-        public override ICharacterAction GetFallDownAction(CharacterActionManager manager)
+        public override ICharacterAction GetFallDownAction(CharacterActionController comtroller)
         {
             var temp = new WarriorFall();
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
 
-        private ICharacterAction GetMoveAction(CharacterActionManager manager)
+        private ICharacterAction GetMoveAction(CharacterActionController comtroller)
         {
             var temp = new WarriorMove();
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
 
-        private ICharacterAction GetDeffendAction(CharacterActionManager manager)
+        private ICharacterAction GetDeffendAction(CharacterActionController comtroller)
         {
             var temp = new WarriorDeffend();
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
 
-        private ICharacterAction GetBasicAttackAction(CharacterActionManager manager)
+        private ICharacterAction GetBasicAttackAction(CharacterActionController comtroller)
         {
             var temp = new WarriorBasicAttack();
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
 
-        private ICharacterAction GetSpacilAttackStartAction(CharacterActionManager manager)
+        private ICharacterAction GetSpacilAttackStartAction(CharacterActionController comtroller)
         {
             var temp = new WarriorSpecailAttackStart();
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
 
-        private ICharacterAction GetSpecailAttackDodgeAction(CharacterActionManager manager, bool isCharge)
+        private ICharacterAction GetSpecailAttackDodgeAction(CharacterActionController comtroller, bool isCharge)
         {
             var temp = new WarriorSpecailAttackDodge(isCharge);
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
 
-        private ICharacterAction GetSpecailAttack1Action(CharacterActionManager manager, bool isCharge)
+        private ICharacterAction GetSpecailAttack1Action(CharacterActionController comtroller, bool isCharge)
         {
             var temp = new WarriorSpacilAttack1(isCharge);
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
 
-        private ICharacterAction GetSpecailAttackChargeAction(CharacterActionManager manager)
+        private ICharacterAction GetSpecailAttackChargeAction(CharacterActionController comtroller)
         {
             var temp = new WarriorSpecailAttackCharge();
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
 
-        private ICharacterAction GetSpecailAttack2Action(CharacterActionManager manager)
+        private ICharacterAction GetSpecailAttack2Action(CharacterActionController comtroller)
         {
             var temp = new WarriorSpacilAttack2();
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
@@ -117,8 +117,8 @@ namespace CharacterSystem
 
             public override void OnHit(DamageData damage)
             {
-                actionManager.CharacterData.Health -= damage.Damage;
-                actionManager.CharacterData.VertigoConter += damage.Vertigo;
+                actionController.CharacterData.Health -= damage.Damage;
+                actionController.CharacterData.VertigoConter += damage.Vertigo;
                 actionProvider.DefaultHitEffect.PlayEffect(damage);
             }
         }
@@ -131,12 +131,12 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                actionManager.CharacterAnimator.SetBool("IsMove", false);
+                actionController.CharacterAnimator.SetBool("IsMove", false);
 
                 IsometricUtility.GetVerticalAndHorizontal(
-                    actionManager.CharacterData.Direction, out var vertical, out var horizontal);
-                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
-                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
             }
             #endregion
 
@@ -144,21 +144,21 @@ namespace CharacterSystem
             public override void Deffend(bool deffend)
             {
                 if (deffend)
-                    actionManager.SetAction(actionProvider.GetDeffendAction(actionManager));
+                    actionController.SetAction(actionProvider.GetDeffendAction(actionController));
             }
 
             public override void SpecialAttack() =>
-               actionManager.SetAction(actionProvider.GetSpacilAttackStartAction(actionManager));
+               actionController.SetAction(actionProvider.GetSpacilAttackStartAction(actionController));
 
             public override void BasicAttack() =>
-               actionManager.SetAction(actionProvider.GetBasicAttackAction(actionManager));
+               actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
 
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude > 0)
                 {
-                    actionManager.CharacterData.Direction = direction;
-                    actionManager.SetAction(actionProvider.GetMoveAction(actionManager));
+                    actionController.CharacterData.Direction = direction;
+                    actionController.SetAction(actionProvider.GetMoveAction(actionController));
                 }
             }
             #endregion
@@ -172,33 +172,33 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                actionManager.AudioSource.clip = actionProvider.MoveSound;
-                actionManager.AudioSource.loop = true;
-                actionManager.AudioSource.Play();
+                actionController.AudioSource.clip = actionProvider.MoveSound;
+                actionController.AudioSource.loop = true;
+                actionController.AudioSource.Play();
 
                 IsometricUtility.GetVerticalAndHorizontal(
-                    actionManager.CharacterData.Direction, out var vertical, out var horizontal);
-                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
-                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
-                actionManager.CharacterAnimator.SetBool("IsMove", true);
+                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                actionController.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
                 IsometricUtility.GetVerticalAndHorizontal(
-                    actionManager.CharacterData.Direction, out var vertical, out var horizontal);
-                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
-                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
-                actionManager.MovementBody.MovePosition(actionManager.MovementBody.position +
-                    IsometricUtility.ToIsometricVector2(actionManager.CharacterData.Direction)
-                    * actionManager.CharacterData.MoveSpeed * Time.deltaTime);
+                actionController.MovementBody.MovePosition(actionController.MovementBody.position +
+                    IsometricUtility.ToIsometricVector2(actionController.CharacterData.Direction)
+                    * actionController.CharacterData.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()
             {
-                actionManager.AudioSource.Stop();
-                actionManager.AudioSource.loop = false;
+                actionController.AudioSource.Stop();
+                actionController.AudioSource.loop = false;
             }
             #endregion
 
@@ -206,25 +206,25 @@ namespace CharacterSystem
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude <= 0)
-                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
+                    actionController.SetAction(actionProvider.GetIdelAction(actionController));
                 else
-                    actionManager.CharacterData.Direction = direction;
+                    actionController.CharacterData.Direction = direction;
             }
 
             public override void Deffend(bool deffend)
             {
                 if (deffend)
-                    actionManager.SetAction(actionProvider.GetDeffendAction(actionManager));
+                    actionController.SetAction(actionProvider.GetDeffendAction(actionController));
             }
 
             public override void SpecialAttack()
             {
-                actionManager.SetAction(actionProvider.GetSpacilAttackStartAction(actionManager));
+                actionController.SetAction(actionProvider.GetSpacilAttackStartAction(actionController));
             }
 
             public override void BasicAttack()
             {
-                actionManager.SetAction(actionProvider.GetBasicAttackAction(actionManager));
+                actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
             }
             #endregion
         }
@@ -237,20 +237,20 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                actionManager.CharacterAnimator.SetBool("IsDeffend", true);
+                actionController.CharacterAnimator.SetBool("IsDeffend", true);
             }
 
             public override void Update()
             {
                 IsometricUtility.GetVerticalAndHorizontal(
-                    actionManager.CharacterData.Direction, out var vertical, out var horizontal);
-                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
-                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
             }
 
             public override void End()
             {
-                actionManager.CharacterAnimator.SetBool("IsDeffend", false);
+                actionController.CharacterAnimator.SetBool("IsDeffend", false);
             }
             #endregion
 
@@ -258,26 +258,26 @@ namespace CharacterSystem
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude > 0)
-                    actionManager.CharacterData.Direction = direction;
+                    actionController.CharacterData.Direction = direction;
             }
 
             public override void Deffend(bool deffend)
             {
                 if (!deffend)
-                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
+                    actionController.SetAction(actionProvider.GetIdelAction(actionController));
             }
 
             public override void BasicAttack()
             {
-                actionManager.SetAction(actionProvider.GetBasicAttackAction(actionManager));
+                actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
             }
 
             public override void OnHit(DamageData damage)
             {
-                actionManager.CharacterData.Health -= (int)(damage.Damage * 0.1f);
+                actionController.CharacterData.Health -= (int)(damage.Damage * 0.1f);
 
-                actionManager.AudioSource.clip = actionProvider.DeffendSound;
-                actionManager.AudioSource.Play();
+                actionController.AudioSource.clip = actionProvider.DeffendSound;
+                actionController.AudioSource.Play();
 
                 actionProvider.DefaultDeffendEffect.PlayEffect(damage);
             }
@@ -292,24 +292,24 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                if (actionManager.CharacterData.BasicAttackTimer > 0)
+                if (actionController.CharacterData.BasicAttackTimer > 0)
                 {
-                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
+                    actionController.SetAction(actionProvider.GetIdelAction(actionController));
                     return;
                 }
 
-                actionManager.AudioSource.clip = actionProvider.BasicAttackSound;
-                actionManager.AudioSource.Play();
+                actionController.AudioSource.clip = actionProvider.BasicAttackSound;
+                actionController.AudioSource.Play();
 
-                actionManager.CharacterAnimator.SetTrigger("LightAttack");
+                actionController.CharacterAnimator.SetTrigger("LightAttack");
             }
             #endregion
 
             #region 外部操作
             public override void OnAnimationEnd()
             {
-                actionManager.CharacterData.BasicAttackTimer = actionManager.CharacterData.BasicAttackSpeed;
-                actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
+                actionController.CharacterData.BasicAttackTimer = actionController.CharacterData.BasicAttackSpeed;
+                actionController.SetAction(actionProvider.GetIdelAction(actionController));
             }
             #endregion
         }
@@ -325,7 +325,7 @@ namespace CharacterSystem
             public override void Start()
             {
                 isCharge = true;
-                actionManager.CharacterAnimator.SetBool("HeavyAttackStart", true);
+                actionController.CharacterAnimator.SetBool("HeavyAttackStart", true);
             }
             #endregion
 
@@ -338,7 +338,7 @@ namespace CharacterSystem
 
             public override void OnAnimationEnd()
             {
-                actionManager.SetAction(actionProvider.GetSpecailAttackDodgeAction(actionManager, isCharge));
+                actionController.SetAction(actionProvider.GetSpecailAttackDodgeAction(actionController, isCharge));
             }
 
             public override void OnHit(DamageData damage)
@@ -366,29 +366,29 @@ namespace CharacterSystem
             public override void Start()
             {
                 //GameManager.Instance.WarriorDodge(true);
-                actionManager.MovementCollider.isTrigger = true;
+                actionController.MovementCollider.isTrigger = true;
                 dodgeDistance = 0;
             }
 
             public override void Update()
             {
                 Vector2 dodgeVector =
-                    IsometricUtility.ToIsometricVector2(actionManager.CharacterData.Direction)
-                    * actionManager.CharacterData.DodgeSpeed * Time.deltaTime;
+                    IsometricUtility.ToIsometricVector2(actionController.CharacterData.Direction)
+                    * actionController.CharacterData.DodgeSpeed * Time.deltaTime;
 
                 dodgeDistance += dodgeVector.magnitude;
 
-                actionManager.MovementBody.MovePosition(
-                    actionManager.MovementBody.position + dodgeVector);
+                actionController.MovementBody.MovePosition(
+                    actionController.MovementBody.position + dodgeVector);
 
                 if (dodgeDistance >= targetDistance)
-                    actionManager.SetAction(actionProvider.GetSpecailAttack1Action(actionManager, isCharge));
+                    actionController.SetAction(actionProvider.GetSpecailAttack1Action(actionController, isCharge));
             }
 
             public override void End()
             {
                 //GameManager.Instance.WarriorDodge(false);
-                actionManager.MovementCollider.isTrigger = false;
+                actionController.MovementCollider.isTrigger = false;
             }
             #endregion
 
@@ -422,12 +422,12 @@ namespace CharacterSystem
                 dodgeDistance = 0;
 
                 if (isCharge)
-                    actionManager.CharacterAnimator.SetBool("HeavyAttackCharge", true);
+                    actionController.CharacterAnimator.SetBool("HeavyAttackCharge", true);
 
-                actionManager.AudioSource.clip = actionProvider.HeavyAttack1Sound;
-                actionManager.AudioSource.Play();
+                actionController.AudioSource.clip = actionProvider.HeavyAttack1Sound;
+                actionController.AudioSource.Play();
 
-                actionManager.CharacterAnimator.SetBool("HeavyAttackStart", false);
+                actionController.CharacterAnimator.SetBool("HeavyAttackStart", false);
             }
 
             public override void Update()
@@ -435,13 +435,13 @@ namespace CharacterSystem
                 if (dodgeDistance < targetDistance)
                 {
                     Vector2 dodgeVector =
-                        IsometricUtility.ToIsometricVector2(actionManager.CharacterData.Direction)
-                        * actionManager.CharacterData.DodgeSpeed * Time.deltaTime;
+                        IsometricUtility.ToIsometricVector2(actionController.CharacterData.Direction)
+                        * actionController.CharacterData.DodgeSpeed * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;
 
-                    actionManager.MovementBody.MovePosition(
-                        actionManager.MovementBody.position + dodgeVector);
+                    actionController.MovementBody.MovePosition(
+                        actionController.MovementBody.position + dodgeVector);
                 }
             }
             #endregion
@@ -452,16 +452,16 @@ namespace CharacterSystem
                 if (!hold)
                 {
                     isCharge = false;
-                    actionManager.CharacterAnimator.SetBool("HeavyAttackCharge", false);
+                    actionController.CharacterAnimator.SetBool("HeavyAttackCharge", false);
                 }
             }
 
             public override void OnAnimationEnd()
             {
                 if (isCharge)
-                    actionManager.SetAction(actionProvider.GetSpecailAttackChargeAction(actionManager));
+                    actionController.SetAction(actionProvider.GetSpecailAttackChargeAction(actionController));
                 else
-                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
+                    actionController.SetAction(actionProvider.GetIdelAction(actionController));
             }
 
             public override void OnHit(DamageData damage) { }
@@ -483,9 +483,9 @@ namespace CharacterSystem
                 ChargeEnd = false;
                 ChargeTime = 0;
 
-                actionManager.AudioSource.clip = actionProvider.HeavyAttackChargeSound;
-                actionManager.AudioSource.loop = true;
-                actionManager.AudioSource.Play();
+                actionController.AudioSource.clip = actionProvider.HeavyAttackChargeSound;
+                actionController.AudioSource.loop = true;
+                actionController.AudioSource.Play();
             }
 
             public override void Update()
@@ -495,19 +495,19 @@ namespace CharacterSystem
                     ChargeTime += Time.deltaTime;
 
                     IsometricUtility.GetVerticalAndHorizontal(
-                        actionManager.CharacterData.Direction, out var vertical, out var horizontal);
-                    actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
-                    actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                        actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                    actionController.CharacterAnimator.SetFloat("Vertical", vertical);
+                    actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                     if (!IsCharge || ChargeTime > 2.1)
-                        actionManager.SetAction(actionProvider.GetSpecailAttack2Action(actionManager));
+                        actionController.SetAction(actionProvider.GetSpecailAttack2Action(actionController));
                 }
             }
 
             public override void End()
             {
-                actionManager.AudioSource.Stop();
-                actionManager.AudioSource.loop = false;
+                actionController.AudioSource.Stop();
+                actionController.AudioSource.loop = false;
             }
             #endregion
 
@@ -521,7 +521,7 @@ namespace CharacterSystem
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude > 0)
-                    actionManager.CharacterData.Direction = direction;
+                    actionController.CharacterData.Direction = direction;
             }
             #endregion
         }
@@ -538,10 +538,10 @@ namespace CharacterSystem
             {
                 dodgeDistance = 0;
 
-                actionManager.AudioSource.clip = actionProvider.HeavyAttack2Sound;
-                actionManager.AudioSource.Play();
+                actionController.AudioSource.clip = actionProvider.HeavyAttack2Sound;
+                actionController.AudioSource.Play();
 
-                actionManager.CharacterAnimator.SetBool("HeavyAttackCharge", false);
+                actionController.CharacterAnimator.SetBool("HeavyAttackCharge", false);
             }
 
             public override void Update()
@@ -549,13 +549,13 @@ namespace CharacterSystem
                 if (dodgeDistance < targetDistance)
                 {
                     Vector2 dodgeVector =
-                        IsometricUtility.ToIsometricVector2(actionManager.CharacterData.Direction)
-                        * actionManager.CharacterData.DodgeSpeed * Time.deltaTime;
+                        IsometricUtility.ToIsometricVector2(actionController.CharacterData.Direction)
+                        * actionController.CharacterData.DodgeSpeed * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;
 
-                    actionManager.MovementBody.MovePosition(
-                        actionManager.MovementBody.position + dodgeVector);
+                    actionController.MovementBody.MovePosition(
+                        actionController.MovementBody.position + dodgeVector);
                 }
             }
             #endregion
@@ -563,7 +563,7 @@ namespace CharacterSystem
             #region 外部操作
             public override void OnAnimationEnd()
             {
-                actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
+                actionController.SetAction(actionProvider.GetIdelAction(actionController));
             }
 
             public override void OnHit(DamageData damage) { }
@@ -581,24 +581,24 @@ namespace CharacterSystem
             public override void Start()
             {
                 fallDownTime = 0;
-                actionManager.CharacterData.VertigoConter = 0;
+                actionController.CharacterData.VertigoConter = 0;
 
-                actionManager.AudioSource.clip = actionProvider.FallDownSound;
-                actionManager.AudioSource.Play();
+                actionController.AudioSource.clip = actionProvider.FallDownSound;
+                actionController.AudioSource.Play();
 
-                actionManager.CharacterAnimator.SetBool("IsFallDown", true);
+                actionController.CharacterAnimator.SetBool("IsFallDown", true);
             }
 
             public override void Update()
             {
                 fallDownTime += Time.deltaTime;
                 if (fallDownTime > 5)
-                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
+                    actionController.SetAction(actionProvider.GetIdelAction(actionController));
             }
 
             public override void End()
             {
-                actionManager.CharacterAnimator.SetBool("IsFallDown", false);
+                actionController.CharacterAnimator.SetBool("IsFallDown", false);
             }
             #endregion
 
@@ -646,19 +646,19 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                actionManager.MovementCollider.enabled = false;
+                actionController.MovementCollider.enabled = false;
 
-                actionManager.AudioSource.clip = actionProvider.FallDownSound;
-                actionManager.AudioSource.Play();
+                actionController.AudioSource.clip = actionProvider.FallDownSound;
+                actionController.AudioSource.Play();
 
-                actionManager.CharacterAnimator.SetBool("IsFallDown", true);
+                actionController.CharacterAnimator.SetBool("IsFallDown", true);
             }
 
             public override void End()
             {
-                actionManager.MovementCollider.enabled = true;
+                actionController.MovementCollider.enabled = true;
 
-                actionManager.CharacterAnimator.SetBool("IsFallDown", false);
+                actionController.CharacterAnimator.SetBool("IsFallDown", false);
             }
             #endregion
         }

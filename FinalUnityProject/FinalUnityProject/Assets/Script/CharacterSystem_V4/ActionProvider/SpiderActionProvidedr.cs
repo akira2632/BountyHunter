@@ -9,50 +9,50 @@ namespace CharacterSystem
         public HitEffect DefaultHitEffect;
 
         #region FactoryMethod
-        public override ICharacterAction GetIdelAction(CharacterActionManager manager)
+        public override ICharacterAction GetIdelAction(CharacterActionController comtroller)
         {
             var temp = new SpiderIdle();
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
 
-        public override ICharacterAction GetDeadAction(CharacterActionManager manager)
+        public override ICharacterAction GetDeadAction(CharacterActionController comtroller)
         {
             var temp = new SpiderDead();
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
 
-        public override ICharacterAction GetFallDownAction(CharacterActionManager manager)
+        public override ICharacterAction GetFallDownAction(CharacterActionController comtroller)
         {
             var temp = new SpiderFall();
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
 
-        public ICharacterAction GetMoveAction(CharacterActionManager manager)
+        public ICharacterAction GetMoveAction(CharacterActionController comtroller)
         {
             var temp = new SpiderMove();
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
 
-        public ICharacterAction GetBasicAttackAction(CharacterActionManager manager)
+        public ICharacterAction GetBasicAttackAction(CharacterActionController comtroller)
         {
             var temp = new SpiderBasicAttack();
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
 
-        public ICharacterAction GetKnockBackAction(CharacterActionManager manager, DamageData damage)
+        public ICharacterAction GetKnockBackAction(CharacterActionController comtroller, DamageData damage)
         {
             var temp = new SpiderKnockBack(damage);
-            temp.SetManager(manager);
+            temp.SetManager(comtroller);
             temp.SetProvider(this);
             return temp;
         }
@@ -70,12 +70,12 @@ namespace CharacterSystem
 
             public override void OnHit(DamageData damage)
             {
-                actionManager.CharacterData.Health -= damage.Damage;
-                actionManager.CharacterData.VertigoConter += damage.Vertigo;
+                actionController.CharacterData.Health -= damage.Damage;
+                actionController.CharacterData.VertigoConter += damage.Vertigo;
 
                 actionProvider.DefaultHitEffect.PlayEffect(damage);
                 if (damage.KnockBackDistance > 0)
-                    actionManager.SetAction(actionProvider.GetKnockBackAction(actionManager, damage));
+                    actionController.SetAction(actionProvider.GetKnockBackAction(actionController, damage));
             }
         }
 
@@ -85,25 +85,25 @@ namespace CharacterSystem
             public override void Start()
             {
                 IsometricUtility.GetVerticalAndHorizontal(
-                    actionManager.CharacterData.Direction, out var vertical, out var horizontal);
-                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
-                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
-                actionManager.CharacterAnimator.SetBool("IsFallDown", false);
-                actionManager.CharacterAnimator.SetBool("IsMove", false);
+                actionController.CharacterAnimator.SetBool("IsFallDown", false);
+                actionController.CharacterAnimator.SetBool("IsMove", false);
             }
             #endregion
 
             #region 外部操作
             public override void BasicAttack() =>
-                actionManager.SetAction(actionProvider.GetBasicAttackAction(actionManager));
+                actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
 
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude > 0)
                 {
-                    actionManager.CharacterData.Direction = direction;
-                    actionManager.SetAction(actionProvider.GetMoveAction(actionManager));
+                    actionController.CharacterData.Direction = direction;
+                    actionController.SetAction(actionProvider.GetMoveAction(actionController));
                 }
             }
             #endregion
@@ -114,46 +114,46 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                actionManager.AudioSource.clip = actionProvider.MoveSound;
-                actionManager.AudioSource.loop = true;
-                actionManager.AudioSource.Play();
+                actionController.AudioSource.clip = actionProvider.MoveSound;
+                actionController.AudioSource.loop = true;
+                actionController.AudioSource.Play();
 
                 IsometricUtility.GetVerticalAndHorizontal(
-                    actionManager.CharacterData.Direction, out var vertical, out var horizontal);
-                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
-                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
-                actionManager.CharacterAnimator.SetBool("IsMove", true);
+                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                actionController.CharacterAnimator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
                 IsometricUtility.GetVerticalAndHorizontal(
-                    actionManager.CharacterData.Direction, out var vertical, out var horizontal);
-                actionManager.CharacterAnimator.SetFloat("Vertical", vertical);
-                actionManager.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
-                actionManager.MovementBody.MovePosition(actionManager.MovementBody.position +
-                    IsometricUtility.ToIsometricVector2(actionManager.CharacterData.Direction)
-                    * actionManager.CharacterData.MoveSpeed * Time.deltaTime);
+                actionController.MovementBody.MovePosition(actionController.MovementBody.position +
+                    IsometricUtility.ToIsometricVector2(actionController.CharacterData.Direction)
+                    * actionController.CharacterData.MoveSpeed * Time.deltaTime);
             }
 
             public override void End()
             {
-                actionManager.AudioSource.Stop();
-                actionManager.AudioSource.loop = false;
+                actionController.AudioSource.Stop();
+                actionController.AudioSource.loop = false;
             }
             #endregion
 
             #region 外部操作
             public override void BasicAttack() =>
-               actionManager.SetAction(actionProvider.GetBasicAttackAction(actionManager));
+               actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
 
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude <= 0)
-                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
+                    actionController.SetAction(actionProvider.GetIdelAction(actionController));
                 else
-                    actionManager.CharacterData.Direction = direction;
+                    actionController.CharacterData.Direction = direction;
             }
             #endregion
         }
@@ -163,24 +163,24 @@ namespace CharacterSystem
             #region 動作更新
             public override void Start()
             {
-                if (actionManager.CharacterData.BasicAttackTimer > 0)
+                if (actionController.CharacterData.BasicAttackTimer > 0)
                 {
-                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
+                    actionController.SetAction(actionProvider.GetIdelAction(actionController));
                     return;
                 }
 
-                actionManager.AudioSource.clip = actionProvider.BasicAttackSound;
-                actionManager.AudioSource.Play();
+                actionController.AudioSource.clip = actionProvider.BasicAttackSound;
+                actionController.AudioSource.Play();
 
-                actionManager.CharacterAnimator.SetTrigger("LightAttack");
+                actionController.CharacterAnimator.SetTrigger("LightAttack");
             }
             #endregion
 
             #region 外部操作
             public override void OnAnimationEnd()
             {
-                actionManager.CharacterData.BasicAttackTimer = actionManager.CharacterData.BasicAttackSpeed;
-                actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
+                actionController.CharacterData.BasicAttackTimer = actionController.CharacterData.BasicAttackSpeed;
+                actionController.SetAction(actionProvider.GetIdelAction(actionController));
             }
             #endregion
         }
@@ -201,12 +201,12 @@ namespace CharacterSystem
             {
                 nowDistance = 0;
                 knockBackDirection = IsometricUtility.ToIsometricVector2(
-                    actionManager.MovementBody.position - damage.HitFrom).normalized;
+                    actionController.MovementBody.position - damage.HitFrom).normalized;
 
-                actionManager.AudioSource.clip = actionProvider.HurtSound;
-                actionManager.AudioSource.Play();
+                actionController.AudioSource.clip = actionProvider.HurtSound;
+                actionController.AudioSource.Play();
 
-                actionManager.CharacterAnimator.SetBool("IsHurt", true);
+                actionController.CharacterAnimator.SetBool("IsHurt", true);
             }
 
             public override void Update()
@@ -216,15 +216,15 @@ namespace CharacterSystem
                     Vector2 temp = damage.KnockBackSpeed * knockBackDirection * Time.deltaTime;
                     nowDistance += temp.magnitude;
 
-                    actionManager.MovementBody.MovePosition(actionManager.MovementBody.position + temp);
+                    actionController.MovementBody.MovePosition(actionController.MovementBody.position + temp);
                 }
                 else
-                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
+                    actionController.SetAction(actionProvider.GetIdelAction(actionController));
             }
 
             public override void End()
             {
-                actionManager.CharacterAnimator.SetBool("IsHurt", false);
+                actionController.CharacterAnimator.SetBool("IsHurt", false);
             }
             #endregion
         }
@@ -236,24 +236,24 @@ namespace CharacterSystem
             public override void Start()
             {
                 fallDownTimer = 2;
-                actionManager.CharacterData.VertigoConter = 0;
+                actionController.CharacterData.VertigoConter = 0;
 
-                actionManager.AudioSource.clip = actionProvider.HurtSound;
-                actionManager.AudioSource.Play();
+                actionController.AudioSource.clip = actionProvider.HurtSound;
+                actionController.AudioSource.Play();
 
-                actionManager.CharacterAnimator.SetBool("IsFallDown", true);
+                actionController.CharacterAnimator.SetBool("IsFallDown", true);
             }
 
             public override void Update()
             {
                 fallDownTimer -= Time.deltaTime;
                 if (fallDownTimer <= 0)
-                    actionManager.SetAction(actionProvider.GetIdelAction(actionManager));
+                    actionController.SetAction(actionProvider.GetIdelAction(actionController));
             }
 
             public override void End()
             {
-                actionManager.CharacterAnimator.SetBool("IsFallDown", false);
+                actionController.CharacterAnimator.SetBool("IsFallDown", false);
             }
         }
 
@@ -265,28 +265,28 @@ namespace CharacterSystem
             {
                 desdroyedTimer = 120;
 
-                actionManager.MovementCollider.enabled = false;
+                actionController.MovementCollider.enabled = false;
 
-                actionManager.AudioSource.clip = actionProvider.FallDownSound;
-                actionManager.AudioSource.Play();
+                actionController.AudioSource.clip = actionProvider.FallDownSound;
+                actionController.AudioSource.Play();
 
-                actionManager.CharacterAnimator.SetBool("IsFallDown", true);
+                actionController.CharacterAnimator.SetBool("IsFallDown", true);
             }
 
             public override void Update()
             {
                 desdroyedTimer -= Time.deltaTime;
                 if (desdroyedTimer < 3)
-                    actionManager.SpriteRenderer.color = new Color(1, 1, 1, desdroyedTimer / 3);
+                    actionController.SpriteRenderer.color = new Color(1, 1, 1, desdroyedTimer / 3);
 
                 if (desdroyedTimer <= 0)
-                    Destroy(actionManager.gameObject);
+                    Destroy(actionController.gameObject);
             }
 
             public override void End()
             {
-                actionManager.MovementCollider.enabled = true;
-                actionManager.CharacterAnimator.SetBool("IsFallDown", false);
+                actionController.MovementCollider.enabled = true;
+                actionController.CharacterAnimator.SetBool("IsFallDown", false);
             }
             #endregion
         }
