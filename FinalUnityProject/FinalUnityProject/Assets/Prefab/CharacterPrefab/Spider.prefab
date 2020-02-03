@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6704382508476855882}
   - component: {fileID: 3583344827891391718}
-  - component: {fileID: 4835822839643871109}
   - component: {fileID: 6181703732106473976}
   - component: {fileID: 906002252590915433}
   - component: {fileID: 4796646055716273524}
@@ -61,23 +60,6 @@ MonoBehaviour:
     _direction: {x: 0, y: 0}
     _target: {x: 0, y: 0, z: 0}
   Property: {fileID: 11400000, guid: ac6bc9dc07cd5014abb41cd92a0bc8bb, type: 2}
---- !u!114 &4835822839643871109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1810561749657080560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 830306be478938041aa1b93b2bf20a18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSound: {fileID: 8300000, guid: 521e7f521aed1804fa1af008c5b7c5bd, type: 3}
-  FallDownSound: {fileID: 8300000, guid: a02c502d1c1547e47a3fda15161cef96, type: 3}
-  BasicAttackSound: {fileID: 8300000, guid: ec4744ff349a3814fba7b1cc9358a2cc, type: 3}
-  HurtSound: {fileID: 8300000, guid: 4735fc1d1e3e2074998b3507f35f6895, type: 3}
-  DefaultHitEffect: {fileID: 11400000, guid: fdc35bb4c196d304b8197b14848b02ab, type: 2}
 --- !u!114 &6181703732106473976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,7 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterData: {fileID: 3583344827891391718}
-  ActionProvider: {fileID: 4835822839643871109}
+  ActionProvider: {fileID: 11400000, guid: c0dd72bcba9ebd4448788f683ae2cbaa, type: 2}
   MovementBody: {fileID: 2713500744654730897}
   MovementCollider: {fileID: 270039640594804951}
   CharacterAnimator: {fileID: 4796646055716273524}

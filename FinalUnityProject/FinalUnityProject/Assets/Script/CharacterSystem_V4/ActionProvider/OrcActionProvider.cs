@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
-using CharacterSystem.Skill;
 
 namespace CharacterSystem.ActionProvider
 {
+    [CreateAssetMenu(fileName = "胖歐克動作提供者", menuName = "賞金獵人_角色系統/動作提供者/胖歐克動作提供者")]
     public class OrcActionProvider : ICharacterActionProvider
     {
         public AudioClip MoveSound, FallDownSound, BasicAttackSound, HurtSound;
-        public HitEffect DefalutHitEffect;
+        public Skill.HitEffect DefalutHitEffect;
 
         #region FactoryMethod
         public override ICharacterAction GetIdelAction(CharacterActionController comtroller)

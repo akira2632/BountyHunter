@@ -1,25 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Exit : MonoBehaviour
+namespace UI
 {
-    public void Update()
+    public class Exit : MonoBehaviour
     {
-        if (Input.anyKeyDown)
+        public void Update()
         {
-            GetComponent<Animation>().Play("FadeOut_Exit");
+            if (Input.anyKeyDown)
+            {
+                GetComponent<Animation>().Play("FadeOut_Exit");
+            }
         }
-    }
 
-    public void ReadyToLeave()
-    {
-        GameObject.Find("離開指令").GetComponent<Animation>().Play("Twinkle");
-        
-    }
+        public void ReadyToLeave()
+        {
+            GameObject.Find("離開指令").GetComponent<Animation>().Play("Twinkle");
 
-    public void Quit()
-    {
-        Application.Quit();
+        }
+
+        public void Quit()
+        {
+            Application.Quit();
+        }
     }
 }

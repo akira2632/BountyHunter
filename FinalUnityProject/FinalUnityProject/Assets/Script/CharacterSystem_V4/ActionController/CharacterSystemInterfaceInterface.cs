@@ -22,11 +22,12 @@ namespace CharacterSystem
         void Move(Vector2 direction);
 
         void Dodge();
+        void Deffend(bool deffend);
+
         void BasicAttack();
         void SpecialAttack();
         void SpecialAttack(bool hold);
         void SpecialAttack(Vector3 tartgetPosition);
-        void Deffend(bool deffend);
 
         void Hit(DamageData damage);
     }
@@ -96,7 +97,7 @@ namespace CharacterSystem
         void End();
     }
 
-    public abstract class ICharacterActionProvider : MonoBehaviour
+    public abstract class ICharacterActionProvider : ScriptableObject
     {
         public abstract ICharacterAction GetIdelAction(CharacterActionController manager);
         public abstract ICharacterAction GetDeadAction(CharacterActionController manager);

@@ -5,6 +5,7 @@ namespace CharacterSystem.ActionProvider
     /// <summary>
     /// 戰士角色
     /// </summary>
+    [CreateAssetMenu(fileName = "戰士動作提供者", menuName = "賞金獵人_角色系統/動作提供者/戰士動作提供者")]
     public class WarriorActionProvider : ICharacterActionProvider
     {
         public AudioClip MoveSound, DeffendSound, FallDownSound, BasicAttackSound,

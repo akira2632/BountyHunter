@@ -1,26 +1,27 @@
-﻿using CharacterSystem;
-using CharacterSystem.Skill;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SkillEffectTester : MonoBehaviour
+namespace CharacterSystem.Skill
 {
-    [Header("TestSetting")]
-    [Tooltip("要測試的效果")]
-    public HitEffect Effect;
-    public GameObject HitFrom, HitAt;
-    [Space(10)]
-    [Min(0)]
-    public int test_Damage;
-    public bool test_ShowDamage;
-
-    [ContextMenu("PlayEffect")]
-    private void PlayEffect()
+    public class SkillEffectTester : MonoBehaviour
     {
-        Effect.PlayEffect(new DamageData()
+        [Header("TestSetting")]
+        [Tooltip("要測試的效果")]
+        public HitEffect Effect;
+        public GameObject HitFrom, HitAt;
+        [Space(10)]
+        [Min(0)]
+        public int test_Damage;
+        public bool test_ShowDamage;
+
+        [ContextMenu("PlayEffect")]
+        private void PlayEffect()
         {
-            Damage = test_Damage,
-            HitAt = HitAt.transform.position,
-            HitFrom = HitFrom.transform.position
-        }, test_ShowDamage);
+            Effect.PlayEffect(new DamageData()
+            {
+                Damage = test_Damage,
+                HitAt = HitAt.transform.position,
+                HitFrom = HitFrom.transform.position
+            }, test_ShowDamage);
+        }
     }
 }

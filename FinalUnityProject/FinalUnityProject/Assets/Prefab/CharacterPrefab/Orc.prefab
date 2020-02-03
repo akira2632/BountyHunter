@@ -57,7 +57,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6704382508476855882}
   - component: {fileID: 5906194133313412482}
-  - component: {fileID: 2072704109068948732}
   - component: {fileID: 8873422842012986001}
   - component: {fileID: 906002252590915433}
   - component: {fileID: 4796646055716273524}
@@ -108,23 +107,6 @@ MonoBehaviour:
     _direction: {x: 0, y: 0}
     _target: {x: 0, y: 0, z: 0}
   Property: {fileID: 11400000, guid: 106c920c2f5993843a2d32f277783213, type: 2}
---- !u!114 &2072704109068948732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1810561749657080560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f9b96be58fb5364e9717ee6188486da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSound: {fileID: 8300000, guid: 0546f2daa121f124080264a95a15d9e1, type: 3}
-  FallDownSound: {fileID: 8300000, guid: aa6139bf2bf5e434580685a9eeacb385, type: 3}
-  BasicAttackSound: {fileID: 8300000, guid: 72b5dc6042dd4d544bfc9e533db1078c, type: 3}
-  HurtSound: {fileID: 8300000, guid: e457f3ec4df1f9e489693325970a37cd, type: 3}
-  DefalutHitEffect: {fileID: 11400000, guid: bd0abba3180e4034da92aac916d4bfe9, type: 2}
 --- !u!114 &8873422842012986001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterData: {fileID: 5906194133313412482}
-  ActionProvider: {fileID: 2072704109068948732}
+  ActionProvider: {fileID: 11400000, guid: cfd3a6df37ad4c64e8137376de179eb0, type: 2}
   MovementBody: {fileID: 2713500744654730897}
   MovementCollider: {fileID: 270039640594804951}
   CharacterAnimator: {fileID: 4796646055716273524}

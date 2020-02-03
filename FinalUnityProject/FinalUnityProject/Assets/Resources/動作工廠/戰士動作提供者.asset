@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7662d1197001dda4da5ceed2d8ba6a86, type: 3}
+  m_Name: "\u6230\u58EB\u52D5\u4F5C\u63D0\u4F9B\u8005"
+  m_EditorClassIdentifier: 
+  MoveSound: {fileID: 0}
+  DeffendSound: {fileID: 0}
+  FallDownSound: {fileID: 0}
+  BasicAttackSound: {fileID: 0}
+  HeavyAttack1Sound: {fileID: 0}
+  HeavyAttackChargeSound: {fileID: 0}
+  HeavyAttack2Sound: {fileID: 0}
+  DefaultHitEffect: {fileID: 0}
+  DefaultDeffendEffect: {fileID: 0}
