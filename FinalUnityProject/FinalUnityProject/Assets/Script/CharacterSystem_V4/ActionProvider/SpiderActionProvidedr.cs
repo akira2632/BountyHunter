@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using CharacterSystem.Skill;
 
-namespace CharacterSystem
+namespace CharacterSystem.ActionProvider
 {
     public class SpiderActionProvidedr : ICharacterActionProvider
     {
@@ -11,64 +11,82 @@ namespace CharacterSystem
         #region FactoryMethod
         public override ICharacterAction GetIdelAction(CharacterActionController comtroller)
         {
-            var temp = new SpiderIdle();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new SpiderIdle()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         public override ICharacterAction GetDeadAction(CharacterActionController comtroller)
         {
-            var temp = new SpiderDead();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new SpiderDead()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         public override ICharacterAction GetFallDownAction(CharacterActionController comtroller)
         {
-            var temp = new SpiderFall();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new SpiderFall()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetMoveAction(CharacterActionController comtroller)
         {
-            var temp = new SpiderMove();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return  new SpiderMove()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetBasicAttackAction(CharacterActionController comtroller)
         {
-            var temp = new SpiderBasicAttack();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new SpiderBasicAttack()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetKnockBackAction(CharacterActionController comtroller, DamageData damage)
         {
-            var temp = new SpiderKnockBack(damage);
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new SpiderKnockBack(damage)
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
         #endregion
 
         #region SpiderActions
         private class ISpiderAction : ICharacterAction
         {
-            protected SpiderActionProvidedr actionProvider;
+            public SpiderActionProvidedr actionProvider;
+            public CharacterActionController actionController;
 
-            public void SetProvider(SpiderActionProvidedr actionProvider)
-            {
-                this.actionProvider = actionProvider;
-            }
+            public virtual void Start() { }
+            public virtual void Update() { }
+            public virtual void End() { }
 
-            public override void OnHit(DamageData damage)
+            public virtual void OnAnimationStart() { }
+            public virtual void OnAnimationEnd() { }
+
+            public virtual void Move(Vector2 direction) { }
+            public virtual void Dodge() { }
+            public virtual void Deffend(bool deffend) { }
+
+            public virtual void BasicAttack() { }
+            public virtual void SpecialAttack() { }
+            public virtual void SpecialAttack(bool hold) { }
+            public virtual void SpecialAttack(Vector3 tartgetPosition) { }
+
+            public virtual void Hit(DamageData damage)
             {
                 actionController.CharacterData.Health -= damage.Damage;
                 actionController.CharacterData.VertigoConter += damage.Vertigo;

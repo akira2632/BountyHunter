@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CharacterSystem
+namespace CharacterSystem.ActionProvider
 {
     /// <summary>
     /// 戰士角色
@@ -14,90 +14,101 @@ namespace CharacterSystem
         #region FactoryMethod
         public override ICharacterAction GetIdelAction(CharacterActionController comtroller)
         {
-            var temp = new WarriorIdel();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new WarriorIdel()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         public override ICharacterAction GetDeadAction(CharacterActionController comtroller)
         {
-            var temp = new WarriorDead();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new WarriorDead()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         public override ICharacterAction GetFallDownAction(CharacterActionController comtroller)
         {
-            var temp = new WarriorFall();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new WarriorFallDown()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetMoveAction(CharacterActionController comtroller)
         {
-            var temp = new WarriorMove();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new WarriorMove()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetDeffendAction(CharacterActionController comtroller)
         {
-            var temp = new WarriorDeffend();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new WarriorDeffend()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetBasicAttackAction(CharacterActionController comtroller)
         {
-            var temp = new WarriorBasicAttack();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new WarriorBasicAttack()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetSpacilAttackStartAction(CharacterActionController comtroller)
         {
-            var temp = new WarriorSpecailAttackStart();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new WarriorSpecailAttackStart()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetSpecailAttackDodgeAction(CharacterActionController comtroller, bool isCharge)
         {
-            var temp = new WarriorSpecailAttackDodge(isCharge);
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new WarriorSpecailAttackDodge(isCharge)
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetSpecailAttack1Action(CharacterActionController comtroller, bool isCharge)
         {
-            var temp = new WarriorSpacilAttack1(isCharge);
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new WarriorSpacilAttack1(isCharge)
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetSpecailAttackChargeAction(CharacterActionController comtroller)
         {
-            var temp = new WarriorSpecailAttackCharge();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new WarriorSpecailAttackCharge()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetSpecailAttack2Action(CharacterActionController comtroller)
         {
-            var temp = new WarriorSpacilAttack2();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new WarriorSpacilAttack2()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
         #endregion
 
@@ -107,14 +118,26 @@ namespace CharacterSystem
         /// </summary>
         private class IWarriorAction : ICharacterAction
         {
-            protected WarriorActionProvider actionProvider;
+            public WarriorActionProvider actionProvider;
+            public CharacterActionController actionController;
 
-            public void SetProvider(WarriorActionProvider actionProvider)
-            {
-                this.actionProvider = actionProvider;
-            }
+            public virtual void Start() { }
+            public virtual void Update() { }
+            public virtual void End() { }
 
-            public override void OnHit(DamageData damage)
+            public virtual void OnAnimationStart() { }
+            public virtual void OnAnimationEnd() { }
+
+            public virtual void Move(Vector2 direction) { }
+            public virtual void Dodge() { }
+            public virtual void Deffend(bool deffend) { }
+
+            public virtual void BasicAttack() { }
+            public virtual void SpecialAttack() { }
+            public virtual void SpecialAttack(bool hold) { }
+            public virtual void SpecialAttack(Vector3 tartgetPosition) { }
+
+            public virtual void Hit(DamageData damage)
             {
                 actionController.CharacterData.Health -= damage.Damage;
                 actionController.CharacterData.VertigoConter += damage.Vertigo;
@@ -271,7 +294,7 @@ namespace CharacterSystem
                 actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
             }
 
-            public override void OnHit(DamageData damage)
+            public override void Hit(DamageData damage)
             {
                 actionController.CharacterData.Health -= (int)(damage.Damage * 0.1f);
 
@@ -340,10 +363,10 @@ namespace CharacterSystem
                 actionController.SetAction(actionProvider.GetSpecailAttackDodgeAction(actionController, isCharge));
             }
 
-            public override void OnHit(DamageData damage)
+            public override void Hit(DamageData damage)
             {
                 damage.Vertigo = 0;
-                base.OnHit(damage);
+                base.Hit(damage);
             }
             #endregion
         }
@@ -398,7 +421,7 @@ namespace CharacterSystem
                     isCharge = false;
             }
 
-            public override void OnHit(DamageData damage) { }
+            public override void Hit(DamageData damage) { }
             #endregion
         }
 
@@ -463,7 +486,7 @@ namespace CharacterSystem
                     actionController.SetAction(actionProvider.GetIdelAction(actionController));
             }
 
-            public override void OnHit(DamageData damage) { }
+            public override void Hit(DamageData damage) { }
             #endregion
         }
 
@@ -565,14 +588,14 @@ namespace CharacterSystem
                 actionController.SetAction(actionProvider.GetIdelAction(actionController));
             }
 
-            public override void OnHit(DamageData damage) { }
+            public override void Hit(DamageData damage) { }
             #endregion 
         }
 
         /// <summary>
         /// 戰士倒地
         /// </summary>
-        private class WarriorFall : IWarriorAction
+        private class WarriorFallDown : IWarriorAction
         {
             float fallDownTime;
 
@@ -628,7 +651,7 @@ namespace CharacterSystem
                 TryToRecurve();
             }
 
-            public override void OnHit(DamageData damage) { }
+            public override void Hit(DamageData damage) { }
             #endregion
 
             private void TryToRecurve()

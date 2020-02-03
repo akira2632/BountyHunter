@@ -78,7 +78,7 @@ namespace CharacterSystem
         public void SpecialAttack(bool hold) => nowAction.SpecialAttack(hold);
         public void SpecialAttack(Vector3 tartgetPosition) => nowAction.SpecialAttack(tartgetPosition);
 
-        public void OnHit(DamageData wound) => nowAction.OnHit(wound);
+        public void Hit(DamageData wound) => nowAction.Hit(wound);
         #endregion
     }
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using CharacterSystem.Skill;
 
-namespace CharacterSystem
+namespace CharacterSystem.ActionProvider
 {
     public class OrcActionProvider : ICharacterActionProvider
     {
@@ -11,64 +11,82 @@ namespace CharacterSystem
         #region FactoryMethod
         public override ICharacterAction GetIdelAction(CharacterActionController comtroller)
         {
-            var temp = new OrcIdle();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new OrcIdle()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         public override ICharacterAction GetDeadAction(CharacterActionController comtroller)
         {
-            var temp = new OrcDead();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new OrcDead()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         public override ICharacterAction GetFallDownAction(CharacterActionController comtroller)
         {
-            var temp = new OrcFall();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new OrcFall()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetMoveAction(CharacterActionController comtroller)
         {
-            var temp = new OrcMove();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new OrcMove()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetBasicAttackAction(CharacterActionController comtroller)
         {
-            var temp = new OrcBasicAttack();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new OrcBasicAttack()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetKnockBackAction(CharacterActionController comtroller, DamageData damage)
         {
-            var temp = new OrcKnockBack(damage);
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new OrcKnockBack(damage)
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
         #endregion
 
         #region OrkActions
         private class IOrcAction : ICharacterAction
         {
-            protected OrcActionProvider actionProvider;
+            public OrcActionProvider actionProvider;
+            public CharacterActionController actionController;
 
-            public void SetProvider(OrcActionProvider actionProvider)
-            {
-                this.actionProvider = actionProvider;
-            }
+            public virtual void Start() { }
+            public virtual void Update() { }
+            public virtual void End() { }
 
-            public override void OnHit(DamageData damage)
+            public virtual void OnAnimationStart() { }
+            public virtual void OnAnimationEnd() { }
+
+            public virtual void Move(Vector2 direction) { }
+            public virtual void Dodge() { }
+            public virtual void Deffend(bool deffend) { }
+
+            public virtual void BasicAttack() { }
+            public virtual void SpecialAttack() { }
+            public virtual void SpecialAttack(bool hold) { }
+            public virtual void SpecialAttack(Vector3 tartgetPosition) { }
+
+            public virtual void Hit(DamageData damage)
             {
                 actionController.CharacterData.Health -= damage.Damage;
                 actionController.CharacterData.VertigoConter += damage.Vertigo;

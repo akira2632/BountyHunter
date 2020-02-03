@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using CharacterSystem.Skill;
 
-namespace CharacterSystem
+namespace CharacterSystem.ActionProvider
 {
     public class GoblinActionProvider : ICharacterActionProvider
     {
@@ -11,80 +11,100 @@ namespace CharacterSystem
         #region FactoryMethod
         public override ICharacterAction GetIdelAction(CharacterActionController comtroller)
         {
-            var temp = new GoblinIdle();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new GoblinIdle()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         public override ICharacterAction GetDeadAction(CharacterActionController comtroller)
         {
-            var temp = new GoblinDead();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new GoblinDead()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         public override ICharacterAction GetFallDownAction(CharacterActionController comtroller)
         {
-            var temp = new GoblinFall();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new GoblinFall()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetKnockBackAction(CharacterActionController comtroller, DamageData damage)
         {
-            var temp = new GoblinKnockBack(damage);
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new GoblinKnockBack(damage)
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetMoveAction(CharacterActionController comtroller)
         {
-            var temp = new GoblinMove();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new GoblinMove()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetBasicAttackAction(CharacterActionController comtroller)
         {
-            var temp = new GoblinBasicAttack();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new GoblinBasicAttack()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetSpecailAttackAction(CharacterActionController comtroller)
         {
-            var temp = new GoblinSpacilAttack();
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new GoblinSpacilAttack()
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
 
         private ICharacterAction GetSpecailAttackAction(CharacterActionController comtroller, Vector3 targetPosition)
         {
-            var temp = new GoblinSpacilAttack(targetPosition);
-            temp.SetManager(comtroller);
-            temp.SetProvider(this);
-            return temp;
+            return new GoblinSpacilAttack(targetPosition)
+            {
+                actionController = comtroller,
+                actionProvider = this
+            };
         }
         #endregion
 
         #region GoblinActions
         private class IGoblinAction : ICharacterAction
         {
-            protected GoblinActionProvider actionProvider;
+            public GoblinActionProvider actionProvider;
+            public CharacterActionController actionController;
 
-            public void SetProvider(GoblinActionProvider actionProvider)
-            {
-                this.actionProvider = actionProvider;
-            }
+            public virtual void Start() { }
+            public virtual void Update() { }
+            public virtual void End() { }
 
-            public override void OnHit(DamageData damage)
+            public virtual void OnAnimationStart() { }
+            public virtual void OnAnimationEnd() { }
+
+            public virtual void Move(Vector2 direction) { }
+            public virtual void Dodge() { }
+            public virtual void Deffend(bool deffend) { }
+
+            public virtual void BasicAttack() { }
+            public virtual void SpecialAttack() { }
+            public virtual void SpecialAttack(bool hold) { }
+            public virtual void SpecialAttack(Vector3 tartgetPosition) { }
+
+            public virtual void Hit(DamageData damage)
             {
                 actionController.CharacterData.Health -= damage.Damage;
                 actionController.CharacterData.VertigoConter += damage.Vertigo;

@@ -28,7 +28,7 @@ namespace CharacterSystem
         void SpecialAttack(Vector3 tartgetPosition);
         void Deffend(bool deffend);
 
-        void OnHit(DamageData damage);
+        void Hit(DamageData damage);
     }
 
     /// <summary>
@@ -89,36 +89,11 @@ namespace CharacterSystem
         public abstract float CriticalRate { get; }
     }
 
-    public abstract class ICharacterAction : ICharacterActionControll, IAnimationStateHandler
+    public interface ICharacterAction : ICharacterActionControll, IAnimationStateHandler
     {
-        protected CharacterActionController actionController;
-
-        public virtual void SetManager(CharacterActionController actionController)
-        {
-            this.actionController = actionController;
-        }
-
-        public virtual void Start() { }
-        public virtual void Update() { }
-        public virtual void End() { }
-
-        #region AnimationControll抽象實作
-        public virtual void OnAnimationStart() { }
-        public virtual void OnAnimationEnd() { }
-        #endregion
-
-        #region ICharacterActionControll抽象實作
-        public virtual void Move(Vector2 direction) { }
-
-        public virtual void Deffend(bool deffend) { }
-        public virtual void Dodge() { }
-        public virtual void SpecialAttack() { }
-        public virtual void SpecialAttack(bool hold) { }
-        public virtual void SpecialAttack(Vector3 tartgetPosition) { }
-        public virtual void BasicAttack() { }
-
-        public virtual void OnHit(DamageData damage) { }
-        #endregion
+        void Start();
+        void Update();
+        void End();
     }
 
     public abstract class ICharacterActionProvider : MonoBehaviour

@@ -63,7 +63,7 @@ namespace CharacterSystem.Skill
                 //Debug.Log($"Target Enter : {TargetTag}");
                 hittedTargets.Add(collision);
                 MyDamage.HitAt = collision.transform.position;
-                collision.gameObject.GetComponentInParent<CharacterActionController>().OnHit(MyDamage);
+                collision.gameObject.GetComponentInParent<CharacterActionController>().Hit(MyDamage);
 
                 if (!HitAll)
                     DestroyBullet();

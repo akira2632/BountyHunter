@@ -25,7 +25,7 @@ namespace CharacterSystem.Skill
                 damage.HitAt = collision.transform.position;
                 damage.HitFrom = Character.transform.position;
                 collision.gameObject.GetComponentInParent<CharacterActionController>()
-                    .OnHit(damage);
+                    .Hit(damage);
             }
         }
 
