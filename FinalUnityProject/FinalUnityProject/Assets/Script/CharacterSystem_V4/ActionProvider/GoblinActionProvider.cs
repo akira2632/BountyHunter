@@ -110,7 +110,8 @@ namespace CharacterSystem.ActionProvider
                 actionController.CharacterData.VertigoConter += damage.Vertigo;
 
                 actionProvider.DefaultHitEffect.PlayEffect(damage);
-                if (damage.KnockBackDistance > 0)
+                if (actionController.CharacterData.Health > 0
+                    && damage.KnockBackDistance > 0)
                     actionController.SetAction(actionProvider.GetKnockBackAction(actionController, damage));
             }
         }
@@ -363,7 +364,7 @@ namespace CharacterSystem.ActionProvider
             #region 動作更新
             public override void Start()
             {
-                desdroyedTimer = 10;
+                desdroyedTimer = 120;
 
                 actionController.AudioSource.clip = actionProvider.FallDownSound;
                 actionController.AudioSource.Play();

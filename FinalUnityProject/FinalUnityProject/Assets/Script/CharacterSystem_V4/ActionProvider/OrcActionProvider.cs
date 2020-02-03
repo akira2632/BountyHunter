@@ -92,7 +92,8 @@ namespace CharacterSystem.ActionProvider
                 actionController.CharacterData.VertigoConter += damage.Vertigo;
 
                 actionProvider.DefalutHitEffect.PlayEffect(damage);
-                if (damage.KnockBackDistance > 0)
+                if (actionController.CharacterData.Health > 0
+                    && damage.KnockBackDistance > 0)
                     actionController.SetAction(actionProvider.GetKnockBackAction(actionController, damage));
             }
         }
@@ -203,34 +204,6 @@ namespace CharacterSystem.ActionProvider
             #endregion
         }
 
-        private class OrcFall : IOrcAction
-        {
-            float fallDownTimer;
-
-            public override void Start()
-            {
-                fallDownTimer = 2;
-
-                actionController.AudioSource.clip = actionProvider.HurtSound;
-                actionController.AudioSource.Play();
-
-                actionController.CharacterAnimator.SetBool("IsFallDown", true);
-            }
-
-            public override void Update()
-            {
-                fallDownTimer -= Time.deltaTime;
-                if (fallDownTimer <= 0)
-                    actionController.SetAction(actionProvider.GetIdelAction(actionController));
-            }
-
-            public override void End()
-            {
-                actionController.CharacterData.VertigoConter = 0;
-                actionController.CharacterAnimator.SetBool("IsFallDown", false);
-            }
-        }
-
         private class OrcKnockBack : IOrcAction
         {
             float nowDistance;
@@ -271,6 +244,36 @@ namespace CharacterSystem.ActionProvider
             public override void End()
             {
                 actionController.CharacterAnimator.SetBool("IsHurt", false);
+            }
+            #endregion
+        }
+
+        private class OrcFall : IOrcAction
+        {
+            float fallDownTimer;
+
+            #region 動作更新
+            public override void Start()
+            {
+                fallDownTimer = 2;
+
+                actionController.AudioSource.clip = actionProvider.HurtSound;
+                actionController.AudioSource.Play();
+
+                actionController.CharacterAnimator.SetBool("IsFallDown", true);
+            }
+
+            public override void Update()
+            {
+                fallDownTimer -= Time.deltaTime;
+                if (fallDownTimer <= 0)
+                    actionController.SetAction(actionProvider.GetIdelAction(actionController));
+            }
+
+            public override void End()
+            {
+                actionController.CharacterData.VertigoConter = 0;
+                actionController.CharacterAnimator.SetBool("IsFallDown", false);
             }
             #endregion
         }

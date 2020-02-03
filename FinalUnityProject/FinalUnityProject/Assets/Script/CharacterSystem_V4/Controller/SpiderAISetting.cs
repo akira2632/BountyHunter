@@ -2,7 +2,7 @@
 
 namespace CharacterSystem.Controller
 {
-    [CreateAssetMenu(fileName = "蜘蛛AI設定", menuName = "賞金獵人_角色系統V4/AI設定/蜘蛛AI設定", order = 2)]
+    [CreateAssetMenu(fileName = "蜘蛛AI設定", menuName = "賞金獵人_角色系統/AI設定/蜘蛛AI設定", order = 2)]
     public class SpiderAISetting : ScriptableObject
     {
         public float IdelTimeMax, IdelTimeMin,

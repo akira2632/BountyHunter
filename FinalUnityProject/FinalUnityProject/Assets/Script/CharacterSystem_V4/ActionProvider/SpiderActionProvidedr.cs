@@ -92,7 +92,8 @@ namespace CharacterSystem.ActionProvider
                 actionController.CharacterData.VertigoConter += damage.Vertigo;
 
                 actionProvider.DefaultHitEffect.PlayEffect(damage);
-                if (damage.KnockBackDistance > 0)
+                if (actionController.CharacterData.Health > 0
+                    && damage.KnockBackDistance > 0)
                     actionController.SetAction(actionProvider.GetKnockBackAction(actionController, damage));
             }
         }
@@ -251,6 +252,7 @@ namespace CharacterSystem.ActionProvider
         {
             float fallDownTimer;
 
+            #region 動作更新
             public override void Start()
             {
                 fallDownTimer = 2;
@@ -273,11 +275,13 @@ namespace CharacterSystem.ActionProvider
             {
                 actionController.CharacterAnimator.SetBool("IsFallDown", false);
             }
+            #endregion
         }
 
         private class SpiderDead : ISpiderAction
         {
             float desdroyedTimer;
+
             #region 動作更新
             public override void Start()
             {
