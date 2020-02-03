@@ -541,7 +541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Character: {fileID: 0}
-  SkillDamage: {fileID: 0}
+  SkillDamage: {fileID: 11400000, guid: 67192cf2509465847bd7166a7f5e4a9e, type: 2}
   TargetTag: Player
   HitAll: 1
 --- !u!50 &4568613531753960132

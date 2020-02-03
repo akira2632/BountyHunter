@@ -33,7 +33,7 @@ namespace CharacterSystem
             return temp;
         }
 
-        public ICharacterAction GetMoveAction(CharacterActionController comtroller)
+        private ICharacterAction GetMoveAction(CharacterActionController comtroller)
         {
             var temp = new OrcMove();
             temp.SetManager(comtroller);
@@ -41,7 +41,7 @@ namespace CharacterSystem
             return temp;
         }
 
-        public ICharacterAction GetBasicAttackAction(CharacterActionController comtroller)
+        private ICharacterAction GetBasicAttackAction(CharacterActionController comtroller)
         {
             var temp = new OrcBasicAttack();
             temp.SetManager(comtroller);
@@ -49,7 +49,7 @@ namespace CharacterSystem
             return temp;
         }
 
-        public ICharacterAction GetKnockBackAction(CharacterActionController comtroller, DamageData damage)
+        private ICharacterAction GetKnockBackAction(CharacterActionController comtroller, DamageData damage)
         {
             var temp = new OrcKnockBack(damage);
             temp.SetManager(comtroller);

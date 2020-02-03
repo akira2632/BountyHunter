@@ -265,18 +265,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &249529584 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 54887327339312259, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1996477851}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7662d1197001dda4da5ceed2d8ba6a86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &464713976
 GameObject:
   m_ObjectHideFlags: 0
@@ -6653,7 +6641,7 @@ PrefabInstance:
     - target: {fileID: 1810561749657080560, guid: e15735d20a7152842b1812a4b56889c0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6704382508476855882, guid: e15735d20a7152842b1812a4b56889c0,
         type: 3}
@@ -6826,7 +6814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerKeySetting: {fileID: 11400000, guid: aeb0aaa3a4dd6304cb004cf477e1dffa, type: 2}
-  MyCharacter: {fileID: 249529584}
+  MyCharacter: {fileID: 2032143470}
   direction: {x: 0, y: 0}
 --- !u!4 &994114082
 Transform:
@@ -6943,7 +6931,7 @@ PrefabInstance:
     - target: {fileID: 1810561749657080560, guid: 4fba33e9d41ea4f46808f10efbba5dd0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6704382508476855882, guid: 4fba33e9d41ea4f46808f10efbba5dd0,
         type: 3}
@@ -7093,26 +7081,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2295306642993150841, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2295306642993150841, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2295306642993150841, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2295306642993150841, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.8117647
-      objectReference: {fileID: 0}
     - target: {fileID: 6704382508476855882, guid: 983b491c307ee2d459e2de15d1d3e5d1,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -7162,7 +7130,38 @@ PrefabInstance:
         type: 3}
       propertyPath: SkillDamage
       value: 
-      objectReference: {fileID: 11400000, guid: 92515848a72079643a921f60886d4502,
-        type: 2}
+      objectReference: {fileID: 0}
+    - target: {fileID: 2295306642993150841, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2295306642993150841, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2295306642993150841, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2295306642993150841, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.8117647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 983b491c307ee2d459e2de15d1d3e5d1, type: 3}
+--- !u!114 &2032143470 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4722499259949507293, guid: d7f05e6740797fb439b4bac1eb839ddf,
+    type: 3}
+  m_PrefabInstance: {fileID: 870794751}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c74c9242612b5049b4720f3da7fc6fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

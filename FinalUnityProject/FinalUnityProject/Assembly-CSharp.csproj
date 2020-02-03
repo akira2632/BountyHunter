@@ -71,6 +71,7 @@
     <Compile Include="Assets\Script\CharacterSystem_V4\ActionController\KeySetting.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\GoblinActionProvider.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\OrcActionProvider.cs" />
+    <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\OrcCaptainActionProvider.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\SpiderActionProvidedr.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\ActionProvider\WarriorActionProvider.cs" />
     <Compile Include="Assets\Script\CharacterSystem_V4\Controller\BasicAIController.cs" />

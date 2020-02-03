@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using CharacterSystem.Skill;
 
 namespace CharacterSystem
 {
@@ -10,7 +9,7 @@ namespace CharacterSystem
     {
         public AudioClip MoveSound, DeffendSound, FallDownSound, BasicAttackSound,
                 HeavyAttack1Sound, HeavyAttackChargeSound, HeavyAttack2Sound;
-        public HitEffect DefaultHitEffect, DefaultDeffendEffect;
+        public Skill.HitEffect DefaultHitEffect, DefaultDeffendEffect;
 
         #region FactoryMethod
         public override ICharacterAction GetIdelAction(CharacterActionController comtroller)

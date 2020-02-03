@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7570039334736361456}
   - component: {fileID: 2713500744654730897}
   - component: {fileID: 270039640594804951}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Gobolin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1810561749657080560}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af666fe5f9f05e74d90be0f6b2fefbf4, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c74c9242612b5049b4720f3da7fc6fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterData: {fileID: 4375636513553357640}
