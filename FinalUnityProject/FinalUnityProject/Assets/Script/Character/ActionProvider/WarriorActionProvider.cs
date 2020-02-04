@@ -342,6 +342,12 @@ namespace CharacterSystem.ActionProvider
             public override void Start()
             {
                 isCharge = true;
+
+                IsometricUtility.GetVerticalAndHorizontal(
+                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
+
                 actionController.CharacterAnimator.SetBool("SpecialAttackStart", true);
             }
             #endregion
@@ -466,7 +472,7 @@ namespace CharacterSystem.ActionProvider
                 if (!hold)
                 {
                     isCharge = false;
-                    actionController.CharacterAnimator.SetBool("SpacilAttackCharge", false);
+                    actionController.CharacterAnimator.SetBool("SpecialAttackCharge", false);
                 }
             }
 
