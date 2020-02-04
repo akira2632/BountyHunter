@@ -16,10 +16,10 @@ MonoBehaviour:
   DeffendSound: {fileID: 8300000, guid: 2136b8ca667e2594f8a9f81e91a929ae, type: 3}
   FallDownSound: {fileID: 8300000, guid: 6af12183babaf464ea18f7fbb7069a56, type: 3}
   BasicAttackSound: {fileID: 8300000, guid: 662d4d05dd8233b4f83ceedfc1e592b3, type: 3}
-  HeavyAttack1Sound: {fileID: 8300000, guid: ffd0c9be24a4fcf48920009dc5310a56, type: 3}
+  SpecialAttack1Sound: {fileID: 8300000, guid: ffd0c9be24a4fcf48920009dc5310a56, type: 3}
   HeavyAttackChargeSound: {fileID: 8300000, guid: 84f85ac54ff0b204f8ac924ef2f926b5,
     type: 3}
-  HeavyAttack2Sound: {fileID: 8300000, guid: c6f7376043612214682c235d956cd22a, type: 3}
+  SpecialAttack2Sound: {fileID: 8300000, guid: c6f7376043612214682c235d956cd22a, type: 3}
   DefaultHitEffect: {fileID: 11400000, guid: f4a953a8e93c7c0459b79bb918a00806, type: 2}
   DefaultDeffendEffect: {fileID: 11400000, guid: 375aa02693b531145b5158631a5f9b4b,
     type: 2}

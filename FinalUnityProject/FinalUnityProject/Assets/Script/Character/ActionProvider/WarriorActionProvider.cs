@@ -9,7 +9,7 @@ namespace CharacterSystem.ActionProvider
     public class WarriorActionProvider : ICharacterActionProvider
     {
         public AudioClip MoveSound, DeffendSound, FallDownSound, BasicAttackSound,
-                HeavyAttack1Sound, HeavyAttackChargeSound, HeavyAttack2Sound;
+                SpecialAttack1Sound, HeavyAttackChargeSound, SpecialAttack2Sound;
         public Skill.HitEffect DefaultHitEffect, DefaultDeffendEffect;
 
         #region FactoryMethod
@@ -196,7 +196,6 @@ namespace CharacterSystem.ActionProvider
             public override void Start()
             {
                 actionController.AudioSource.clip = actionProvider.MoveSound;
-                actionController.AudioSource.loop = true;
                 actionController.AudioSource.Play();
 
                 IsometricUtility.GetVerticalAndHorizontal(
@@ -221,7 +220,6 @@ namespace CharacterSystem.ActionProvider
             public override void End()
             {
                 actionController.AudioSource.Stop();
-                actionController.AudioSource.loop = false;
 
                 actionController.CharacterAnimator.SetBool("IsMove", false);
             }
@@ -297,8 +295,7 @@ namespace CharacterSystem.ActionProvider
             {
                 actionController.CharacterData.Health -= (int)(damage.Damage * 0.1f);
 
-                actionController.AudioSource.clip = actionProvider.DeffendSound;
-                actionController.AudioSource.Play();
+                actionController.AudioSource.PlayOneShot(actionProvider.DeffendSound);
 
                 actionProvider.DefaultDeffendEffect.PlayEffect(damage);
             }
@@ -319,8 +316,7 @@ namespace CharacterSystem.ActionProvider
                     return;
                 }
 
-                actionController.AudioSource.clip = actionProvider.BasicAttackSound;
-                actionController.AudioSource.Play();
+                actionController.AudioSource.PlayOneShot(actionProvider.BasicAttackSound);
 
                 actionController.CharacterAnimator.SetTrigger("BasicAttack");
             }
@@ -443,8 +439,7 @@ namespace CharacterSystem.ActionProvider
                 if (isCharge)
                     actionController.CharacterAnimator.SetBool("SpecialAttackCharge", true);
 
-                actionController.AudioSource.clip = actionProvider.HeavyAttack1Sound;
-                actionController.AudioSource.Play();
+                actionController.AudioSource.PlayOneShot(actionProvider.SpecialAttack1Sound);
 
                 actionController.CharacterAnimator.SetBool("SpecialAttackStart", false);
             }
@@ -503,7 +498,6 @@ namespace CharacterSystem.ActionProvider
                 ChargeTime = 0;
 
                 actionController.AudioSource.clip = actionProvider.HeavyAttackChargeSound;
-                actionController.AudioSource.loop = true;
                 actionController.AudioSource.Play();
             }
 
@@ -526,7 +520,6 @@ namespace CharacterSystem.ActionProvider
             public override void End()
             {
                 actionController.AudioSource.Stop();
-                actionController.AudioSource.loop = false;
             }
             #endregion
 
@@ -557,8 +550,7 @@ namespace CharacterSystem.ActionProvider
             {
                 dodgeDistance = 0;
 
-                actionController.AudioSource.clip = actionProvider.HeavyAttack2Sound;
-                actionController.AudioSource.Play();
+                actionController.AudioSource.PlayOneShot(actionProvider.SpecialAttack2Sound);
 
                 actionController.CharacterAnimator.SetBool("SpecialAttackCharge", false);
             }
@@ -602,8 +594,7 @@ namespace CharacterSystem.ActionProvider
                 fallDownTime = 0;
                 actionController.CharacterData.VertigoConter = 0;
 
-                actionController.AudioSource.clip = actionProvider.FallDownSound;
-                actionController.AudioSource.Play();
+                actionController.AudioSource.PlayOneShot(actionProvider.FallDownSound);
 
                 actionController.CharacterAnimator.SetBool("IsFallDown", true);
             }
@@ -667,8 +658,7 @@ namespace CharacterSystem.ActionProvider
             {
                 actionController.MovementCollider.enabled = false;
 
-                actionController.AudioSource.clip = actionProvider.FallDownSound;
-                actionController.AudioSource.Play();
+                actionController.AudioSource.PlayOneShot(actionProvider.FallDownSound);
 
                 actionController.CharacterAnimator.SetBool("IsFallDown", true);
             }

@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSound: {fileID: 8300000, guid: fa15630494712194ebda4b9d5957da4a, type: 3}
   HurtSound: {fileID: 8300000, guid: 1f14f93e1cfb1254da031c28534079fc, type: 3}
+  DeffendSound: {fileID: 8300000, guid: 2136b8ca667e2594f8a9f81e91a929ae, type: 3}
   BasicAttackSound: {fileID: 8300000, guid: 8bd61ed8c68b3cf42b263d29002f65f6, type: 3}
   SpecailAttackSound: {fileID: 8300000, guid: a407e530cfc41e84987b73079bfa2525, type: 3}
   DefaultHitEffect: {fileID: 11400000, guid: f4a953a8e93c7c0459b79bb918a00806, type: 2}
+  DefaultDeffendEffect: {fileID: 11400000, guid: 375aa02693b531145b5158631a5f9b4b,
+    type: 2}
