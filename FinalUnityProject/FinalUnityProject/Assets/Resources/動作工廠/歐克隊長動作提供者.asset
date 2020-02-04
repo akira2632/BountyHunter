@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ec528401047d0742a21011f20803f93, type: 3}
+  m_Name: "\u6B50\u514B\u968A\u9577\u52D5\u4F5C\u63D0\u4F9B\u8005"
+  m_EditorClassIdentifier: 
+  MoveSound: {fileID: 8300000, guid: fa15630494712194ebda4b9d5957da4a, type: 3}
+  HurtSound: {fileID: 8300000, guid: 1f14f93e1cfb1254da031c28534079fc, type: 3}
+  BasicAttackSound: {fileID: 8300000, guid: 8bd61ed8c68b3cf42b263d29002f65f6, type: 3}
+  SpecailAttackSound: {fileID: 8300000, guid: a407e530cfc41e84987b73079bfa2525, type: 3}
+  DefaultHitEffect: {fileID: 11400000, guid: f4a953a8e93c7c0459b79bb918a00806, type: 2}

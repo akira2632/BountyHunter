@@ -2,7 +2,7 @@
 
 namespace CharacterSystem
 {
-    [CreateAssetMenu(fileName = "技能傷害", menuName = "賞金獵人_角色系統/技能資料/技能傷害", order = 1)]
+    [CreateAssetMenu(fileName = "技能傷害", menuName = "賞金獵人/技能資料/技能傷害", order = 1)]
     public class SkillDamage : ScriptableObject
     {
         [SerializeField, Header("額外傷害"), Tooltip("技能的額外傷害"), Min(0)]

@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterData: {fileID: 2635081899414590052}
-  ActionProvider: {fileID: 0}
+  ActionProvider: {fileID: 11400000, guid: 8492227e99274574d86b7239d71a921b, type: 2}
   MovementBody: {fileID: 3454115250626947177}
   MovementCollider: {fileID: 718445734125022767}
   CharacterAnimator: {fileID: 5248432054432490380}

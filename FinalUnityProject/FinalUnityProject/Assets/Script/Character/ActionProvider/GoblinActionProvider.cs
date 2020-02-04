@@ -2,7 +2,7 @@
 
 namespace CharacterSystem.ActionProvider
 {
-    [CreateAssetMenu(fileName = "哥布林動作提供者", menuName = "賞金獵人_角色系統/動作提供者/哥布林動作提供者")]
+    [CreateAssetMenu(fileName = "哥布林動作提供者", menuName = "賞金獵人/動作提供者/哥布林動作提供者")]
     public class GoblinActionProvider : ICharacterActionProvider
     {
         public AudioClip MoveSound, FallDownSound, BasicAttackSound, HurtSound;

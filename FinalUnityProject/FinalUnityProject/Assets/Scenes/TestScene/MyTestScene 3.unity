@@ -6732,11 +6732,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 54887327339312259, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: SpriteRenderer
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6704382508476855882, guid: 983b491c307ee2d459e2de15d1d3e5d1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6801,6 +6796,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54887327339312259, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: SpriteRenderer
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7502064583160869374, guid: 983b491c307ee2d459e2de15d1d3e5d1,
         type: 3}

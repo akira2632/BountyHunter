@@ -5,7 +5,7 @@ namespace CharacterSystem.ActionProvider
     /// <summary>
     /// 戰士角色
     /// </summary>
-    [CreateAssetMenu(fileName = "戰士動作提供者", menuName = "賞金獵人_角色系統/動作提供者/戰士動作提供者")]
+    [CreateAssetMenu(fileName = "戰士動作提供者", menuName = "賞金獵人/動作提供者/戰士動作提供者")]
     public class WarriorActionProvider : ICharacterActionProvider
     {
         public AudioClip MoveSound, DeffendSound, FallDownSound, BasicAttackSound,
@@ -170,11 +170,11 @@ namespace CharacterSystem.ActionProvider
                     actionController.SetAction(actionProvider.GetDeffendAction(actionController));
             }
 
-            public override void SpecialAttack() =>
-               actionController.SetAction(actionProvider.GetSpacilAttackStartAction(actionController));
-
             public override void BasicAttack() =>
                actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
+
+            public override void SpecialAttack() =>
+               actionController.SetAction(actionProvider.GetSpacilAttackStartAction(actionController));
 
             public override void Move(Vector2 direction)
             {
@@ -240,15 +240,11 @@ namespace CharacterSystem.ActionProvider
                     actionController.SetAction(actionProvider.GetDeffendAction(actionController));
             }
 
-            public override void SpecialAttack()
-            {
+            public override void SpecialAttack() =>
                 actionController.SetAction(actionProvider.GetSpacilAttackStartAction(actionController));
-            }
 
-            public override void BasicAttack()
-            {
+            public override void BasicAttack() =>
                 actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
-            }
             #endregion
         }
 
@@ -359,10 +355,8 @@ namespace CharacterSystem.ActionProvider
                     isCharge = false;
             }
 
-            public override void OnAnimationEnd()
-            {
+            public override void OnAnimationEnd() =>
                 actionController.SetAction(actionProvider.GetSpecailAttackDodgeAction(actionController, isCharge));
-            }
 
             public override void Hit(DamageData damage)
             {

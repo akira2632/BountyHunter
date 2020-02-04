@@ -3,7 +3,7 @@ using CharacterSystem.Skill;
 
 namespace CharacterSystem.ActionProvider
 {
-    [CreateAssetMenu(fileName = "蜘蛛動作提供者", menuName = "賞金獵人_角色系統/動作提供者/蜘蛛動作提供者")]
+    [CreateAssetMenu(fileName = "蜘蛛動作提供者", menuName = "賞金獵人/動作提供者/蜘蛛動作提供者")]
     public class SpiderActionProvidedr : ICharacterActionProvider
     {
         public AudioClip MoveSound, FallDownSound, BasicAttackSound, HurtSound;
