@@ -114,7 +114,7 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void BasicAttack() =>
                 actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
 
@@ -164,7 +164,7 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void BasicAttack() =>
                actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
 
@@ -196,7 +196,7 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void OnAnimationEnd()
             {
                 actionController.CharacterData.BasicAttackTimer = actionController.CharacterData.BasicAttackSpeed;

@@ -63,18 +63,18 @@ namespace CharacterSystem.ActionProvider
             };
         }
 
-        private ICharacterAction GetSpecailAttackAction(CharacterActionController comtroller)
+        private ICharacterAction GetSpecialAttackAction(CharacterActionController comtroller)
         {
-            return new GoblinSpacilAttack()
+            return new GoblinSpecialAttack()
             {
                 actionController = comtroller,
                 actionProvider = this
             };
         }
 
-        private ICharacterAction GetSpecailAttackAction(CharacterActionController comtroller, Vector3 targetPosition)
+        private ICharacterAction GetSpecialAttackAction(CharacterActionController comtroller, Vector3 targetPosition)
         {
-            return new GoblinSpacilAttack(targetPosition)
+            return new GoblinSpecialAttack(targetPosition)
             {
                 actionController = comtroller,
                 actionProvider = this
@@ -131,17 +131,17 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void BasicAttack() =>
                 actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
 
             public override void SpecialAttack() =>
-                actionController.SetAction(actionProvider.GetSpecailAttackAction(actionController));
+                actionController.SetAction(actionProvider.GetSpecialAttackAction(actionController));
 
             public override void SpecialAttack(Vector3 tartgetPosition)
             {
                 actionController.CharacterData.TargetPosition = tartgetPosition;
-                actionController.SetAction(actionProvider.GetSpecailAttackAction(actionController, tartgetPosition));
+                actionController.SetAction(actionProvider.GetSpecialAttackAction(actionController, tartgetPosition));
             }
 
             public override void Move(Vector2 direction)
@@ -190,17 +190,17 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void BasicAttack() =>
                 actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
 
             public override void SpecialAttack() =>
-                actionController.SetAction(actionProvider.GetSpecailAttackAction(actionController));
+                actionController.SetAction(actionProvider.GetSpecialAttackAction(actionController));
 
             public override void SpecialAttack(Vector3 tartgetPosition)
             {
                 actionController.CharacterData.TargetPosition = tartgetPosition;
-                actionController.SetAction(actionProvider.GetSpecailAttackAction(actionController, tartgetPosition));
+                actionController.SetAction(actionProvider.GetSpecialAttackAction(actionController, tartgetPosition));
             }
 
             public override void Move(Vector2 direction)
@@ -230,7 +230,7 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void OnAnimationEnd()
             {
                 actionController.CharacterData.BasicAttackTimer = actionController.CharacterData.BasicAttackSpeed;
@@ -239,17 +239,17 @@ namespace CharacterSystem.ActionProvider
             #endregion
         }
 
-        private class GoblinSpacilAttack : IGoblinAction
+        private class GoblinSpecialAttack : IGoblinAction
         {
             private Vector3 targetPosition;
             private bool hasTarget;
 
-            public GoblinSpacilAttack()
+            public GoblinSpecialAttack()
             {
                 hasTarget = false;
             }
 
-            public GoblinSpacilAttack(Vector3 targetPosition)
+            public GoblinSpecialAttack(Vector3 targetPosition)
             {
                 this.targetPosition = targetPosition;
                 hasTarget = true;
@@ -271,11 +271,11 @@ namespace CharacterSystem.ActionProvider
                     actionController.CharacterAnimator.SetFloat("Vertical", vertical);
                     actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
                 }
-                actionController.CharacterAnimator.SetTrigger("SpacilAttack");
+                actionController.CharacterAnimator.SetTrigger("SpecialAttack");
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void OnAnimationEnd()
             {
                 actionController.CharacterData.SpacilAttackTimer = actionController.CharacterData.SpacilAttackSpeed;

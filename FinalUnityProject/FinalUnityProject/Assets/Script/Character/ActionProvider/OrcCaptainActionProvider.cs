@@ -1,13 +1,12 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CharacterSystem.ActionProvider
 {
     [CreateAssetMenu(fileName = "歐克隊長動作提供者", menuName = "賞金獵人/動作提供者/歐克隊長動作提供者")]
     public class OrcCaptainActionProvider : ICharacterActionProvider
     {
-        public AudioClip MoveSound, HurtSound, BasicAttackSound, SpecailAttackSound;
-        public Skill.HitEffect DefaultHitEffect;
+        public AudioClip MoveSound, HurtSound, DeffendSound, BasicAttackSound, SpecailAttackSound;
+        public Skill.HitEffect DefaultHitEffect, DefaultDeffendEffect;
 
         #region FactoryMethod
         public override ICharacterAction GetIdelAction(CharacterActionController controller)
@@ -22,7 +21,7 @@ namespace CharacterSystem.ActionProvider
         public override ICharacterAction GetFallDownAction(CharacterActionController controller)
         {
             return new OrcCaptainFall()
-            {　
+            {
                 actionController = controller,
                 actionProvider = this
             };
@@ -55,10 +54,31 @@ namespace CharacterSystem.ActionProvider
             };
         }
 
-        private ICharacterAction GetSpacilAttackStartAction(CharacterActionController controller)
+        private ICharacterAction GetSpecialAttackStartAction(CharacterActionController controller)
         {
-            Debug.Log("SpacilAttackNotImplement");
-            return GetIdelAction(controller);
+            return new OrcCaptainSpecialAttackStart()
+            {
+                actionController = controller,
+                actionProvider = this
+            };
+        }
+
+        private ICharacterAction GetSpecialAttackAction(CharacterActionController controller)
+        {
+            return new OrcCaptainSpecialAttack()
+            {
+                actionController = controller,
+                actionProvider = this
+            };
+        }
+
+        private ICharacterAction GetSpecialAttackStiffAction(CharacterActionController controller)
+        {
+            return new OrcCaptainSpecialAttackStiff()
+            {
+                actionController = controller,
+                actionProvider = this
+            };
         }
         #endregion
 
@@ -109,12 +129,12 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void BasicAttack() =>
                actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
 
             public override void SpecialAttack() =>
-               actionController.SetAction(actionProvider.GetSpacilAttackStartAction(actionController));
+               actionController.SetAction(actionProvider.GetSpecialAttackStartAction(actionController));
 
             public override void Move(Vector2 direction)
             {
@@ -162,10 +182,12 @@ namespace CharacterSystem.ActionProvider
             {
                 actionController.AudioSource.Stop();
                 actionController.AudioSource.loop = false;
+
+                actionController.CharacterAnimator.SetBool("IsMove", false);
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude <= 0)
@@ -175,7 +197,7 @@ namespace CharacterSystem.ActionProvider
             }
 
             public override void SpecialAttack() =>
-                actionController.SetAction(actionProvider.GetSpacilAttackStartAction(actionController));
+                actionController.SetAction(actionProvider.GetSpecialAttackStartAction(actionController));
 
             public override void BasicAttack() =>
                 actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
@@ -203,7 +225,7 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void OnAnimationEnd()
             {
                 actionController.CharacterData.BasicAttackTimer = actionController.CharacterData.BasicAttackSpeed;
@@ -212,9 +234,153 @@ namespace CharacterSystem.ActionProvider
             #endregion
         }
 
+        /// <summary>
+        /// 歐克隊長特殊攻擊預備
+        /// </summary>
+        private class OrcCaptainSpecialAttackStart : IOrcCaptainAction
+        {
+            private float timer;
+            private bool timerLock;
+
+            #region 動作更新
+            public override void Start()
+            {
+                timer = 1;
+                timerLock = true;
+                actionController.CharacterAnimator.SetTrigger("SpecialAttackStart");
+            }
+
+            public override void Update()
+            {
+                IsometricUtility.GetVerticalAndHorizontal(
+                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
+
+                if (!timerLock)
+                    timer -= Time.deltaTime;
+
+                if (timer <= 0)
+                    actionController.SetAction(actionProvider.GetSpecialAttackAction(actionController));
+            }
+            #endregion
+
+            #region 外部事件
+            public override void Move(Vector2 direction)
+            {
+                if (direction.magnitude > 0)
+                    actionController.CharacterData.Direction = direction;
+            }
+
+            public override void OnAnimationEnd() =>
+                timerLock = false;
+
+            public override void Hit(DamageData damage)
+            {
+                damage.Damage = 0;
+
+                actionController.AudioSource.clip = actionProvider.DeffendSound;
+                actionController.AudioSource.Play();
+
+                actionProvider.DefaultDeffendEffect.PlayEffect(damage);
+            }
+            #endregion
+        }
+        
+        /// <summary>
+        /// 歐克隊長特殊攻擊
+        /// </summary>
+        private class OrcCaptainSpecialAttack : IOrcCaptainAction
+        {
+            private float timer;
+
+            #region 動作更新
+            public override void Start()
+            {
+                timer = 7;
+
+                actionController.AudioSource.clip = actionProvider.SpecailAttackSound;
+                actionController.AudioSource.loop = true;
+                actionController.AudioSource.Play();
+
+                actionController.CharacterAnimator.SetBool("SpecialAttack", true);
+            }
+
+            public override void Update()
+            {
+                timer -= Time.deltaTime;
+
+                if (timer <= 0)
+                    actionController.SetAction(actionProvider.GetSpecialAttackStiffAction(actionController));
+
+                IsometricUtility.GetVerticalAndHorizontal(
+                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterAnimator.SetFloat("Vertical", vertical);
+                actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
+
+                actionController.MovementBody.MovePosition(actionController.MovementBody.position +
+                    IsometricUtility.ToIsometricVector2(actionController.CharacterData.Direction)
+                    * actionController.CharacterData.MoveSpeed * 2 * Time.deltaTime);
+            }
+
+            public override void End()
+            {
+                actionController.AudioSource.Stop();
+                actionController.AudioSource.loop = false;
+
+                actionController.CharacterAnimator.SetBool("SpecialAttack", false);
+            }
+            #endregion
+
+            #region 外部事件
+            public override void Move(Vector2 direction)
+            {
+                if (direction.magnitude > 0)
+                    actionController.CharacterData.Direction = direction;
+            }
+
+            public override void Hit(DamageData damage)
+            {
+                damage.Damage = 0;
+
+                actionController.AudioSource.clip = actionProvider.DeffendSound;
+                actionController.AudioSource.Play();
+
+                actionProvider.DefaultDeffendEffect.PlayEffect(damage);
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// 歐克隊長特殊攻擊硬直
+        /// </summary>
+        private class OrcCaptainSpecialAttackStiff : IOrcCaptainAction
+        {
+            private float stiffTimer;
+
+            #region 動作更新
+            public override void Start()
+            {
+                stiffTimer = 3;
+            }
+
+            public override void Update()
+            {
+                stiffTimer -= Time.deltaTime;
+
+                if (stiffTimer <= 0)
+                    actionController.SetAction(actionProvider.GetIdelAction(actionController));
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// 歐克隊長倒地
+        /// </summary>
         private class OrcCaptainFall : IOrcCaptainAction
         {
             float fallDownTimer;
+
             #region 動作更新
             public override void Start()
             {
@@ -241,9 +407,13 @@ namespace CharacterSystem.ActionProvider
             #endregion
         }
 
+        /// <summary>
+        /// 歐克隊長死亡
+        /// </summary>
         private class OrcCaptainDead : IOrcCaptainAction
         {
             float desdroyedTimer;
+
             #region 動作更新
             public override void Start()
             {

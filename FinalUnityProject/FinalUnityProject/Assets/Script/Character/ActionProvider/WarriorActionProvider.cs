@@ -67,45 +67,45 @@ namespace CharacterSystem.ActionProvider
             };
         }
 
-        private ICharacterAction GetSpacilAttackStartAction(CharacterActionController comtroller)
+        private ICharacterAction GetSpecialAttackStartAction(CharacterActionController comtroller)
         {
-            return new WarriorSpecailAttackStart()
+            return new WarriorSpecialAttackStart()
             {
                 actionController = comtroller,
                 actionProvider = this
             };
         }
 
-        private ICharacterAction GetSpecailAttackDodgeAction(CharacterActionController comtroller, bool isCharge)
+        private ICharacterAction GetSpecialAttackDodgeAction(CharacterActionController comtroller, bool isCharge)
         {
-            return new WarriorSpecailAttackDodge(isCharge)
+            return new WarriorSpecialAttackDodge(isCharge)
             {
                 actionController = comtroller,
                 actionProvider = this
             };
         }
 
-        private ICharacterAction GetSpecailAttack1Action(CharacterActionController comtroller, bool isCharge)
+        private ICharacterAction GetSpecialAttack1Action(CharacterActionController comtroller, bool isCharge)
         {
-            return new WarriorSpacilAttack1(isCharge)
+            return new WarriorSpecialAttack1(isCharge)
             {
                 actionController = comtroller,
                 actionProvider = this
             };
         }
 
-        private ICharacterAction GetSpecailAttackChargeAction(CharacterActionController comtroller)
+        private ICharacterAction GetSpecialAttackChargeAction(CharacterActionController comtroller)
         {
-            return new WarriorSpecailAttackCharge()
+            return new WarriorSpecialAttackCharge()
             {
                 actionController = comtroller,
                 actionProvider = this
             };
         }
 
-        private ICharacterAction GetSpecailAttack2Action(CharacterActionController comtroller)
+        private ICharacterAction GetSpecialAttack2Action(CharacterActionController comtroller)
         {
-            return new WarriorSpacilAttack2()
+            return new WarriorSpecialAttack2()
             {
                 actionController = comtroller,
                 actionProvider = this
@@ -163,7 +163,7 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void Deffend(bool deffend)
             {
                 if (deffend)
@@ -174,7 +174,7 @@ namespace CharacterSystem.ActionProvider
                actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
 
             public override void SpecialAttack() =>
-               actionController.SetAction(actionProvider.GetSpacilAttackStartAction(actionController));
+               actionController.SetAction(actionProvider.GetSpecialAttackStartAction(actionController));
 
             public override void Move(Vector2 direction)
             {
@@ -222,10 +222,12 @@ namespace CharacterSystem.ActionProvider
             {
                 actionController.AudioSource.Stop();
                 actionController.AudioSource.loop = false;
+
+                actionController.CharacterAnimator.SetBool("IsMove", false);
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude <= 0)
@@ -241,7 +243,7 @@ namespace CharacterSystem.ActionProvider
             }
 
             public override void SpecialAttack() =>
-                actionController.SetAction(actionProvider.GetSpacilAttackStartAction(actionController));
+                actionController.SetAction(actionProvider.GetSpecialAttackStartAction(actionController));
 
             public override void BasicAttack() =>
                 actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
@@ -273,7 +275,7 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude > 0)
@@ -324,7 +326,7 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void OnAnimationEnd()
             {
                 actionController.CharacterData.BasicAttackTimer = actionController.CharacterData.BasicAttackSpeed;
@@ -336,7 +338,7 @@ namespace CharacterSystem.ActionProvider
         /// <summary>
         /// 戰士重攻擊預備
         /// </summary>
-        private class WarriorSpecailAttackStart : IWarriorAction
+        private class WarriorSpecialAttackStart : IWarriorAction
         {
             bool isCharge;
 
@@ -344,11 +346,11 @@ namespace CharacterSystem.ActionProvider
             public override void Start()
             {
                 isCharge = true;
-                actionController.CharacterAnimator.SetBool("SpacilAttackStart", true);
+                actionController.CharacterAnimator.SetBool("SpecialAttackStart", true);
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void SpecialAttack(bool hold)
             {
                 if (!hold)
@@ -356,7 +358,7 @@ namespace CharacterSystem.ActionProvider
             }
 
             public override void OnAnimationEnd() =>
-                actionController.SetAction(actionProvider.GetSpecailAttackDodgeAction(actionController, isCharge));
+                actionController.SetAction(actionProvider.GetSpecialAttackDodgeAction(actionController, isCharge));
 
             public override void Hit(DamageData damage)
             {
@@ -369,12 +371,12 @@ namespace CharacterSystem.ActionProvider
         /// <summary>
         /// 戰士重攻擊衝刺
         /// </summary>
-        private class WarriorSpecailAttackDodge : IWarriorAction
+        private class WarriorSpecialAttackDodge : IWarriorAction
         {
             float dodgeDistance, targetDistance = 2f;
             bool isCharge;
 
-            public WarriorSpecailAttackDodge(bool isCharge)
+            public WarriorSpecialAttackDodge(bool isCharge)
             {
                 this.isCharge = isCharge;
             }
@@ -399,7 +401,7 @@ namespace CharacterSystem.ActionProvider
                     actionController.MovementBody.position + dodgeVector);
 
                 if (dodgeDistance >= targetDistance)
-                    actionController.SetAction(actionProvider.GetSpecailAttack1Action(actionController, isCharge));
+                    actionController.SetAction(actionProvider.GetSpecialAttack1Action(actionController, isCharge));
             }
 
             public override void End()
@@ -409,7 +411,7 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void SpecialAttack(bool hold)
             {
                 if (!hold)
@@ -423,12 +425,12 @@ namespace CharacterSystem.ActionProvider
         /// <summary>
         /// 戰士重攻擊第一段
         /// </summary>
-        private class WarriorSpacilAttack1 : IWarriorAction
+        private class WarriorSpecialAttack1 : IWarriorAction
         {
             float dodgeDistance, targetDistance = 0.4f;
             bool isCharge;
 
-            public WarriorSpacilAttack1(bool isCharge)
+            public WarriorSpecialAttack1(bool isCharge)
             {
                 this.isCharge = isCharge;
             }
@@ -439,12 +441,12 @@ namespace CharacterSystem.ActionProvider
                 dodgeDistance = 0;
 
                 if (isCharge)
-                    actionController.CharacterAnimator.SetBool("SpacilAttackCharge", true);
+                    actionController.CharacterAnimator.SetBool("SpecialAttackCharge", true);
 
                 actionController.AudioSource.clip = actionProvider.HeavyAttack1Sound;
                 actionController.AudioSource.Play();
 
-                actionController.CharacterAnimator.SetBool("SpacilAttackStart", false);
+                actionController.CharacterAnimator.SetBool("SpecialAttackStart", false);
             }
 
             public override void Update()
@@ -463,7 +465,7 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void SpecialAttack(bool hold)
             {
                 if (!hold)
@@ -476,7 +478,7 @@ namespace CharacterSystem.ActionProvider
             public override void OnAnimationEnd()
             {
                 if (isCharge)
-                    actionController.SetAction(actionProvider.GetSpecailAttackChargeAction(actionController));
+                    actionController.SetAction(actionProvider.GetSpecialAttackChargeAction(actionController));
                 else
                     actionController.SetAction(actionProvider.GetIdelAction(actionController));
             }
@@ -488,7 +490,7 @@ namespace CharacterSystem.ActionProvider
         /// <summary>
         /// 戰士重攻擊蓄力
         /// </summary>
-        private class WarriorSpecailAttackCharge : IWarriorAction
+        private class WarriorSpecialAttackCharge : IWarriorAction
         {
             bool IsCharge, ChargeEnd;
             float ChargeTime;
@@ -517,7 +519,7 @@ namespace CharacterSystem.ActionProvider
                     actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
 
                     if (!IsCharge || ChargeTime > 2.1)
-                        actionController.SetAction(actionProvider.GetSpecailAttack2Action(actionController));
+                        actionController.SetAction(actionProvider.GetSpecialAttack2Action(actionController));
                 }
             }
 
@@ -528,7 +530,7 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void SpecialAttack(bool hold)
             {
                 if (!hold)
@@ -546,7 +548,7 @@ namespace CharacterSystem.ActionProvider
         /// <summary>
         /// 戰士重攻擊第二段
         /// </summary>
-        private class WarriorSpacilAttack2 : IWarriorAction
+        private class WarriorSpecialAttack2 : IWarriorAction
         {
             float dodgeDistance, targetDistance = 0.4f;
 
@@ -558,7 +560,7 @@ namespace CharacterSystem.ActionProvider
                 actionController.AudioSource.clip = actionProvider.HeavyAttack2Sound;
                 actionController.AudioSource.Play();
 
-                actionController.CharacterAnimator.SetBool("SpacilAttackCharge", false);
+                actionController.CharacterAnimator.SetBool("SpecialAttackCharge", false);
             }
 
             public override void Update()
@@ -577,7 +579,7 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void OnAnimationEnd()
             {
                 actionController.SetAction(actionProvider.GetIdelAction(actionController));
@@ -619,7 +621,7 @@ namespace CharacterSystem.ActionProvider
             }
             #endregion
 
-            #region 外部操作
+            #region 外部事件
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude > 0)

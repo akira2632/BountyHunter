@@ -153,7 +153,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: SpacilAttackStart
+    m_ConditionEvent: SpecialAttackStart
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1810000555918716165}
@@ -484,7 +484,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: SpacilAttackCharge
+    m_ConditionEvent: SpecialAttackCharge
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -299384834955920112}
@@ -767,13 +767,13 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: SpacilAttackStart
+  - m_Name: SpecialAttackStart
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: SpacilAttackCharge
+  - m_Name: SpecialAttackCharge
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -1111,7 +1111,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: SpacilAttackCharge
+    m_ConditionEvent: SpecialAttackCharge
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6274092511920844336}
@@ -1215,7 +1215,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: SpacilAttackStart
+    m_ConditionEvent: SpecialAttackStart
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1810000555918716165}
@@ -1265,7 +1265,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: SpacilAttackStart
+    m_ConditionEvent: SpecialAttackStart
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7158217632393184105}
@@ -2005,7 +2005,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: SpacilAttackCharge
+    m_ConditionEvent: SpecialAttackCharge
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5827464066029482259}
