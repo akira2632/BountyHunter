@@ -99,8 +99,8 @@ namespace CharacterSystem
 
     public abstract class ICharacterActionProvider : ScriptableObject
     {
-        public abstract ICharacterAction GetIdelAction(CharacterActionController manager);
-        public abstract ICharacterAction GetDeadAction(CharacterActionController manager);
-        public abstract ICharacterAction GetFallDownAction(CharacterActionController manager);
+        public abstract ICharacterAction GetIdelAction(CharacterActionController controller);
+        public abstract ICharacterAction GetDeadAction(CharacterActionController controller);
+        public abstract ICharacterAction GetFallDownAction(CharacterActionController controller);
     }
 }

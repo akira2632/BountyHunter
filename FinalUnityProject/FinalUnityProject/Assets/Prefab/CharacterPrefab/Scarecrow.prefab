@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterData: {fileID: 7114662804344435771}
-  ActionProvider: {fileID: 0}
+  ActionProvider: {fileID: 11400000, guid: e4505ed06549ec6468302233de7ce548, type: 2}
   MovementBody: {fileID: 2860502676911354287}
   MovementCollider: {fileID: 2860502676911354280}
   CharacterAnimator: {fileID: 2860502676911354283}
@@ -335,7 +335,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.1
 --- !u!1001 &8006302672425068139
 PrefabInstance:
   m_ObjectHideFlags: 0

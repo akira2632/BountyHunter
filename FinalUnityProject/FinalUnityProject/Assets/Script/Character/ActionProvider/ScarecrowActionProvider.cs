@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,24 +12,54 @@ namespace CharacterSystem.ActionProvider
         public Skill.HitEffect DefaultHitEffect;
 
         #region FactoryMethod
-        public override ICharacterAction GetIdelAction(CharacterActionController manager)
+        public override ICharacterAction GetIdelAction(CharacterActionController controller)
         {
-            throw new System.NotImplementedException();
+            return new ScarecrowIdel()
+            {
+                actionController = controller,
+                actionProvider = this
+            };
         }
 
-        public override ICharacterAction GetFallDownAction(CharacterActionController manager)
+        public override ICharacterAction GetFallDownAction(CharacterActionController controller)
         {
-            throw new System.NotImplementedException();
+            return new ScarecrowIdel()
+            {
+                actionController = controller,
+                actionProvider = this
+            };
         }
 
-        public override ICharacterAction GetDeadAction(CharacterActionController manager)
+        public override ICharacterAction GetDeadAction(CharacterActionController controller)
         {
-            throw new System.NotImplementedException();
+            return new ScarecrowIdel()
+            {
+                actionController = controller,
+                actionProvider = this
+            };
+        }
+
+        private ICharacterAction GetScarecrowHurtAction(CharacterActionController controller, DamageData damage)
+        {
+            return new ScarecrowHurt(damage)
+            {
+                actionController = controller,
+                actionProvider = this
+            };
+        }
+
+        private ICharacterAction GetScarecrowBascicAttackAction(CharacterActionController controller)
+        {
+            return new ScarecrowBasicAttack()
+            {
+                actionController = controller,
+                actionProvider = this
+            };
         }
         #endregion
 
         #region ScarecrowAction
-        private class IScarecrowAction
+        private class IScarecrowAction : ICharacterAction
         {
             public ScarecrowActionProvider actionProvider;
             public CharacterActionController actionController;
@@ -49,20 +80,52 @@ namespace CharacterSystem.ActionProvider
             public virtual void SpecialAttack(bool hold) { }
             public virtual void SpecialAttack(Vector3 tartgetPosition) { }
 
-            public virtual void Hit(DamageData damage) =>
-                actionProvider.DefaultHitEffect.PlayEffect(damage);
+            public virtual void Hit(DamageData damage) { }
         }
 
         private class ScarecrowIdel : IScarecrowAction
         {
-            public override void BasicAttack()
+            public override void BasicAttack() =>
+                actionController.SetAction(actionProvider.GetScarecrowBascicAttackAction(actionController));
+
+            public override void Hit(DamageData damage)=>
+                actionController.SetAction(actionProvider.GetScarecrowHurtAction(actionController, damage));
+        }
+
+        private class ScarecrowBasicAttack : IScarecrowAction
+        {
+            public override void Start()
             {
-                base.BasicAttack();
+                actionController.AudioSource.PlayOneShot(actionProvider.AttackSound);
+
+                actionController.CharacterAnimator.SetTrigger("Attack");
             }
 
-            public override void Hit(DamageData damage)
+            public override void OnAnimationEnd() =>
+                actionController.SetAction(actionProvider.GetIdelAction(actionController));
+        }
+
+        private class ScarecrowHurt : IScarecrowAction
+        {
+            private bool flipX;
+            private DamageData damage;
+
+            public ScarecrowHurt(DamageData damage)
             {
-                base.Hit(damage);
+                this.damage = damage;
+                flipX = (damage.HitAt.x - damage.HitFrom.x) < 0;
+            }
+
+            public override void Start()
+            {
+                actionController.SpriteRenderer.flipX = flipX;
+                actionController.CharacterAnimator.SetTrigger("Hurt");
+
+                actionController.AudioSource.PlayOneShot(actionProvider.HurtSound);
+
+                actionProvider.DefaultHitEffect.PlayEffect(damage);
+
+                actionController.SetAction(actionProvider.GetIdelAction(actionController));
             }
         }
         #endregion

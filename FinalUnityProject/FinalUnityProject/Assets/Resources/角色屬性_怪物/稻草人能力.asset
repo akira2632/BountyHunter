@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterRegenSpeed: 0
   CharacterRegenHealth: 0
-  CharacterMaxHealth: 0
+  CharacterMaxHealth: 10
   CharacterMoveSpeed: 0
   CharacterDodgeSpeed: 0
-  CharacterAttack: 0
-  CharacterAttackFloating: 0
-  CharacterBasicAttackSpeed: 0
+  CharacterAttack: 10
+  CharacterAttackFloating: 1
+  CharacterBasicAttackSpeed: 5
   CharacterSpacilAttackSpeed: 0
   CharacterCriticalMagnifiction: 0
   CharacterCriticalRate: 0
