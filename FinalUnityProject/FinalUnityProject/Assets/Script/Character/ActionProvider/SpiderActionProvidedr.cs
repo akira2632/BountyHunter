@@ -192,7 +192,7 @@ namespace CharacterSystem.ActionProvider
                 actionController.AudioSource.clip = actionProvider.BasicAttackSound;
                 actionController.AudioSource.Play();
 
-                actionController.CharacterAnimator.SetTrigger("LightAttack");
+                actionController.CharacterAnimator.SetTrigger("BasicAttack");
             }
             #endregion
 

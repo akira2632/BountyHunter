@@ -224,7 +224,7 @@ namespace CharacterSystem.ActionProvider
                     return;
                 }
 
-                actionController.CharacterAnimator.SetTrigger("LightAttack");
+                actionController.CharacterAnimator.SetTrigger("BasicAttack");
                 actionController.AudioSource.clip = actionProvider.BasicAttackSound;
                 actionController.AudioSource.Play();
             }
@@ -271,7 +271,7 @@ namespace CharacterSystem.ActionProvider
                     actionController.CharacterAnimator.SetFloat("Vertical", vertical);
                     actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
                 }
-                actionController.CharacterAnimator.SetTrigger("RangeAttack");
+                actionController.CharacterAnimator.SetTrigger("SpacilAttack");
             }
             #endregion
 

@@ -320,7 +320,7 @@ namespace CharacterSystem.ActionProvider
                 actionController.AudioSource.clip = actionProvider.BasicAttackSound;
                 actionController.AudioSource.Play();
 
-                actionController.CharacterAnimator.SetTrigger("LightAttack");
+                actionController.CharacterAnimator.SetTrigger("BasicAttack");
             }
             #endregion
 
@@ -344,7 +344,7 @@ namespace CharacterSystem.ActionProvider
             public override void Start()
             {
                 isCharge = true;
-                actionController.CharacterAnimator.SetBool("HeavyAttackStart", true);
+                actionController.CharacterAnimator.SetBool("SpacilAttackStart", true);
             }
             #endregion
 
@@ -439,12 +439,12 @@ namespace CharacterSystem.ActionProvider
                 dodgeDistance = 0;
 
                 if (isCharge)
-                    actionController.CharacterAnimator.SetBool("HeavyAttackCharge", true);
+                    actionController.CharacterAnimator.SetBool("SpacilAttackCharge", true);
 
                 actionController.AudioSource.clip = actionProvider.HeavyAttack1Sound;
                 actionController.AudioSource.Play();
 
-                actionController.CharacterAnimator.SetBool("HeavyAttackStart", false);
+                actionController.CharacterAnimator.SetBool("SpacilAttackStart", false);
             }
 
             public override void Update()
@@ -469,7 +469,7 @@ namespace CharacterSystem.ActionProvider
                 if (!hold)
                 {
                     isCharge = false;
-                    actionController.CharacterAnimator.SetBool("HeavyAttackCharge", false);
+                    actionController.CharacterAnimator.SetBool("SpacilAttackCharge", false);
                 }
             }
 
@@ -558,7 +558,7 @@ namespace CharacterSystem.ActionProvider
                 actionController.AudioSource.clip = actionProvider.HeavyAttack2Sound;
                 actionController.AudioSource.Play();
 
-                actionController.CharacterAnimator.SetBool("HeavyAttackCharge", false);
+                actionController.CharacterAnimator.SetBool("SpacilAttackCharge", false);
             }
 
             public override void Update()
