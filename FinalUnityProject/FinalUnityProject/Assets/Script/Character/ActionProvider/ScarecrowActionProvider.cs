@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CharacterSystem.ActionProvider
 {
@@ -29,7 +26,7 @@ namespace CharacterSystem.ActionProvider
                 actionProvider = this
             };
         }
-
+        
         public override ICharacterAction GetDeadAction(CharacterActionController controller)
         {
             return new ScarecrowIdel()
