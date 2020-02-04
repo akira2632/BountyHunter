@@ -72,6 +72,7 @@
     <Compile Include="Assets\Script\Character\ActionProvider\GoblinActionProvider.cs" />
     <Compile Include="Assets\Script\Character\ActionProvider\OrcActionProvider.cs" />
     <Compile Include="Assets\Script\Character\ActionProvider\OrcCaptainActionProvider.cs" />
+    <Compile Include="Assets\Script\Character\ActionProvider\ScarecrowActionProvider.cs" />
     <Compile Include="Assets\Script\Character\ActionProvider\SpiderActionProvidedr.cs" />
     <Compile Include="Assets\Script\Character\ActionProvider\WarriorActionProvider.cs" />
     <Compile Include="Assets\Script\Character\Controller\BasicAIController.cs" />

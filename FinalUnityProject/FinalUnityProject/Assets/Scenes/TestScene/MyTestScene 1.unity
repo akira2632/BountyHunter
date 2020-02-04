@@ -6988,6 +6988,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: OrcCaptain
       objectReference: {fileID: 0}
+    - target: {fileID: 1398184445629926408, guid: b2f07659a7786e6458ff2dea4f7a2922,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6290949611009681586, guid: b2f07659a7786e6458ff2dea4f7a2922,
         type: 3}
       propertyPath: m_LocalPosition.x
