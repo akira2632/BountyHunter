@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273ade9c1b0bd7046a7c344a13ca484a, type: 3}
   m_Name: "\u54E5\u5E03\u6797\u52D5\u4F5C\u63D0\u4F9B\u8005"
   m_EditorClassIdentifier: 
-  MoveSound: {fileID: 0}
-  FallDownSound: {fileID: 0}
-  BasicAttackSound: {fileID: 0}
-  HurtSound: {fileID: 0}
-  DefaultHitEffect: {fileID: 0}
+  MoveSound: {fileID: 8300000, guid: b7d81315b5e44ed4ebf93cbfc00e74a8, type: 3}
+  FallDownSound: {fileID: 8300000, guid: e414e474864173e4f896ec9dbf4e60a0, type: 3}
+  BasicAttackSound: {fileID: 8300000, guid: c456598e3de5de2429a229f1c2de0677, type: 3}
+  HurtSound: {fileID: 8300000, guid: d57b9590dcfed76479011577b9fe33e7, type: 3}
+  DefaultHitEffect: {fileID: 11400000, guid: bd0abba3180e4034da92aac916d4bfe9, type: 2}
