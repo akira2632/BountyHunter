@@ -14,12 +14,12 @@ namespace CharacterSystem.Controller
         private int currentWayPoint = 0;
         private bool continueFinding = false;
 
+        public bool PathFinded { get; private set; } = false;
+
         private void Start()
         {
             seeker = GetComponent<Seeker>();
         }
-
-        public bool PathFinded { get; private set; } = false;
 
         public bool NextWayPoint(out Vector3 nextPoint)
         {

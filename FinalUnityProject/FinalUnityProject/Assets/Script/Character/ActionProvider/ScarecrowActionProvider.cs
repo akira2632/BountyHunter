@@ -98,8 +98,11 @@ namespace CharacterSystem.ActionProvider
                 actionController.CharacterAnimator.SetTrigger("Attack");
             }
 
-            public override void OnAnimationEnd() =>
+            public override void OnAnimationEnd()
+            {
+                actionController.CharacterData.BasicAttackTimer = actionController.CharacterData.BasicAttackSpeed;
                 actionController.SetAction(actionProvider.GetIdelAction(actionController));
+            }
         }
 
         private class ScarecrowHurt : IScarecrowAction

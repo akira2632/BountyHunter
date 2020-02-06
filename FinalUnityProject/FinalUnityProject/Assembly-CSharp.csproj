@@ -82,6 +82,7 @@
     <Compile Include="Assets\Script\Character\Controller\GoblinAISetting.cs" />
     <Compile Include="Assets\Script\Character\Controller\GoblinAITeam.cs" />
     <Compile Include="Assets\Script\Character\Controller\PlayerController.cs" />
+    <Compile Include="Assets\Script\Character\Controller\ScarecrowAIController.cs" />
     <Compile Include="Assets\Script\Character\Controller\SpiderAIController.cs" />
     <Compile Include="Assets\Script\Character\Controller\SpiderAISetting.cs" />
     <Compile Include="Assets\Script\Character\Skill\HitEffect.cs" />
