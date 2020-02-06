@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Pathfinding;
 using System.Collections;
-using Pathfinding;
 using UnityEngine;
 
 namespace CharacterSystem.Controller
 {
+    [RequireComponent(typeof(Seeker))]
     public class BasicAISenser : MonoBehaviour
     {
         [SerializeField]
@@ -13,6 +13,13 @@ namespace CharacterSystem.Controller
 
         private int currentWayPoint = 0;
         private bool continueFinding = false;
+
+        private void Start()
+        {
+            seeker = GetComponent<Seeker>();
+        }
+
+        public bool PathFinded { get; private set; } = false;
 
         public bool NextWayPoint(out Vector3 nextPoint)
         {
@@ -27,26 +34,32 @@ namespace CharacterSystem.Controller
                 return false;
             }
         }
+        
+        public void FindPath(Vector3 target)
+        {
+            PathFinded = false;
+            StartCoroutine(MyFindPath(target));
+        }
 
-        public void FindPath(Vector3 target, Action<bool?> pathFinded)
-            => StartCoroutine(MyFindPath(target, pathFinded));
-
-        public void FindPath(Transform target, Action<bool?> pathFinded)
-            => StartCoroutine(ContinueFinding(target, pathFinded));
+        public void FindPath(Transform target)
+        {
+            PathFinded = false;
+            StartCoroutine(ContinueFinding(target));
+        }
 
         public void StopFindPath() => continueFinding = false;
 
         #region A*Seeker
-        private IEnumerator ContinueFinding(Transform target, Action<bool?> pathFinded)
+        private IEnumerator ContinueFinding(Transform target)
         {
             seeker.CancelCurrentPathRequest();
             continueFinding = true;
 
             while (continueFinding)
-                yield return MyFindPath(target.transform.position, pathFinded);
+                yield return MyFindPath(target.transform.position);
         }
-
-        private IEnumerator MyFindPath(Vector3 target, Action<bool?> pathFinded)
+        
+        private IEnumerator MyFindPath(Vector3 target)
         {
             seeker.CancelCurrentPathRequest();
             seeker.StartPath(transform.position, target, (Path path) => this.path = path);
@@ -55,12 +68,10 @@ namespace CharacterSystem.Controller
             while (!seeker.IsDone())
                 yield return new WaitForSeconds(0.5f);
 
-            if (path.error)
-                pathFinded(null);
-            else
+            if (!path.error)
             {
                 currentWayPoint = 0;
-                pathFinded(true);
+                PathFinded = true;
             }
         }
         #endregion

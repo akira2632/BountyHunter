@@ -57,18 +57,11 @@ namespace CharacterSystem.Controller
         protected abstract class IBasicAIState
         {
             protected GoblinAIController manager;
-            protected bool? pathFinded;
             protected Vector3 nextPoint;
 
             public IBasicAIState(GoblinAIController manager)
             {
                 this.manager = manager;
-            }
-
-            protected void PathFinded(bool? finded)
-            {
-                pathFinded = finded;
-                manager.Senser.NextWayPoint(out nextPoint);
             }
 
             public virtual void Initial() { }
@@ -87,8 +80,7 @@ namespace CharacterSystem.Controller
             {
                 //Debug.Log("Idel Start");
 
-                idelTimer = Random.Range
-                    (manager.AISetting.IdelTimeMin, manager.AISetting.IdelTimeMax);
+                idelTimer = Random.Range(manager.AISetting.IdelTimeMin, manager.AISetting.IdelTimeMax);
 
                 manager.Character.Move(Vector2.zero);
             }
@@ -99,8 +91,7 @@ namespace CharacterSystem.Controller
                 if (idelTimer < 0)
                     manager.SetState(new AIWandering(manager));
 
-                if (IsometricUtility.ToIsometricDistance
-                        (manager.Character.transform.position, manager.player.transform.position)
+                if (IsometricUtility.ToIsometricDistance(manager.Character.transform.position, manager.player.transform.position)
                     <= manager.AISetting.DetectedDistance)
                     manager.SetState(new AIChase(manager));
             }
@@ -116,25 +107,22 @@ namespace CharacterSystem.Controller
             {
                 //Debug.Log("Wandering Start");
 
-                pathFinded = false;
                 float distance = Random.Range
                     (manager.AISetting.WounderDistanceMin, manager.AISetting.WounderDistanceMax);
                 float degree = Random.Range(0, 360);
 
                 manager.Senser.FindPath(manager.Character.transform.position +
                     IsometricUtility.ToIsometricVector3(
-                    Quaternion.AngleAxis(degree, Vector3.forward) * (Vector3.one * distance))
-                    , PathFinded);
+                    Quaternion.AngleAxis(degree, Vector3.forward) * (Vector3.one * distance)));
             }
 
             public override void Update()
             {
-                if (IsometricUtility.ToIsometricDistance
-                        (manager.Character.transform.position, manager.player.transform.position)
+                if (IsometricUtility.ToIsometricDistance(manager.Character.transform.position, manager.player.transform.position)
                     <= manager.AISetting.DetectedDistance)
                     manager.SetState(new AIChase(manager));
 
-                if (pathFinded == true)
+                if (manager.Senser.PathFinded)
                 {
                     if (IsometricUtility.ToIsometricDistance(nextPoint, manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
@@ -145,8 +133,6 @@ namespace CharacterSystem.Controller
                     else if (!manager.Senser.NextWayPoint(out nextPoint))
                         manager.SetState(new AIIdel(manager));
                 }
-                else if (pathFinded == null)
-                    manager.SetState(new AIWandering(manager));
             }
         }
 
@@ -159,29 +145,28 @@ namespace CharacterSystem.Controller
             public override void Initial()
             {
                 //Debug.Log("Chase Start");
-                pathFinded = false;
-                manager.Senser.FindPath(manager.player.transform, PathFinded);
+                manager.Senser.FindPath(manager.player.transform);
             }
 
             public override void Update()
             {
-                if (IsometricUtility.ToIsometricDistance(manager.Character.transform.position,
-                    manager.player.transform.position) > manager.AISetting.DetectedDistance)
+                if (IsometricUtility.ToIsometricDistance(manager.Character.transform.position, manager.player.transform.position)
+                    > manager.AISetting.DetectedDistance)
                     manager.SetState(new AIIdel(manager));
 
-                if (pathFinded == true)
+                if (manager.Senser.PathFinded)
                 {
                     if (manager.MemberType == MemberType.BasicAttacker
-                        && IsometricUtility.ToIsometricDistance(manager.player.transform.position,
-                        manager.Character.transform.position) < manager.AISetting.BasicAttackDistance)
+                        && IsometricUtility.ToIsometricDistance(manager.player.transform.position, manager.Character.transform.position)
+                        < manager.AISetting.BasicAttackDistance)
                     {
                         manager.SetState(new AIBasicAttack(manager));
                         return;
                     }
 
                     if (manager.MemberType == MemberType.SpacilAttacker
-                        && IsometricUtility.ToIsometricDistance(manager.player.transform.position,
-                        manager.Character.transform.position) < manager.AISetting.SpacilAttackDistance)
+                        && IsometricUtility.ToIsometricDistance(manager.player.transform.position, manager.Character.transform.position)
+                        < manager.AISetting.SpacilAttackDistance)
                     {
                         manager.SetState(new AISpacilAttack(manager));
                         return;
@@ -197,10 +182,6 @@ namespace CharacterSystem.Controller
                     {
                         manager.SetState(new AIChase(manager));
                     }
-                }
-                else if (pathFinded == null)
-                {
-                    manager.SetState(new AIIdel(manager));
                 }
             }
 
@@ -227,7 +208,7 @@ namespace CharacterSystem.Controller
 
                 this.angle = angle;
                 this.roundTurnCount = roundTurnCount - 1;
-                manager.Senser.FindPath(targetPoint, PathFinded);
+                manager.Senser.FindPath(targetPoint);
                 //Debug.Log($"AroundStart turnCount = {roundTurnCount}");
             }
 
@@ -239,13 +220,13 @@ namespace CharacterSystem.Controller
 
                 angle = Random.Range(1, 10) > 5 ? -manager.AISetting.AroundDegree : manager.AISetting.AroundDegree;
                 roundTurnCount = manager.AISetting.RoundTurn;
-                manager.Senser.FindPath(targetPoint, PathFinded);
+                manager.Senser.FindPath(targetPoint);
                 //Debug.Log($"AroundStart turnCount = {roundTurnCount}");
             }
 
             public override void Update()
             {
-                if (pathFinded == true)
+                if (manager.Senser.PathFinded)
                 {
                     if (IsometricUtility.ToIsometricDistance(nextPoint, manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
@@ -272,12 +253,12 @@ namespace CharacterSystem.Controller
 
             public override void Update()
             {
-                if (IsometricUtility.ToIsometricDistance(manager.Character.transform.position,
-                    manager.player.transform.position) > manager.AISetting.DetectedDistance)
+                if (IsometricUtility.ToIsometricDistance(manager.Character.transform.position, manager.player.transform.position)
+                    > manager.AISetting.DetectedDistance)
                     manager.SetState(new AIIdel(manager));
 
-                if (IsometricUtility.ToIsometricDistance(manager.player.transform.position,
-                    manager.Character.transform.position) > manager.AISetting.BasicAttackDistance)
+                if (IsometricUtility.ToIsometricDistance(manager.player.transform.position, manager.Character.transform.position)
+                    > manager.AISetting.BasicAttackDistance)
                     manager.SetState(new AIChase(manager));
 
                 if (manager.Character.CharacterData.BasicAttackTimer <= 0)
@@ -297,12 +278,12 @@ namespace CharacterSystem.Controller
 
             public override void Update()
             {
-                if (IsometricUtility.ToIsometricDistance(manager.Character.transform.position,
-                    manager.player.transform.position) > manager.AISetting.DetectedDistance)
+                if (IsometricUtility.ToIsometricDistance(manager.Character.transform.position, manager.player.transform.position)
+                    > manager.AISetting.DetectedDistance)
                     manager.SetState(new AIIdel(manager));
 
-                if (IsometricUtility.ToIsometricDistance(manager.player.transform.position,
-                    manager.Character.transform.position) > manager.AISetting.SpacilAttackDistance)
+                if (IsometricUtility.ToIsometricDistance(manager.player.transform.position, manager.Character.transform.position)
+                    > manager.AISetting.SpacilAttackDistance)
                     manager.SetState(new AIChase(manager));
 
                 if (manager.Character.CharacterData.SpacilAttackTimer <= 0)
