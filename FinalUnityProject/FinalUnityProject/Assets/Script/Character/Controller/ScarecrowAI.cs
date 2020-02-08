@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CharacterSystem.Controller
 {
-    public class ScarecrowAIController : MonoBehaviour
+    public class ScarecrowAI : MonoBehaviour
     {
         public CharacterActionController Character;
         public BasicAISenser Senser;

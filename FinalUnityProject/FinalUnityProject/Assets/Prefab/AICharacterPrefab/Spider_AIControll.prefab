@@ -84,7 +84,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af666fe5f9f05e74d90be0f6b2fefbf4, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c74c9242612b5049b4720f3da7fc6fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6005295741573234236
@@ -97,7 +97,7 @@ PrefabInstance:
     - target: {fileID: 6264053247360616726, guid: 3972a29fa15d7ac4492d0da5d99cd248,
         type: 3}
       propertyPath: m_Name
-      value: SpiderAIController
+      value: SpiderAI
       objectReference: {fileID: 0}
     - target: {fileID: 8918236019480629686, guid: 3972a29fa15d7ac4492d0da5d99cd248,
         type: 3}
@@ -137,7 +137,7 @@ PrefabInstance:
     - target: {fileID: 8918236019480629686, guid: 3972a29fa15d7ac4492d0da5d99cd248,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8918236019480629686, guid: 3972a29fa15d7ac4492d0da5d99cd248,
         type: 3}
@@ -159,11 +159,5 @@ PrefabInstance:
       propertyPath: Character
       value: 
       objectReference: {fileID: 1851489206192062129}
-    - target: {fileID: 7606261274416251790, guid: 3972a29fa15d7ac4492d0da5d99cd248,
-        type: 3}
-      propertyPath: AISetting
-      value: 
-      objectReference: {fileID: 11400000, guid: 754bfee1783388b48a448cf4e3cf087a,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3972a29fa15d7ac4492d0da5d99cd248, type: 3}

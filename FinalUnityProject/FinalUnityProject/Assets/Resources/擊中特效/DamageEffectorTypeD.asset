@@ -25,18 +25,17 @@ MonoBehaviour:
   - {fileID: 4511065443657641323, guid: 4da5db8fde51f514b8ce4ae822e9c8d1, type: 3}
   NumberPitch: 0.15
   HitEffectPrafebs:
-  - Prafeb: {fileID: 5020764986836720799, guid: fd12a76967b1b714d9259b023c129e64,
+  - Prafeb: {fileID: 5755613225300570534, guid: a0f0afd7e80a93d4fbab4661e31c6cb9,
       type: 3}
-    DefaultDirection: -1
+    DefaultDirection: 0
     HorizontalMovement: 1
     VerticalMovement: 1
-  - Prafeb: {fileID: 7793172847014978566, guid: 5c968d5942a5b584486cefeb4eaefe95,
+  - Prafeb: {fileID: 4436378864252056831, guid: c10d62072bda560428fb74abd32dbe29,
       type: 3}
-    DefaultDirection: 1
+    DefaultDirection: 0
     HorizontalMovement: 1
     VerticalMovement: 1
-  - Prafeb: {fileID: 7799089856244679341, guid: a14ee4f89de5a814587ab480a5a7f61f,
-      type: 3}
+  - Prafeb: {fileID: 603219053113763491, guid: c389e7ad6a6cb134eb32e71d2afa529d, type: 3}
     DefaultDirection: 0
     HorizontalMovement: 1
     VerticalMovement: 1

@@ -42,10 +42,10 @@ namespace CharacterSystem.Controller
         public float BasicAttackTeamWeight = 1, SpacilAttackTeamWeight = 2;
 
         [SerializeField]
-        private List<GoblinAIController> AITeam = new List<GoblinAIController>();
+        private List<GoblinAI> AITeam = new List<GoblinAI>();
         private float basicAttackMemberCount, spacilAttackMemberCount;
 
-        public void AddToTeam(GoblinAIController goblinAI)
+        public void AddToTeam(GoblinAI goblinAI)
         {
             if (!AITeam.Contains(goblinAI))
                 AITeam.Add(goblinAI);
@@ -53,7 +53,7 @@ namespace CharacterSystem.Controller
             SelectTeam(goblinAI);
         }
 
-        public void RemoveFromTeam(GoblinAIController goblinAI)
+        public void RemoveFromTeam(GoblinAI goblinAI)
         {
             if (AITeam.Contains(goblinAI))
             {
@@ -66,11 +66,11 @@ namespace CharacterSystem.Controller
                 AITeam.Remove(goblinAI);
             }
 
-            foreach (GoblinAIController member in AITeam)
+            foreach (GoblinAI member in AITeam)
                 SelectTeam(member);
         }
 
-        private void SelectTeam(GoblinAIController member)
+        private void SelectTeam(GoblinAI member)
         {
             if (basicAttackMemberCount / BasicAttackTeamWeight
                 < spacilAttackMemberCount / SpacilAttackTeamWeight)
@@ -79,7 +79,7 @@ namespace CharacterSystem.Controller
                 SwitchToSpacilTeam(member);
         }
 
-        private void SwitchToBasicTeam(GoblinAIController member)
+        private void SwitchToBasicTeam(GoblinAI member)
         {
             if (member.MemberType == MemberType.BasicAttacker)
                 return;
@@ -91,7 +91,7 @@ namespace CharacterSystem.Controller
             basicAttackMemberCount++;
         }
 
-        private void SwitchToSpacilTeam(GoblinAIController member)
+        private void SwitchToSpacilTeam(GoblinAI member)
         {
             if (member.MemberType == MemberType.SpacilAttacker)
                 return;

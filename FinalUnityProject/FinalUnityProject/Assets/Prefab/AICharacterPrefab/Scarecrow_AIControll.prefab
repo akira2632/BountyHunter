@@ -97,7 +97,7 @@ PrefabInstance:
     - target: {fileID: 3019074001325392106, guid: 0db25c23e598c2e4cb385259712d358c,
         type: 3}
       propertyPath: m_Name
-      value: ScarecrowAIController
+      value: ScarecrowAI
       objectReference: {fileID: 0}
     - target: {fileID: 935391899561429569, guid: 0db25c23e598c2e4cb385259712d358c,
         type: 3}

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackSound: {fileID: 8300000, guid: 9f8cbfd9df4808f49aa094beb4842779, type: 3}
   HurtSound: {fileID: 8300000, guid: 1c396fd6d352e534aa9384a3c02df674, type: 3}
-  DefaultHitEffect: {fileID: 11400000, guid: f4a953a8e93c7c0459b79bb918a00806, type: 2}
+  DefaultHitEffect: {fileID: 11400000, guid: a531280ca4e3b4246ba428d7846ccfec, type: 2}

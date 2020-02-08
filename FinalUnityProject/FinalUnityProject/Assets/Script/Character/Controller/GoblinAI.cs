@@ -2,17 +2,19 @@
 
 namespace CharacterSystem.Controller
 {
-    public class SpiderAIController : MonoBehaviour
+    public class GoblinAI : MonoBehaviour
     {
+        public MemberType MemberType;
+
         public CharacterActionController Character;
         public BasicAISenser Senser;
-        public SpiderAISetting AISetting;
+        public GoblinAISetting AISetting;
 
         private GameObject player;
 
         #region StateControl
         private bool isInitial = false;
-        private ISpiderAIState nowState;
+        private IBasicAIState nowState;
 
         private void Start()
         {
@@ -22,10 +24,18 @@ namespace CharacterSystem.Controller
         private void OnEnable()
         {
             SetState(new AIIdel(this));
+            MemberType = MemberType.None;
+            GoblinAITeam.Instance.AddToTeam(this);
         }
 
         private void Update()
         {
+            if (Character.CharacterData.Health <= 0)
+            {
+                GoblinAITeam.Instance.RemoveFromTeam(this);
+                return;
+            }
+
             if (!isInitial)
             {
                 nowState.Initial();
@@ -35,7 +45,7 @@ namespace CharacterSystem.Controller
             nowState.Update();
         }
 
-        private void SetState(ISpiderAIState nextState)
+        private void SetState(IBasicAIState nextState)
         {
             nowState?.End();
             isInitial = false;
@@ -44,12 +54,12 @@ namespace CharacterSystem.Controller
         #endregion
 
         #region AIState
-        protected abstract class ISpiderAIState
+        protected abstract class IBasicAIState
         {
-            protected SpiderAIController manager;
+            protected GoblinAI manager;
             protected Vector3 nextPoint;
 
-            public ISpiderAIState(SpiderAIController manager)
+            public IBasicAIState(GoblinAI manager)
             {
                 this.manager = manager;
             }
@@ -59,18 +69,18 @@ namespace CharacterSystem.Controller
             public virtual void End() { }
         }
 
-        protected class AIIdel : ISpiderAIState
+        protected class AIIdel : IBasicAIState
         {
             float idelTimer;
 
-            public AIIdel(SpiderAIController manager) : base(manager) { }
+            public AIIdel(GoblinAI manager) : base(manager)
+            { }
 
             public override void Initial()
             {
                 //Debug.Log("Idel Start");
 
-                idelTimer = Random.Range
-                    (manager.AISetting.IdelTimeMin, manager.AISetting.IdelTimeMax);
+                idelTimer = Random.Range(manager.AISetting.IdelTimeMin, manager.AISetting.IdelTimeMax);
 
                 manager.Character.Move(Vector2.zero);
             }
@@ -87,9 +97,11 @@ namespace CharacterSystem.Controller
             }
         }
 
-        protected class AIWandering : ISpiderAIState
+        protected class AIWandering : IBasicAIState
         {
-            public AIWandering(SpiderAIController manager) : base(manager) { }
+            public AIWandering(GoblinAI manager) : base(manager)
+            {
+            }
 
             public override void Initial()
             {
@@ -124,14 +136,15 @@ namespace CharacterSystem.Controller
             }
         }
 
-        protected class AIChase : ISpiderAIState
+        protected class AIChase : IBasicAIState
         {
-            public AIChase(SpiderAIController manager) : base(manager) { }
+            public AIChase(GoblinAI manager) : base(manager)
+            {
+            }
 
             public override void Initial()
             {
                 //Debug.Log("Chase Start");
-
                 manager.Senser.FindPath(manager.player.transform);
             }
 
@@ -143,12 +156,23 @@ namespace CharacterSystem.Controller
 
                 if (manager.Senser.PathFinded)
                 {
-                    if (IsometricUtility.ToIsometricDistance(manager.player.transform.position, manager.Character.transform.position) < manager.AISetting.AttackDistance
-                        && manager.Character.CharacterData.BasicAttackTimer <= 0)
+                    if (manager.MemberType == MemberType.BasicAttacker
+                        && IsometricUtility.ToIsometricDistance(manager.player.transform.position, manager.Character.transform.position)
+                        < manager.AISetting.BasicAttackDistance)
                     {
-                        manager.SetState(new AIAttack(manager));
+                        manager.SetState(new AIBasicAttack(manager));
+                        return;
                     }
-                    else if (IsometricUtility.ToIsometricDistance(nextPoint, manager.Character.transform.position)
+
+                    if (manager.MemberType == MemberType.SpacilAttacker
+                        && IsometricUtility.ToIsometricDistance(manager.player.transform.position, manager.Character.transform.position)
+                        < manager.AISetting.SpacilAttackDistance)
+                    {
+                        manager.SetState(new AISpacilAttack(manager));
+                        return;
+                    }
+
+                    if (IsometricUtility.ToIsometricDistance(nextPoint, manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
                     {
                         manager.Character.Move(
@@ -167,41 +191,28 @@ namespace CharacterSystem.Controller
             }
         }
 
-        protected class AIAttack : ISpiderAIState
-        {
-            public AIAttack(SpiderAIController manager) : base(manager) { }
-
-            public override void Initial()
-            {
-                //Debug.Log("AttackStart");
-                manager.Character.Move(
-                    (manager.player.transform.position - manager.Character.transform.position).normalized);
-                manager.Character.BasicAttack();
-                manager.SetState(new AIAround(manager));
-            }
-        }
-
-        protected class AIAround : ISpiderAIState
+        protected class AIAround : IBasicAIState
         {
             private Vector3 targetPoint;
             private float angle;
             private int roundTurnCount;
 
-            private AIAround(SpiderAIController manager, float angle, int roundTurnCount) : base(manager)
+            private AIAround(GoblinAI manager, float angle, int roundTurnCount) : base(manager)
             {
                 var orignalDirection = IsometricUtility.ToIsometricVector3(manager.Character.transform.position - manager.player.transform.position).normalized
                     * manager.AISetting.AroundRadius;
                 var rotateDirection = Quaternion.AngleAxis(angle, Vector3.forward)
                     * orignalDirection;
                 targetPoint = manager.player.transform.position + rotateDirection;
-                Debug.Log($"Orignal{orignalDirection}\nRotate{rotateDirection}\nTarget{targetPoint}");
+                //Debug.Log($"Orignal{orignalDirection}\nRotate{rotateDirection}\nTarget{targetPoint}");
 
                 this.angle = angle;
                 this.roundTurnCount = roundTurnCount - 1;
                 manager.Senser.FindPath(targetPoint);
+                //Debug.Log($"AroundStart turnCount = {roundTurnCount}");
             }
 
-            public AIAround(SpiderAIController manager) : base(manager)
+            public AIAround(GoblinAI manager) : base(manager)
             {
                 targetPoint = manager.player.transform.position
                     + IsometricUtility.ToIsometricVector3(manager.Character.transform.position - manager.player.transform.position).normalized
@@ -210,6 +221,7 @@ namespace CharacterSystem.Controller
                 angle = Random.Range(1, 10) > 5 ? -manager.AISetting.AroundDegree : manager.AISetting.AroundDegree;
                 roundTurnCount = manager.AISetting.RoundTurn;
                 manager.Senser.FindPath(targetPoint);
+                //Debug.Log($"AroundStart turnCount = {roundTurnCount}");
             }
 
             public override void Update()
@@ -229,6 +241,55 @@ namespace CharacterSystem.Controller
                         else
                             manager.SetState(new AIChase(manager));
                     }
+                }
+            }
+        }
+
+        protected class AIBasicAttack : IBasicAIState
+        {
+            public AIBasicAttack(GoblinAI manager) : base(manager)
+            {
+            }
+
+            public override void Update()
+            {
+                if (IsometricUtility.ToIsometricDistance(manager.Character.transform.position, manager.player.transform.position)
+                    > manager.AISetting.DetectedDistance)
+                    manager.SetState(new AIIdel(manager));
+
+                if (IsometricUtility.ToIsometricDistance(manager.player.transform.position, manager.Character.transform.position)
+                    > manager.AISetting.BasicAttackDistance)
+                    manager.SetState(new AIChase(manager));
+
+                if (manager.Character.CharacterData.BasicAttackTimer <= 0)
+                {
+                    manager.Character.Move(
+                        (manager.player.transform.position - manager.Character.transform.position).normalized);
+                    manager.Character.BasicAttack();
+                }
+            }
+        }
+
+        protected class AISpacilAttack : IBasicAIState
+        {
+            public AISpacilAttack(GoblinAI manager) : base(manager)
+            {
+            }
+
+            public override void Update()
+            {
+                if (IsometricUtility.ToIsometricDistance(manager.Character.transform.position, manager.player.transform.position)
+                    > manager.AISetting.DetectedDistance)
+                    manager.SetState(new AIIdel(manager));
+
+                if (IsometricUtility.ToIsometricDistance(manager.player.transform.position, manager.Character.transform.position)
+                    > manager.AISetting.SpacilAttackDistance)
+                    manager.SetState(new AIChase(manager));
+
+                if (manager.Character.CharacterData.SpacilAttackTimer <= 0)
+                {
+                    manager.Character.SpecialAttack(manager.player.transform.position);
+                    manager.SetState(new AIAround(manager));
                 }
             }
         }

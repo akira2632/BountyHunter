@@ -84,7 +84,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af666fe5f9f05e74d90be0f6b2fefbf4, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c74c9242612b5049b4720f3da7fc6fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6784073955828826069
@@ -97,7 +97,7 @@ PrefabInstance:
     - target: {fileID: 875525872581199544, guid: 8b7e09bb4e26d964d8704273ca4c6671,
         type: 3}
       propertyPath: m_Name
-      value: BasicAIController
+      value: BasicAI
       objectReference: {fileID: 0}
     - target: {fileID: 1376292349497022161, guid: 8b7e09bb4e26d964d8704273ca4c6671,
         type: 3}
@@ -137,7 +137,7 @@ PrefabInstance:
     - target: {fileID: 1376292349497022161, guid: 8b7e09bb4e26d964d8704273ca4c6671,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1376292349497022161, guid: 8b7e09bb4e26d964d8704273ca4c6671,
         type: 3}

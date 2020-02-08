@@ -295,9 +295,6 @@ namespace CharacterSystem.ActionProvider
             {
                 timer = 7;
 
-                actionController.AudioSource.clip = actionProvider.SpecailAttackSound;
-                actionController.AudioSource.Play();
-
                 actionController.CharacterAnimator.SetBool("SpecialAttack", true);
             }
 
@@ -331,6 +328,11 @@ namespace CharacterSystem.ActionProvider
             {
                 if (direction.magnitude > 0)
                     actionController.CharacterData.Direction = direction;
+            }
+
+            public override void OnAnimationStart()
+            {
+                actionController.AudioSource.PlayOneShot(actionProvider.SpecailAttackSound);
             }
 
             public override void Hit(DamageData damage)

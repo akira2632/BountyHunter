@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 1810561749657080560, guid: d7f05e6740797fb439b4bac1eb839ddf,
         type: 3}
       propertyPath: m_Name
-      value: Gobolin_AIController
+      value: Gobolin_Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6704382508476855882, guid: d7f05e6740797fb439b4bac1eb839ddf,
         type: 3}
@@ -70,7 +70,7 @@ PrefabInstance:
     - target: {fileID: 8105771671256716377, guid: d7f05e6740797fb439b4bac1eb839ddf,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7f05e6740797fb439b4bac1eb839ddf, type: 3}
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af666fe5f9f05e74d90be0f6b2fefbf4, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c74c9242612b5049b4720f3da7fc6fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8106438340858586500
@@ -102,7 +102,7 @@ PrefabInstance:
     - target: {fileID: 875525872581199544, guid: be4f56472156bad4ab57bbcba25645bb,
         type: 3}
       propertyPath: m_Name
-      value: GoblinAIController
+      value: GoblinAI
       objectReference: {fileID: 0}
     - target: {fileID: 1376292349497022161, guid: be4f56472156bad4ab57bbcba25645bb,
         type: 3}
@@ -142,7 +142,7 @@ PrefabInstance:
     - target: {fileID: 1376292349497022161, guid: be4f56472156bad4ab57bbcba25645bb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1376292349497022161, guid: be4f56472156bad4ab57bbcba25645bb,
         type: 3}
@@ -164,11 +164,5 @@ PrefabInstance:
       propertyPath: Character
       value: 
       objectReference: {fileID: 5711951779272369975}
-    - target: {fileID: 3838703293417618978, guid: be4f56472156bad4ab57bbcba25645bb,
-        type: 3}
-      propertyPath: AISetting
-      value: 
-      objectReference: {fileID: 11400000, guid: 37fa51753e92ab54fa5d2f6da30d9b7a,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be4f56472156bad4ab57bbcba25645bb, type: 3}
