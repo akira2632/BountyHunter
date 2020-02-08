@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: "\u5DE6\u4E0B\u9738\u6C23\u7121\u8CF4\u65AC_\u6B50\u514B\u968A\u9577"
+  m_Name: "\u53F3\u9738\u6C23\u7121\u8CF4\u65AC2_\u6B50\u514B\u968A\u9577"
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -38,23 +38,29 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
+      - serializedVersion: 3
+        time: 0.16666667
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: "\u6B50\u514B\u968A\u9577\u91CD\u653B\u64CAColider/\u5DE6\u4E0B"
+    path: "\u6B50\u514B\u968A\u9577\u91CD\u653B\u64CAColider/\u53F3"
     classID: 60
     script: {fileID: 0}
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 2398506029558796880, guid: 1b70819e4052591499c9d46ba6c5e298,
+      value: {fileID: -8531851871921277785, guid: 1b70819e4052591499c9d46ba6c5e298,
         type: 3}
     - time: 0.083333336
-      value: {fileID: -8434848779791630261, guid: 1b70819e4052591499c9d46ba6c5e298,
-        type: 3}
-    - time: 0.16666667
-      value: {fileID: -139286278142564797, guid: 1b70819e4052591499c9d46ba6c5e298,
+      value: {fileID: 762359226335802812, guid: 1b70819e4052591499c9d46ba6c5e298,
         type: 3}
     attribute: m_Sprite
     path: 
@@ -68,7 +74,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2243746687
+      path: 50530287
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 60
@@ -82,15 +88,14 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 2398506029558796880, guid: 1b70819e4052591499c9d46ba6c5e298, type: 3}
-    - {fileID: -8434848779791630261, guid: 1b70819e4052591499c9d46ba6c5e298, type: 3}
-    - {fileID: -139286278142564797, guid: 1b70819e4052591499c9d46ba6c5e298, type: 3}
+    - {fileID: -8531851871921277785, guid: 1b70819e4052591499c9d46ba6c5e298, type: 3}
+    - {fileID: 762359226335802812, guid: 1b70819e4052591499c9d46ba6c5e298, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.25
+    m_StopTime: 0.16666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -127,11 +132,20 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
+      - serializedVersion: 3
+        time: 0.16666667
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: "\u6B50\u514B\u968A\u9577\u91CD\u653B\u64CAColider/\u5DE6\u4E0B"
+    path: "\u6B50\u514B\u968A\u9577\u91CD\u653B\u64CAColider/\u53F3"
     classID: 60
     script: {fileID: 0}
   m_EulerEditorCurves: []
