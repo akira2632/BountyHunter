@@ -103,6 +103,12 @@ namespace CharacterSystem.ActionProvider
                 actionController.CharacterData.BasicAttackTimer = actionController.CharacterData.BasicAttackSpeed;
                 actionController.SetAction(actionProvider.GetIdelAction(actionController));
             }
+
+            public override void Hit(DamageData damage)
+            {
+                actionController.AudioSource.Stop();
+                actionController.SetAction(actionProvider.GetScarecrowHurtAction(actionController, damage));
+            }
         }
 
         private class ScarecrowHurt : IScarecrowAction

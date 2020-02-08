@@ -114,8 +114,11 @@ namespace CharacterSystem.ActionProvider
             #endregion
 
             #region 外部事件
-            public override void BasicAttack() =>
-                actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
+            public override void BasicAttack()
+            {
+                if (actionController.CharacterData.BasicAttackTimer <= 0)
+                    actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
+            }
 
             public override void Move(Vector2 direction)
             {
@@ -164,8 +167,11 @@ namespace CharacterSystem.ActionProvider
             #endregion
 
             #region 外部事件
-            public override void BasicAttack() =>
-               actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
+            public override void BasicAttack()
+            {
+                if (actionController.CharacterData.BasicAttackTimer <= 0)
+                    actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
+            }
 
             public override void Move(Vector2 direction)
             {

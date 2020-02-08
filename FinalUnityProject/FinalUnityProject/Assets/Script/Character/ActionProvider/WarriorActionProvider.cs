@@ -170,11 +170,17 @@ namespace CharacterSystem.ActionProvider
                     actionController.SetAction(actionProvider.GetDeffendAction(actionController));
             }
 
-            public override void BasicAttack() =>
-               actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
+            public override void BasicAttack()
+            {
+                if(actionController.CharacterData.BasicAttackTimer <= 0)
+                    actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
+            }
 
-            public override void SpecialAttack() =>
-               actionController.SetAction(actionProvider.GetSpecialAttackStartAction(actionController));
+            public override void SpecialAttack()
+            {
+                if(actionController.CharacterData.SpacilAttackTimer <=0)
+                    actionController.SetAction(actionProvider.GetSpecialAttackStartAction(actionController));
+            }
 
             public override void Move(Vector2 direction)
             {
@@ -240,11 +246,17 @@ namespace CharacterSystem.ActionProvider
                     actionController.SetAction(actionProvider.GetDeffendAction(actionController));
             }
 
-            public override void SpecialAttack() =>
-                actionController.SetAction(actionProvider.GetSpecialAttackStartAction(actionController));
+            public override void SpecialAttack()
+            {
+                if (actionController.CharacterData.SpacilAttackTimer <= 0)
+                    actionController.SetAction(actionProvider.GetSpecialAttackStartAction(actionController));
+            }
 
-            public override void BasicAttack() =>
-                actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
+            public override void BasicAttack()
+            {
+                if (actionController.CharacterData.BasicAttackTimer <= 0)
+                    actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
+            }
             #endregion
         }
 
@@ -288,7 +300,8 @@ namespace CharacterSystem.ActionProvider
 
             public override void BasicAttack()
             {
-                actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
+                if (actionController.CharacterData.BasicAttackTimer <= 0)
+                    actionController.SetAction(actionProvider.GetBasicAttackAction(actionController));
             }
 
             public override void Hit(DamageData damage)
