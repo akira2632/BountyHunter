@@ -123,7 +123,7 @@ MonoBehaviour:
   ActionProvider: {fileID: 11400000, guid: e4505ed06549ec6468302233de7ce548, type: 2}
   MovementBody: {fileID: 2860502676911354287}
   MovementCollider: {fileID: 2860502676911354280}
-  CharacterAnimator: {fileID: 2860502676911354283}
+  Animator: {fileID: 2860502676911354283}
   AudioSource: {fileID: 2860502676911354286}
   SpriteRenderer: {fileID: 2860502676911354282}
 --- !u!212 &2860502676911354282

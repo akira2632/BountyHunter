@@ -82,6 +82,7 @@
     <Compile Include="Assets\Script\Character\Controller\GoblinAISetting.cs" />
     <Compile Include="Assets\Script\Character\Controller\GoblinAITeam.cs" />
     <Compile Include="Assets\Script\Character\Controller\OrcCaptainAI.cs" />
+    <Compile Include="Assets\Script\Character\Controller\OrcCaptainAISetting.cs" />
     <Compile Include="Assets\Script\Character\Controller\PlayerController.cs" />
     <Compile Include="Assets\Script\Character\Controller\ScarecrowAI.cs" />
     <Compile Include="Assets\Script\Character\Controller\SpiderAI.cs" />

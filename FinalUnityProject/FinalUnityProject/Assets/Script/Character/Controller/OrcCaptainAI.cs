@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CharacterSystem.Controller
 {
@@ -8,7 +6,7 @@ namespace CharacterSystem.Controller
     {
         public CharacterActionController Character;
         public BasicAISenser Senser;
-        public BasicAISetting AISetting;
+        public OrcCaptainAISetting AISetting;
 
         private GameObject player;
 

@@ -106,11 +106,11 @@ namespace CharacterSystem.ActionProvider
             {
                 IsometricUtility.GetVerticalAndHorizontal(
                     actionController.CharacterData.Direction, out var vertical, out var horizontal);
-                actionController.CharacterAnimator.SetFloat("Vertical", vertical);
-                actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                actionController.Animator.SetFloat("Vertical", vertical);
+                actionController.Animator.SetFloat("Horizontal", horizontal);
 
-                actionController.CharacterAnimator.SetBool("IsFallDown", false);
-                actionController.CharacterAnimator.SetBool("IsMove", false);
+                actionController.Animator.SetBool("IsFallDown", false);
+                actionController.Animator.SetBool("IsMove", false);
             }
             #endregion
 
@@ -142,17 +142,17 @@ namespace CharacterSystem.ActionProvider
 
                 IsometricUtility.GetVerticalAndHorizontal(
                     actionController.CharacterData.Direction, out var vertical, out var horizontal);
-                actionController.CharacterAnimator.SetFloat("Vertical", vertical);
-                actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
-                actionController.CharacterAnimator.SetBool("IsMove", true);
+                actionController.Animator.SetFloat("Vertical", vertical);
+                actionController.Animator.SetFloat("Horizontal", horizontal);
+                actionController.Animator.SetBool("IsMove", true);
             }
 
             public override void Update()
             {
                 IsometricUtility.GetVerticalAndHorizontal(
                     actionController.CharacterData.Direction, out var vertical, out var horizontal);
-                actionController.CharacterAnimator.SetFloat("Vertical", vertical);
-                actionController.CharacterAnimator.SetFloat("Horizontal", horizontal);
+                actionController.Animator.SetFloat("Vertical", vertical);
+                actionController.Animator.SetFloat("Horizontal", horizontal);
 
                 actionController.MovementBody.MovePosition(actionController.MovementBody.position +
                     IsometricUtility.ToIsometricVector2(actionController.CharacterData.Direction)
@@ -163,7 +163,7 @@ namespace CharacterSystem.ActionProvider
             {
                 actionController.AudioSource.Stop();
 
-                actionController.CharacterAnimator.SetBool("IsMove", false);
+                actionController.Animator.SetBool("IsMove", false);
             }
             #endregion
 
@@ -197,7 +197,7 @@ namespace CharacterSystem.ActionProvider
 
                 actionController.AudioSource.PlayOneShot(actionProvider.BasicAttackSound);
 
-                actionController.CharacterAnimator.SetTrigger("BasicAttack");
+                actionController.Animator.SetTrigger("BasicAttack");
             }
             #endregion
 
@@ -230,7 +230,7 @@ namespace CharacterSystem.ActionProvider
 
                 actionController.AudioSource.PlayOneShot(actionProvider.HurtSound);
 
-                actionController.CharacterAnimator.SetBool("IsHurt", true);
+                actionController.Animator.SetBool("IsHurt", true);
             }
 
             public override void Update()
@@ -248,7 +248,7 @@ namespace CharacterSystem.ActionProvider
 
             public override void End()
             {
-                actionController.CharacterAnimator.SetBool("IsHurt", false);
+                actionController.Animator.SetBool("IsHurt", false);
             }
             #endregion
         }
@@ -265,7 +265,7 @@ namespace CharacterSystem.ActionProvider
 
                 actionController.AudioSource.PlayOneShot(actionProvider.HurtSound);
 
-                actionController.CharacterAnimator.SetBool("IsFallDown", true);
+                actionController.Animator.SetBool("IsFallDown", true);
             }
 
             public override void Update()
@@ -277,7 +277,7 @@ namespace CharacterSystem.ActionProvider
 
             public override void End()
             {
-                actionController.CharacterAnimator.SetBool("IsFallDown", false);
+                actionController.Animator.SetBool("IsFallDown", false);
             }
             #endregion
         }
@@ -295,7 +295,7 @@ namespace CharacterSystem.ActionProvider
 
                 actionController.AudioSource.PlayOneShot(actionProvider.FallDownSound);
 
-                actionController.CharacterAnimator.SetBool("IsFallDown", true);
+                actionController.Animator.SetBool("IsFallDown", true);
             }
 
             public override void Update()
@@ -311,7 +311,7 @@ namespace CharacterSystem.ActionProvider
             public override void End()
             {
                 actionController.MovementCollider.enabled = true;
-                actionController.CharacterAnimator.SetBool("IsFallDown", false);
+                actionController.Animator.SetBool("IsFallDown", false);
             }
             #endregion
         }

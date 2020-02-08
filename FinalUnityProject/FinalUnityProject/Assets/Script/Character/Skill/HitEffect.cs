@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CharacterSystem.Skill
 {
-    [CreateAssetMenu(fileName = "技能特效設定", menuName = "賞金獵人/技能資料/技能效果", order = 0)]
+    [CreateAssetMenu(fileName = "擊中特效設定", menuName = "賞金獵人/技能資料/擊中特效", order = 0)]
     public class HitEffect : ScriptableObject
     {
         #region 輔助用結構

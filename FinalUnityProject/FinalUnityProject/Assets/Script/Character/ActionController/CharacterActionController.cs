@@ -12,7 +12,7 @@ namespace CharacterSystem
 
         public Rigidbody2D MovementBody;
         public Collider2D MovementCollider;
-        public Animator CharacterAnimator;
+        public Animator Animator;
         public AudioSource AudioSource;
         public SpriteRenderer SpriteRenderer;
 

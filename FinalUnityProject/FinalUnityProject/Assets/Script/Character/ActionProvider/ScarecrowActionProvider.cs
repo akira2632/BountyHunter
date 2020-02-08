@@ -95,7 +95,7 @@ namespace CharacterSystem.ActionProvider
             {
                 actionController.AudioSource.PlayOneShot(actionProvider.AttackSound);
 
-                actionController.CharacterAnimator.SetTrigger("Attack");
+                actionController.Animator.SetTrigger("Attack");
             }
 
             public override void OnAnimationEnd()
@@ -125,7 +125,7 @@ namespace CharacterSystem.ActionProvider
             public override void Start()
             {
                 actionController.SpriteRenderer.flipX = flipX;
-                actionController.CharacterAnimator.SetTrigger("Hurt");
+                actionController.Animator.SetTrigger("Hurt");
 
                 actionController.AudioSource.PlayOneShot(actionProvider.HurtSound);
 
