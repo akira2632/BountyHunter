@@ -112,7 +112,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3600765214572056676}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7, z: -10}
+  m_LocalPosition: {x: -0.959, y: -0.406, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3600765215720124512}
@@ -153,7 +153,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1025
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -286,189 +286,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   m_CustomBlends: {fileID: 11400000, guid: 4107e75262c2cf340848f9edf245c641, type: 2}
-  m_ParentHash:
-  - m_Hash: 1191156423
-    m_ParentHash: 756556552
-  - m_Hash: -1618245707
-    m_ParentHash: 1191156423
-  - m_Hash: -201191648
-    m_ParentHash: 1191156423
-  - m_Hash: -861575360
-    m_ParentHash: 1191156423
-  - m_Hash: 843340327
-    m_ParentHash: 1191156423
-  - m_Hash: 1368039814
-    m_ParentHash: 1191156423
-  - m_Hash: 972852225
-    m_ParentHash: 1191156423
-  - m_Hash: 1383400596
-    m_ParentHash: 1191156423
-  - m_Hash: 1792175348
-    m_ParentHash: 1191156423
-  - m_Hash: 856838346
-    m_ParentHash: 756556552
-  - m_Hash: 1238888237
-    m_ParentHash: 856838346
-  - m_Hash: -1339632101
-    m_ParentHash: 856838346
-  - m_Hash: 452530136
-    m_ParentHash: 856838346
-  - m_Hash: 1986036508
-    m_ParentHash: 856838346
-  - m_Hash: 363755709
-    m_ParentHash: 856838346
-  - m_Hash: -274668391
-    m_ParentHash: 856838346
-  - m_Hash: 374463919
-    m_ParentHash: 856838346
-  - m_Hash: -1131543444
-    m_ParentHash: 856838346
-  - m_Hash: 1916846564
-    m_ParentHash: 756556552
-  - m_Hash: 1155356801
-    m_ParentHash: 1916846564
-  - m_Hash: -1856182070
-    m_ParentHash: 1916846564
-  - m_Hash: 401848436
-    m_ParentHash: 1916846564
-  - m_Hash: 1461370317
-    m_ParentHash: 1916846564
-  - m_Hash: 886326892
-    m_ParentHash: 1916846564
-  - m_Hash: -492154059
-    m_ParentHash: 1916846564
-  - m_Hash: 925623166
-    m_ParentHash: 1916846564
-  - m_Hash: -1316703296
-    m_ParentHash: 1916846564
-  - m_Hash: 221364471
-    m_ParentHash: 756556552
-  - m_Hash: -1332729887
-    m_ParentHash: 221364471
-  - m_Hash: -1377723368
-    m_ParentHash: 221364471
-  - m_Hash: 1289659215
-    m_ParentHash: 221364471
-  - m_Hash: 765445783
-    m_ParentHash: 221364471
-  - m_Hash: -1091406595
-    m_ParentHash: 756556552
-  - m_Hash: 639588714
-    m_ParentHash: -1091406595
-  - m_Hash: -531035027
-    m_ParentHash: -1091406595
-  - m_Hash: -2087192628
-    m_ParentHash: -1091406595
-  - m_Hash: -2140646690
-    m_ParentHash: -1091406595
-  - m_Hash: 637361440
-    m_ParentHash: 756556552
-  - m_Hash: -98628404
-    m_ParentHash: 637361440
-  - m_Hash: 1270763330
-    m_ParentHash: 637361440
-  - m_Hash: -1338599456
-    m_ParentHash: 637361440
-  - m_Hash: -764190013
-    m_ParentHash: 637361440
-  - m_Hash: -1846581934
-    m_ParentHash: 637361440
-  - m_Hash: 1417125213
-    m_ParentHash: 637361440
-  - m_Hash: -438903085
-    m_ParentHash: 637361440
-  - m_Hash: 509478513
-    m_ParentHash: 637361440
-  - m_Hash: 414138483
-    m_ParentHash: 756556552
-  - m_Hash: -1114631822
-    m_ParentHash: 414138483
-  - m_Hash: -680449249
-    m_ParentHash: 414138483
-  - m_Hash: -138835362
-    m_ParentHash: 414138483
-  - m_Hash: 1320945310
-    m_ParentHash: 414138483
-  - m_Hash: 220201231
-    m_ParentHash: 414138483
-  - m_Hash: 335053027
-    m_ParentHash: 414138483
-  - m_Hash: 2031729294
-    m_ParentHash: 414138483
-  - m_Hash: 1506876367
-    m_ParentHash: 414138483
-  - m_Hash: -374519771
-    m_ParentHash: 756556552
-  - m_Hash: 1756433387
-    m_ParentHash: -374519771
-  - m_Hash: -259723720
-    m_ParentHash: -374519771
-  - m_Hash: 580423879
-    m_ParentHash: -374519771
-  - m_Hash: 1766441913
-    m_ParentHash: -374519771
-  - m_Hash: 718652456
-    m_ParentHash: -374519771
-  - m_Hash: -958817670
-    m_ParentHash: -374519771
-  - m_Hash: 1592557481
-    m_ParentHash: -374519771
-  - m_Hash: -1930428074
-    m_ParentHash: -374519771
-  - m_Hash: -1878998692
-    m_ParentHash: 756556552
-  - m_Hash: 1299834172
-    m_ParentHash: -1878998692
-  - m_Hash: 1532169735
-    m_ParentHash: -1878998692
-  - m_Hash: 122715664
-    m_ParentHash: -1878998692
-  - m_Hash: -1029823610
-    m_ParentHash: -1878998692
-  - m_Hash: -2130566121
-    m_ParentHash: -1878998692
-  - m_Hash: -485395283
-    m_ParentHash: -1878998692
-  - m_Hash: -180641898
-    m_ParentHash: -1878998692
-  - m_Hash: -1455886463
-    m_ParentHash: -1878998692
-  - m_Hash: 442681799
-    m_ParentHash: 756556552
-  - m_Hash: 1132623254
-    m_ParentHash: 442681799
-  - m_Hash: -1002331722
-    m_ParentHash: 442681799
-  - m_Hash: 162262714
-    m_ParentHash: 442681799
-  - m_Hash: 1569492023
-    m_ParentHash: 442681799
-  - m_Hash: 504400806
-    m_ParentHash: 442681799
-  - m_Hash: -303373305
-    m_ParentHash: 442681799
-  - m_Hash: 1781084199
-    m_ParentHash: 442681799
-  - m_Hash: -1480360149
-    m_ParentHash: 442681799
-  - m_Hash: 1969046558
-    m_ParentHash: 756556552
-  - m_Hash: 1574685977
-    m_ParentHash: 1969046558
-  - m_Hash: -763150787
-    m_ParentHash: 1969046558
-  - m_Hash: 250949100
-    m_ParentHash: 1969046558
-  - m_Hash: 348482362
-    m_ParentHash: 1969046558
-  - m_Hash: 1997246619
-    m_ParentHash: 1969046558
-  - m_Hash: -72563027
-    m_ParentHash: 1969046558
-  - m_Hash: 1962161545
-    m_ParentHash: 1969046558
-  - m_Hash: -1467865512
-    m_ParentHash: 1969046558
+  m_ParentHash: []
 --- !u!1 &3600765214820346968
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,8 +428,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LookaheadTime: 0.4
-  m_LookaheadSmoothing: 7
+  m_LookaheadTime: 0.6
+  m_LookaheadSmoothing: 20
   m_LookaheadIgnoreY: 0
   m_XDamping: 2
   m_YDamping: 2
@@ -911,7 +729,7 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_StandbyUpdate: 2
+  m_StandbyUpdate: 0
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
