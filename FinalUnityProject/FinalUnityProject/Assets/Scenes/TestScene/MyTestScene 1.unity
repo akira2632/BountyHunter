@@ -6800,7 +6800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerKeySetting: {fileID: 11400000, guid: aeb0aaa3a4dd6304cb004cf477e1dffa, type: 2}
-  MyCharacter: {fileID: 1432001700}
+  MyCharacter: {fileID: 1735266372}
   direction: {x: 0, y: 0}
 --- !u!4 &994114082
 Transform:
@@ -7008,18 +7008,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4fba33e9d41ea4f46808f10efbba5dd0, type: 3}
---- !u!114 &1432001700 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6875937971818516457, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1996477851}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c74c9242612b5049b4720f3da7fc6fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1479241497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7198,6 +7186,18 @@ Transform:
   m_Father: {fileID: 481042604}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1735266372 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4722499259949507293, guid: d7f05e6740797fb439b4bac1eb839ddf,
+    type: 3}
+  m_PrefabInstance: {fileID: 870794751}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c74c9242612b5049b4720f3da7fc6fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1768107324
 PrefabInstance:
   m_ObjectHideFlags: 0

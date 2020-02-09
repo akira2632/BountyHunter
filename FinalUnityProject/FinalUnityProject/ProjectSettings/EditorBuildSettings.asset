@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: "Assets/Scenes/\u6751\u838A\u5730\u5716.unity"
     guid: ae71af22b8c497440b76f658b55a7b0b
   - enabled: 1
-    path: Assets/Scenes/RandomMap_V6_AddCharacter.unity
+    path: "Assets/Scenes/\u5730\u7262.unity"
     guid: a46dfbee1fa1f384fb417c861f8113a5
   - enabled: 1
     path: Assets/Scenes/UIScene/Menu.unity
