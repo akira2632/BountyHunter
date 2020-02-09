@@ -19,7 +19,7 @@ MonoBehaviour:
   CharacterDodgeSpeed: 0
   CharacterAttack: 40
   CharacterAttackFloating: 10
-  CharacterBasicAttackSpeed: 1
+  CharacterBasicAttackSpeed: 2
   CharacterSpacilAttackSpeed: 15
   CharacterCriticalMagnifiction: 1.66
   CharacterCriticalRate: 8.96

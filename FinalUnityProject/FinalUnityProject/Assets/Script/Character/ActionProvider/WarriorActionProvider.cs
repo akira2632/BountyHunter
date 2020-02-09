@@ -400,8 +400,7 @@ namespace CharacterSystem.ActionProvider
             #region 動作更新
             public override void Start()
             {
-                //GameManager.Instance.WarriorDodge(true);
-                actionController.MovementCollider.isTrigger = true;
+                actionController.gameObject.layer = 10;
                 dodgeDistance = 0;
             }
 
@@ -422,8 +421,7 @@ namespace CharacterSystem.ActionProvider
 
             public override void End()
             {
-                //GameManager.Instance.WarriorDodge(false);
-                actionController.MovementCollider.isTrigger = false;
+                actionController.gameObject.layer = 0;
             }
             #endregion
 
