@@ -135,12 +135,23 @@ namespace CharacterSystem.Controller
 
                 if (manager.Senser.PathFinded)
                 {
-                    if (IsometricUtility.ToIsometricDistance(manager.player.transform.position, manager.Character.transform.position) < manager.AISetting.AttackDistance
-                        && manager.Character.CharacterData.BasicAttackTimer <= 0)
+                    if (IsometricUtility.ToIsometricDistance(manager.player.transform.position, manager.Character.transform.position)
+                        < manager.AISetting.AttackDistance)
                     {
-                        manager.SetState(new AIAttack());
+                        if (manager.Character.CharacterData.SpacilAttackTimer <= 0)
+                        {
+                            manager.SetState(new AISpecialAttack());
+                            return;
+                        }
+
+                        if(manager.Character.CharacterData.BasicAttackTimer <= 0)
+                        {
+                            manager.SetState(new AIBasicAttack());
+                            return;
+                        }
                     }
-                    else if (IsometricUtility.ToIsometricDistance(nextPoint, manager.Character.transform.position)
+
+                    if (IsometricUtility.ToIsometricDistance(nextPoint, manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
                     {
                         manager.Character.Move(
@@ -159,7 +170,7 @@ namespace CharacterSystem.Controller
             }
         }
 
-        protected class AIAttack : IBasicAIState
+        protected class AIBasicAttack : IBasicAIState
         {
             public override void Initial()
             {
@@ -185,6 +196,27 @@ namespace CharacterSystem.Controller
                         (manager.player.transform.position - manager.Character.transform.position).normalized);
                     manager.Character.BasicAttack();
                 }
+            }
+        }
+
+        protected class AISpecialAttack : IBasicAIState
+        {
+            public override void Initial()
+            {
+                manager.Character.Move(
+                    (manager.player.transform.position - manager.Character.transform.position).normalized);
+                manager.Character.SpecialAttack();
+            }
+
+            public override void Update()
+            {
+                if (manager.Character.CharacterData.SpacilAttackTimer > 0)
+                    manager.SetState(new AIIdel());
+
+                if (IsometricUtility.ToIsometricDistance(manager.Character.transform.position, manager.player.transform.position)
+                    > manager.AISetting.AttackDistance)
+                    manager.Character.Move(
+                        (manager.player.transform.position - manager.Character.transform.position).normalized);
             }
         }
         #endregion

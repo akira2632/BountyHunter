@@ -312,11 +312,13 @@ namespace CharacterSystem.ActionProvider
 
                 actionController.MovementBody.MovePosition(actionController.MovementBody.position +
                     IsometricUtility.ToIsometricVector2(actionController.CharacterData.Direction)
-                    * actionController.CharacterData.MoveSpeed * 2 * Time.deltaTime);
+                    * actionController.CharacterData.MoveSpeed * 1.2f * Time.deltaTime);
             }
 
             public override void End()
             {
+                actionController.CharacterData.SpacilAttackTimer = actionController.CharacterData.SpacilAttackSpeed;
+
                 actionController.AudioSource.Stop();
 
                 actionController.Animator.SetBool("SpecialAttack", false);
