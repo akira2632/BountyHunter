@@ -59,7 +59,7 @@ namespace CharacterSystem
             set
             {
                 _direction = value;
-                _target = IsometricUtility.ToIsometricVector3(_direction) * 10 + transform.position;
+                _target = IsometricUtility.ToVector3(_direction) * 10 + transform.position;
             }
         }
         public Vector3 TargetPosition

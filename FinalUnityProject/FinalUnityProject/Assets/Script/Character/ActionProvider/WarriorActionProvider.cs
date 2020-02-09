@@ -219,7 +219,7 @@ namespace CharacterSystem.ActionProvider
                 actionController.Animator.SetFloat("Horizontal", horizontal);
 
                 actionController.MovementBody.MovePosition(actionController.MovementBody.position +
-                    IsometricUtility.ToIsometricVector2(actionController.CharacterData.Direction)
+                    IsometricUtility.ToVector2(actionController.CharacterData.Direction)
                     * actionController.CharacterData.MoveSpeed * Time.deltaTime);
             }
 
@@ -407,7 +407,7 @@ namespace CharacterSystem.ActionProvider
             public override void Update()
             {
                 Vector2 dodgeVector =
-                    IsometricUtility.ToIsometricVector2(actionController.CharacterData.Direction)
+                    IsometricUtility.ToVector2(actionController.CharacterData.Direction)
                     * actionController.CharacterData.DodgeSpeed * Time.deltaTime;
 
                 dodgeDistance += dodgeVector.magnitude;
@@ -467,7 +467,7 @@ namespace CharacterSystem.ActionProvider
                 if (dodgeDistance < targetDistance)
                 {
                     Vector2 dodgeVector =
-                        IsometricUtility.ToIsometricVector2(actionController.CharacterData.Direction)
+                        IsometricUtility.ToVector2(actionController.CharacterData.Direction)
                         * actionController.CharacterData.DodgeSpeed * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;
@@ -578,7 +578,7 @@ namespace CharacterSystem.ActionProvider
                 if (dodgeDistance < targetDistance)
                 {
                     Vector2 dodgeVector =
-                        IsometricUtility.ToIsometricVector2(actionController.CharacterData.Direction)
+                        IsometricUtility.ToVector2(actionController.CharacterData.Direction)
                         * actionController.CharacterData.DodgeSpeed * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;

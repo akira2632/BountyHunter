@@ -184,7 +184,7 @@ namespace CharacterSystem.ActionProvider
                 actionController.Animator.SetFloat("Horizontal", horizontal);
 
                 actionController.MovementBody.MovePosition(actionController.MovementBody.position +
-                    IsometricUtility.ToIsometricVector2(actionController.CharacterData.Direction)
+                    IsometricUtility.ToVector2(actionController.CharacterData.Direction)
                     * actionController.CharacterData.MoveSpeed * Time.deltaTime);
             }
 
@@ -310,7 +310,7 @@ namespace CharacterSystem.ActionProvider
             public override void Start()
             {
                 nowDistance = 0;
-                knockBackDirection = IsometricUtility.ToIsometricVector2(
+                knockBackDirection = IsometricUtility.ToVector2(
                     actionController.MovementBody.position - damage.HitFrom).normalized;
 
                 actionController.AudioSource.PlayOneShot(actionProvider.HurtSound);

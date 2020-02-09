@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 3419315091385338913}
   - component: {fileID: -1932950526458316731}
   m_Layer: 0
-  m_Name: "Collider\u6230\u58EB\u8F15\u653B\u64CA"
+  m_Name: "\u6230\u58EB\u666E\u901A\u653B\u64CACollider"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
   Character: {fileID: 0}
   SkillDamage: {fileID: 11400000, guid: a26a55becdc22f04cbc1c868a99a9b51, type: 2}
   TargetTag: Enemy
-  HitAll: 0
+  HitAll: 1
 --- !u!50 &-1932950526458316731
 Rigidbody2D:
   serializedVersion: 4

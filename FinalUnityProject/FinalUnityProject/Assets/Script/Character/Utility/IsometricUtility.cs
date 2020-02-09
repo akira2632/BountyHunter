@@ -11,19 +11,19 @@ namespace CharacterSystem
             HorizontalMax = Mathf.PI * 5 / 8;
 
         #region ToIsometricVector2
-        public static Vector2 ToIsometricVector2(Vector2 vector)
+        public static Vector2 ToVector2(Vector2 vector)
         {
             float angle = Mathf.Atan2(vector.y, vector.x);
             return new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
         }
 
-        public static Vector2 ToIsometricVector2(Vector3 vector)
+        public static Vector2 ToVector2(Vector3 vector)
         {
             float angle = Mathf.Atan2(vector.y, vector.x);
             return new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
         }
 
-        public static Vector2 ToIsometricVector2(Vector2 from, Vector2 to)
+        public static Vector2 ToVector2(Vector2 from, Vector2 to)
         {
             float angle = Mathf.Atan2(to.y - from.y, to.x - from.x);
             float orignalDistance = Vector2.Distance(from, to);
@@ -32,7 +32,7 @@ namespace CharacterSystem
                 0.6f * orignalDistance * Mathf.Sin(angle));
         }
 
-        public static Vector2 ToIsometricVector2(Vector3 from, Vector3 to)
+        public static Vector2 ToVector2(Vector3 from, Vector3 to)
         {
             float angle = Mathf.Atan2(to.y - from.y, to.x - from.x);
             float orignalDistance = Vector2.Distance(from, to);
@@ -43,21 +43,19 @@ namespace CharacterSystem
         #endregion
 
         #region ToIsometricVector3
-        public static Vector3 ToIsometricVector3(Vector2 vector)
+        public static Vector3 ToVector3(Vector2 vector)
         {
             float angle = Mathf.Atan2(vector.y, vector.x);
-            return new Vector3(vector.magnitude * Mathf.Cos(angle),
-                0.6f * vector.magnitude * Mathf.Sin(angle));
+            return new Vector3(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
         }
 
-        public static Vector3 ToIsometricVector3(Vector3 vector)
+        public static Vector3 ToVector3(Vector3 vector)
         {
             float angle = Mathf.Atan2(vector.y, vector.x);
-            return new Vector3(vector.magnitude * Mathf.Cos(angle),
-                0.6f * vector.magnitude * Mathf.Sin(angle));
+            return new Vector3(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
         }
 
-        public static Vector3 ToIsometricVector3(Vector2 from, Vector2 to)
+        public static Vector3 ToVector3(Vector2 from, Vector2 to)
         {
             float angle = Mathf.Atan2(to.y - from.y, to.x - from.x);
             float orignalDistance = Vector2.Distance(from, to);
@@ -66,7 +64,7 @@ namespace CharacterSystem
                 0.6f * orignalDistance * Mathf.Sin(angle));
         }
 
-        public static Vector3 ToIsometricVector3(Vector3 from, Vector3 to)
+        public static Vector3 ToVector3(Vector3 from, Vector3 to)
         {
             float angle = Mathf.Atan2(to.y - from.y, to.x - from.x);
             float orignalDistance = Vector2.Distance(from, to);
@@ -77,11 +75,11 @@ namespace CharacterSystem
         #endregion
 
         #region ToIsometricDistance
-        public static float ToIsometricDistance(Vector2 from, Vector2 to)
-            => ToIsometricVector2(from, to).magnitude;
+        public static float ToDistance(Vector2 from, Vector2 to)
+            => ToVector2(from, to).magnitude;
 
-        public static float ToIsometricDistance(Vector3 from, Vector3 to)
-            => ToIsometricVector2(from, to).magnitude;
+        public static float ToDistance(Vector3 from, Vector3 to)
+            => ToVector2(from, to).magnitude;
         #endregion
 
         #region VerticalAndHorizontal

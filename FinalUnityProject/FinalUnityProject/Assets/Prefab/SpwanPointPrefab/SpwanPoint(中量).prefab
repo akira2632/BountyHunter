@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3355702511516907040}
   - component: {fileID: 3355702511516907042}
   m_Layer: 0
-  m_Name: "SpwanPoint\u4E2D\u91CF)"
+  m_Name: "SpwanPoint(\u4E2D\u91CF)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,43 +45,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActiveRange: 50
-  SpwanWhenVisible: 0
+  SpwanWhenVisible: 1
   SpwanMobs:
   - MobPrefab: {fileID: 1724093325144561434, guid: 97ff962db449b634bb19cc07331b81f8,
       type: 3}
     SpwanRate: 6
-    Timer: 6
-    IsAlive: 1
+    Timer: 0
+    IsAlive: 0
   - MobPrefab: {fileID: 1724093325144561434, guid: 97ff962db449b634bb19cc07331b81f8,
       type: 3}
     SpwanRate: 5
-    Timer: -0.004511876
-    IsAlive: 1
+    Timer: 0
+    IsAlive: 0
   - MobPrefab: {fileID: 1724093325144561434, guid: 97ff962db449b634bb19cc07331b81f8,
       type: 3}
     SpwanRate: 4
-    Timer: 4
-    IsAlive: 1
+    Timer: 0
+    IsAlive: 0
   - MobPrefab: {fileID: 4181572089863736269, guid: cb49ace21592d93419e2d44f5cf3b062,
       type: 3}
     SpwanRate: 3
-    Timer: 3
-    IsAlive: 1
+    Timer: 0
+    IsAlive: 0
   - MobPrefab: {fileID: 4181572089863736269, guid: cb49ace21592d93419e2d44f5cf3b062,
       type: 3}
     SpwanRate: 2
     Timer: 0
-    IsAlive: 1
+    IsAlive: 0
   - MobPrefab: {fileID: 6149793954542771641, guid: 99152fe1a81154c448ea8fa5b744de0c,
       type: 3}
     SpwanRate: 2
     Timer: 0
-    IsAlive: 1
+    IsAlive: 0
   - MobPrefab: {fileID: 6149793954542771641, guid: 99152fe1a81154c448ea8fa5b744de0c,
       type: 3}
     SpwanRate: 2
     Timer: 0
-    IsAlive: 1
+    IsAlive: 0
 --- !u!212 &3355702511516907042
 SpriteRenderer:
   m_ObjectHideFlags: 0

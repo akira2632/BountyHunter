@@ -18,7 +18,7 @@ namespace CharacterSystem.Controller
 
         private void Update()
         {
-            if (IsometricUtility.ToIsometricDistance(player.transform.position, Character.transform.position) <= AttackDistance
+            if (IsometricUtility.ToDistance(player.transform.position, Character.transform.position) <= AttackDistance
                 && Character.CharacterData.BasicAttackTimer <= 0)
                 Character.BasicAttack();
         }

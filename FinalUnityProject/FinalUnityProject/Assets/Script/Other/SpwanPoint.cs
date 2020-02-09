@@ -22,7 +22,7 @@ namespace CharacterSystem
                 item.Start(gameObject);
             }
 
-            if (IsometricUtility.ToIsometricDistance(
+            if (IsometricUtility.ToDistance(
                     transform.position, player.position) <= ActiveRange)
                 isActive = true;
             else
@@ -41,7 +41,7 @@ namespace CharacterSystem
             }
 
             if (!isActive &&
-                IsometricUtility.ToIsometricDistance(
+                IsometricUtility.ToDistance(
                     transform.position, player.position) <= ActiveRange)
             {
                 isActive = true;
@@ -51,7 +51,7 @@ namespace CharacterSystem
                 }
             }
             else if (isActive &&
-                IsometricUtility.ToIsometricDistance(
+                IsometricUtility.ToDistance(
                     transform.position, player.position) > ActiveRange)
             {
                 isActive = false;

@@ -1,4 +1,5 @@
 ﻿using Pathfinding;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -35,31 +36,31 @@ namespace CharacterSystem.Controller
             }
         }
         
-        public void FindPath(Vector3 target)
+        public void FindPath(Vector3 target, Action<Vector3> returnFirstPoint)
         {
             PathFinded = false;
-            StartCoroutine(MyFindPath(target));
+            StartCoroutine(MyFindPath(target, returnFirstPoint));
         }
 
-        public void FindPath(Transform target)
+        public void FindPath(Transform target, Action<Vector3> returnFirstPoint)
         {
             PathFinded = false;
-            StartCoroutine(ContinueFinding(target));
+            StartCoroutine(ContinueFinding(target, returnFirstPoint));
         }
 
         public void StopFindPath() => continueFinding = false;
 
-        #region A*Seeker
-        private IEnumerator ContinueFinding(Transform target)
+        #region A*Seekera
+        private IEnumerator ContinueFinding(Transform target, Action<Vector3> returnFirstPoint)
         {
             seeker.CancelCurrentPathRequest();
             continueFinding = true;
 
             while (continueFinding)
-                yield return MyFindPath(target.transform.position);
+                yield return MyFindPath(target.transform.position, returnFirstPoint);
         }
         
-        private IEnumerator MyFindPath(Vector3 target)
+        private IEnumerator MyFindPath(Vector3 target, Action<Vector3> returnFirstPoint)
         {
             seeker.CancelCurrentPathRequest();
             seeker.StartPath(transform.position, target, (Path path) => this.path = path);
@@ -70,7 +71,8 @@ namespace CharacterSystem.Controller
 
             if (!path.error)
             {
-                currentWayPoint = 0;
+                returnFirstPoint(path.vectorPath[0]);
+                currentWayPoint = 1;
                 PathFinded = true;
             }
         }

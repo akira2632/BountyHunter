@@ -32,7 +32,7 @@ namespace CharacterSystem.Skill
         {
             MyDamage = damage;
 
-            Vector3 endPosition = IsometricUtility.ToIsometricVector3(
+            Vector3 endPosition = IsometricUtility.ToVector3(
                 (target - transform.position).normalized * BulletRange);
             transform.DOBlendableMoveBy(endPosition, (BulletRange / BulletSpeed))
                 .SetEase(BulletMoveEase)
