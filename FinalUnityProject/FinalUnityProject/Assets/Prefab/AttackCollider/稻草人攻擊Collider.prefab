@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5237288188454976001}
   - component: {fileID: 9140820792299049808}
   - component: {fileID: 5808116837603378182}
+  - component: {fileID: 375687208797050131}
   m_Layer: 10
   m_Name: "\u7A3B\u8349\u4EBA\u653B\u64CACollider"
   m_TagString: Untagged
@@ -86,3 +87,51 @@ MonoBehaviour:
   SkillDamage: {fileID: 11400000, guid: 6478d795746bc6a4d87f8f5feaeb4bd2, type: 2}
   TargetTag: Player
   HitAll: 0
+--- !u!114 &375687208797050131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5237288188454976015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd438dd108a0f284aa931a2da434f1d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 0.5
+    m_FrequencyGain: 2
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 1000
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_IgnoreTag: 
+  m_UseImpactDirection: 0
+  m_ScaleImpactWithMass: 0
+  m_ScaleImpactWithSpeed: 0

@@ -17,8 +17,8 @@ MonoBehaviour:
   WounderDistanceMax: 5
   WounderDistanceMin: 1
   DetectedDistance: 10
-  AttackDistance: 1
-  StopDistance: 0.8
+  AttackDistance: 0.8
+  StopDistance: 0.2
   AroundDegree: 22
   AroundRadius: 3
   RoundTurn: 3

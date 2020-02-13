@@ -14,13 +14,13 @@ namespace CharacterSystem
         public static Vector2 ToVector2(Vector2 vector)
         {
             float angle = Mathf.Atan2(vector.y, vector.x);
-            return new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
+            return new Vector2(Mathf.Cos(angle), 0.6f * Mathf.Sin(angle));
         }
 
         public static Vector2 ToVector2(Vector3 vector)
         {
             float angle = Mathf.Atan2(vector.y, vector.x);
-            return new Vector2(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
+            return new Vector2(Mathf.Cos(angle), 0.6f * Mathf.Sin(angle));
         }
 
         public static Vector2 ToVector2(Vector2 from, Vector2 to)
@@ -46,13 +46,13 @@ namespace CharacterSystem
         public static Vector3 ToVector3(Vector2 vector)
         {
             float angle = Mathf.Atan2(vector.y, vector.x);
-            return new Vector3(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
+            return new Vector3(Mathf.Cos(angle), 0.6f * Mathf.Sin(angle));
         }
 
         public static Vector3 ToVector3(Vector3 vector)
         {
             float angle = Mathf.Atan2(vector.y, vector.x);
-            return new Vector3(0.5f * Mathf.Cos(angle), 0.3f * Mathf.Sin(angle));
+            return new Vector3(Mathf.Cos(angle), 0.6f * Mathf.Sin(angle));
         }
 
         public static Vector3 ToVector3(Vector2 from, Vector2 to)

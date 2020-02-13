@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4336324548773264729}
   - component: {fileID: 3772123345577697328}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u5DE6\u4E0B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 199077795819582214}
   - component: {fileID: 6336243213173154025}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u53F3\u4E0A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3795072191626237475}
   - component: {fileID: 7901920590284932070}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u4E0A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 605108680139278}
   - component: {fileID: 7574073878030880232}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u53F3\u4E0B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4788724520829853686}
   - component: {fileID: 8952436995789377121}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u4E0B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +320,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1803935361564699739}
   - component: {fileID: 8387437188939489547}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u53F3"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,7 +383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5014306332519811325}
   - component: {fileID: 7408794768716206023}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u5DE6"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,8 +446,8 @@ GameObject:
   - component: {fileID: 2000451556626100968}
   - component: {fileID: 6878642996417138821}
   - component: {fileID: 7680555101266086133}
-  m_Layer: 0
-  m_Name: "Collider\u6230\u58EB\u731B\u864E\u7A81\u570D\u65AC"
+  m_Layer: 11
+  m_Name: "\u6230\u58EB\u731B\u864E\u7A81\u570D\u65ACCollider"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -522,7 +522,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4461518603918993013}
   - component: {fileID: 6216947182369936486}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u5DE6\u4E0A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}

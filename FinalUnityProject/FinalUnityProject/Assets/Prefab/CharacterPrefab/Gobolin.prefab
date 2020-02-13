@@ -327,7 +327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8105771671256716377}
   - component: {fileID: 3740019969845840168}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HitBody
   m_TagString: Enemy
   m_Icon: {fileID: 0}

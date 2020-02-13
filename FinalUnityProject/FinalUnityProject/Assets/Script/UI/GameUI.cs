@@ -7,7 +7,6 @@ namespace UI
     public class GameUI : MonoBehaviour
     {
         #region 開啟選單 --
-
         [Header("開啟選單按紐")]
         public Button gamePlayMenuBtn;
 
@@ -21,11 +20,9 @@ namespace UI
         {
             MenuUI.SetActive(true);
         }
-
         #endregion
 
         #region 開啟角色數值介面 --
-
         [Header("開啟角色數值介面按紐")]
         public Button characterAttBtn;
 
@@ -63,11 +60,9 @@ namespace UI
             OpenCharacterAttBtn.SetActive(true);
             CloseCharacterAttBtn.SetActive(false);
         }
-
         #endregion
 
         #region 點擊按鈕 --
-
         /// <summary>
         /// 進入遊戲
         /// </summary>
@@ -85,21 +80,16 @@ namespace UI
 
         public Text BloodValue;
 
-        public int BloodHP;
-
         public CharacterActionController character;
         #endregion
 
         private void Update()
         {
-            float bloodHp = character.CharacterData.Health;
-
-            //BloodHP = Mathf.Clamp(BloodHP, 0, 200);
-            BloodBar.fillAmount = bloodHp / 200;
+            BloodBar.fillAmount = character.CharacterData.Health / character.CharacterData.MaxHealth;
 
             BloodMargin.fillAmount = BloodBar.fillAmount;
 
-            BloodValue.text = (int)bloodHp + " / 200";
+            BloodValue.text = character.CharacterData.Health + " / " + character.CharacterData.MaxHealth;
         }
 
     }

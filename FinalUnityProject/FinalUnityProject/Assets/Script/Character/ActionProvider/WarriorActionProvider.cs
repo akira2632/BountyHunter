@@ -140,6 +140,7 @@ namespace CharacterSystem.ActionProvider
 
             public virtual void Hit(DamageData damage)
             {
+                actionController.OnCharacterHit?.Invoke();
                 actionController.CharacterData.Health -= damage.Damage;
                 actionController.CharacterData.VertigoConter += damage.Vertigo;
                 actionProvider.DefaultHitEffect.PlayEffect(damage);

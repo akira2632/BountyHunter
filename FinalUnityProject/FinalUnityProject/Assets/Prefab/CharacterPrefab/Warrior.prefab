@@ -410,7 +410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8703223795904183051}
   - component: {fileID: 3306821214186283521}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HitBody
   m_TagString: Player
   m_Icon: {fileID: 0}

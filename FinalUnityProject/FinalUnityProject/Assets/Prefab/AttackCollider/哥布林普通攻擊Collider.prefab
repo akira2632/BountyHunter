@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 904067799912206024}
   - component: {fileID: 854325977669955994}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u53F3\u4E0A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4209862338204762799}
   - component: {fileID: 9046521142147901172}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u53F3"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 315750518848485512}
   - component: {fileID: 1525498023663958286}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u4E0B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3965071965392090}
   - component: {fileID: 8483662903060479982}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u4E0A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1604225050714720946}
   - component: {fileID: 5681671548983080209}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u5DE6\u4E0B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5684080399021770554}
   - component: {fileID: 6346176116320285986}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u5DE6\u4E0A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,8 +371,9 @@ GameObject:
   - component: {fileID: 2800916088393269546}
   - component: {fileID: 4382658484256307568}
   - component: {fileID: 772405819526059615}
-  m_Layer: 0
-  m_Name: "Collider\u54E5\u5E03\u6797\u653B\u64CA"
+  - component: {fileID: 1118627942852917941}
+  m_Layer: 10
+  m_Name: "\u54E5\u5E03\u6797\u666E\u901A\u653B\u64CACollider"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -437,6 +438,54 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1118627942852917941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6379598536852392570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd438dd108a0f284aa931a2da434f1d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 0.8
+    m_FrequencyGain: 2
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 1000
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_IgnoreTag: 
+  m_UseImpactDirection: 0
+  m_ScaleImpactWithMass: 0
+  m_ScaleImpactWithSpeed: 0
 --- !u!1 &8113398749268005844
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 718109168325544565}
   - component: {fileID: 52569506116236050}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u53F3\u4E0B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -507,7 +556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8119753083076967483}
   - component: {fileID: 4960353826905743287}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u5DE6"
   m_TagString: Untagged
   m_Icon: {fileID: 0}

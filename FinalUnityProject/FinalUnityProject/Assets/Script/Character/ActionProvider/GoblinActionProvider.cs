@@ -277,6 +277,7 @@ namespace CharacterSystem.ActionProvider
 
                 if (hasTarget)
                 {
+                    actionController.CharacterData.TargetPosition = targetPosition;
                     IsometricUtility.GetVerticalAndHorizontal(
                         targetPosition - actionController.transform.position, out var vertical, out var horizontal);
                     actionController.Animator.SetFloat("Vertical", vertical);

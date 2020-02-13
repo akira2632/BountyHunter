@@ -117,8 +117,7 @@ namespace CharacterSystem.Controller
                     if (IsometricUtility.ToDistance(nextPoint, manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
                     {
-                        manager.Character.Move(
-                            IsometricUtility.ToVector2(manager.Character.transform.position, nextPoint));
+                        manager.Character.Move((nextPoint - manager.Character.transform.position).normalized);
                     }
                     else if (!manager.Senser.NextWayPoint(out nextPoint))
                         manager.SetState(new AIIdel(manager));
@@ -156,8 +155,7 @@ namespace CharacterSystem.Controller
                     if (IsometricUtility.ToDistance(nextPoint, manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
                     {
-                        manager.Character.Move(
-                            IsometricUtility.ToVector2(manager.Character.transform.position, nextPoint));
+                        manager.Character.Move((nextPoint - manager.Character.transform.position).normalized);
                     }
                     else if (!manager.Senser.NextWayPoint(out nextPoint))
                     {
@@ -179,8 +177,7 @@ namespace CharacterSystem.Controller
             public override void Initial()
             {
                 //Debug.Log("AttackStart");
-                manager.Character.Move(IsometricUtility.ToVector2(
-                    manager.Character.transform.position, manager.player.transform.position));
+                manager.Character.Move((nextPoint - manager.Character.transform.position).normalized);
                 manager.Character.BasicAttack();
                 manager.SetState(new AIAround(manager));
             }
@@ -196,9 +193,9 @@ namespace CharacterSystem.Controller
             {
                 targetPoint = manager.player.transform.position
                     + IsometricUtility.ToVector3(Quaternion.AngleAxis(angle, Vector3.forward)
-                    * (manager.Character.transform.position - manager.player.transform.position).normalized
-                    * manager.AISetting.AroundRadius);
-                //Debug.Log($"Orignal{orignalDirection}\nRotate{rotateDirection}\nTarget{targetPoint}");
+                    * (manager.Character.transform.position - manager.player.transform.position).normalized)
+                    * manager.AISetting.AroundRadius;
+                Debug.Log($"AroundPoint{targetPoint}");
 
                 this.angle = angle;
                 this.roundTurnCount = roundTurnCount - 1;
@@ -209,8 +206,9 @@ namespace CharacterSystem.Controller
             public AIAround(SpiderAI manager) : base(manager)
             {
                 targetPoint = manager.player.transform.position
-                    + IsometricUtility.ToVector3(manager.Character.transform.position - manager.player.transform.position).normalized
+                    + IsometricUtility.ToVector3(manager.Character.transform.position - manager.player.transform.position)
                     * manager.AISetting.AroundRadius;
+                Debug.Log($"AroundPoint{targetPoint}");
 
                 angle = Random.Range(1, 10) > 5 ? -manager.AISetting.AroundDegree : manager.AISetting.AroundDegree;
                 roundTurnCount = manager.AISetting.RoundTurn;
@@ -225,8 +223,7 @@ namespace CharacterSystem.Controller
                     if (IsometricUtility.ToDistance(nextPoint, manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
                     {
-                        manager.Character.Move(
-                            IsometricUtility.ToVector2(manager.Character.transform.position, nextPoint));
+                        manager.Character.Move((nextPoint - manager.Character.transform.position).normalized);
                     }
                     else if (!manager.Senser.NextWayPoint(out nextPoint))
                     {
@@ -236,6 +233,11 @@ namespace CharacterSystem.Controller
                             manager.SetState(new AIChase(manager));
                     }
                 }
+            }
+
+            public override void End()
+            {
+                manager.Character.Move(Vector2.zero);
             }
         }
         #endregion

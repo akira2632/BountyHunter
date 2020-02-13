@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4114827868934051428}
   - component: {fileID: 5617232037722030821}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u53F3\u4E0A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2688203239141514641}
   - component: {fileID: 7188737045062870007}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u53F3"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,8 +132,9 @@ GameObject:
   - component: {fileID: 6911973636830190855}
   - component: {fileID: -8334081721910039551}
   - component: {fileID: 3906612244800426696}
-  m_Layer: 0
-  m_Name: "Collider\u8718\u86DB\u653B\u64CA"
+  - component: {fileID: -3829336911280003651}
+  m_Layer: 10
+  m_Name: "\u8718\u86DB\u666E\u901A\u653B\u64CACollider"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,6 +199,54 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-3829336911280003651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190235242059812745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd438dd108a0f284aa931a2da434f1d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 0.5
+    m_FrequencyGain: 2
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 1000
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_IgnoreTag: 
+  m_UseImpactDirection: 0
+  m_ScaleImpactWithMass: 0
+  m_ScaleImpactWithSpeed: 0
 --- !u!1 &4475826193617566806
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6881726114695493640}
   - component: {fileID: 5000244666277323738}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u5DE6\u4E0A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 693485774418457197}
   - component: {fileID: 3103975574238355345}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u4E0B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6904390446304225072}
   - component: {fileID: 4203335842110220509}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u5DE6\u4E0B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +438,7 @@ GameObject:
   m_Component:
   - component: {fileID: 942910760036391731}
   - component: {fileID: 1611565436492695939}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u4E0A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,7 +499,7 @@ GameObject:
   m_Component:
   - component: {fileID: 718241748674252296}
   - component: {fileID: 846516093884801503}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u53F3\u4E0B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,7 +559,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2904227684437033624}
   - component: {fileID: 5896352706140390581}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u5DE6"
   m_TagString: Untagged
   m_Icon: {fileID: 0}

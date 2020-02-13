@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2343167056515521247}
   - component: {fileID: 7127098270959538075}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u4E0A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 449558185479586279}
   - component: {fileID: 7864996212727136919}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u4E0B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8312496618300050383}
   - component: {fileID: 332487115583018628}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u5DE6\u4E0A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,8 @@ GameObject:
   - component: {fileID: 7988443633052117267}
   - component: {fileID: 609615875834275127}
   - component: {fileID: 2944600649541375778}
-  m_Layer: 0
+  - component: {fileID: 1268342199713926620}
+  m_Layer: 10
   m_Name: "\u6B50\u514B\u968A\u9577\u666E\u901A\u653B\u64CACollider"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,6 +260,54 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1268342199713926620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3386817638726949754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd438dd108a0f284aa931a2da434f1d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 0.5
+    m_FrequencyGain: 2
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 1000
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_IgnoreTag: 
+  m_UseImpactDirection: 0
+  m_ScaleImpactWithMass: 0
+  m_ScaleImpactWithSpeed: 0
 --- !u!1 &4483478665292046429
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2742543921530353018}
   - component: {fileID: 9019540333606121887}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u5DE6\u4E0B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,7 +379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8031518970127726069}
   - component: {fileID: 4508571291636235282}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u53F3\u4E0B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6670651897405866210}
   - component: {fileID: 8907801801613054975}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u5DE6"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,7 +501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2524921537179252903}
   - component: {fileID: 6537418974339228712}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u53F3"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,7 +562,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4497123926378810532}
   - component: {fileID: 8307544835220423641}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u53F3\u4E0A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}

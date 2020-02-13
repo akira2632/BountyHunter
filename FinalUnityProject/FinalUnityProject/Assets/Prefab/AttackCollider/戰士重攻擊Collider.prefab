@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7813005543895677773}
   - component: {fileID: 2211095976730244327}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u5DE6\u4E0A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7254295790039490548}
   - component: {fileID: 4764169907444734262}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u4E0B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,8 +135,8 @@ GameObject:
   - component: {fileID: 3941319622196700308}
   - component: {fileID: 4524541782652382064}
   - component: {fileID: -2614378838783431161}
-  m_Layer: 0
-  m_Name: "Collider\u6230\u58EB\u91CD\u653B\u64CA"
+  m_Layer: 11
+  m_Name: "\u6230\u58EB\u91CD\u653B\u64CACollider"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,7 +211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7801238091486302453}
   - component: {fileID: 5927023826657728095}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u5DE6"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,7 +271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1922750623832025481}
   - component: {fileID: 522867620182152049}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u4E0A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 295738033494307372}
   - component: {fileID: 7275472203011117786}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u53F3\u4E0A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +394,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7700323422644218444}
   - component: {fileID: 5913643140053303449}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u5DE6\u4E0B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -455,7 +455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5916131712263359087}
   - component: {fileID: 45988945597293916}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u53F3"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -516,7 +516,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4955454260638804816}
   - component: {fileID: 8890940333262570574}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: "\u53F3\u4E0B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -300,7 +300,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1831115197359787329}
   - component: {fileID: 8470253686668796827}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HitBody
   m_TagString: Enemy
   m_Icon: {fileID: 0}
