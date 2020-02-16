@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 1991089383483126143}
   - component: {fileID: 3419315091385338913}
   - component: {fileID: -1932950526458316731}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: "\u6230\u58EB\u666E\u901A\u653B\u64CACollider"
   m_TagString: Untagged
   m_Icon: {fileID: 0}

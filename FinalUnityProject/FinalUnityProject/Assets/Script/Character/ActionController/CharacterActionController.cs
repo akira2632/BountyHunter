@@ -44,7 +44,7 @@ namespace CharacterSystem
             ActionUpdate();
         }
 
-        public virtual void ActionUpdate()
+        private void ActionUpdate()
         {
             if(!IsStart)
             {

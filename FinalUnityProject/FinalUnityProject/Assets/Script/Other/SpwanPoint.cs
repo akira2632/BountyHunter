@@ -43,7 +43,7 @@ namespace CharacterSystem
             if (!isActive &&
                 PlayerDistance <= ActiveRange)
             {
-                Debug.Log($"{transform.name} player distance = {PlayerDistance}");
+                //Debug.Log($"{transform.name} player distance = {PlayerDistance}");
                 isActive = true;
                 foreach (SpwanMobData item in SpwanMobs)
                 {
@@ -53,7 +53,7 @@ namespace CharacterSystem
             else if (isActive &&
                 PlayerDistance > ActiveRange)
             {
-                Debug.Log($"{transform.name} player distance = {PlayerDistance}");
+                //Debug.Log($"{transform.name} player distance = {PlayerDistance}");
                 isActive = false;
                 foreach (SpwanMobData item in SpwanMobs)
                 {

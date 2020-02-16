@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActiveRange: 15
-  SpwanWhenVisible: 1
+  PlayerDistance: 0
+  SpwanWhenVisible: 0
   SpwanMobs:
   - MobPrefab: {fileID: 4181572089863736269, guid: cb49ace21592d93419e2d44f5cf3b062,
       type: 3}

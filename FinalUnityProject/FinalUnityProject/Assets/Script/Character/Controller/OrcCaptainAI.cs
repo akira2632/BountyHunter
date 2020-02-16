@@ -147,7 +147,7 @@ namespace CharacterSystem.Controller
                             return;
                         }
 
-                        if(manager.Character.CharacterData.BasicAttackTimer <= 0)
+                        if (manager.Character.CharacterData.BasicAttackTimer <= 0)
                         {
                             manager.SetState(new AIBasicAttack());
                             return;
