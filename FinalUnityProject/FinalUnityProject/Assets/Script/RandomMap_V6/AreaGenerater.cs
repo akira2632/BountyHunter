@@ -469,8 +469,7 @@ namespace RandomMap_V6
                             foreach (Direction direction in nullBoundary)
                                 mapBuilder.MakeBoundary(target, direction, BoundaryType.Wall);
 
-                        GameObject spwanPoint;
-                        if (mapBuilder.TryGetRandomedSpwanPoint(nowScale, out spwanPoint))
+                        if (mapBuilder.TryGetRandomedSpwanPoint(nowScale, out var spwanPoint))
                             mapBuilder.SetSpwanPoint(target, spwanPoint);
                     }
                 }
@@ -514,7 +513,7 @@ namespace RandomMap_V6
     {
         int nowScale, pathCount, pathMax, blockCount;
         List<Direction> nullBoundary = new List<Direction>(4);
-        bool canMake;
+        bool canMake, hasMakeSpwanPoint;
 
         List<Coordinate> generatePoints = new List<Coordinate>();
         List<Coordinate> tempPoints = new List<Coordinate>();
@@ -532,6 +531,7 @@ namespace RandomMap_V6
             nowScale = 0;
             blockCount = 1;
             canMake = true;
+            hasMakeSpwanPoint = false;
 
             generatePoints.Add(parms.StartPoint);
 
@@ -611,6 +611,9 @@ namespace RandomMap_V6
                         if (nullBoundary.Count > 0)
                             foreach (Direction direction in nullBoundary)
                                 mapBuilder.MakeBoundary(target, direction, BoundaryType.Wall);
+
+                        if (blockCount == 4)
+                            mapBuilder.SetSpwanPoint(target, mapBuilder.GetBossRoomSpwanPoint());
                     }
                 }
                 else if (blockCount < 8)

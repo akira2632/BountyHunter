@@ -330,6 +330,11 @@ namespace RandomMap_V6
                 return false;
             }
         }
+
+        public GameObject GetBossRoomSpwanPoint()
+        {
+            return spwanPointSetting.BossSpwanPoint.SpwanPoint;
+        }
         #endregion
     }
 
@@ -359,7 +364,6 @@ namespace RandomMap_V6
         public void PrintGameMapWall(int x, int y)
         {
             gameMapSetting.GameMap_Wall.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapWall);
-            gameMapSetting.NavegateMap.SetTile(new Vector3Int(x, y, 0), gameMapSetting.NavegateBlock);
         }
 
         public void PrintWallDecorates(int random, int x, int y)
@@ -468,7 +472,8 @@ namespace RandomMap_V6
         public void SetSpwanPoint(int x, int y, GameObject spwanPoint)
         {
             var spwanPointPosition = gameMapSetting.GameMap_Ground.CellToWorld(new Vector3Int(x, y, 0));
-            GameObject.Instantiate(spwanPoint, spwanPointPosition, Quaternion.identity);
+            var newSpwanPoint = GameObject.Instantiate(spwanPoint, spwanPointPosition, Quaternion.identity);
+            spwanPoints.Add(newSpwanPoint);
         }
 
         public void ActiveSpwanPoint()

@@ -5,7 +5,7 @@ namespace CharacterSystem
 {
     public class SpwanPoint : MonoBehaviour
     {
-        public float ActiveRange;
+        public float ActiveRange, PlayerDistance;
         public bool SpwanWhenVisible;
         public SpwanMobData[] SpwanMobs;
 
@@ -22,28 +22,28 @@ namespace CharacterSystem
                 item.Start(gameObject);
             }
 
-            if (IsometricUtility.ToDistance(
-                    transform.position, player.position) <= ActiveRange)
-                isActive = true;
-            else
-                isActive = false;
+            isActive = false;
         }
 
         // Update is called once per frame
         void Update()
         {
+            PlayerDistance = CaculatePlayerDistance();
+
             foreach (SpwanMobData item in SpwanMobs)
             {
                 item.Update();
 
-                if (item.ReadyToSpwan() && (unvisible || SpwanWhenVisible))
+                if (isActive
+                    && item.ReadyToSpwan()
+                    && (unvisible || SpwanWhenVisible))
                     item.SpwanMob();
             }
 
             if (!isActive &&
-                IsometricUtility.ToDistance(
-                    transform.position, player.position) <= ActiveRange)
+                PlayerDistance <= ActiveRange)
             {
+                Debug.Log($"{transform.name} player distance = {PlayerDistance}");
                 isActive = true;
                 foreach (SpwanMobData item in SpwanMobs)
                 {
@@ -51,15 +51,20 @@ namespace CharacterSystem
                 }
             }
             else if (isActive &&
-                IsometricUtility.ToDistance(
-                    transform.position, player.position) > ActiveRange)
+                PlayerDistance > ActiveRange)
             {
+                Debug.Log($"{transform.name} player distance = {PlayerDistance}");
                 isActive = false;
                 foreach (SpwanMobData item in SpwanMobs)
                 {
                     item.SetActive(false);
                 }
             }
+        }
+
+        private float CaculatePlayerDistance()
+        {
+            return IsometricUtility.ToDistance(transform.position, player.position);
         }
 
         private void OnBecameVisible()

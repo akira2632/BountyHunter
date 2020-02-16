@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 1958109620694070348}
   - component: {fileID: 1958109620694070349}
   m_Layer: 0
-  m_Name: SpwanPoint_10_25_TypeC
+  m_Name: SpwanPoint_10_22_TypeC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1958109620694070347
 Transform:
   m_ObjectHideFlags: 0
@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3108712832b90c42a6ebeda9a60a32c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActiveRange: 30
+  ActiveRange: 15
+  SpwanWhenVisible: 1
   SpwanMobs:
   - MobPrefab: {fileID: 1724093325144561434, guid: 97ff962db449b634bb19cc07331b81f8,
       type: 3}
@@ -108,14 +109,14 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: ccd3ad2bc0fadb745896dc8f175e9af0, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

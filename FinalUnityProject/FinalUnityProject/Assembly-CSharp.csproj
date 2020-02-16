@@ -108,10 +108,10 @@
     <Compile Include="Assets\Script\UI\ChangeScene.cs" />
     <Compile Include="Assets\Script\UI\Click.cs" />
     <Compile Include="Assets\Script\UI\Exit.cs" />
-    <Compile Include="Assets\Script\UI\GamePlayMenu.cs" />
     <Compile Include="Assets\Script\UI\GameUI.cs" />
     <Compile Include="Assets\Script\UI\Login.cs" />
     <Compile Include="Assets\Script\UI\Menu.cs" />
+    <Compile Include="Assets\Script\UI\UIManager.cs" />
     <None Include="Assets\Demigiant\DOTween\readme.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/kero/Desktop/FinalUnityProject/FinalUnityProject/FinalUnityProject/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

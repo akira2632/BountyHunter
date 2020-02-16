@@ -30,15 +30,13 @@ namespace RandomMap_V6
         public Tile[] WallDecotates;
         public Tile[] BoxDecotates;
         public Tile[] SkullDecotates;
-
-        public Tilemap NavegateMap;
-        public Tile NavegateBlock;
     }
 
     [System.Serializable]
     public class SpwanPointSetting
     {
         public SpwanPointPrafeb[] SpwanPoints;
+        public SpwanPointPrafeb BossSpwanPoint;
     }
 
     [System.Serializable]

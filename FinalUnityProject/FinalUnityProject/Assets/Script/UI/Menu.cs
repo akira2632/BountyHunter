@@ -7,24 +7,8 @@ namespace UI
 {
     public class Menu : MonoBehaviour
     {
-
-
-        public void Update()
-        {
-            if (isExit)
-            {
-                GetComponent<Animation>().Play("FadeOut_EndGame");
-
-            }
-
-
-
-
-        }
-
         //[Header("遊戲按紐群組")]
         //public GameObject AllBtn;
-
 
         #region 建立新遊戲 --
 
@@ -75,14 +59,18 @@ namespace UI
         [Header("結束遊戲按紐")]
         public Button ExitButton;
         [Header("結束遊戲判斷")]
-        bool isExit;
+        bool isExit = false;
 
         /// <summary>
         /// 按下離開按紐
         /// </summary>
         public void ExitOnClick()
         {
-            isExit = true;
+            if (!isExit)
+            {
+                isExit = true;
+                GetComponent<Animation>().Play("FadeOut_EndGame");
+            }
         }
 
         public void GoExit()

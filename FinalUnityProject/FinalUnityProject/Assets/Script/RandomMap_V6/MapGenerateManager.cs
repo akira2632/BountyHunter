@@ -87,6 +87,7 @@ namespace RandomMap_V6
         internal void SetPlayerPosition(float x, float y)
         {
             Player.position = new Vector3(x, y);
+            Player.gameObject.SetActive(true);
         }
     }
 }
