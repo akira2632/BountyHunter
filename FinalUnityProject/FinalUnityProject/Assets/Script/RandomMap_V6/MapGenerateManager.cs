@@ -6,6 +6,7 @@ namespace RandomMap_V6
     {
         [Header("玩家角色"), Tooltip("重設玩家角色初始位置")]
         public Transform Player;
+        public GameObject PlayerController;
 
         [Header("地圖深度"), Range(1, 100), Tooltip("自起點至最深處的區塊數量")]
         public int MapScale;
@@ -23,8 +24,6 @@ namespace RandomMap_V6
         IGenerater generater;
         bool hasInitail;
         int ticks;
-        public float StartTime, ScaleStartTime;
-
 
         private void Start()
         {
@@ -88,6 +87,7 @@ namespace RandomMap_V6
         {
             Player.position = new Vector3(x, y);
             Player.gameObject.SetActive(true);
+            PlayerController.SetActive(true);
         }
     }
 }

@@ -59,8 +59,7 @@ namespace RandomMap_V6
 
             factry = generaterManager.GetGeneraterFactry();
             mapBuilder = factry.GetBuilder();
-            AreaGeneraterDecider.factry = factry;
-            generaterManager.StartTime = Time.time;
+            AreaGeneraterManager.factry = factry;
 
             //Debug.Log("AreaGenerateInitailCreate");
         }
@@ -68,7 +67,7 @@ namespace RandomMap_V6
         public override void Update()
         {
             generaterManager.SetNextGenerater(
-                new AreaTaskManager(
+                new AreaTaskCreater(
             new AreaGenerateTask
             {
                 generater = factry.GetEntryAreaGenerater(),
@@ -81,12 +80,7 @@ namespace RandomMap_V6
         }
     }
 
-    /// <summary>
-    /// 區域生成策略決策者。
-    /// 決定新的生成任務並將之交給生成任務管理者。
-    /// 目前是假的 會動而已 :3
-    /// </summary>
-    public class AreaGeneraterDecider : IAreaGenerater
+    public class AreaGeneraterManager : IAreaGenerater
     {
         public static GeneraterFactry factry;
         static bool hasBossRoom = false;
@@ -94,25 +88,22 @@ namespace RandomMap_V6
         List<Coordinate> generaterPointList;
         Queue<AreaGenerateTask> taskQueue = new Queue<AreaGenerateTask>();
 
-        public AreaGeneraterDecider(IEnumerable<Coordinate> generaterPointList,
+        public AreaGeneraterManager(IEnumerable<Coordinate> generaterPointList,
             AreaGeneraterParms parms, MapGenerateManager generaterManager)
             : base(generaterManager)
         {
-            //Debug.Log("AreaGeneraterDeciderCreate");
             this.parms = parms;
             this.generaterPointList = new List<Coordinate>(generaterPointList);
         }
 
         public override void Initail()
         {
-            //Debug.Log("AreaGeneraterDeciderInitail");
             taskQueue.Clear();
             parms.MapQuota -= parms.AreaScale;
         }
 
         public override void Update()
         {
-            //Debug.Log("AreaGeneraterDeciderUpdate");
             if (generaterPointList.Count > 0)
             {
                 if (parms.MapQuota > 0)
@@ -125,7 +116,7 @@ namespace RandomMap_V6
             else
             {
                 generaterManager.SetNextGenerater(
-                    new AreaTaskManager(taskQueue, generaterManager));
+                    new AreaTaskCreater(taskQueue, generaterManager));
             }
         }
 
@@ -180,23 +171,6 @@ namespace RandomMap_V6
 
         private void AddBasicAreaTask()
         {
-            //int nextAreaSize = GetNextAreaSize();
-
-            //if (mapBuilder.HasEmptyArea(generaterPointList[0], nextAreaSize))
-            //{
-            //    taskQueue.Enqueue(
-            //        new AreaGenerateTask
-            //        {
-            //            generater = GetNextGenerater(),
-            //            parms = new AreaGeneraterParms
-            //            {
-            //                MapQuota = parms.MapQuota - nextAreaSize,
-            //                AreaScale = nextAreaSize,
-            //                StartPoint = generaterPointList[0]
-            //            }
-            //        });
-            //}
-
             taskQueue.Enqueue(
                 new AreaGenerateTask
                 {
@@ -230,39 +204,30 @@ namespace RandomMap_V6
         }
     }
 
-    /// <summary>
-    /// 區域生成任務管理者。
-    /// 負責保有並管理生成任務列表、及指定接下來的生成任務。
-    /// </summary>
-    public class AreaTaskManager : IAreaGenerater
+    public class AreaTaskCreater : IAreaGenerater
     {
         static Queue<AreaGenerateTask> TaskQueue = new Queue<AreaGenerateTask>();
 
-        public AreaTaskManager(MapGenerateManager generateManager)
+        public AreaTaskCreater(MapGenerateManager generateManager)
             : base(generateManager)
         {
-            //Debug.Log("AreaTaskManagerCreate");
         }
 
-        public AreaTaskManager(AreaGenerateTask newTask, MapGenerateManager generaterManager)
+        public AreaTaskCreater(AreaGenerateTask newTask, MapGenerateManager generaterManager)
             : base(generaterManager)
         {
-            //Debug.Log("AreaTaskManagerCreate");
             TaskQueue.Enqueue(newTask);
         }
 
-        public AreaTaskManager(Queue<AreaGenerateTask> newTasks, MapGenerateManager generaterManager)
+        public AreaTaskCreater(Queue<AreaGenerateTask> newTasks, MapGenerateManager generaterManager)
             : base(generaterManager)
         {
-            //Debug.Log("AreaTaskManagerCreate");
             while (newTasks.Count > 0)
                 TaskQueue.Enqueue(newTasks.Dequeue());
         }
 
         public override void Update()
         {
-            //Debug.Log("AreaTaskManagerUpdate");
-            //處理任務列表上的任務
             if (TaskQueue.Count > 0)
             {
                 AreaGenerateTask temp = TaskQueue.Dequeue();
@@ -281,7 +246,6 @@ namespace RandomMap_V6
 
         public override void End()
         {
-            //Debug.Log("AreaTaskManagerEnd");
             generaterManager.AddTicks();
         }
     }
@@ -351,7 +315,7 @@ namespace RandomMap_V6
 
             //生成結束、轉移至任務管理者
             generaterManager.SetNextGenerater(
-                new AreaGeneraterDecider(generatePoint, parms, generaterManager));
+                new AreaGeneraterManager(generatePoint, parms, generaterManager));
         }
 
         public override void End()
@@ -387,8 +351,6 @@ namespace RandomMap_V6
             canMake = true;
 
             generatePoints.Enqueue(parms.StartPoint);
-
-            generaterManager.ScaleStartTime = Time.time;
         }
 
         public override void Update()
@@ -495,7 +457,7 @@ namespace RandomMap_V6
             else
             {
                 generaterManager.SetNextGenerater(
-                    new AreaGeneraterDecider(generatePoints, parms, generaterManager));
+                    new AreaGeneraterManager(generatePoints, parms, generaterManager));
             }
         }
 
@@ -534,8 +496,6 @@ namespace RandomMap_V6
             hasMakeSpwanPoint = false;
 
             generatePoints.Add(parms.StartPoint);
-
-            generaterManager.ScaleStartTime = Time.time;
         }
 
         public override void Update()
@@ -641,7 +601,7 @@ namespace RandomMap_V6
             else
             {
                 generaterManager.SetNextGenerater(
-                    new AreaGeneraterDecider(generatePoints, new AreaGeneraterParms
+                    new AreaGeneraterManager(generatePoints, new AreaGeneraterParms
                     {
                         MapQuota = 0
                     }, generaterManager));
@@ -676,12 +636,7 @@ namespace RandomMap_V6
                     mapBuilder.MakeBoundary(parms.StartPoint, d, BoundaryType.Wall);
 
             generaterManager.SetNextGenerater(
-                new AreaTaskManager(generaterManager));
-
-            /*Debug.Log("Sealed point(" + parms.StartPoint.Column + 
-                "," + parms.StartPoint.Row + "): " + (Time.time - generaterManager.ScaleStartTime) + 
-                " secends, Total "  + (Time.time - generaterManager.StartTime) + " secends");*/
-            generaterManager.ScaleStartTime = Time.time;
+                new AreaTaskCreater(generaterManager));
         }
 
         public override void End()

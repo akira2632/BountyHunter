@@ -1330,31 +1330,6 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 6704382508476855882, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6704382508476855882, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6704382508476855882, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6704382508476855882, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6704382508476855882, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2977958360234255438, guid: 983b491c307ee2d459e2de15d1d3e5d1,
         type: 3}
       propertyPath: m_Camera
@@ -1435,6 +1410,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &639774287 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2807392228040579725, guid: c5587eae0c4f459499de5223b96c71ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 1648082140}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &702988379
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,7 +1595,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -1796,7 +1777,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1566488448}
-  MapScale: 20
+  PlayerController: {fileID: 639774287}
+  MapScale: 10
   seed: 0
   grid: {fileID: 474236235}
   MiniMapSetting:
@@ -1885,8 +1867,6 @@ MonoBehaviour:
       ToMapDeep: 0
       SpwanPoint: {fileID: 4552056640521905115, guid: 3805b31a48c3e6742b782876d278c0c1,
         type: 3}
-  StartTime: 0
-  ScaleStartTime: 0
 --- !u!4 &1473439190
 Transform:
   m_ObjectHideFlags: 0
@@ -2198,6 +2178,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerController
+      objectReference: {fileID: 0}
+    - target: {fileID: 2807392228040579725, guid: c5587eae0c4f459499de5223b96c71ac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2807392228040579726, guid: c5587eae0c4f459499de5223b96c71ac,
         type: 3}

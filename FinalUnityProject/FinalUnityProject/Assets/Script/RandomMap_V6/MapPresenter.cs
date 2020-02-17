@@ -223,27 +223,56 @@ namespace RandomMap_V6
 
     public class NaveGraphGenerate : IMapPresenter
     {
+        private float tilemapRefreshDelay = 1f;
+
         public NaveGraphGenerate(MapGenerateManager generaterManager)
             : base(generaterManager) { }
 
-        public override void Initail()
+        public override void Update()
         {
-            GridGraph gridGraph = AstarPath.active.data.gridGraph;
+            if (tilemapRefreshDelay > 0)
+                tilemapRefreshDelay -= Time.deltaTime;
+            else
+            {
+                GridGraph gridGraph = AstarPath.active.data.gridGraph;
 
-            int width = (Mathf.Abs(columnMax) + Mathf.Abs(columnMin)) * 15, depth = (Mathf.Abs(rowMax) + Mathf.Abs(rowMin)) * 15;
-            Vector3 centerPosition = generaterManager.grid.CellToWorld(
-                new Vector3Int(((columnMax + columnMin) / 2) * 15, ((rowMax + rowMin) / 2) * 15, 0));
+                int width = (Mathf.Abs(columnMax) + Mathf.Abs(columnMin)) * 15, depth = (Mathf.Abs(rowMax) + Mathf.Abs(rowMin)) * 15;
+                Vector3 centerPosition = generaterManager.grid.CellToWorld(
+                    new Vector3Int(((columnMax + columnMin) / 2) * 15, ((rowMax + rowMin) / 2) * 15, 0));
 
-            gridGraph.SetDimensions(width * 5, depth * 5, 0.2f);
-            gridGraph.center = centerPosition;
+                gridGraph.SetDimensions(width * 5, depth * 5, 0.2f);
+                gridGraph.center = centerPosition;
 
-            AstarPath.active.Scan(gridGraph);
-            Debug.Log(Time.time - generaterManager.StartTime);
+                AstarPath.active.Scan(gridGraph);
 
-            float x, y;
-            mapPrinter.GetEntryPosition(out x, out y);
-            generaterManager.SetPlayerPosition(x, y);
-            mapPrinter.ActiveSpwanPoint();
+                generaterManager.AddTicks(10);
+                generaterManager.SetNextGenerater(new MapActive(generaterManager));
+            }
+        }
+    }
+
+    public class MapActive : IMapPresenter
+    {
+        public MapActive(MapGenerateManager generaterManager) : base(generaterManager)
+        {
+        }
+
+        public override void Update()
+        {
+            if(!AstarPath.active.isScanning)
+            {
+                mapPrinter.GetEntryPosition(out float x, out float y);
+                generaterManager.SetPlayerPosition(x, y);
+                mapPrinter.ActiveSpwanPoint();
+                generaterManager.SetNextGenerater(new MapPresentCompelete(generaterManager));
+            }
+        }
+    }
+
+    public class MapPresentCompelete : IMapPresenter
+    {
+        public MapPresentCompelete(MapGenerateManager generaterManager) : base(generaterManager)
+        {
         }
     }
     #endregion
