@@ -689,6 +689,11 @@ namespace CharacterSystem.ActionProvider
                 actionController.Animator.SetBool("IsFallDown", false);
             }
             #endregion
+
+            public override void Hit(DamageData damage)
+            {
+                actionProvider.DefaultHitEffect.PlayEffect(damage, false);
+            }
         }
         #endregion
     }

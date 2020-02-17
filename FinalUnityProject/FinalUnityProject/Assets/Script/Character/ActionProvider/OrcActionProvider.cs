@@ -6,7 +6,7 @@ namespace CharacterSystem.ActionProvider
     public class OrcActionProvider : ICharacterActionProvider
     {
         public AudioClip MoveSound, FallDownSound, BasicAttackSound, HurtSound;
-        public Skill.HitEffect DefalutHitEffect;
+        public Skill.HitEffect DefaultHitEffect;
 
         #region FactoryMethod
         public override ICharacterAction GetIdelAction(CharacterActionController comtroller)
@@ -91,7 +91,7 @@ namespace CharacterSystem.ActionProvider
                 actionController.CharacterData.Health -= damage.Damage;
                 actionController.CharacterData.VertigoConter += damage.Vertigo;
 
-                actionProvider.DefalutHitEffect.PlayEffect(damage);
+                actionProvider.DefaultHitEffect.PlayEffect(damage);
                 if (actionController.CharacterData.Health > 0
                     && damage.KnockBackDistance > 0)
                     actionController.SetAction(actionProvider.GetKnockBackAction(actionController, damage));
@@ -311,6 +311,11 @@ namespace CharacterSystem.ActionProvider
                 actionController.Animator.SetBool("IsFallDown", false);
             }
             #endregion
+
+            public override void Hit(DamageData damage)
+            {
+                actionProvider.DefaultHitEffect.PlayEffect(damage, false);
+            }
         }
         #endregion
     }
