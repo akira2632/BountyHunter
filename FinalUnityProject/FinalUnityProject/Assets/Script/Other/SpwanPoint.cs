@@ -40,25 +40,26 @@ namespace CharacterSystem
                     item.SpwanMob();
             }
 
+            //重新啟動的怪物及AI會出現狀態不同步的錯誤、在相關問題解決前先關閉重設相關程式
             if (!isActive &&
                 PlayerDistance <= ActiveRange)
             {
                 //Debug.Log($"{transform.name} player distance = {PlayerDistance}");
                 isActive = true;
-                foreach (SpwanMobData item in SpwanMobs)
-                {
-                    item.SetActive(true);
-                }
+                //foreach (SpwanMobData item in SpwanMobs)
+                //{
+                //    item.SetActive(true);
+                //}
             }
             else if (isActive &&
                 PlayerDistance > ActiveRange)
             {
                 //Debug.Log($"{transform.name} player distance = {PlayerDistance}");
                 isActive = false;
-                foreach (SpwanMobData item in SpwanMobs)
-                {
-                    item.SetActive(false);
-                }
+                //foreach (SpwanMobData item in SpwanMobs)
+                //{
+                //    item.SetActive(false);
+                //}
             }
         }
 
