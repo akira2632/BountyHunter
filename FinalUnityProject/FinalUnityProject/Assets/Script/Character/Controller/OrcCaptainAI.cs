@@ -213,7 +213,8 @@ namespace CharacterSystem.Controller
 
             public override void Update()
             {
-                if (manager.Character.CharacterData.SpacilAttackTimer > 0)
+                if (manager.Character.CharacterData.SpacilAttackTimer > 0
+                    || manager.Character.CharacterData.VertigoConter >= 4)
                     manager.SetState(new AIIdel());
 
                 if (IsometricUtility.ToDistance(manager.Character.transform.position, manager.player.transform.position)

@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3108712832b90c42a6ebeda9a60a32c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActiveRange: 15
+  ActiveRange: 30
   PlayerDistance: 0
   SpwanWhenVisible: 0
   SpwanMobs:

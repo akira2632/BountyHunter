@@ -49,7 +49,8 @@ namespace CharacterSystem
                     RegenTimer = 0;
                 }
 
-                VertigoConter -= Time.deltaTime / 10;
+                if(VertigoConter < 4)
+                    VertigoConter -= Time.deltaTime / 10;
             }
         }
 

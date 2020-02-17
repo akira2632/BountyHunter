@@ -16,7 +16,7 @@ namespace CharacterSystem
         public AudioSource AudioSource;
         public SpriteRenderer SpriteRenderer;
 
-        public Action OnCharacterDead, OnCharacterHit;
+        public Action OnCharacterDead;
         private bool hasInvoke;
 
         #region 流程控制
