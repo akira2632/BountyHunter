@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using CharacterSystem;
+using DG.Tweening;
 
 namespace UI
 {
@@ -8,12 +9,11 @@ namespace UI
     {
         #region 角色UI更新
         public Image BloodBar;
-
         public Image BloodMargin;
-
         public Text BloodValue;
+        public CharacterActionController Character;
 
-        public CharacterActionController character;
+        public Image ChangeScene;
 
         private void Update()
         {
@@ -22,15 +22,19 @@ namespace UI
 
         private void UpdateCharacterUI()
         {
-            BloodBar.fillAmount = character.CharacterData.Health / character.CharacterData.MaxHealth;
+            BloodBar.fillAmount = (float)Character.CharacterData.Health / (float)Character.CharacterData.MaxHealth;
 
             BloodMargin.fillAmount = BloodBar.fillAmount;
 
-            BloodValue.text = character.CharacterData.Health + " / " + character.CharacterData.MaxHealth;
+            BloodValue.text = Character.CharacterData.Health + " / " + Character.CharacterData.MaxHealth;
         }
         #endregion
 
-        #region PauseGame
+        public void LoadCompelete()
+        {
+            ChangeScene.DOFade(0, 1).SetDelay(1);
+        }
+
         public void PauseGame(bool pause)
         {
             if (pause)
@@ -38,33 +42,32 @@ namespace UI
             else
                 Time.timeScale = 1;
         }
-        #endregion
-
-        #region 重新開始
         /// <summary>
         /// 進入遊戲
         /// </summary>
         public void RestartGame()
         {
-            Application.LoadLevel("村莊地圖");
+            ChangeScene.DOFade(1, 1).onComplete +=
+                () => StartCoroutine(WaitAndLoad("村莊地圖"));
         }
-        #endregion
-
-        #region 回主選單
         /// <summary>
         /// 回主選單
         /// </summary>
         public void GoBackToMenu()
         {
-            Application.LoadLevel("Menu");
+            ChangeScene.DOFade(1, 1).onComplete +=
+                () => StartCoroutine(WaitAndLoad("Menu"));
         }
-        #endregion
-
-        #region 結束遊戲
         public void GoExit()
         {
-            Application.LoadLevel("Exit");
+            ChangeScene.DOFade(1, 1).onComplete +=
+                () => StartCoroutine(WaitAndLoad("Exit"));
         }
-        #endregion
+
+        private System.Collections.IEnumerator WaitAndLoad(string sceneName)
+        {
+            yield return new WaitForSeconds(1);
+            Application.LoadLevel(sceneName);
+        }
     }
 }

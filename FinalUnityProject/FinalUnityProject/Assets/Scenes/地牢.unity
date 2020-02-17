@@ -132,6 +132,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 696256780384094036, guid: 8e42b73ebd34b3648b0ccffb82892e79,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 696256780384094120, guid: 8e42b73ebd34b3648b0ccffb82892e79,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1286,6 +1291,11 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 1983089741}
+    - target: {fileID: 401225712079869443, guid: 5e5af124f8ad6d649bce4349fc8666b8,
+        type: 3}
+      propertyPath: Character
+      value: 
+      objectReference: {fileID: 1983089741}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e5af124f8ad6d649bce4349fc8666b8, type: 3}
 --- !u!1 &296226183
@@ -1545,6 +1555,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1648082140}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &670631496 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 401225712079869443, guid: 5e5af124f8ad6d649bce4349fc8666b8,
+    type: 3}
+  m_PrefabInstance: {fileID: 237824070}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab800ef3cec2398448b5f3c4bb7a9741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &702988379
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,6 +1885,7 @@ MonoBehaviour:
   MapScale: 10
   seed: 0
   grid: {fileID: 474236235}
+  UIManager: {fileID: 670631496}
   MiniMapSetting:
     MiniMap: {fileID: 296226186}
     MiniMapWall: {fileID: 11400000, guid: 05a521c88c4e70d4bb2ea1878c00820d, type: 2}

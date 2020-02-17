@@ -14,12 +14,13 @@ namespace RandomMap_V6
         public int seed;
 
         public Grid grid;
+        public UI.UIManager UIManager;
 
         public MiniMapSetting MiniMapSetting = new MiniMapSetting();
         public GameMapSetting GameMapSetting = new GameMapSetting();
         public SpwanPointSetting SpwanPointSetting = new SpwanPointSetting();
-        private GeneraterFactry generaterFactry;
 
+        private GeneraterFactry generaterFactry;
         #region 生成頻率管理
         IGenerater generater;
         bool hasInitail;

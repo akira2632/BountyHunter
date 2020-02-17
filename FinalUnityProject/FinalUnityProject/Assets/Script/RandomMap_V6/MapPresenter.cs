@@ -267,6 +267,11 @@ namespace RandomMap_V6
                 generaterManager.SetNextGenerater(new MapPresentCompelete(generaterManager));
             }
         }
+
+        public override void End()
+        {
+            generaterManager.UIManager.LoadCompelete();
+        }
     }
 
     public class MapPresentCompelete : IMapPresenter

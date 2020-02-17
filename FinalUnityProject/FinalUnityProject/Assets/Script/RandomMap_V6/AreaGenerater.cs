@@ -475,8 +475,9 @@ namespace RandomMap_V6
     {
         int nowScale, pathCount, pathMax, blockCount;
         List<Direction> nullBoundary = new List<Direction>(4);
-        bool canMake, hasMakeSpwanPoint;
+        bool canMake;
 
+        List<Coordinate> roomCoordinate = new List<Coordinate>();
         List<Coordinate> generatePoints = new List<Coordinate>();
         List<Coordinate> tempPoints = new List<Coordinate>();
         Coordinate target;
@@ -493,7 +494,6 @@ namespace RandomMap_V6
             nowScale = 0;
             blockCount = 1;
             canMake = true;
-            hasMakeSpwanPoint = false;
 
             generatePoints.Add(parms.StartPoint);
         }
@@ -512,6 +512,7 @@ namespace RandomMap_V6
 
                     //建造區塊並記錄空邊界
                     mapBuilder.MakeBlock(target, BlockType.BossRoom);
+                    roomCoordinate.Add(target);
                     pathCount = 0;
                     pathMax = 4;
                     nullBoundary.Clear();
@@ -572,8 +573,6 @@ namespace RandomMap_V6
                             foreach (Direction direction in nullBoundary)
                                 mapBuilder.MakeBoundary(target, direction, BoundaryType.Wall);
 
-                        if (blockCount == 4)
-                            mapBuilder.SetSpwanPoint(target, mapBuilder.GetBossRoomSpwanPoint());
                     }
                 }
                 else if (blockCount < 8)
@@ -610,6 +609,7 @@ namespace RandomMap_V6
 
         public override void End()
         {
+            mapBuilder.SetSpwanPoint(roomCoordinate[Random.Range(0,roomCoordinate.Count - 1)], mapBuilder.GetBossRoomSpwanPoint());
             //Debug.Log("BasicAreaGeneraterEnd");
             generaterManager.AddTicks();
         }
