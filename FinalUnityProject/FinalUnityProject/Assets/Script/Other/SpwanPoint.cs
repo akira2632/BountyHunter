@@ -23,8 +23,7 @@ namespace CharacterSystem
             }
 
             isActive = CaculatePlayerDistance() <= ActiveRange;
-            unvisible = true;
-        }
+            unvisible = true;        }
 
         // Update is called once per frame
         void Update()
