@@ -116,12 +116,12 @@
     <Compile Include="Assets\Script\RandomMap_V6\MapPresenter.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\MapSetting.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\TerrainGenerater.cs" />
-    <Compile Include="Assets\Script\UI\ChangeScene.cs" />
     <Compile Include="Assets\Script\UI\Click.cs" />
     <Compile Include="Assets\Script\UI\Exit.cs" />
     <Compile Include="Assets\Script\UI\GameUI.cs" />
     <Compile Include="Assets\Script\UI\Login.cs" />
     <Compile Include="Assets\Script\UI\Menu.cs" />
+    <Compile Include="Assets\Script\UI\TriggerEnterListener.cs" />
     <Compile Include="Assets\Script\UI\UIManager.cs" />
     <None Include="Assets\2d-extras-master\Assets\Tilemap\Tiles\Rule Tile\ScriptTemplates\NewCustomRuleTile.cs.txt" />
     <None Include="Assets\2d-extras-master\Assets\Tilemap\Brushes\Tint Brush Smooth\Shaders\TintedTilemap.shader" />

@@ -195,7 +195,7 @@ namespace CharacterSystem.Controller
                     + IsometricUtility.ToVector3(Quaternion.AngleAxis(angle, Vector3.forward)
                     * (manager.Character.transform.position - manager.player.transform.position).normalized)
                     * manager.AISetting.AroundRadius;
-                Debug.Log($"AroundPoint{targetPoint}");
+                //Debug.Log($"AroundPoint{targetPoint}");
 
                 this.angle = angle;
                 this.roundTurnCount = roundTurnCount - 1;

@@ -94,20 +94,24 @@ namespace UI
         /// <summary>
         /// 進入遊戲
         /// </summary>
-        public void RestartGame()
+        public void LoadVillageScene()
         {
             LoadScene("村莊地圖");
         }
         /// <summary>
         /// 回主選單
         /// </summary>
-        public void GoBackToMenu()
+        public void LoadMenuScene()
         {
             LoadScene("Menu");
         }
-        public void GoExit()
+        public void LoadExitScene()
         {
             LoadScene("Exit");
+        }
+        public void LoadCaveScene()
+        {
+            LoadScene("地牢");
         }
 
         private void LoadScene(string sceneName)

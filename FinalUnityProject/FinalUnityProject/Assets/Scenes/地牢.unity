@@ -2530,7 +2530,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f860739b176d6044b6d68423a800e7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: "\u6751\u838A\u5730\u5716"
+  targetTag: Player
+  invokeEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 670631496}
+        m_MethodName: LoadVillageScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!19719996 &1751171254
 TilemapCollider2D:
   m_ObjectHideFlags: 0
