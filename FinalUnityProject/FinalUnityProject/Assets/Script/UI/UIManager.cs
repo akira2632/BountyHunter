@@ -48,6 +48,11 @@ namespace UI
             isShow = show;
             MiniMapAnimator.SetBool("ShowMiniMap", show);
         }
+        private void ActiveMiniMap(bool active)
+        {
+            if (MiniMap != null)
+                MiniMap.gameObject.SetActive(active);
+        }
         #endregion
 
         private bool isPause = true;
@@ -70,11 +75,10 @@ namespace UI
         public Image ChangeScene;
         public void LoadCompelete()
         {
-            ChangeScene.DOFade(0, 1).SetDelay(1);
+            ChangeScene.DOFade(0, 1).SetDelay(1).onComplete += 
+                () => ActiveMiniMap(true);
 
             isPause = false;
-            if(MiniMap != null)
-                MiniMap.gameObject.SetActive(true);
         }
 
         /// <summary>
@@ -82,6 +86,7 @@ namespace UI
         /// </summary>
         public void RestartGame()
         {
+            ActiveMiniMap(false);
             ChangeScene.DOFade(1, 1).onComplete +=
                 () => StartCoroutine(WaitAndLoad("村莊地圖"));
         }
@@ -90,11 +95,13 @@ namespace UI
         /// </summary>
         public void GoBackToMenu()
         {
+            ActiveMiniMap(false);
             ChangeScene.DOFade(1, 1).onComplete +=
                 () => StartCoroutine(WaitAndLoad("Menu"));
         }
         public void GoExit()
         {
+            ActiveMiniMap(false);
             ChangeScene.DOFade(1, 1).onComplete +=
                 () => StartCoroutine(WaitAndLoad("Exit"));
         }
