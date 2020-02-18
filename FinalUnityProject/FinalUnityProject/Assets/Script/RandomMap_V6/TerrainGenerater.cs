@@ -26,7 +26,7 @@ namespace RandomMap_V6
 
         public override void Update()
         {
-            Debug.Log("Terrain generate initail");
+            //Debug.Log("Terrain generate initail");
 
             generateTargets = mapBuilder.GetTargets();
             target = generateTargets.Dequeue();

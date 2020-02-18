@@ -208,7 +208,7 @@ namespace CharacterSystem.Controller
                 targetPoint = manager.player.transform.position
                     + IsometricUtility.ToVector3(manager.Character.transform.position - manager.player.transform.position)
                     * manager.AISetting.AroundRadius;
-                Debug.Log($"AroundPoint{targetPoint}");
+                //Debug.Log($"AroundPoint{targetPoint}");
 
                 angle = Random.Range(1, 10) > 5 ? -manager.AISetting.AroundDegree : manager.AISetting.AroundDegree;
                 roundTurnCount = manager.AISetting.RoundTurn;
