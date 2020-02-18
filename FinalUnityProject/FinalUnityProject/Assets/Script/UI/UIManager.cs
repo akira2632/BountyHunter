@@ -7,6 +7,13 @@ namespace UI
 {
     public class UIManager : MonoBehaviour
     {
+        public bool AutoStart;
+        private void Start()
+        {
+            if(AutoStart)
+                LoadCompelete();
+        }
+
         private void Update()
         {
             UpdateMiniMap();

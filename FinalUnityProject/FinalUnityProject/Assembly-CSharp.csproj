@@ -116,7 +116,6 @@
     <Compile Include="Assets\Script\RandomMap_V6\MapPresenter.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\MapSetting.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\TerrainGenerater.cs" />
-    <Compile Include="Assets\Script\UI\AutoStart.cs" />
     <Compile Include="Assets\Script\UI\ChangeScene.cs" />
     <Compile Include="Assets\Script\UI\Click.cs" />
     <Compile Include="Assets\Script\UI\Exit.cs" />

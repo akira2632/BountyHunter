@@ -1316,6 +1316,11 @@ PrefabInstance:
       propertyPath: BGM
       value: 
       objectReference: {fileID: 1570010601}
+    - target: {fileID: 401225712079869443, guid: 5e5af124f8ad6d649bce4349fc8666b8,
+        type: 3}
+      propertyPath: AutoStart
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4895081769515742559, guid: 5e5af124f8ad6d649bce4349fc8666b8,
         type: 3}
       propertyPath: m_IsActive

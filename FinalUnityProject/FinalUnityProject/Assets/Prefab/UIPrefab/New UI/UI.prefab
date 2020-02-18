@@ -1088,6 +1088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab800ef3cec2398448b5f3c4bb7a9741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AutoStart: 1
   BloodBar: {fileID: 5858081935688383596}
   BloodMargin: {fileID: 4873641931988262881}
   BloodValue: {fileID: 810682085745730509}
@@ -1095,6 +1096,7 @@ MonoBehaviour:
   MiniMap: {fileID: 0}
   MiniMapAnimator: {fileID: 0}
   ChangeScene: {fileID: 2160205581910801334}
+  BGM: {fileID: 0}
 --- !u!82 &401225712079869445
 AudioSource:
   m_ObjectHideFlags: 0
