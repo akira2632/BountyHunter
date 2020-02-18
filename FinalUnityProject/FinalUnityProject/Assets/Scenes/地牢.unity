@@ -137,6 +137,31 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 696256780384094039, guid: 8e42b73ebd34b3648b0ccffb82892e79,
+        type: 3}
+      propertyPath: orthographic size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 696256780384094039, guid: 8e42b73ebd34b3648b0ccffb82892e79,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.03137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 696256780384094039, guid: 8e42b73ebd34b3648b0ccffb82892e79,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.03137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 696256780384094039, guid: 8e42b73ebd34b3648b0ccffb82892e79,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.03137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 696256780384094039, guid: 8e42b73ebd34b3648b0ccffb82892e79,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 1313
+      objectReference: {fileID: 0}
     - target: {fileID: 696256780384094120, guid: 8e42b73ebd34b3648b0ccffb82892e79,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -145,7 +170,7 @@ PrefabInstance:
     - target: {fileID: 696256780384094120, guid: 8e42b73ebd34b3648b0ccffb82892e79,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 696256780384094120, guid: 8e42b73ebd34b3648b0ccffb82892e79,
         type: 3}
@@ -211,7 +236,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Follow
       value: 
-      objectReference: {fileID: 1566488448}
+      objectReference: {fileID: 325034068}
     - target: {fileID: 696256780384094121, guid: 8e42b73ebd34b3648b0ccffb82892e79,
         type: 3}
       propertyPath: m_AnimatedTarget
@@ -1137,31 +1162,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 696256780384094039, guid: 8e42b73ebd34b3648b0ccffb82892e79,
-        type: 3}
-      propertyPath: orthographic size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 696256780384094039, guid: 8e42b73ebd34b3648b0ccffb82892e79,
-        type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0.03137255
-      objectReference: {fileID: 0}
-    - target: {fileID: 696256780384094039, guid: 8e42b73ebd34b3648b0ccffb82892e79,
-        type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.03137255
-      objectReference: {fileID: 0}
-    - target: {fileID: 696256780384094039, guid: 8e42b73ebd34b3648b0ccffb82892e79,
-        type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0.03137255
-      objectReference: {fileID: 0}
-    - target: {fileID: 696256780384094039, guid: 8e42b73ebd34b3648b0ccffb82892e79,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 1313
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e42b73ebd34b3648b0ccffb82892e79, type: 3}
 --- !u!1001 &237824070
@@ -1469,11 +1469,6 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 2977958360234255438, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1289828665}
     - target: {fileID: 2295306642993150841, guid: 983b491c307ee2d459e2de15d1d3e5d1,
         type: 3}
       propertyPath: m_Color.a
@@ -1499,8 +1494,19 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.004
       objectReference: {fileID: 0}
+    - target: {fileID: 2977958360234255438, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1289828665}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 983b491c307ee2d459e2de15d1d3e5d1, type: 3}
+--- !u!4 &325034068 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3820693948949913818, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 325034067}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &474236234
 GameObject:
   m_ObjectHideFlags: 0

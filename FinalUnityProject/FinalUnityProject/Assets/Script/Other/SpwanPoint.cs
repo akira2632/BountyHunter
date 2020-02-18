@@ -22,7 +22,8 @@ namespace CharacterSystem
                 item.Start(gameObject);
             }
 
-            isActive = false;
+            isActive = CaculatePlayerDistance() <= ActiveRange;
+            unvisible = true;
         }
 
         // Update is called once per frame
