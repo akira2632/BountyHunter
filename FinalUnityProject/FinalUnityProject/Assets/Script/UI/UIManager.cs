@@ -73,8 +73,11 @@ namespace UI
 
         #region 轉場控制
         public Image ChangeScene;
+        public AudioSource BGM;
+
         public void LoadCompelete()
         {
+            BGM.DOFade(1, 1).SetDelay(1);
             ChangeScene.DOFade(0, 1).SetDelay(1).onComplete += 
                 () => ActiveMiniMap(true);
 
@@ -86,24 +89,26 @@ namespace UI
         /// </summary>
         public void RestartGame()
         {
-            ActiveMiniMap(false);
-            ChangeScene.DOFade(1, 1).onComplete +=
-                () => StartCoroutine(WaitAndLoad("村莊地圖"));
+            LoadScene("村莊地圖");
         }
         /// <summary>
         /// 回主選單
         /// </summary>
         public void GoBackToMenu()
         {
-            ActiveMiniMap(false);
-            ChangeScene.DOFade(1, 1).onComplete +=
-                () => StartCoroutine(WaitAndLoad("Menu"));
+            LoadScene("Menu");
         }
         public void GoExit()
         {
+            LoadScene("Exit");
+        }
+
+        private void LoadScene(string sceneName)
+        {
             ActiveMiniMap(false);
+            BGM.DOFade(0, 1);
             ChangeScene.DOFade(1, 1).onComplete +=
-                () => StartCoroutine(WaitAndLoad("Exit"));
+                () => StartCoroutine(WaitAndLoad(sceneName));
         }
 
         private System.Collections.IEnumerator WaitAndLoad(string sceneName)

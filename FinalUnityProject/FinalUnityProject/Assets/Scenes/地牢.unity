@@ -1311,6 +1311,26 @@ PrefabInstance:
       propertyPath: MiniMapAnimator
       value: 
       objectReference: {fileID: 4340931785995130533}
+    - target: {fileID: 401225712079869443, guid: 5e5af124f8ad6d649bce4349fc8666b8,
+        type: 3}
+      propertyPath: BGM
+      value: 
+      objectReference: {fileID: 1570010601}
+    - target: {fileID: 4895081769515742559, guid: 5e5af124f8ad6d649bce4349fc8666b8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7856562016704609170, guid: 5e5af124f8ad6d649bce4349fc8666b8,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160205581910801334, guid: 5e5af124f8ad6d649bce4349fc8666b8,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e5af124f8ad6d649bce4349fc8666b8, type: 3}
 --- !u!1 &296226183
@@ -1914,7 +1934,7 @@ MonoBehaviour:
   UIManager: {fileID: 670631496}
   MiniMapSetting:
     MiniMap: {fileID: 296226186}
-    MiniMapWall: {fileID: 11400000, guid: 05a521c88c4e70d4bb2ea1878c00820d, type: 2}
+    MiniMapWall: {fileID: 11400000, guid: bc7fdcd06dca534439ddf19e9d47a25c, type: 2}
   GameMapSetting:
     GameMap_Wall: {fileID: 702988382}
     GameMap_Ground: {fileID: 1160749873}
@@ -2200,7 +2220,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: dc4349c2791db3241b61375774d09c8f, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
