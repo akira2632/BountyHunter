@@ -16,4 +16,4 @@ MonoBehaviour:
   FallDownSound: {fileID: 8300000, guid: aa6139bf2bf5e434580685a9eeacb385, type: 3}
   BasicAttackSound: {fileID: 8300000, guid: 72b5dc6042dd4d544bfc9e533db1078c, type: 3}
   HurtSound: {fileID: 8300000, guid: e457f3ec4df1f9e489693325970a37cd, type: 3}
-  DefalutHitEffect: {fileID: 11400000, guid: bd0abba3180e4034da92aac916d4bfe9, type: 2}
+  DefaultHitEffect: {fileID: 11400000, guid: bd0abba3180e4034da92aac916d4bfe9, type: 2}
