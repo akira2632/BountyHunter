@@ -4,7 +4,7 @@ namespace UI.Tutorial
 {
     public class Tutorial_Move : TutorialBase
     {
-        [Header("MoveTutorialSetting")]
+        [Header("TutorialSetting")]
         [Min(0)]
         public float MoveTime = 3;
         private float timer;
@@ -15,7 +15,6 @@ namespace UI.Tutorial
             warriorEventsManager.OnWarriorMove += TutorialUpdate;
         }
 
-
         protected void TutorialUpdate(float moveTime)
         {
             if (!tutorialReady)
@@ -24,7 +23,10 @@ namespace UI.Tutorial
             timer += moveTime;
 
             if (timer >= MoveTime)
+            {
                 EndAnimate();
+                warriorEventsManager.OnWarriorMove -= TutorialUpdate;
+            }
         }
     }
 }

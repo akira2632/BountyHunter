@@ -4,7 +4,7 @@ namespace UI.Tutorial
 {
     public class Tutorial_BasicAttack : TutorialBase
     {
-        [Header("BasicAttackTutorialSetting")]
+        [Header("TutorialSetting")]
         [Min(1)]
         public int AttackTime = 3;
         private int counter;
@@ -12,10 +12,10 @@ namespace UI.Tutorial
         protected override void ChildrenStart()
         {
             counter = 0;
-            warriorEventsManager.OnWarriorBasicAttack += tutorialUpdate;
+            warriorEventsManager.OnWarriorBasicAttack += TutorialUpdate;
         }
 
-        private void tutorialUpdate()
+        private void TutorialUpdate()
         {
             if (!tutorialReady)
                 return;
@@ -23,7 +23,10 @@ namespace UI.Tutorial
             counter++;
 
             if (counter >= AttackTime)
+            {
                 EndAnimate();
+                warriorEventsManager.OnWarriorBasicAttack -= TutorialUpdate;
+            }
         }
     }
 }

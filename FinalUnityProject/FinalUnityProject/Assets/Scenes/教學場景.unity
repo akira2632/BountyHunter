@@ -261,6 +261,7 @@ GameObject:
   - component: {fileID: 162662749}
   - component: {fileID: 162662751}
   - component: {fileID: 162662750}
+  - component: {fileID: 162662752}
   m_Layer: 5
   m_Name: DeffendAndTurn
   m_TagString: Untagged
@@ -325,6 +326,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 162662748}
   m_CullTransparentMesh: 0
+--- !u!114 &162662752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162662748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a576837bb527f784289f8cb42ca2c502, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NextTutorial: {fileID: 1499288923}
+  StartTime: 0.8
+  HightLightTimeOffset: 0.6
+  EndTime: 0.8
+  StartColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0.36078432}
+  HightLightColor: {r: 1, g: 0.9834777, b: 0.8066038, a: 1}
+  EndColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0.36078432}
+  TurningTime: 3
 --- !u!1 &216033432
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,6 +357,7 @@ GameObject:
   - component: {fileID: 216033433}
   - component: {fileID: 216033435}
   - component: {fileID: 216033434}
+  - component: {fileID: 216033436}
   m_Layer: 5
   m_Name: Deffend
   m_TagString: Untagged
@@ -400,6 +422,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 216033432}
   m_CullTransparentMesh: 0
+--- !u!114 &216033436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216033432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16bb92d1d181dcb4b8590ae8f23a6ea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NextTutorial: {fileID: 162662748}
+  StartTime: 0.8
+  HightLightTimeOffset: 0.6
+  EndTime: 0.8
+  StartColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0.36078432}
+  HightLightColor: {r: 1, g: 0.9834777, b: 0.8066038, a: 1}
+  EndColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0.36078432}
+  DeffendTime: 3
 --- !u!1 &324956968
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,7 +661,7 @@ PrefabInstance:
     - target: {fileID: 8584293900729616939, guid: 5e5af124f8ad6d649bce4349fc8666b8,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e5af124f8ad6d649bce4349fc8666b8, type: 3}
@@ -19002,7 +19044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16e576ea7d64a64fbed70d98e862ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextTutorial: {fileID: 0}
+  NextTutorial: {fileID: 216033432}
   StartTime: 0.8
   HightLightTimeOffset: 0.6
   EndTime: 0.8
@@ -41555,8 +41597,9 @@ GameObject:
   - component: {fileID: 1499288924}
   - component: {fileID: 1499288926}
   - component: {fileID: 1499288925}
+  - component: {fileID: 1499288927}
   m_Layer: 5
-  m_Name: SpecailAttack
+  m_Name: SpecailAttack1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41619,6 +41662,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1499288923}
   m_CullTransparentMesh: 0
+--- !u!114 &1499288927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499288923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f93187812d55542953d3400e75af75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NextTutorial: {fileID: 1946155315}
+  StartTime: 0.8
+  HightLightTimeOffset: 0.6
+  EndTime: 0.8
+  StartColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0.36078432}
+  HightLightColor: {r: 1, g: 0.9834777, b: 0.8066038, a: 1}
+  EndColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0.36078432}
+  DeffendTime: 3
 --- !u!1001 &1875285054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41704,8 +41767,9 @@ GameObject:
   - component: {fileID: 1946155316}
   - component: {fileID: 1946155318}
   - component: {fileID: 1946155317}
+  - component: {fileID: 1946155319}
   m_Layer: 5
-  m_Name: SpecailAttackCharge
+  m_Name: SpecailAttack2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41768,3 +41832,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1946155315}
   m_CullTransparentMesh: 0
+--- !u!114 &1946155319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946155315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3909b07e97a33cf4992557d3d695895f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NextTutorial: {fileID: 0}
+  StartTime: 0.8
+  HightLightTimeOffset: 0.6
+  EndTime: 0.8
+  StartColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0.36078432}
+  HightLightColor: {r: 1, g: 0.9834777, b: 0.8066038, a: 1}
+  EndColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0.36078432}
+  DeffendTime: 3

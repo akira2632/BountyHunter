@@ -122,7 +122,11 @@
     <Compile Include="Assets\Script\UI\Login.cs" />
     <Compile Include="Assets\Script\UI\Menu.cs" />
     <Compile Include="Assets\Script\UI\Tutorial\Tutorial_BasicAttack.cs" />
+    <Compile Include="Assets\Script\UI\Tutorial\Tutorial_Deffend.cs" />
+    <Compile Include="Assets\Script\UI\Tutorial\Tutorial_DeffendAndTurn.cs" />
     <Compile Include="Assets\Script\UI\Tutorial\Tutorial_Move.cs" />
+    <Compile Include="Assets\Script\UI\Tutorial\Tutorial_SpecailAttack1.cs" />
+    <Compile Include="Assets\Script\UI\Tutorial\Tutorial_SpecailAttack2.cs" />
     <Compile Include="Assets\Script\UI\Tutorial\TutorialBase.cs" />
     <Compile Include="Assets\Script\UI\UIManager.cs" />
     <Compile Include="Assets\Script\UI\Utility\Timer.cs" />
