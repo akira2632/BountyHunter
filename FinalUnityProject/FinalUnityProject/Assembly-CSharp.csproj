@@ -86,6 +86,7 @@
     <Compile Include="Assets\Script\Character\ActionProvider\ScarecrowActionProvider.cs" />
     <Compile Include="Assets\Script\Character\ActionProvider\SpiderActionProvidedr.cs" />
     <Compile Include="Assets\Script\Character\ActionProvider\WarriorActionProvider.cs" />
+    <Compile Include="Assets\Script\Character\ActionProvider\WarriorEventsManager.cs" />
     <Compile Include="Assets\Script\Character\Controller\BasicAI.cs" />
     <Compile Include="Assets\Script\Character\Controller\BasicAISenser.cs" />
     <Compile Include="Assets\Script\Character\Controller\BasicAISetting.cs" />
@@ -98,18 +99,16 @@
     <Compile Include="Assets\Script\Character\Controller\ScarecrowAI.cs" />
     <Compile Include="Assets\Script\Character\Controller\SpiderAI.cs" />
     <Compile Include="Assets\Script\Character\Controller\SpiderAISetting.cs" />
-    <Compile Include="Assets\Script\Character\Other\WarriorEventsManager.cs" />
     <Compile Include="Assets\Script\Character\Skill\HitEffect.cs" />
     <Compile Include="Assets\Script\Character\Skill\ProjectorShooter.cs" />
     <Compile Include="Assets\Script\Character\Skill\ProjectSkillCollider.cs" />
     <Compile Include="Assets\Script\Character\Skill\SkillColliders.cs" />
     <Compile Include="Assets\Script\Character\Skill\SkillDamage.cs" />
+    <Compile Include="Assets\Script\Character\SpwanPoint.cs" />
     <Compile Include="Assets\Script\Character\Utility\AnimateStateEvent.cs" />
     <Compile Include="Assets\Script\Character\Utility\IAnimateStateHandler.cs" />
     <Compile Include="Assets\Script\Character\Utility\IsometricUtility.cs" />
     <Compile Include="Assets\Script\Character\Utility\SkillEffectTester.cs" />
-    <Compile Include="Assets\Script\Other\SpwanPoint.cs" />
-    <Compile Include="Assets\Script\Other\WarriorProperty.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\AreaGenerater.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\DataStruct.cs" />
     <Compile Include="Assets\Script\RandomMap_V6\MapBuilder.cs" />
