@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CharacterSystem
+namespace Character
 {
     public class IsometricUtility
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace CharacterSystem
+namespace Character
 {
     public class CharacterActionController : MonoBehaviour,
         ICharacterActionControll, IAnimationStateHandler

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using CharacterSystem;
+using Character;
 using DG.Tweening;
 
 namespace UI

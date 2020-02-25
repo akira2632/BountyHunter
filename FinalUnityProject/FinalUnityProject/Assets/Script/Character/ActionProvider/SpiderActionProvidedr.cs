@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using CharacterSystem.Skill;
+using Character.Skill;
 
-namespace CharacterSystem.ActionProvider
+namespace Character.ActionProvider
 {
     [CreateAssetMenu(fileName = "蜘蛛動作提供者", menuName = "賞金獵人/動作提供者/蜘蛛動作提供者")]
     public class SpiderActionProvidedr : ICharacterActionProvider

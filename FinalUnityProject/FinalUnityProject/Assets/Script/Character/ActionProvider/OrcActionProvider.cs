@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CharacterSystem.ActionProvider
+namespace Character.ActionProvider
 {
     [CreateAssetMenu(fileName = "胖歐克動作提供者", menuName = "賞金獵人/動作提供者/胖歐克動作提供者")]
     public class OrcActionProvider : ICharacterActionProvider

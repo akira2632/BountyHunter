@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CharacterSystem.ActionProvider
+namespace Character.ActionProvider
 {
     /// <summary>
     /// 戰士角色
@@ -221,6 +221,8 @@ namespace CharacterSystem.ActionProvider
                 actionController.MovementBody.MovePosition(actionController.MovementBody.position +
                     IsometricUtility.ToVector2(actionController.CharacterData.Direction)
                     * actionController.CharacterData.MoveSpeed * Time.deltaTime);
+
+                WarriorEventsManager.WarriorMove(Time.deltaTime);
             }
 
             public override void End()
@@ -269,6 +271,8 @@ namespace CharacterSystem.ActionProvider
             public override void Start()
             {
                 actionController.Animator.SetBool("IsDeffend", true);
+
+                WarriorEventsManager.WarriorDeffend();
             }
 
             public override void Update()
@@ -289,7 +293,11 @@ namespace CharacterSystem.ActionProvider
             public override void Move(Vector2 direction)
             {
                 if (direction.magnitude > 0)
+                {
                     actionController.CharacterData.Direction = direction;
+
+                    WarriorEventsManager.WarriorTurnInDeffend(Time.deltaTime);
+                }
             }
 
             public override void Deffend(bool deffend)
@@ -333,6 +341,11 @@ namespace CharacterSystem.ActionProvider
                 actionController.AudioSource.PlayOneShot(actionProvider.BasicAttackSound);
 
                 actionController.Animator.SetTrigger("BasicAttack");
+            }
+
+            public override void End()
+            {
+                WarriorEventsManager.WarriorBasicAttack();
             }
             #endregion
 
@@ -476,6 +489,11 @@ namespace CharacterSystem.ActionProvider
                         actionController.MovementBody.position + dodgeVector);
                 }
             }
+
+            public override void End()
+            {
+                WarriorEventsManager.WarriorSpecailAttack1();
+            }
             #endregion
 
             #region 外部事件
@@ -586,6 +604,11 @@ namespace CharacterSystem.ActionProvider
                     actionController.MovementBody.MovePosition(
                         actionController.MovementBody.position + dodgeVector);
                 }
+            }
+
+            public override void End()
+            {
+                WarriorEventsManager.WarriorSpecailAttack2();
             }
             #endregion
 

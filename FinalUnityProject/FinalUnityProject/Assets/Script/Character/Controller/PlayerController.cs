@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CharacterSystem.Controller
+namespace Character.Controller
 {
     public class PlayerController : MonoBehaviour
     {

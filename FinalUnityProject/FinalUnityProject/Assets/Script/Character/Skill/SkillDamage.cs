@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CharacterSystem
+namespace Character
 {
     [CreateAssetMenu(fileName = "技能傷害", menuName = "賞金獵人/技能資料/技能傷害", order = 1)]
     public class SkillDamage : ScriptableObject

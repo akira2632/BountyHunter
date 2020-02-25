@@ -1,4 +1,4 @@
-﻿namespace CharacterSystem
+﻿namespace Character
 {
     public interface IAnimationStateHandler
     {

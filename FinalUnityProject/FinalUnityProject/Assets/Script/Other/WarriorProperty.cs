@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CharacterSystem
+namespace Character
 {
     //[CreateAssetMenu(fileName = "戰士屬性", menuName = "賞金獵人/角色能力/戰士能力(屬性計算)")]
     public class WarriorProperty : IScriptableCharacterProperty

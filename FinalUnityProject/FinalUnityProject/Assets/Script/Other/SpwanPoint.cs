@@ -1,7 +1,7 @@
-﻿using CharacterSystem.Controller;
+﻿using Character.Controller;
 using UnityEngine;
 
-namespace CharacterSystem
+namespace Character
 {
     public class SpwanPoint : MonoBehaviour
     {

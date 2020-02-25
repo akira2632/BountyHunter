@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CharacterSystem.Controller
+namespace Character.Controller
 {
     [CreateAssetMenu(fileName = "蜘蛛AI設定", menuName = "賞金獵人/AI設定/蜘蛛AI設定", order = 2)]
     public class SpiderAISetting : ScriptableObject

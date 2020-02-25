@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace CharacterSystem.Controller
+namespace Character.Controller
 {
     [RequireComponent(typeof(Seeker))]
     public class BasicAISenser : MonoBehaviour

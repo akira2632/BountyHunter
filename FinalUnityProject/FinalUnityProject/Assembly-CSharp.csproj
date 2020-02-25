@@ -98,6 +98,7 @@
     <Compile Include="Assets\Script\Character\Controller\ScarecrowAI.cs" />
     <Compile Include="Assets\Script\Character\Controller\SpiderAI.cs" />
     <Compile Include="Assets\Script\Character\Controller\SpiderAISetting.cs" />
+    <Compile Include="Assets\Script\Character\Other\WarriorEventsManager.cs" />
     <Compile Include="Assets\Script\Character\Skill\HitEffect.cs" />
     <Compile Include="Assets\Script\Character\Skill\ProjectorShooter.cs" />
     <Compile Include="Assets\Script\Character\Skill\ProjectSkillCollider.cs" />
@@ -122,6 +123,8 @@
     <Compile Include="Assets\Script\UI\Login.cs" />
     <Compile Include="Assets\Script\UI\Menu.cs" />
     <Compile Include="Assets\Script\UI\TriggerEnterListener.cs" />
+    <Compile Include="Assets\Script\UI\Tutorial\Tutorial_Move.cs" />
+    <Compile Include="Assets\Script\UI\Tutorial\TutorialBase.cs" />
     <Compile Include="Assets\Script\UI\UIManager.cs" />
     <None Include="Assets\2d-extras-master\Assets\Tilemap\Tiles\Rule Tile\ScriptTemplates\NewCustomRuleTile.cs.txt" />
     <None Include="Assets\2d-extras-master\Assets\Tilemap\Brushes\Tint Brush Smooth\Shaders\TintedTilemap.shader" />
