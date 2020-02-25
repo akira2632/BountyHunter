@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class TutorialBase : MonoBehaviour
 {
     public GameObject NextTutorial;
-    [Min(0)]
-    public float MoveTime = 3;
     [Header("AnimateSetting")]
     public float StartTime;
     [Range(0, 1)]
@@ -36,7 +34,9 @@ public class TutorialBase : MonoBehaviour
     {
         tutorialImage.DOColor(EndColor, EndTime).onComplete += () =>
         {
-            NextTutorial?.SetActive(true);
+            if(NextTutorial != null)
+                NextTutorial.SetActive(true);
+
             gameObject.SetActive(false);
         };
     }

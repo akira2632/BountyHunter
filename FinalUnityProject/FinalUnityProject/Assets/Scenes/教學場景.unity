@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 89896785}
   - component: {fileID: 89896784}
   - component: {fileID: 89896787}
+  - component: {fileID: 89896788}
   m_Layer: 5
   m_Name: TutorialUI
   m_TagString: Untagged
@@ -219,6 +220,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a83cdc3746305e4ca6d2fd4fd5a04a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &89896788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89896783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8d795d802d460242807f0fadd36a0ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InvokeTime: 2
+  InvokeRepeat: 0
+  InvokeEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1107749230}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &162662748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1976,13 +2007,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NextTutorial: {fileID: 1379609283}
-  MoveTime: 3
   StartTime: 0.8
   HightLightTimeOffset: 0.6
   EndTime: 0.8
   StartColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0.36078432}
   HightLightColor: {r: 1, g: 0.9834777, b: 0.8066038, a: 1}
   EndColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0.36078432}
+  MoveTime: 3
 --- !u!1 &1230470300
 GameObject:
   m_ObjectHideFlags: 0
@@ -18894,6 +18925,7 @@ GameObject:
   - component: {fileID: 1379609284}
   - component: {fileID: 1379609286}
   - component: {fileID: 1379609285}
+  - component: {fileID: 1379609287}
   m_Layer: 5
   m_Name: BasicAttack
   m_TagString: Untagged
@@ -18958,6 +18990,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379609283}
   m_CullTransparentMesh: 0
+--- !u!114 &1379609287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379609283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16e576ea7d64a64fbed70d98e862ab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NextTutorial: {fileID: 0}
+  StartTime: 0.8
+  HightLightTimeOffset: 0.6
+  EndTime: 0.8
+  StartColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0.36078432}
+  HightLightColor: {r: 1, g: 0.9834777, b: 0.8066038, a: 1}
+  EndColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0.36078432}
+  AttackTime: 3
 --- !u!1 &1392895795
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,12 @@
-﻿namespace UI.Tutorial
+﻿using UnityEngine;
+
+namespace UI.Tutorial
 {
     public class Tutorial_Move : TutorialBase
     {
+        [Header("MoveTutorialSetting")]
+        [Min(0)]
+        public float MoveTime = 3;
         private float timer;
 
         protected override void ChildrenStart()
