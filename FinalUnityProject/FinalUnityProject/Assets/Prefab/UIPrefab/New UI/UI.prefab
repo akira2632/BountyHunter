@@ -879,6 +879,7 @@ MonoBehaviour:
   Character: {fileID: 0}
   MiniMap: {fileID: 0}
   MiniMapAnimator: {fileID: 0}
+  ChangeSceneGroup: {fileID: 2781084082760422227}
   ChangeScene: {fileID: 2160205581910801334}
   BGM: {fileID: 0}
 --- !u!82 &401225712079869445
@@ -2217,6 +2218,7 @@ GameObject:
   - component: {fileID: 784116262313911309}
   - component: {fileID: 8558971778069730397}
   - component: {fileID: 2160205581910801334}
+  - component: {fileID: 2781084082760422227}
   m_Layer: 5
   m_Name: Loading
   m_TagString: Untagged
@@ -2280,6 +2282,18 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!225 &2781084082760422227
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8584293900729616939}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8866309734903754611
 GameObject:
   m_ObjectHideFlags: 0

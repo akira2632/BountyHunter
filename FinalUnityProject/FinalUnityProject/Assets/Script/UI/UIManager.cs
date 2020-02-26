@@ -79,13 +79,13 @@ namespace UI
         }
 
         #region 轉場控制
-        public Image ChangeScene;
+        public CanvasGroup ChangeSceneGroup;
         public AudioSource BGM;
 
         public void LoadCompelete()
         {
             BGM.DOFade(1, 1).SetDelay(1);
-            ChangeScene.DOFade(0, 1).SetDelay(1).onComplete += 
+            ChangeSceneGroup.DOFade(0, 1).SetDelay(1).onComplete += 
                 () => ActiveMiniMap(true);
 
             isPause = false;
@@ -122,7 +122,7 @@ namespace UI
         {
             ActiveMiniMap(false);
             BGM.DOFade(0, 1);
-            ChangeScene.DOFade(1, 1).onComplete +=
+            ChangeSceneGroup.DOFade(1, 1).onComplete +=
                 () => StartCoroutine(WaitAndLoad(sceneName));
         }
 
