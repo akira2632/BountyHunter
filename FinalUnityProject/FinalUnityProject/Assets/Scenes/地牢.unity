@@ -157,11 +157,6 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.b
       value: 0.03137255
       objectReference: {fileID: 0}
-    - target: {fileID: 696256780384094039, guid: 8e42b73ebd34b3648b0ccffb82892e79,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 1313
-      objectReference: {fileID: 0}
     - target: {fileID: 696256780384094120, guid: 8e42b73ebd34b3648b0ccffb82892e79,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1214,7 +1209,7 @@ PrefabInstance:
     - target: {fileID: 401225712582235260, guid: 5e5af124f8ad6d649bce4349fc8666b8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 401225712582235260, guid: 5e5af124f8ad6d649bce4349fc8666b8,
         type: 3}
@@ -1592,7 +1587,7 @@ PrefabInstance:
     - target: {fileID: 1810561749657080560, guid: 983b491c307ee2d459e2de15d1d3e5d1,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6704382508476855882, guid: 983b491c307ee2d459e2de15d1d3e5d1,
         type: 3}
@@ -1918,6 +1913,7 @@ GameObject:
   - component: {fileID: 1160749873}
   - component: {fileID: 1160749874}
   - component: {fileID: 1160749876}
+  - component: {fileID: 1160749877}
   m_Layer: 11
   m_Name: GameMap_Ground
   m_TagString: Untagged
@@ -2037,6 +2033,51 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &1160749877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160749872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f860739b176d6044b6d68423a800e7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetTag: Player
+  EnterEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1570010603}
+        m_MethodName: FadeIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  ExitEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1570010603}
+        m_MethodName: FadeOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!20 &1289828665 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 696256780384094039, guid: 8e42b73ebd34b3648b0ccffb82892e79,
@@ -2092,6 +2133,8 @@ MonoBehaviour:
     BottomRightEntry: {fileID: 11400000, guid: bf937bb0a5d6c044388e32bdb9b91b8b, type: 2}
     GameMapWall: {fileID: 11400000, guid: c4fac6f98aacb5f4c97b2bf4dc66df06, type: 2}
     GameMapGround: {fileID: 11400000, guid: 33117d6b5f70b8741bc1679e5bf1fcf9, type: 2}
+    GameMapGround_Trigger: {fileID: 11400000, guid: 491863d96d3e0ff448300bbfb80adce7,
+      type: 2}
     GroundDecorates:
     - {fileID: 11400000, guid: 0c9c3536d959f4446961511d694d9c3b, type: 2}
     - {fileID: 11400000, guid: bc90dae08db549542a44c04918afa196, type: 2}
@@ -2348,6 +2391,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1570010602}
   - component: {fileID: 1570010601}
+  - component: {fileID: 1570010603}
   m_Layer: 0
   m_Name: BGM
   m_TagString: Untagged
@@ -2458,13 +2502,27 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1570010600}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1570010603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570010600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f496a9c796df57a4abba080fea2a61d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FadeInClip: {fileID: 8300000, guid: db9d1bd02001652479afc802ba4e2f7a, type: 3}
+  FadeOutClip: {fileID: 8300000, guid: dc4349c2791db3241b61375774d09c8f, type: 3}
 --- !u!1001 &1648082140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2673,7 +2731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetTag: Player
-  InvokeEvents:
+  EnterEvents:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 670631496}
@@ -2687,6 +2745,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  ExitEvents:
+    m_PersistentCalls:
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!19719996 &1751171254

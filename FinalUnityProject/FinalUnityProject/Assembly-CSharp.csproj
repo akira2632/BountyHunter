@@ -129,8 +129,9 @@
     <Compile Include="Assets\Script\UI\Tutorial\Tutorial_SpecailAttack2.cs" />
     <Compile Include="Assets\Script\UI\Tutorial\TutorialBase.cs" />
     <Compile Include="Assets\Script\UI\UIManager.cs" />
+    <Compile Include="Assets\Script\UI\Utility\BGMFade.cs" />
     <Compile Include="Assets\Script\UI\Utility\Timer.cs" />
-    <Compile Include="Assets\Script\UI\Utility\TriggerEnterListener.cs" />
+    <Compile Include="Assets\Script\UI\Utility\TriggerListener.cs" />
     <None Include="Assets\2d-extras-master\Assets\Tilemap\Tiles\Rule Tile\ScriptTemplates\NewCustomRuleTile.cs.txt" />
     <None Include="Assets\2d-extras-master\Assets\Tilemap\Brushes\Tint Brush Smooth\Shaders\TintedTilemap.shader" />
     <None Include="Assets\Demigiant\DOTween\readme.txt" />

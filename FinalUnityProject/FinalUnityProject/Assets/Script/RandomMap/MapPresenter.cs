@@ -193,9 +193,10 @@ namespace RandomMap
                 {
                     if (terrainData[column, row] < 10)
                     {
-                        mapPrinter.PrintGameMapGround(target.Column * 15 + column, target.Row * 15 + row);
                         if (mapBuilder.GetBlockType(target) == BlockType.BossRoom)
-                            mapPrinter.PrintBossBGMArea(target.Column * 15 + column, target.Row * 15 + row);
+                            mapPrinter.PrintBossRoomGround(target.Column * 15 + column, target.Row * 15 + row);
+                        else
+                            mapPrinter.PrintGameMapGround(target.Column * 15 + column, target.Row * 15 + row);
 
                         int random = UnityEngine.Random.Range(0, 100);
 

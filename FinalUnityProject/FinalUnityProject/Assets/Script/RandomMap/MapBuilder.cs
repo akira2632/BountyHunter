@@ -361,6 +361,11 @@ namespace RandomMap
             gameMapSetting.GameMap_Ground.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapGround);
         }
 
+        public void PrintBossRoomGround(int x, int y)
+        {
+            gameMapSetting.GameMap_Ground.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapGround_Trigger);
+        }
+
         public void PrintGameMapWall(int x, int y)
         {
             gameMapSetting.GameMap_Wall.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapWall);
@@ -489,11 +494,6 @@ namespace RandomMap
             var temp = gameMapSetting.GameMap_Ground.CellToLocal(new Vector3Int(8, 8, 0));
             x = temp.x;
             y = temp.y;
-        }
-
-        internal void PrintBossBGMArea(int x, int y)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -25,6 +25,7 @@ namespace RandomMap
 
         public IsometricRuleTile GameMapWall;
         public IsometricRuleTile GameMapGround;
+        public IsometricRuleTile GameMapGround_Trigger;
 
         public Tile[] GroundDecorates;
         public Tile[] WallDecotates;
