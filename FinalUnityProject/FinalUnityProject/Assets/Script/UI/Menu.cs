@@ -78,6 +78,11 @@ namespace UI
             Application.LoadLevel("Exit");
         }
 
+        public void LoadTutorialScene()
+        {
+            Application.LoadLevel("教學場景");
+        }
+
         public void Quit()
         {
             Application.Quit();

@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UIScene/Exit.unity
     guid: dba4301d720dd3d46ae51384256a14cd
+  - enabled: 1
+    path: "Assets/Scenes/\u6559\u5B78\u5834\u666F.unity"
+    guid: 735d2f524dad8dc4ea20fb93638f6548
   m_configObjects: {}

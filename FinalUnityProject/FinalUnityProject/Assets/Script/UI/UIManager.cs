@@ -113,6 +113,10 @@ namespace UI
         {
             LoadScene("地牢");
         }
+        public void LoadTutorialScene()
+        {
+            LoadScene("教學場景");
+        }
 
         private void LoadScene(string sceneName)
         {
