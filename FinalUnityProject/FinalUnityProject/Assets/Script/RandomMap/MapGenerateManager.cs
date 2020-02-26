@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RandomMap_V6
+namespace RandomMap
 {
     public class MapGenerateManager : MonoBehaviour
     {

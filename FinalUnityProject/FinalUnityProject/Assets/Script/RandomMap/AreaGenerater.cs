@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace RandomMap_V6
+namespace RandomMap
 {
     #region 區域生成基底資料
     /// <summary>

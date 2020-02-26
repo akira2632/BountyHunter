@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace RandomMap_V6
+namespace RandomMap
 {
     public abstract class IGenerater
     {

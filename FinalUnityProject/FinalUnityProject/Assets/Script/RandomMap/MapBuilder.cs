@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-namespace RandomMap_V6
+namespace RandomMap
 {
     public class GeneraterFactry
     {
@@ -489,6 +489,11 @@ namespace RandomMap_V6
             var temp = gameMapSetting.GameMap_Ground.CellToLocal(new Vector3Int(8, 8, 0));
             x = temp.x;
             y = temp.y;
+        }
+
+        internal void PrintBossBGMArea(int x, int y)
+        {
+            throw new NotImplementedException();
         }
     }
 }

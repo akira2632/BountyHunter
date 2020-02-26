@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-namespace RandomMap_V6
+namespace RandomMap
 {
-    #region 地圖輸出者基底類別與輸出階段初始化
+    #region 地圖呈現者基底類別與輸出階段初始化
     public abstract class IMapPresenter : IGenerater
     {
         protected static Queue<Coordinate> printTargets;
@@ -43,7 +43,7 @@ namespace RandomMap_V6
     }
     #endregion
 
-    #region 地圖輸出者
+    #region 地圖呈現者
     public class MiniMapPresenter : IMapPresenter
     {
         bool isEntryBlock;
@@ -167,8 +167,6 @@ namespace RandomMap_V6
                     mapPrinter.PrintGameMapEntry(
                         target.Column * 15 + columnDisp,
                         target.Row * 15 + rowDisp, direction);
-
-                    continue;
                 }
 
             generaterManager.AddTicks();
@@ -196,6 +194,8 @@ namespace RandomMap_V6
                     if (terrainData[column, row] < 10)
                     {
                         mapPrinter.PrintGameMapGround(target.Column * 15 + column, target.Row * 15 + row);
+                        if (mapBuilder.GetBlockType(target) == BlockType.BossRoom)
+                            mapPrinter.PrintBossBGMArea(target.Column * 15 + column, target.Row * 15 + row);
 
                         int random = UnityEngine.Random.Range(0, 100);
 

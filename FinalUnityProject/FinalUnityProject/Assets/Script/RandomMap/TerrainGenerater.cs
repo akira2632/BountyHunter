@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace RandomMap_V6
+namespace RandomMap
 {
     #region 地形生成基底類別與初始化
     /// <summary>

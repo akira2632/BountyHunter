@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace RandomMap_V6
+namespace RandomMap
 {
     [System.Serializable]
     public class MiniMapSetting

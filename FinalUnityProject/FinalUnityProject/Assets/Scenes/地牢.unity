@@ -1421,11 +1421,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -738.7834
       objectReference: {fileID: 0}
-    - target: {fileID: 2160205581910801334, guid: 5e5af124f8ad6d649bce4349fc8666b8,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4622921573468598282, guid: 5e5af124f8ad6d649bce4349fc8666b8,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1445,6 +1440,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -488.31668
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160205581910801334, guid: 5e5af124f8ad6d649bce4349fc8666b8,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6662950850672617860, guid: 5e5af124f8ad6d649bce4349fc8666b8,
         type: 3}
@@ -1644,11 +1644,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1289828665}
-    - target: {fileID: 1769994441510432285, guid: 983b491c307ee2d459e2de15d1d3e5d1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2097412994600130058, guid: 983b491c307ee2d459e2de15d1d3e5d1,
         type: 3}
       propertyPath: m_BackGroundColor.r
@@ -1663,6 +1658,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BackGroundColor.b
       value: 0.09433961
+      objectReference: {fileID: 0}
+    - target: {fileID: 1769994441510432285, guid: 983b491c307ee2d459e2de15d1d3e5d1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6192091270071643019, guid: 983b491c307ee2d459e2de15d1d3e5d1,
         type: 3}
@@ -1917,7 +1917,8 @@ GameObject:
   - component: {fileID: 1160749875}
   - component: {fileID: 1160749873}
   - component: {fileID: 1160749874}
-  m_Layer: 0
+  - component: {fileID: 1160749876}
+  m_Layer: 11
   m_Name: GameMap_Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2020,6 +2021,22 @@ Transform:
   m_Father: {fileID: 474236236}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!19719996 &1160749876
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160749872}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
 --- !u!20 &1289828665 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 696256780384094039, guid: 8e42b73ebd34b3648b0ccffb82892e79,
@@ -2655,10 +2672,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f860739b176d6044b6d68423a800e7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetTag: 
+  TargetTag: Player
   InvokeEvents:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 670631496}
+        m_MethodName: LoadVillageScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!19719996 &1751171254
