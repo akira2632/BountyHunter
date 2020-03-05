@@ -12,7 +12,7 @@ namespace RandomMap
         MapGenerateManager manager;
 
         MapBuilder mapBuilder;
-        MapPrinter mapPrinter;
+        TileMapBuilder mapPrinter;
         EntryAreaGenerater entryAreaGenerater;
         BasicAreaGenerater basicAreaGenerater;
         BossRoomGenerater bossRoomGenerater;
@@ -25,11 +25,11 @@ namespace RandomMap
         {
             this.manager = manager;
             mapBuilder = new MapBuilder(spwanPointSetting);
-            mapPrinter = new MapPrinter(miniMapSetting, gameMapSetting);
+            mapPrinter = new TileMapBuilder(miniMapSetting, gameMapSetting);
         }
 
         public MapBuilder GetBuilder() => mapBuilder;
-        public MapPrinter GetMapPrinter() => mapPrinter;
+        public TileMapBuilder GetMapPrinter() => mapPrinter;
 
         #region AreaGenerater 建造區域生成策略
         public EntryAreaGenerater GetEntryAreaGenerater()
@@ -338,20 +338,45 @@ namespace RandomMap
         #endregion
     }
 
-    public class MapPrinter
+    public class TileMapBuilder
     {
-        private Color entryColor, safeBlockColor;
+        private Color entryColor, safeBlockColor, bossRoomColor;
         private MiniMapSetting miniMapSetting;
         private GameMapSetting gameMapSetting;
+
+        private TileData wallData, groundData, decoratesData, miniMapData;
         private List<GameObject> spwanPoints;
 
-        public MapPrinter(MiniMapSetting miniMapSetting, GameMapSetting gameMapSetting)
+        /// <summary>
+        /// TileMap Tile資料
+        /// </summary>
+        private class TileData
+        {
+            public List<Vector3Int> Positions { get; private set; }
+            public List<TileBase> Tiles { get; private set; }
+
+            public TileData()
+            {
+                Positions = new List<Vector3Int>();
+                Tiles = new List<TileBase>();
+            }
+
+            public void Add(Vector3Int position, TileBase tile)
+            {
+                Positions.Add(position);
+                Tiles.Add(tile);
+            }
+        }
+
+        public TileMapBuilder(MiniMapSetting miniMapSetting, GameMapSetting gameMapSetting)
         {
             this.miniMapSetting = miniMapSetting;
             this.gameMapSetting = gameMapSetting;
-            //bossRoomColor = new Color32(255, 240, 109, 255);
+
+            bossRoomColor = new Color32(255, 240, 109, 255);
             entryColor = new Color32(243, 105, 228, 255);
             safeBlockColor = new Color32(251, 172, 235, 255);
+
             spwanPoints = new List<GameObject>();
         }
 
@@ -395,7 +420,7 @@ namespace RandomMap
                gameMapSetting.SkullDecotates[random % gameMapSetting.SkullDecotates.Length]);
         }
 
-        internal void PrintGameMapEntry(int x, int y, Direction d)
+        public void PrintGameMapEntry(int x, int y, Direction d)
         {
             if (d == Direction.Left)
                 gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0)
@@ -410,20 +435,6 @@ namespace RandomMap
                 gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0)
                     , gameMapSetting.BottomLeftEntry);
         }
-        /*
-        public void BossRoom(bool isBossRoom)
-        {
-            if(isBossRoom)
-            {
-                gameMapSetting.GameMapGround.color = bossRoomColor;
-                gameMapSetting.GameMapWall.color = bossRoomColor;
-            }
-            else
-            {
-                gameMapSetting.GameMapGround.color = Color.white;
-                gameMapSetting.GameMapWall.color = Color.white;
-            }
-        }*/
         #endregion
 
         #region 印出小地圖
@@ -466,9 +477,23 @@ namespace RandomMap
             miniMapSetting.MiniMapWall.color = Color.white;
         }
 
+        internal void PrintMiniMapBossRoomWall(Coordinate target, Direction direction)
+        {
+            miniMapSetting.MiniMapWall.color = bossRoomColor;
+            PrintMiniMapWall(target, direction);
+            miniMapSetting.MiniMapWall.color = Color.white;
+        }
+
         internal void PrintMiniMapSafeBlockCorner(Coordinate target, Direction direction1, Direction direction2)
         {
             miniMapSetting.MiniMapWall.color = safeBlockColor;
+            PrintMiniMapCorner(target, direction1, direction2);
+            miniMapSetting.MiniMapWall.color = Color.white;
+        }
+
+        internal void PrintMiniMapBossRoomCorner(Coordinate target, Direction direction1, Direction direction2)
+        {
+            miniMapSetting.MiniMapWall.color = bossRoomColor;
             PrintMiniMapCorner(target, direction1, direction2);
             miniMapSetting.MiniMapWall.color = Color.white;
         }

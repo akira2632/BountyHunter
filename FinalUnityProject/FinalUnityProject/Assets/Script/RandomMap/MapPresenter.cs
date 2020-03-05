@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using Pathfinding;
 using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
 
 namespace RandomMap
 {
@@ -11,7 +9,7 @@ namespace RandomMap
     {
         protected static Queue<Coordinate> printTargets;
         protected static Coordinate target;
-        protected static MapPrinter mapPrinter;
+        protected static TileMapBuilder tileMapBuilder;
 
         protected static int columnMax, rowMax, columnMin, rowMin;
 
@@ -34,7 +32,7 @@ namespace RandomMap
 
         public override void Update()
         {
-            mapPrinter = generaterManager.GetGeneraterFactry().GetMapPrinter();
+            tileMapBuilder = generaterManager.GetGeneraterFactry().GetMapPrinter();
             printTargets = mapBuilder.GetTargets();
             columnMax = columnMin = rowMax = rowMin = 0;
 
@@ -67,14 +65,23 @@ namespace RandomMap
                     {
                         if (mapBuilder.HasWall(target, d))
                         {
-                            if (mapBuilder.GetBlockType(target) == BlockType.Safe)
-                                mapPrinter.PrintMiniMapSafeBlockWall(target, d);
-                            else
-                                mapPrinter.PrintMiniMapWall(target, d);
+                            switch (mapBuilder.GetBlockType(target))
+                            {
+                                case BlockType.Safe:
+                                    tileMapBuilder.PrintMiniMapSafeBlockWall(target, d);
+                                    break;
+                                case BlockType.Normal:
+                                    tileMapBuilder.PrintMiniMapWall(target, d);
+                                    break;
+                                case BlockType.BossRoom:
+                                    tileMapBuilder.PrintMiniMapBossRoomWall(target, d);
+                                    break;
+                                default: break;
+                            }
                         }
                         else if (mapBuilder.GetBoundaryType(target, d) == BoundaryType.Entry)
                         {
-                            mapPrinter.PrintMiniMapEntry(target, d);
+                            tileMapBuilder.PrintMiniMapEntry(target, d);
                             isEntryBlock = true;
                         }
 
@@ -84,10 +91,19 @@ namespace RandomMap
                             && mapBuilder.HasOpenBoundary(target + d + Direction.LeftSide(d), Direction.RightSide(d))
                             && mapBuilder.HasOpenBoundary(target + d + Direction.LeftSide(d), Direction.Reverse(d))))
                         {
-                            if (mapBuilder.GetBlockType(target) == BlockType.Safe)
-                                mapPrinter.PrintMiniMapSafeBlockCorner(target, d, Direction.LeftSide(d));
-                            else
-                                mapPrinter.PrintMiniMapCorner(target, d, Direction.LeftSide(d));
+                            switch (mapBuilder.GetBlockType(target))
+                            {
+                                case BlockType.Safe:
+                                    tileMapBuilder.PrintMiniMapSafeBlockCorner(target, d, Direction.LeftSide(d));
+                                    break;
+                                case BlockType.Normal:
+                                    tileMapBuilder.PrintMiniMapCorner(target, d, Direction.LeftSide(d));
+                                    break;
+                                case BlockType.BossRoom:
+                                    tileMapBuilder.PrintMiniMapBossRoomCorner(target, d, Direction.LeftSide(d));
+                                    break;
+                                default: break;
+                            }
                         }
                     }
 
@@ -118,7 +134,7 @@ namespace RandomMap
             for (int column = 0; column < 15; column++)
                 for (int row = 0; row < 15; row++)
                 {
-                    mapPrinter.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
+                    tileMapBuilder.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
                 }
 
             generaterManager.AddTicks();
@@ -144,17 +160,17 @@ namespace RandomMap
                 {
                     if (terrainData[column, row] < 10)
                     {
-                        mapPrinter.PrintGameMapGround(target.Column * 15 + column, target.Row * 15 + row);
+                        tileMapBuilder.PrintGameMapGround(target.Column * 15 + column, target.Row * 15 + row);
 
                         int random = UnityEngine.Random.Range(0, 100);
 
                         if (random > 85 && terrainData[column, row] > 4)
-                            mapPrinter.PrintWallDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.PrintWallDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
                         else if (random > 70 && terrainData[column, row] < 4)
-                            mapPrinter.PrintGroundDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.PrintGroundDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
                     }
                     else
-                        mapPrinter.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
+                        tileMapBuilder.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
                 }
 
             for (int d = 0; d < Direction.DirectionCount; d++)
@@ -164,7 +180,7 @@ namespace RandomMap
                     var columnDisp = direction.Column == 0 ? 7 : direction.Row > 0 ? 0 : 14;
                     var rowDisp = direction.Row == 0 ? 7 : direction.Column > 0 ? 0 : 14;
 
-                    mapPrinter.PrintGameMapEntry(
+                    tileMapBuilder.PrintGameMapEntry(
                         target.Column * 15 + columnDisp,
                         target.Row * 15 + rowDisp, direction);
                 }
@@ -194,28 +210,28 @@ namespace RandomMap
                     if (terrainData[column, row] < 10)
                     {
                         if (mapBuilder.GetBlockType(target) == BlockType.BossRoom)
-                            mapPrinter.PrintBossRoomGround(target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.PrintBossRoomGround(target.Column * 15 + column, target.Row * 15 + row);
                         else
-                            mapPrinter.PrintGameMapGround(target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.PrintGameMapGround(target.Column * 15 + column, target.Row * 15 + row);
 
                         int random = UnityEngine.Random.Range(0, 100);
 
                         if (random > 85 && terrainData[column, row] > 4)
-                            mapPrinter.PrintWallDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.PrintWallDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
                         else if (random > 70 && terrainData[column, row] < 4)
-                            mapPrinter.PrintGroundDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.PrintGroundDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
                         else if (random < 2 && terrainData[column, row] > 4)
-                            mapPrinter.PrintBoxDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.PrintBoxDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
                         else if (random >= 2 && random < 4 && terrainData[column, row] > 4)
-                            mapPrinter.PRintSkullDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.PRintSkullDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
                     }
                     else
-                        mapPrinter.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
+                        tileMapBuilder.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
                 }
 
             var spwanPoint = mapBuilder.GetSpwanPoint(target);
             if(spwanPoint != null)
-                mapPrinter.SetSpwanPoint(target.Column * 15 + 8, target.Row * 15 + 8, spwanPoint);
+                tileMapBuilder.SetSpwanPoint(target.Column * 15 + 8, target.Row * 15 + 8, spwanPoint);
 
             generaterManager.AddTicks();
             generaterManager.SetNextGenerater(new MiniMapPresenter(generaterManager));
@@ -262,9 +278,9 @@ namespace RandomMap
         {
             if(!AstarPath.active.isScanning)
             {
-                mapPrinter.GetEntryPosition(out float x, out float y);
+                tileMapBuilder.GetEntryPosition(out float x, out float y);
                 generaterManager.SetPlayerPosition(x, y);
-                mapPrinter.ActiveSpwanPoint();
+                tileMapBuilder.ActiveSpwanPoint();
                 generaterManager.SetNextGenerater(new MapPresentCompelete(generaterManager));
             }
         }
