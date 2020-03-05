@@ -352,19 +352,22 @@ namespace RandomMap
         /// </summary>
         private class TileData
         {
-            public List<Vector3Int> Positions { get; private set; }
-            public List<TileBase> Tiles { get; private set; }
+            private List<Vector3Int> positions;
+            private List<TileBase> tiles;
+
+            public Vector3Int[] Positions { get => positions.ToArray(); }
+            public TileBase[] Tiles { get => tiles.ToArray(); }
 
             public TileData()
             {
-                Positions = new List<Vector3Int>();
-                Tiles = new List<TileBase>();
+                positions = new List<Vector3Int>();
+                tiles = new List<TileBase>();
             }
 
-            public void Add(Vector3Int position, TileBase tile)
+            public void SetTile(Vector3Int position, TileBase tile)
             {
-                Positions.Add(position);
-                Tiles.Add(tile);
+                positions.Add(position);
+                tiles.Add(tile);
             }
         }
 
@@ -378,62 +381,67 @@ namespace RandomMap
             safeBlockColor = new Color32(251, 172, 235, 255);
 
             spwanPoints = new List<GameObject>();
+
+            wallData = new TileData();
+            groundData = new TileData();
+            decoratesData = new TileData();
+            miniMapData = new TileData();
         }
 
         #region 印出遊戲地圖
         public void PrintGameMapGround(int x, int y)
         {
-            gameMapSetting.GameMap_Ground.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapGround);
+            groundData.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapGroundTile);
         }
 
         public void PrintBossRoomGround(int x, int y)
         {
-            gameMapSetting.GameMap_Ground.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapGround_Trigger);
+            groundData.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapGroundTile_Trigger);
         }
 
         public void PrintGameMapWall(int x, int y)
         {
-            gameMapSetting.GameMap_Wall.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapWall);
+            wallData.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapWallTile);
         }
 
         public void PrintWallDecorates(int random, int x, int y)
         {
-            gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0),
+            decoratesData.SetTile(new Vector3Int(x, y, 0),
                 gameMapSetting.WallDecotates[random % gameMapSetting.WallDecotates.Length]);
         }
 
         public void PrintGroundDecorates(int random, int x, int y)
         {
-            gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0),
+            decoratesData.SetTile(new Vector3Int(x, y, 0),
                 gameMapSetting.GroundDecorates[random % gameMapSetting.GroundDecorates.Length]);
         }
 
         public void PrintBoxDecorates(int random, int x, int y)
         {
-            gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0),
+            decoratesData.SetTile(new Vector3Int(x, y, 0),
                gameMapSetting.BoxDecotates[random % gameMapSetting.BoxDecotates.Length]);
         }
 
         public void PRintSkullDecorates(int random, int x, int y)
         {
-            gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0),
+            decoratesData.SetTile(new Vector3Int(x, y, 0),
                gameMapSetting.SkullDecotates[random % gameMapSetting.SkullDecotates.Length]);
         }
 
         public void PrintGameMapEntry(int x, int y, Direction d)
         {
             if (d == Direction.Left)
-                gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0)
-                    , gameMapSetting.TopLeftEntry);
+                decoratesData.SetTile(new Vector3Int(x, y, 0)
+                    , gameMapSetting.TopLeftEntryTile);
             else if (d == Direction.Right)
-                gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0)
-                    , gameMapSetting.BottomRightEntry);
+                decoratesData.SetTile(new Vector3Int(x, y, 0)
+                    , gameMapSetting.BottomRightEntryTile);
             else if (d == Direction.Top)
-                gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0)
-                    , gameMapSetting.TopRightEntry);
+                decoratesData.SetTile(new Vector3Int(x, y, 0)
+                    , gameMapSetting.TopRightEntryTile);
             else if (d == Direction.Bottom)
-                gameMapSetting.GameMap_Decorate.SetTile(new Vector3Int(x, y, 0)
-                    , gameMapSetting.BottomLeftEntry);
+                decoratesData.SetTile(new Vector3Int(x, y, 0)
+                    , gameMapSetting.BottomLeftEntryTile);
         }
         #endregion
 
@@ -443,9 +451,9 @@ namespace RandomMap
             int columnDisp = direction1.Column + direction2.Column > 0 ? 1 : 0;
             int rowDisp = direction1.Row + direction2.Row > 0 ? 1 : 0;
 
-            miniMapSetting.MiniMap.SetTile(
+            miniMapData.SetTile(
                 new Vector3Int(target.Column * 15 + columnDisp * 14, target.Row * 15 + rowDisp * 14, 0)
-                , miniMapSetting.MiniMapWall);
+                , miniMapSetting.MiniMapTile);
         }
 
         public void PrintMiniMapWall(Coordinate target, Direction direction)
@@ -457,53 +465,61 @@ namespace RandomMap
 
             for (int column = 1; column < 14; column++)
                 for (int row = 1; row < 14; row++)
-                    miniMapSetting.MiniMap.SetTile(
+                    miniMapData.SetTile(
                         new Vector3Int(target.Column * 15 + startColumn + columnDisp * column,
                         target.Row * 15 + startRow + rowDisp * row, 0)
-                        , miniMapSetting.MiniMapWall);
+                        , miniMapSetting.MiniMapTile);
         }
 
         public void PrintMiniMapEntry(Coordinate target, Direction direction)
         {
-            miniMapSetting.MiniMapWall.color = entryColor;
+            miniMapSetting.MiniMapTile.color = entryColor;
             PrintMiniMapWall(target, direction);
-            miniMapSetting.MiniMapWall.color = Color.white;
+            miniMapSetting.MiniMapTile.color = Color.white;
         }
 
         internal void PrintMiniMapSafeBlockWall(Coordinate target, Direction direction)
         {
-            miniMapSetting.MiniMapWall.color = safeBlockColor;
+            miniMapSetting.MiniMapTile.color = safeBlockColor;
             PrintMiniMapWall(target, direction);
-            miniMapSetting.MiniMapWall.color = Color.white;
+            miniMapSetting.MiniMapTile.color = Color.white;
         }
 
         internal void PrintMiniMapBossRoomWall(Coordinate target, Direction direction)
         {
-            miniMapSetting.MiniMapWall.color = bossRoomColor;
+            miniMapSetting.MiniMapTile.color = bossRoomColor;
             PrintMiniMapWall(target, direction);
-            miniMapSetting.MiniMapWall.color = Color.white;
+            miniMapSetting.MiniMapTile.color = Color.white;
         }
 
         internal void PrintMiniMapSafeBlockCorner(Coordinate target, Direction direction1, Direction direction2)
         {
-            miniMapSetting.MiniMapWall.color = safeBlockColor;
+            miniMapSetting.MiniMapTile.color = safeBlockColor;
             PrintMiniMapCorner(target, direction1, direction2);
-            miniMapSetting.MiniMapWall.color = Color.white;
+            miniMapSetting.MiniMapTile.color = Color.white;
         }
 
         internal void PrintMiniMapBossRoomCorner(Coordinate target, Direction direction1, Direction direction2)
         {
-            miniMapSetting.MiniMapWall.color = bossRoomColor;
+            miniMapSetting.MiniMapTile.color = bossRoomColor;
             PrintMiniMapCorner(target, direction1, direction2);
-            miniMapSetting.MiniMapWall.color = Color.white;
+            miniMapSetting.MiniMapTile.color = Color.white;
         }
         #endregion
 
         public void SetSpwanPoint(int x, int y, GameObject spwanPoint)
         {
-            var spwanPointPosition = gameMapSetting.GameMap_Ground.CellToWorld(new Vector3Int(x, y, 0));
+            var spwanPointPosition = gameMapSetting.GameMapGround.CellToWorld(new Vector3Int(x, y, 0));
             var newSpwanPoint = GameObject.Instantiate(spwanPoint, spwanPointPosition, Quaternion.identity);
             spwanPoints.Add(newSpwanPoint);
+        }
+
+        public void PresentTileMap()
+        {
+            gameMapSetting.GameMapGround.SetTiles(groundData.Positions, groundData.Tiles);
+            gameMapSetting.GameMapWall.SetTiles(wallData.Positions, wallData.Tiles);
+            gameMapSetting.GameMapDecorate.SetTiles(decoratesData.Positions, decoratesData.Tiles);
+            miniMapSetting.MiniMap.SetTiles(miniMapData.Positions, miniMapData.Tiles);
         }
 
         public void ActiveSpwanPoint()
@@ -516,7 +532,7 @@ namespace RandomMap
 
         internal void GetEntryPosition(out float x, out float y)
         {
-            var temp = gameMapSetting.GameMap_Ground.CellToLocal(new Vector3Int(8, 8, 0));
+            var temp = gameMapSetting.GameMapGround.CellToLocal(new Vector3Int(8, 8, 0));
             x = temp.x;
             y = temp.y;
         }

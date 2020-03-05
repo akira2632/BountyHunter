@@ -8,24 +8,24 @@ namespace RandomMap
     public class MiniMapSetting
     {
         public Tilemap MiniMap;
-        public Tile MiniMapWall;
+        public Tile MiniMapTile;
     }
 
     [System.Serializable]
     public class GameMapSetting
     {
-        public Tilemap GameMap_Wall;
-        public Tilemap GameMap_Ground;
-        public Tilemap GameMap_Decorate;
+        public Tilemap GameMapWall;
+        public Tilemap GameMapGround;
+        public Tilemap GameMapDecorate;
 
-        public Tile TopLeftEntry;
-        public Tile TopRightEntry;
-        public Tile BottomLeftEntry;
-        public Tile BottomRightEntry;
+        public Tile TopLeftEntryTile;
+        public Tile TopRightEntryTile;
+        public Tile BottomLeftEntryTile;
+        public Tile BottomRightEntryTile;
 
-        public IsometricRuleTile GameMapWall;
-        public IsometricRuleTile GameMapGround;
-        public IsometricRuleTile GameMapGround_Trigger;
+        public IsometricRuleTile GameMapWallTile;
+        public IsometricRuleTile GameMapGroundTile;
+        public IsometricRuleTile GameMapGroundTile_Trigger;
 
         public Tile[] GroundDecorates;
         public Tile[] WallDecotates;

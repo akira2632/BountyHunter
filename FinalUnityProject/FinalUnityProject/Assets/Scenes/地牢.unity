@@ -1166,11 +1166,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2781084082760422227, guid: 5e5af124f8ad6d649bce4349fc8666b8,
-        type: 3}
-      propertyPath: m_Alpha
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 401225712582235248, guid: 5e5af124f8ad6d649bce4349fc8666b8,
         type: 3}
       propertyPath: m_Name
@@ -1179,6 +1174,11 @@ PrefabInstance:
     - target: {fileID: 401225712582235248, guid: 5e5af124f8ad6d649bce4349fc8666b8,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2781084082760422227, guid: 5e5af124f8ad6d649bce4349fc8666b8,
+        type: 3}
+      propertyPath: m_Alpha
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 401225712582235260, guid: 5e5af124f8ad6d649bce4349fc8666b8,
@@ -2219,16 +2219,20 @@ MonoBehaviour:
     MiniMap: {fileID: 296226186}
     MiniMapWall: {fileID: 11400000, guid: bc7fdcd06dca534439ddf19e9d47a25c, type: 2}
   GameMapSetting:
-    GameMap_Wall: {fileID: 702988382}
-    GameMap_Ground: {fileID: 1160749873}
-    GameMap_Decorate: {fileID: 1751171250}
-    TopLeftEntry: {fileID: 11400000, guid: 0213413b75e297c44b989c2fb6096e2e, type: 2}
-    TopRightEntry: {fileID: 11400000, guid: a7e01ec5c80797e4e957e827c116879d, type: 2}
-    BottomLeftEntry: {fileID: 11400000, guid: 9d76d2a95f6850a46b326b3c39174a81, type: 2}
-    BottomRightEntry: {fileID: 11400000, guid: bf937bb0a5d6c044388e32bdb9b91b8b, type: 2}
-    GameMapWall: {fileID: 11400000, guid: c4fac6f98aacb5f4c97b2bf4dc66df06, type: 2}
-    GameMapGround: {fileID: 11400000, guid: 33117d6b5f70b8741bc1679e5bf1fcf9, type: 2}
-    GameMapGround_Trigger: {fileID: 11400000, guid: 491863d96d3e0ff448300bbfb80adce7,
+    GameMapWall: {fileID: 702988382}
+    GameMapGround: {fileID: 1160749873}
+    GameMapDecorate: {fileID: 1751171250}
+    TopLeftEntryTile: {fileID: 11400000, guid: 0213413b75e297c44b989c2fb6096e2e, type: 2}
+    TopRightEntryTile: {fileID: 11400000, guid: a7e01ec5c80797e4e957e827c116879d,
+      type: 2}
+    BottomLeftEntryTile: {fileID: 11400000, guid: 9d76d2a95f6850a46b326b3c39174a81,
+      type: 2}
+    BottomRightEntryTile: {fileID: 11400000, guid: bf937bb0a5d6c044388e32bdb9b91b8b,
+      type: 2}
+    GameMapWallTile: {fileID: 11400000, guid: c4fac6f98aacb5f4c97b2bf4dc66df06, type: 2}
+    GameMapGroundTile: {fileID: 11400000, guid: 33117d6b5f70b8741bc1679e5bf1fcf9,
+      type: 2}
+    GameMapGroundTile_Trigger: {fileID: 11400000, guid: 491863d96d3e0ff448300bbfb80adce7,
       type: 2}
     GroundDecorates:
     - {fileID: 11400000, guid: 0c9c3536d959f4446961511d694d9c3b, type: 2}

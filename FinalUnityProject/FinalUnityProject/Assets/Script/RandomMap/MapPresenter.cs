@@ -120,7 +120,7 @@ namespace RandomMap
                 }
             }
             else
-                generaterManager.SetNextGenerater(new NaveGraphGenerate(generaterManager));
+                generaterManager.SetNextGenerater(new PresentMap(generaterManager));
         }
     }
 
@@ -238,12 +238,17 @@ namespace RandomMap
         }
     }
 
-    public class NaveGraphGenerate : IMapPresenter
+    public class PresentMap : IMapPresenter
     {
         private float tilemapRefreshDelay = 1f;
 
-        public NaveGraphGenerate(MapGenerateManager generaterManager)
+        public PresentMap(MapGenerateManager generaterManager)
             : base(generaterManager) { }
+
+        public override void Initail()
+        {
+            tileMapBuilder.PresentTileMap();
+        }
 
         public override void Update()
         {
