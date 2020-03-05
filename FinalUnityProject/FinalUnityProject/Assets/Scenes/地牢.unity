@@ -2217,7 +2217,7 @@ MonoBehaviour:
   UIManager: {fileID: 670631496}
   MiniMapSetting:
     MiniMap: {fileID: 296226186}
-    MiniMapWall: {fileID: 11400000, guid: bc7fdcd06dca534439ddf19e9d47a25c, type: 2}
+    MiniMapTile: {fileID: 11400000, guid: bc7fdcd06dca534439ddf19e9d47a25c, type: 2}
   GameMapSetting:
     GameMapWall: {fileID: 702988382}
     GameMapGround: {fileID: 1160749873}
