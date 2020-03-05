@@ -315,7 +315,7 @@ namespace RandomMap
     public enum BoundaryType : byte { Entry, SmallPath, LargePath, OpenBoundary, Wall }
 
     //區塊類型
-    public enum BlockType : byte { Safe, Normal, BossRoom, Null }
+    public enum BlockType : byte { Entry, Normal, BossRoom, Null }
 
     public class Boundary
     {

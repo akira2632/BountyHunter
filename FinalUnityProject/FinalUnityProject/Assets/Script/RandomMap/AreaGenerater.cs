@@ -269,7 +269,7 @@ namespace RandomMap
         public override void Update()
         {
             //Debug.Log("EntryAreaGeneraterUpdate");
-            mapBuilder.MakeBlock(parms.StartPoint, BlockType.Safe);
+            mapBuilder.MakeBlock(parms.StartPoint, BlockType.Entry);
 
             for (int d = 0; d < Direction.DirectionCount; d++)
                 nullBoundary.Add(d);

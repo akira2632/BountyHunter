@@ -450,7 +450,7 @@ namespace RandomMap
         {
             switch (type)
             {
-                case BlockType.Safe: return miniMapSetting.EntryAreaTile;
+                case BlockType.Entry: return miniMapSetting.EntryAreaTile;
                 case BlockType.BossRoom: return miniMapSetting.BossAreaTile;
                 case BlockType.Normal:
                 default:
