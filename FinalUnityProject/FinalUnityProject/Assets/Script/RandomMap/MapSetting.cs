@@ -7,7 +7,10 @@ namespace RandomMap
     public class MiniMapSetting
     {
         public Tilemap MiniMap;
-        public Tile MiniMapTile;
+        public Tile NormalTile;
+        public Tile EntryTile;
+        public Tile EntryAreaTile;
+        public Tile BossAreaTile;
     }
 
     [System.Serializable]

@@ -65,23 +65,11 @@ namespace RandomMap
                     {
                         if (mapBuilder.HasWall(target, d))
                         {
-                            switch (mapBuilder.GetBlockType(target))
-                            {
-                                case BlockType.Safe:
-                                    tileMapBuilder.PrintMiniMapSafeBlockWall(target, d);
-                                    break;
-                                case BlockType.Normal:
-                                    tileMapBuilder.PrintMiniMapWall(target, d);
-                                    break;
-                                case BlockType.BossRoom:
-                                    tileMapBuilder.PrintMiniMapBossRoomWall(target, d);
-                                    break;
-                                default: break;
-                            }
+                            tileMapBuilder.SetMiniMapWall(target, d, mapBuilder.GetBlockType(target));
                         }
                         else if (mapBuilder.GetBoundaryType(target, d) == BoundaryType.Entry)
                         {
-                            tileMapBuilder.PrintMiniMapEntry(target, d);
+                            tileMapBuilder.SetMiniMapEntry(target, d);
                             isEntryBlock = true;
                         }
 
@@ -91,19 +79,7 @@ namespace RandomMap
                             && mapBuilder.HasOpenBoundary(target + d + Direction.LeftSide(d), Direction.RightSide(d))
                             && mapBuilder.HasOpenBoundary(target + d + Direction.LeftSide(d), Direction.Reverse(d))))
                         {
-                            switch (mapBuilder.GetBlockType(target))
-                            {
-                                case BlockType.Safe:
-                                    tileMapBuilder.PrintMiniMapSafeBlockCorner(target, d, Direction.LeftSide(d));
-                                    break;
-                                case BlockType.Normal:
-                                    tileMapBuilder.PrintMiniMapCorner(target, d, Direction.LeftSide(d));
-                                    break;
-                                case BlockType.BossRoom:
-                                    tileMapBuilder.PrintMiniMapBossRoomCorner(target, d, Direction.LeftSide(d));
-                                    break;
-                                default: break;
-                            }
+                            tileMapBuilder.SetMiniMapCorner(target, d, Direction.LeftSide(d), mapBuilder.GetBlockType(target));
                         }
                     }
 
@@ -134,7 +110,7 @@ namespace RandomMap
             for (int column = 0; column < 15; column++)
                 for (int row = 0; row < 15; row++)
                 {
-                    tileMapBuilder.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
+                    tileMapBuilder.SetGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
                 }
 
             generaterManager.AddTicks();
@@ -160,17 +136,17 @@ namespace RandomMap
                 {
                     if (terrainData[column, row] < 10)
                     {
-                        tileMapBuilder.PrintGameMapGround(target.Column * 15 + column, target.Row * 15 + row);
+                        tileMapBuilder.SetGameMapGround(target.Column * 15 + column, target.Row * 15 + row);
 
                         int random = UnityEngine.Random.Range(0, 100);
 
                         if (random > 85 && terrainData[column, row] > 4)
-                            tileMapBuilder.PrintWallDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.SetWallDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
                         else if (random > 70 && terrainData[column, row] < 4)
-                            tileMapBuilder.PrintGroundDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.SetGroundDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
                     }
                     else
-                        tileMapBuilder.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
+                        tileMapBuilder.SetGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
                 }
 
             for (int d = 0; d < Direction.DirectionCount; d++)
@@ -180,7 +156,7 @@ namespace RandomMap
                     var columnDisp = direction.Column == 0 ? 7 : direction.Row > 0 ? 0 : 14;
                     var rowDisp = direction.Row == 0 ? 7 : direction.Column > 0 ? 0 : 14;
 
-                    tileMapBuilder.PrintGameMapEntry(
+                    tileMapBuilder.SetGameMapEntry(
                         target.Column * 15 + columnDisp,
                         target.Row * 15 + rowDisp, direction);
                 }
@@ -210,23 +186,23 @@ namespace RandomMap
                     if (terrainData[column, row] < 10)
                     {
                         if (mapBuilder.GetBlockType(target) == BlockType.BossRoom)
-                            tileMapBuilder.PrintBossRoomGround(target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.SetBossRoomGround(target.Column * 15 + column, target.Row * 15 + row);
                         else
-                            tileMapBuilder.PrintGameMapGround(target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.SetGameMapGround(target.Column * 15 + column, target.Row * 15 + row);
 
                         int random = UnityEngine.Random.Range(0, 100);
 
                         if (random > 85 && terrainData[column, row] > 4)
-                            tileMapBuilder.PrintWallDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.SetWallDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
                         else if (random > 70 && terrainData[column, row] < 4)
-                            tileMapBuilder.PrintGroundDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.SetGroundDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
                         else if (random < 2 && terrainData[column, row] > 4)
-                            tileMapBuilder.PrintBoxDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.SetBoxDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
                         else if (random >= 2 && random < 4 && terrainData[column, row] > 4)
-                            tileMapBuilder.PRintSkullDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
+                            tileMapBuilder.SetSkullDecorates(random, target.Column * 15 + column, target.Row * 15 + row);
                     }
                     else
-                        tileMapBuilder.PrintGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
+                        tileMapBuilder.SetGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
                 }
 
             var spwanPoint = mapBuilder.GetSpwanPoint(target);

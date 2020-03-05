@@ -2217,7 +2217,10 @@ MonoBehaviour:
   UIManager: {fileID: 670631496}
   MiniMapSetting:
     MiniMap: {fileID: 296226186}
-    MiniMapTile: {fileID: 11400000, guid: bc7fdcd06dca534439ddf19e9d47a25c, type: 2}
+    NormalTile: {fileID: 11400000, guid: bc7fdcd06dca534439ddf19e9d47a25c, type: 2}
+    EntryTile: {fileID: 11400000, guid: 7562a85b296328d49bfedcd5147da955, type: 2}
+    EntryAreaTile: {fileID: 11400000, guid: 7cb0860c5609ff74887f784e3946e725, type: 2}
+    BossAreaTile: {fileID: 11400000, guid: 570e0ac5f0e493a4ea4a6bdc213faa44, type: 2}
   GameMapSetting:
     GameMapWall: {fileID: 702988382}
     GameMapGround: {fileID: 1160749873}

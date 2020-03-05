@@ -389,46 +389,46 @@ namespace RandomMap
         }
 
         #region 印出遊戲地圖
-        public void PrintGameMapGround(int x, int y)
+        public void SetGameMapGround(int x, int y)
         {
             groundData.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapGroundTile);
         }
 
-        public void PrintBossRoomGround(int x, int y)
+        public void SetBossRoomGround(int x, int y)
         {
             groundData.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapGroundTile_Trigger);
         }
 
-        public void PrintGameMapWall(int x, int y)
+        public void SetGameMapWall(int x, int y)
         {
             wallData.SetTile(new Vector3Int(x, y, 0), gameMapSetting.GameMapWallTile);
         }
 
-        public void PrintWallDecorates(int random, int x, int y)
+        public void SetWallDecorates(int random, int x, int y)
         {
             decoratesData.SetTile(new Vector3Int(x, y, 0),
                 gameMapSetting.WallDecotates[random % gameMapSetting.WallDecotates.Length]);
         }
 
-        public void PrintGroundDecorates(int random, int x, int y)
+        public void SetGroundDecorates(int random, int x, int y)
         {
             decoratesData.SetTile(new Vector3Int(x, y, 0),
                 gameMapSetting.GroundDecorates[random % gameMapSetting.GroundDecorates.Length]);
         }
 
-        public void PrintBoxDecorates(int random, int x, int y)
+        public void SetBoxDecorates(int random, int x, int y)
         {
             decoratesData.SetTile(new Vector3Int(x, y, 0),
                gameMapSetting.BoxDecotates[random % gameMapSetting.BoxDecotates.Length]);
         }
 
-        public void PRintSkullDecorates(int random, int x, int y)
+        public void SetSkullDecorates(int random, int x, int y)
         {
             decoratesData.SetTile(new Vector3Int(x, y, 0),
                gameMapSetting.SkullDecotates[random % gameMapSetting.SkullDecotates.Length]);
         }
 
-        public void PrintGameMapEntry(int x, int y, Direction d)
+        public void SetGameMapEntry(int x, int y, Direction d)
         {
             if (d == Direction.Left)
                 decoratesData.SetTile(new Vector3Int(x, y, 0)
@@ -446,17 +446,46 @@ namespace RandomMap
         #endregion
 
         #region 印出小地圖
-        public void PrintMiniMapCorner(Coordinate target, Direction direction1, Direction direction2)
+        private TileBase GetTileByType(BlockType type)
+        {
+            switch (type)
+            {
+                case BlockType.Safe: return miniMapSetting.EntryAreaTile;
+                case BlockType.BossRoom: return miniMapSetting.BossAreaTile;
+                case BlockType.Normal:
+                default:
+                    return miniMapSetting.NormalTile;
+            }
+        }
+
+        public void SetMiniMapCorner(Coordinate target, Direction direction1, Direction direction2, BlockType type)
         {
             int columnDisp = direction1.Column + direction2.Column > 0 ? 1 : 0;
             int rowDisp = direction1.Row + direction2.Row > 0 ? 1 : 0;
 
             miniMapData.SetTile(
                 new Vector3Int(target.Column * 15 + columnDisp * 14, target.Row * 15 + rowDisp * 14, 0)
-                , miniMapSetting.MiniMapTile);
+                , GetTileByType(type));
         }
 
-        public void PrintMiniMapWall(Coordinate target, Direction direction)
+        public void SetMiniMapWall(Coordinate target, Direction direction, BlockType type)
+        {
+            TileBase _tile = GetTileByType(type);
+
+            int startColumn = direction.Column == 1 ? 14 : 0;
+            int startRow = direction.Row == 1 ? 14 : 0;
+            int columnDisp = direction.Row != 0 ? 1 : 0;
+            int rowDisp = direction.Column != 0 ? 1 : 0;
+
+            for (int column = 1; column < 14; column++)
+                for (int row = 1; row < 14; row++)
+                    miniMapData.SetTile(
+                        new Vector3Int(target.Column * 15 + startColumn + columnDisp * column,
+                        target.Row * 15 + startRow + rowDisp * row, 0)
+                        , _tile);
+        }
+
+        public void SetMiniMapEntry(Coordinate target, Direction direction)
         {
             int startColumn = direction.Column == 1 ? 14 : 0;
             int startRow = direction.Row == 1 ? 14 : 0;
@@ -468,42 +497,7 @@ namespace RandomMap
                     miniMapData.SetTile(
                         new Vector3Int(target.Column * 15 + startColumn + columnDisp * column,
                         target.Row * 15 + startRow + rowDisp * row, 0)
-                        , miniMapSetting.MiniMapTile);
-        }
-
-        public void PrintMiniMapEntry(Coordinate target, Direction direction)
-        {
-            miniMapSetting.MiniMapTile.color = entryColor;
-            PrintMiniMapWall(target, direction);
-            miniMapSetting.MiniMapTile.color = Color.white;
-        }
-
-        internal void PrintMiniMapSafeBlockWall(Coordinate target, Direction direction)
-        {
-            miniMapSetting.MiniMapTile.color = safeBlockColor;
-            PrintMiniMapWall(target, direction);
-            miniMapSetting.MiniMapTile.color = Color.white;
-        }
-
-        internal void PrintMiniMapBossRoomWall(Coordinate target, Direction direction)
-        {
-            miniMapSetting.MiniMapTile.color = bossRoomColor;
-            PrintMiniMapWall(target, direction);
-            miniMapSetting.MiniMapTile.color = Color.white;
-        }
-
-        internal void PrintMiniMapSafeBlockCorner(Coordinate target, Direction direction1, Direction direction2)
-        {
-            miniMapSetting.MiniMapTile.color = safeBlockColor;
-            PrintMiniMapCorner(target, direction1, direction2);
-            miniMapSetting.MiniMapTile.color = Color.white;
-        }
-
-        internal void PrintMiniMapBossRoomCorner(Coordinate target, Direction direction1, Direction direction2)
-        {
-            miniMapSetting.MiniMapTile.color = bossRoomColor;
-            PrintMiniMapCorner(target, direction1, direction2);
-            miniMapSetting.MiniMapTile.color = Color.white;
+                        , miniMapSetting.EntryTile);
         }
         #endregion
 

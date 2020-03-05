@@ -8,7 +8,7 @@ namespace RandomMap
         public Transform Player;
         public GameObject PlayerController;
 
-        [Header("地圖深度"), Range(1, 100), Tooltip("自起點至最深處的區塊數量")]
+        [Header("地圖深度"), Range(5, 100), Tooltip("自起點至最深處的區塊數量")]
         public int MapScale;
         [Header("地圖種子"), Tooltip("0由電腦自動產生種子")]
         public int seed;
