@@ -59,7 +59,7 @@ namespace Character
             get => _direction;
             set
             {
-                _direction = value;
+                _direction = value.normalized;
                 _target = IsometricUtility.ToVector3(_direction) * 10 + transform.position;
             }
         }

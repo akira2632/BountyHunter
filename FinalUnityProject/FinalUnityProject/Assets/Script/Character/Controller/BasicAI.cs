@@ -112,7 +112,7 @@ namespace Character.Controller
                         > manager.AISetting.StopDistance)
                     {
                         manager.Character.Move(
-                            IsometricUtility.ToVector2(manager.Character.transform.position, nextPoint));
+                            nextPoint - manager.Character.transform.position);
                     }
                     else if (!manager.Senser.NextWayPoint(out nextPoint))
                         manager.SetState(new AIIdel());
@@ -148,7 +148,7 @@ namespace Character.Controller
                         > manager.AISetting.StopDistance)
                     {
                         manager.Character.Move(
-                            IsometricUtility.ToVector2(manager.Character.transform.position, nextPoint));
+                            nextPoint - manager.Character.transform.position);
                     }
                     else if (!manager.Senser.NextWayPoint(out nextPoint))
                     {
@@ -168,8 +168,8 @@ namespace Character.Controller
             public override void Initial()
             {
                 //Debug.Log("AttackStart");
-                manager.Character.Move(IsometricUtility.ToVector2(
-                    manager.Character.transform.position, manager.player.transform.position));
+                manager.Character.Move(
+                    manager.player.transform.position - manager.Character.transform.position);
                 manager.Character.BasicAttack();
             }
 
@@ -185,8 +185,8 @@ namespace Character.Controller
 
                 if (manager.Character.CharacterData.BasicAttackTimer <= 0)
                 {
-                    manager.Character.Move(IsometricUtility.ToVector2(
-                        manager.Character.transform.position, manager.player.transform.position));
+                    manager.Character.Move(
+                        manager.player.transform.position - manager.Character.transform.position);
                     manager.Character.BasicAttack();
                 }
             }

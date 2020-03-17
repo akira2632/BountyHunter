@@ -172,8 +172,9 @@ namespace Character.ActionProvider
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
 
-                actionController.MovementBody.MovePosition(actionController.MovementBody.position +
-                    IsometricUtility.ToVector2(actionController.CharacterData.Direction)
+                actionController.MovementBody.MovePosition(
+                    actionController.MovementBody.position
+                    + actionController.CharacterData.Direction.IsoNormalized()
                     * actionController.CharacterData.MoveSpeed * Time.deltaTime);
             }
 
@@ -310,8 +311,9 @@ namespace Character.ActionProvider
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
 
-                actionController.MovementBody.MovePosition(actionController.MovementBody.position +
-                    IsometricUtility.ToVector2(actionController.CharacterData.Direction)
+                actionController.MovementBody.MovePosition(
+                    actionController.MovementBody.position
+                    + actionController.CharacterData.Direction.IsoNormalized()
                     * actionController.CharacterData.MoveSpeed * 0.8f * Time.deltaTime);
             }
 

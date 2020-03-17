@@ -218,8 +218,9 @@ namespace Character.ActionProvider
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
 
-                actionController.MovementBody.MovePosition(actionController.MovementBody.position +
-                    IsometricUtility.ToVector2(actionController.CharacterData.Direction)
+                actionController.MovementBody.MovePosition(
+                    actionController.MovementBody.position
+                    + actionController.CharacterData.Direction.IsoNormalized()
                     * actionController.CharacterData.MoveSpeed * Time.deltaTime);
 
                 WarriorEventsManager.WarriorMove(Time.deltaTime);
@@ -420,8 +421,9 @@ namespace Character.ActionProvider
             public override void Update()
             {
                 Vector2 dodgeVector =
-                    IsometricUtility.ToVector2(actionController.CharacterData.Direction)
-                    * actionController.CharacterData.DodgeSpeed * Time.deltaTime;
+                    actionController.CharacterData.Direction.IsoNormalized()
+                    * actionController.CharacterData.DodgeSpeed
+                    * Time.deltaTime;
 
                 dodgeDistance += dodgeVector.magnitude;
 
@@ -480,8 +482,9 @@ namespace Character.ActionProvider
                 if (dodgeDistance < targetDistance)
                 {
                     Vector2 dodgeVector =
-                        IsometricUtility.ToVector2(actionController.CharacterData.Direction)
-                        * actionController.CharacterData.DodgeSpeed * Time.deltaTime;
+                        actionController.CharacterData.Direction.IsoNormalized()
+                        * actionController.CharacterData.DodgeSpeed
+                        * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;
 
@@ -596,8 +599,9 @@ namespace Character.ActionProvider
                 if (dodgeDistance < targetDistance)
                 {
                     Vector2 dodgeVector =
-                        IsometricUtility.ToVector2(actionController.CharacterData.Direction)
-                        * actionController.CharacterData.DodgeSpeed * Time.deltaTime;
+                        actionController.CharacterData.Direction.IsoNormalized()
+                        * actionController.CharacterData.DodgeSpeed
+                        * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;
 
