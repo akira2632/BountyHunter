@@ -60,7 +60,8 @@ namespace Character
             set
             {
                 _direction = value.normalized;
-                _target = IsometricUtility.ToVector3(_direction) * 10 + transform.position;
+                var temp = _direction * 10;
+                _target = transform.position + new Vector3(temp.x, temp.y);
             }
         }
         public Vector3 TargetPosition

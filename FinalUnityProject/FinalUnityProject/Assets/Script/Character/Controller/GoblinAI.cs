@@ -292,7 +292,8 @@ namespace Character.Controller
 
                 if (manager.Character.CharacterData.SpacilAttackTimer <= 0)
                 {
-                    manager.Character.SpecialAttack(manager.player.transform.position);
+                    manager.Character.Move(manager.player.transform.position - manager.Character.transform.position);
+                    manager.Character.SpecialAttack(manager.player.transform.position + new Vector3(0, 0.8f));
                     manager.SetState(new AIAround(manager));
                 }
             }
