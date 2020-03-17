@@ -122,8 +122,8 @@ namespace Character.ActionProvider
             {
                 actionController.Animator.SetBool("IsMove", false);
 
-                IsometricUtility.GetVerticalAndHorizontal(
-                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterData.Direction.
+                    GetVerticalAndHorizontal(out var vertical, out var horizontal);
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
             }
@@ -158,8 +158,8 @@ namespace Character.ActionProvider
                 actionController.AudioSource.clip = actionProvider.MoveSound;
                 actionController.AudioSource.Play();
 
-                IsometricUtility.GetVerticalAndHorizontal(
-                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterData.Direction.
+                    GetVerticalAndHorizontal(out var vertical, out var horizontal);
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
                 actionController.Animator.SetBool("IsMove", true);
@@ -167,8 +167,8 @@ namespace Character.ActionProvider
 
             public override void Update()
             {
-                IsometricUtility.GetVerticalAndHorizontal(
-                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterData.Direction.
+                    GetVerticalAndHorizontal(out var vertical, out var horizontal);
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
 
@@ -249,8 +249,8 @@ namespace Character.ActionProvider
 
             public override void Update()
             {
-                IsometricUtility.GetVerticalAndHorizontal(
-                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterData.Direction.
+                    GetVerticalAndHorizontal(out var vertical, out var horizontal);
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
 
@@ -305,8 +305,8 @@ namespace Character.ActionProvider
                 if (timer <= 0)
                     actionController.SetAction(actionProvider.GetSpecialAttackStiffAction(actionController));
 
-                IsometricUtility.GetVerticalAndHorizontal(
-                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterData.Direction.
+                    GetVerticalAndHorizontal(out var vertical, out var horizontal);
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
 
