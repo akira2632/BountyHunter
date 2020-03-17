@@ -109,9 +109,7 @@ namespace RandomMap
         {
             for (int column = 0; column < 15; column++)
                 for (int row = 0; row < 15; row++)
-                {
                     tileMapBuilder.SetGameMapWall(target.Column * 15 + column, target.Row * 15 + row);
-                }
 
             generaterManager.AddTicks();
             generaterManager.SetNextGenerater(new MiniMapPresenter(generaterManager));
