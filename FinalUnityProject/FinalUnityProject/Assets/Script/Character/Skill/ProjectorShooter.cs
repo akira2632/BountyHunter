@@ -30,8 +30,8 @@ namespace Character.Skill
         private void ShootingProjector()
         {
             #region 取得發射位置
-            IsometricUtility.GetVerticalAndHorizontal(Character.CharacterData.Direction
-                ,out float vertical, out float horizontal);
+            Character.CharacterData.Direction.
+                GetVerticalAndHorizontal(out var vertical, out var horizontal);
             var positionIndex = ((int)vertical + 1) * 3 + (int)horizontal + 1;
             positionIndex = positionIndex > 4 ? positionIndex - 1 : positionIndex;
             var startPosition = ShottingPoints[positionIndex].position;

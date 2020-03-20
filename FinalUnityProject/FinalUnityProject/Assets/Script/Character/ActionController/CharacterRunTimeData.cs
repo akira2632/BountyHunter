@@ -59,8 +59,9 @@ namespace Character
             get => _direction;
             set
             {
-                _direction = value;
-                _target = IsometricUtility.ToVector3(_direction) * 10 + transform.position;
+                _direction = value.normalized;
+                var temp = _direction * 10;
+                _target = transform.position + new Vector3(temp.x, temp.y);
             }
         }
         public Vector3 TargetPosition

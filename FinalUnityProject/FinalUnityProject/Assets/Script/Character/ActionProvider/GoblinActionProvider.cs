@@ -121,8 +121,8 @@ namespace Character.ActionProvider
             #region 動作更新
             public override void Start()
             {
-                IsometricUtility.GetVerticalAndHorizontal(
-                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterData.Direction.
+                    GetVerticalAndHorizontal(out var vertical, out var horizontal);
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
 
@@ -169,8 +169,8 @@ namespace Character.ActionProvider
                 actionController.AudioSource.clip = actionProvider.MoveSound;
                 actionController.AudioSource.Play();
 
-                IsometricUtility.GetVerticalAndHorizontal(
-                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterData.Direction.
+                    GetVerticalAndHorizontal(out var vertical, out var horizontal);
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
                 actionController.Animator.SetBool("IsMove", true);
@@ -178,13 +178,14 @@ namespace Character.ActionProvider
 
             public override void Update()
             {
-                IsometricUtility.GetVerticalAndHorizontal(
-                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterData.Direction.
+                    GetVerticalAndHorizontal(out var vertical, out var horizontal);
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
 
-                actionController.MovementBody.MovePosition(actionController.MovementBody.position +
-                    IsometricUtility.ToVector2(actionController.CharacterData.Direction)
+                actionController.MovementBody.MovePosition(
+                    actionController.MovementBody.position
+                    + actionController.CharacterData.Direction.IsoNormalized()
                     * actionController.CharacterData.MoveSpeed * Time.deltaTime);
             }
 
@@ -278,8 +279,8 @@ namespace Character.ActionProvider
                 if (hasTarget)
                 {
                     actionController.CharacterData.TargetPosition = targetPosition;
-                    IsometricUtility.GetVerticalAndHorizontal(
-                        targetPosition - actionController.transform.position, out var vertical, out var horizontal);
+                    actionController.CharacterData.Direction.
+                        GetVerticalAndHorizontal(out var vertical, out var horizontal);
                     actionController.Animator.SetFloat("Vertical", vertical);
                     actionController.Animator.SetFloat("Horizontal", horizontal);
                 }
@@ -311,8 +312,8 @@ namespace Character.ActionProvider
             public override void Start()
             {
                 nowDistance = 0;
-                knockBackDirection = IsometricUtility.ToVector2(
-                    actionController.MovementBody.position - damage.HitFrom).normalized;
+                knockBackDirection =
+                    (actionController.MovementBody.position - damage.HitFrom).IsoNormalized();
 
                 actionController.AudioSource.PlayOneShot(actionProvider.HurtSound);
 

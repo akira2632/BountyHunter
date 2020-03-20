@@ -32,7 +32,7 @@ namespace Character.Skill
         {
             MyDamage = damage;
 
-            Vector3 endPosition = IsometricUtility.ToVector3(target - transform.position) * BulletRange;
+            Vector3 endPosition = (target - transform.position).IsoNormalized() * BulletRange;
             transform.DOBlendableMoveBy(endPosition, (BulletRange / BulletSpeed))
                 .SetEase(BulletMoveEase)
                 .onComplete += () => GetComponent<Animator>().SetTrigger("Destroy");

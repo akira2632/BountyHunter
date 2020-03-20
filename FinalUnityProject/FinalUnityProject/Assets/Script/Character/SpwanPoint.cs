@@ -65,7 +65,7 @@ namespace Character
 
         private float CaculatePlayerDistance()
         {
-            return IsometricUtility.ToDistance(transform.position, player.position);
+            return transform.position.IsoDistance(player.position);
         }
 
         private void OnBecameVisible()

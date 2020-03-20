@@ -15,7 +15,7 @@ MonoBehaviour:
   CharacterRegenSpeed: 10
   CharacterRegenHealth: 20
   CharacterMaxHealth: 160
-  CharacterMoveSpeed: 10
+  CharacterMoveSpeed: 7
   CharacterDodgeSpeed: 8
   CharacterAttack: 70
   CharacterAttackFloating: 4

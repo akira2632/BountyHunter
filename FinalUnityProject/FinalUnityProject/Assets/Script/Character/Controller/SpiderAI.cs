@@ -81,7 +81,7 @@ namespace Character.Controller
                 if (idelTimer < 0)
                     manager.SetState(new AIWandering(manager));
 
-                if (IsometricUtility.ToDistance(manager.Character.transform.position, manager.player.transform.position)
+                if (manager.Character.transform.position.IsoDistance(manager.player.transform.position)
                     <= manager.AISetting.DetectedDistance)
                     manager.SetState(new AIChase(manager));
             }
@@ -99,22 +99,21 @@ namespace Character.Controller
                     (manager.AISetting.WounderDistanceMin, manager.AISetting.WounderDistanceMax);
                 float degree = Random.Range(0, 360);
 
-                manager.Senser.FindPath(manager.Character.transform.position +
-                    IsometricUtility.ToVector3(
-                    Quaternion.AngleAxis(degree, Vector3.forward) * Vector3.right)
+                manager.Senser.FindPath(manager.Character.transform.position
+                    + (Quaternion.AngleAxis(degree, Vector3.forward) * Vector3.right).IsoNormalized()
                     * distance,
                     (Vector3 nextPoint) => this.nextPoint = nextPoint);
             }
 
             public override void Update()
             {
-                if (IsometricUtility.ToDistance(manager.Character.transform.position, manager.player.transform.position)
+                if (manager.Character.transform.position.IsoDistance(manager.player.transform.position)
                     <= manager.AISetting.DetectedDistance)
                     manager.SetState(new AIChase(manager));
 
                 if (manager.Senser.PathFinded)
                 {
-                    if (IsometricUtility.ToDistance(nextPoint, manager.Character.transform.position)
+                    if (nextPoint.IsoDistance(manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
                     {
                         manager.Character.Move((nextPoint - manager.Character.transform.position).normalized);
@@ -139,20 +138,20 @@ namespace Character.Controller
 
             public override void Update()
             {
-                if (IsometricUtility.ToDistance(manager.Character.transform.position, manager.player.transform.position)
+                if (manager.Character.transform.position.IsoDistance(manager.player.transform.position)
                     > manager.AISetting.DetectedDistance)
                     manager.SetState(new AIIdel(manager));
 
                 if (manager.Senser.PathFinded)
                 {
-                    if (IsometricUtility.ToDistance(manager.player.transform.position, manager.Character.transform.position) < manager.AISetting.AttackDistance
+                    if (manager.player.transform.position.IsoDistance(manager.Character.transform.position) < manager.AISetting.AttackDistance
                         && manager.Character.CharacterData.BasicAttackTimer <= 0)
                     {
                         manager.SetState(new AIAttack(manager));
                         return;
                     }
 
-                    if (IsometricUtility.ToDistance(nextPoint, manager.Character.transform.position)
+                    if (nextPoint.IsoDistance(manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
                     {
                         manager.Character.Move((nextPoint - manager.Character.transform.position).normalized);
@@ -192,8 +191,8 @@ namespace Character.Controller
             private AIAround(SpiderAI manager, float angle, int roundTurnCount) : base(manager)
             {
                 targetPoint = manager.player.transform.position
-                    + IsometricUtility.ToVector3(Quaternion.AngleAxis(angle, Vector3.forward)
-                    * (manager.Character.transform.position - manager.player.transform.position).normalized)
+                    + (Quaternion.AngleAxis(angle, Vector3.forward)
+                    * (manager.Character.transform.position - manager.player.transform.position)).IsoNormalized()
                     * manager.AISetting.AroundRadius;
                 //Debug.Log($"AroundPoint{targetPoint}");
 
@@ -206,7 +205,7 @@ namespace Character.Controller
             public AIAround(SpiderAI manager) : base(manager)
             {
                 targetPoint = manager.player.transform.position
-                    + IsometricUtility.ToVector3(manager.Character.transform.position - manager.player.transform.position)
+                    + (manager.Character.transform.position - manager.player.transform.position).IsoNormalized()
                     * manager.AISetting.AroundRadius;
                 //Debug.Log($"AroundPoint{targetPoint}");
 
@@ -220,7 +219,7 @@ namespace Character.Controller
             {
                 if (manager.Senser.PathFinded)
                 {
-                    if (IsometricUtility.ToDistance(nextPoint, manager.Character.transform.position)
+                    if (nextPoint.IsoDistance(manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
                     {
                         manager.Character.Move((nextPoint - manager.Character.transform.position).normalized);
