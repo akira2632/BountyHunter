@@ -78,7 +78,7 @@ namespace Character.Controller
                 if (idelTimer < 0)
                     manager.SetState(new AIWandering());
 
-                if (IsometricUtility.ToDistance(manager.Character.transform.position, manager.player.transform.position)
+                if (manager.Character.transform.position.IsoDistance(manager.player.transform.position)
                     <= manager.AISetting.DetectedDistance)
                     manager.SetState(new AIChase());
             }
@@ -102,13 +102,13 @@ namespace Character.Controller
 
             public override void Update()
             {
-                if (IsometricUtility.ToDistance(manager.Character.transform.position, manager.player.transform.position)
+                if (manager.Character.transform.position.IsoDistance(manager.player.transform.position)
                     <= manager.AISetting.DetectedDistance)
                     manager.SetState(new AIChase());
 
                 if (manager.Senser.PathFinded)
                 {
-                    if (IsometricUtility.ToDistance(nextPoint, manager.Character.transform.position)
+                    if (nextPoint.IsoDistance(manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
                     {
                         manager.Character.Move(
@@ -131,20 +131,20 @@ namespace Character.Controller
 
             public override void Update()
             {
-                if (IsometricUtility.ToDistance(manager.Character.transform.position, manager.player.transform.position)
+                if (manager.Character.transform.position.IsoDistance(manager.player.transform.position)
                     > manager.AISetting.DetectedDistance)
                     manager.SetState(new AIIdel());
 
                 if (manager.Senser.PathFinded)
                 {
-                    if (IsometricUtility.ToDistance(manager.player.transform.position, manager.Character.transform.position) < manager.AISetting.AttackDistance
+                    if (manager.player.transform.position.IsoDistance(manager.Character.transform.position) < manager.AISetting.AttackDistance
                         && manager.Character.CharacterData.BasicAttackTimer <= 0)
                     {
                         manager.SetState(new AIAttack());
                         return;
                     }
 
-                    if (IsometricUtility.ToDistance(nextPoint, manager.Character.transform.position)
+                    if (nextPoint.IsoDistance(manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
                     {
                         manager.Character.Move(
@@ -175,12 +175,12 @@ namespace Character.Controller
 
             public override void Update()
             {
-                if (IsometricUtility.ToDistance(manager.Character.transform.position,
-                    manager.player.transform.position) > manager.AISetting.DetectedDistance)
+                if (manager.Character.transform.position.IsoDistance(manager.player.transform.position) 
+                    > manager.AISetting.DetectedDistance)
                     manager.SetState(new AIIdel());
 
-                if (IsometricUtility.ToDistance(manager.player.transform.position,
-                    manager.Character.transform.position) > manager.AISetting.AttackDistance)
+                if (manager.player.transform.position.IsoDistance(manager.Character.transform.position)
+                    > manager.AISetting.AttackDistance)
                     manager.SetState(new AIChase());
 
                 if (manager.Character.CharacterData.BasicAttackTimer <= 0)

@@ -19,6 +19,6 @@ MonoBehaviour:
   DetectedDistance: 10
   AttackDistance: 0.8
   StopDistance: 0.5
-  AroundDegree: 22
+  AroundDegree: 35
   AroundRadius: 3
   RoundTurn: 3

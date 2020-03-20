@@ -18,4 +18,4 @@ MonoBehaviour:
   WounderDistanceMin: 5
   DetectedDistance: 5
   AttackDistance: 1.2
-  StopDistance: 0.8
+  StopDistance: 1

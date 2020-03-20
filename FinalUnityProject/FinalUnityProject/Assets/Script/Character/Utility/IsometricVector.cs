@@ -12,33 +12,18 @@ namespace Character
             HorizontalMin = Mathf.PI * 3 / 8,
             HorizontalMax = Mathf.PI * 5 / 8;
 
-        #region Normalized
         public static Vector2 IsoNormalized(this Vector2 myVector2)
         {
             float angle = Mathf.Atan2(myVector2.y, myVector2.x);
             return new Vector2(Mathf.Cos(angle), 0.6f * Mathf.Sin(angle));
         }
 
-        public static Vector2 IsoNormalized(this Vector3 myVector3)
+        public static float IsoDistance(this Vector3 myVector3, Vector3 otherVector3)
         {
-            float angle = Mathf.Atan2(myVector3.y, myVector3.x);
-            return new Vector2(Mathf.Cos(angle), 0.6f * Mathf.Sin(angle));
+            float angle = Mathf.Atan2(otherVector3.y - myVector3.y, otherVector3.x - myVector3.x);
+            Vector3 temp = new Vector3(Mathf.Cos(angle), 1.667f * Mathf.Sin(angle)) * Vector3.Distance(myVector3, otherVector3);
+            return temp.magnitude;
         }
-        #endregion
-
-        #region ToIsometricVector2
-        public static Vector2 IsoVector2(this Vector2 myVector2)
-        {
-            float angle = Mathf.Atan2(myVector2.y, myVector2.x);
-            return myVector2.magnitude * new Vector2(Mathf.Cos(angle) , 0.6f * Mathf.Sin(angle));
-        }
-
-        public static Vector2 IsoVector2(this Vector3 myVector2)
-        {
-            float angle = Mathf.Atan2(myVector2.y, myVector2.x);
-            return myVector2.magnitude * new Vector2(Mathf.Cos(angle), 0.6f * Mathf.Sin(angle));
-        }
-        #endregion
 
         #region VerticalAndHorizontal
         public static void GetVerticalAndHorizontal(

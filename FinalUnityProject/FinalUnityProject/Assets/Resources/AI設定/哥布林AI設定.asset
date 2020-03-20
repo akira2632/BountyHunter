@@ -20,7 +20,7 @@ MonoBehaviour:
   BasicAttackDistance: 0.5
   SpacilAttackDistance: 3
   StopDistance: 0.5
-  AroundRadius: 3
-  AroundDegree: 20
-  SpacilAttackChangeSideConter: 3
-  RoundTurn: 1
+  AroundRadius: 4
+  AroundDegree: 30
+  SpacilAttackChangeSideConter: 2
+  RoundTurn: 2
