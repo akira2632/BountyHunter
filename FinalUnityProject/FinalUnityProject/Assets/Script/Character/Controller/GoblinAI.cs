@@ -112,7 +112,7 @@ namespace Character.Controller
                 float degree = Random.Range(0, 360);
 
                 manager.Senser.FindPath(manager.Character.transform.position
-                    + IsometricUtility.ToVector3(Quaternion.AngleAxis(degree, Vector3.forward) * Vector3.right)
+                    + (Quaternion.AngleAxis(degree, Vector3.forward) * Vector3.right).IsoNormalized()
                     * distance,
                     (Vector3 nextPoint) => this.nextPoint = nextPoint);
             }
@@ -201,9 +201,8 @@ namespace Character.Controller
             private AIAround(GoblinAI manager, float angle, int roundTurnCount) : base(manager)
             {
                 targetPoint = manager.player.transform.position
-                    + IsometricUtility.ToVector3(
-                        Quaternion.AngleAxis(angle, Vector3.forward)
-                        * (manager.Character.transform.position - manager.player.transform.position))
+                    + (Quaternion.AngleAxis(angle, Vector3.forward)
+                    * (manager.Character.transform.position - manager.player.transform.position)).IsoNormalized()
                     * manager.AISetting.AroundRadius;
 
                 this.angle = angle;
@@ -216,7 +215,7 @@ namespace Character.Controller
             public AIAround(GoblinAI manager) : base(manager)
             {
                 targetPoint = manager.player.transform.position
-                    + IsometricUtility.ToVector3(manager.Character.transform.position - manager.player.transform.position)
+                    + (manager.Character.transform.position - manager.player.transform.position).IsoNormalized()
                     * manager.AISetting.AroundRadius;
 
                 angle = Random.Range(1, 10) > 5 ? -manager.AISetting.AroundDegree : manager.AISetting.AroundDegree;

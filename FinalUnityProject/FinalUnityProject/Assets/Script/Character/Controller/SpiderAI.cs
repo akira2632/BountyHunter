@@ -99,9 +99,8 @@ namespace Character.Controller
                     (manager.AISetting.WounderDistanceMin, manager.AISetting.WounderDistanceMax);
                 float degree = Random.Range(0, 360);
 
-                manager.Senser.FindPath(manager.Character.transform.position +
-                    IsometricUtility.ToVector3(
-                    Quaternion.AngleAxis(degree, Vector3.forward) * Vector3.right)
+                manager.Senser.FindPath(manager.Character.transform.position
+                    + (Quaternion.AngleAxis(degree, Vector3.forward) * Vector3.right).IsoNormalized()
                     * distance,
                     (Vector3 nextPoint) => this.nextPoint = nextPoint);
             }
@@ -192,8 +191,8 @@ namespace Character.Controller
             private AIAround(SpiderAI manager, float angle, int roundTurnCount) : base(manager)
             {
                 targetPoint = manager.player.transform.position
-                    + IsometricUtility.ToVector3(Quaternion.AngleAxis(angle, Vector3.forward)
-                    * (manager.Character.transform.position - manager.player.transform.position).normalized)
+                    + (Quaternion.AngleAxis(angle, Vector3.forward)
+                    * (manager.Character.transform.position - manager.player.transform.position)).IsoNormalized()
                     * manager.AISetting.AroundRadius;
                 //Debug.Log($"AroundPoint{targetPoint}");
 
@@ -206,7 +205,7 @@ namespace Character.Controller
             public AIAround(SpiderAI manager) : base(manager)
             {
                 targetPoint = manager.player.transform.position
-                    + IsometricUtility.ToVector3(manager.Character.transform.position - manager.player.transform.position)
+                    + (manager.Character.transform.position - manager.player.transform.position).IsoNormalized()
                     * manager.AISetting.AroundRadius;
                 //Debug.Log($"AroundPoint{targetPoint}");
 

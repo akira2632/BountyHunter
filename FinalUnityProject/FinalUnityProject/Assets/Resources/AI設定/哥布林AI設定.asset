@@ -16,10 +16,10 @@ MonoBehaviour:
   IdelTimeMin: 1
   WounderDistanceMax: 7
   WounderDistanceMin: 5
-  DetectedDistance: 7
-  BasicAttackDistance: 0.5
+  DetectedDistance: 10
+  BasicAttackDistance: 1
   SpacilAttackDistance: 3
-  StopDistance: 0.5
+  StopDistance: 1
   AroundRadius: 4
   AroundDegree: 30
   SpacilAttackChangeSideConter: 2

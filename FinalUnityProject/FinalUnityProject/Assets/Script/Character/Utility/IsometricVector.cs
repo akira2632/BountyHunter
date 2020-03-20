@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Character
 {
@@ -11,6 +9,12 @@ namespace Character
             VerticalMax = Mathf.PI * 7 / 8,
             HorizontalMin = Mathf.PI * 3 / 8,
             HorizontalMax = Mathf.PI * 5 / 8;
+
+        public static Vector3 IsoNormalized(this Vector3 myVector3)
+        {
+            float angle = Mathf.Atan2(myVector3.y, myVector3.x);
+            return new Vector3(Mathf.Cos(angle), 0.6f * Mathf.Sin(angle));
+        }
 
         public static Vector2 IsoNormalized(this Vector2 myVector2)
         {
@@ -45,28 +49,6 @@ namespace Character
                 horizontal = 1;
             else
                 horizontal = 0;
-        }
-
-        public static float GetVertical(this Vector2 myVector2)
-        {
-            var angle = Mathf.Atan2(myVector2.y, myVector2.x);
-            if (angle > VerticalMin && angle <= VerticalMax)
-                return 1;
-            else if (angle <= -VerticalMin && angle > -VerticalMax)
-                return -1;
-            else
-                return 0;
-        }
-
-        public static float GetHorizontal(this Vector2 myVector2)
-        {
-            var angle = Mathf.Abs(Mathf.Atan2(myVector2.y, myVector2.x));
-            if (angle > HorizontalMax)
-                return -1;
-            else if (angle < HorizontalMin)
-                return 1;
-            else
-                return 0;
         }
         #endregion
     }

@@ -93,9 +93,8 @@ namespace Character.Controller
                     (manager.AISetting.WounderDistanceMin, manager.AISetting.WounderDistanceMax);
                 float degree = Random.Range(0, 360);
 
-                manager.Senser.FindPath(manager.Character.transform.position +
-                    IsometricUtility.ToVector3(
-                    Quaternion.AngleAxis(degree, Vector3.forward) * Vector3.right)
+                manager.Senser.FindPath(manager.Character.transform.position
+                    + (Quaternion.AngleAxis(degree, Vector3.forward) * Vector3.right).IsoNormalized()
                     * distance,
                     (Vector3 nextPoint) => this.nextPoint = nextPoint);
             }
