@@ -107,7 +107,6 @@
     <Compile Include="Assets\Script\Character\SpwanPoint.cs" />
     <Compile Include="Assets\Script\Character\Utility\AnimateStateEvent.cs" />
     <Compile Include="Assets\Script\Character\Utility\IAnimateStateHandler.cs" />
-    <Compile Include="Assets\Script\Character\Utility\IsometricUtility.cs" />
     <Compile Include="Assets\Script\Character\Utility\IsometricVector.cs" />
     <Compile Include="Assets\Script\Character\Utility\SkillEffectTester.cs" />
     <Compile Include="Assets\Script\RandomMap\AreaGenerater.cs" />
