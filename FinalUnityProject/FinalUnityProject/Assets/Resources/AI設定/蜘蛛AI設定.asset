@@ -16,9 +16,9 @@ MonoBehaviour:
   IdelTimeMin: 4
   WounderDistanceMax: 5
   WounderDistanceMin: 1
-  DetectedDistance: 10
-  AttackDistance: 0.8
-  StopDistance: 0.5
-  AroundDegree: 22
-  AroundRadius: 3
+  DetectedDistance: 15
+  AttackDistance: 1.2
+  StopDistance: 1.2
+  AroundDegree: 35
+  AroundRadius: 5
   RoundTurn: 3

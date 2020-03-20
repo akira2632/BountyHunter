@@ -78,7 +78,7 @@ namespace Character.Controller
                 if (idelTimer < 0)
                     manager.SetState(new AIWandering());
 
-                if (IsometricUtility.ToDistance(manager.Character.transform.position, manager.player.transform.position)
+                if (manager.Character.transform.position.IsoDistance(manager.player.transform.position)
                     <= manager.AISetting.DetectedDistance)
                     manager.SetState(new AIChase());
             }
@@ -93,26 +93,25 @@ namespace Character.Controller
                     (manager.AISetting.WounderDistanceMin, manager.AISetting.WounderDistanceMax);
                 float degree = Random.Range(0, 360);
 
-                manager.Senser.FindPath(manager.Character.transform.position +
-                    IsometricUtility.ToVector3(
-                    Quaternion.AngleAxis(degree, Vector3.forward) * Vector3.right)
+                manager.Senser.FindPath(manager.Character.transform.position
+                    + (Quaternion.AngleAxis(degree, Vector3.forward) * Vector3.right).IsoNormalized()
                     * distance,
                     (Vector3 nextPoint) => this.nextPoint = nextPoint);
             }
 
             public override void Update()
             {
-                if (IsometricUtility.ToDistance(manager.Character.transform.position, manager.player.transform.position)
+                if (manager.Character.transform.position.IsoDistance(manager.player.transform.position)
                     <= manager.AISetting.DetectedDistance)
                     manager.SetState(new AIChase());
 
                 if (manager.Senser.PathFinded)
                 {
-                    if (IsometricUtility.ToDistance(nextPoint, manager.Character.transform.position)
+                    if (nextPoint.IsoDistance(manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
                     {
                         manager.Character.Move(
-                            IsometricUtility.ToVector2(manager.Character.transform.position, nextPoint));
+                            nextPoint - manager.Character.transform.position);
                     }
                     else if (!manager.Senser.NextWayPoint(out nextPoint))
                         manager.SetState(new AIIdel());
@@ -131,24 +130,24 @@ namespace Character.Controller
 
             public override void Update()
             {
-                if (IsometricUtility.ToDistance(manager.Character.transform.position, manager.player.transform.position)
+                if (manager.Character.transform.position.IsoDistance(manager.player.transform.position)
                     > manager.AISetting.DetectedDistance)
                     manager.SetState(new AIIdel());
 
                 if (manager.Senser.PathFinded)
                 {
-                    if (IsometricUtility.ToDistance(manager.player.transform.position, manager.Character.transform.position) < manager.AISetting.AttackDistance
+                    if (manager.player.transform.position.IsoDistance(manager.Character.transform.position) < manager.AISetting.AttackDistance
                         && manager.Character.CharacterData.BasicAttackTimer <= 0)
                     {
                         manager.SetState(new AIAttack());
                         return;
                     }
 
-                    if (IsometricUtility.ToDistance(nextPoint, manager.Character.transform.position)
+                    if (nextPoint.IsoDistance(manager.Character.transform.position)
                         > manager.AISetting.StopDistance)
                     {
                         manager.Character.Move(
-                            IsometricUtility.ToVector2(manager.Character.transform.position, nextPoint));
+                            nextPoint - manager.Character.transform.position);
                     }
                     else if (!manager.Senser.NextWayPoint(out nextPoint))
                     {
@@ -168,25 +167,25 @@ namespace Character.Controller
             public override void Initial()
             {
                 //Debug.Log("AttackStart");
-                manager.Character.Move(IsometricUtility.ToVector2(
-                    manager.Character.transform.position, manager.player.transform.position));
+                manager.Character.Move(
+                    manager.player.transform.position - manager.Character.transform.position);
                 manager.Character.BasicAttack();
             }
 
             public override void Update()
             {
-                if (IsometricUtility.ToDistance(manager.Character.transform.position,
-                    manager.player.transform.position) > manager.AISetting.DetectedDistance)
+                if (manager.Character.transform.position.IsoDistance(manager.player.transform.position) 
+                    > manager.AISetting.DetectedDistance)
                     manager.SetState(new AIIdel());
 
-                if (IsometricUtility.ToDistance(manager.player.transform.position,
-                    manager.Character.transform.position) > manager.AISetting.AttackDistance)
+                if (manager.player.transform.position.IsoDistance(manager.Character.transform.position)
+                    > manager.AISetting.AttackDistance)
                     manager.SetState(new AIChase());
 
                 if (manager.Character.CharacterData.BasicAttackTimer <= 0)
                 {
-                    manager.Character.Move(IsometricUtility.ToVector2(
-                        manager.Character.transform.position, manager.player.transform.position));
+                    manager.Character.Move(
+                        manager.player.transform.position - manager.Character.transform.position);
                     manager.Character.BasicAttack();
                 }
             }

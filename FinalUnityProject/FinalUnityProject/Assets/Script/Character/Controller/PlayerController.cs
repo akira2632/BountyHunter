@@ -37,7 +37,7 @@ namespace Character.Controller
             if (Input.GetKeyUp(PlayerKeySetting.LeftKey) || Input.GetKeyUp(PlayerKeySetting.RightKey))
                 direction.x = 0;
 
-            MyCharacter.Move(direction.normalized);
+            MyCharacter.Move(direction);
 
             if (Input.GetKeyDown(PlayerKeySetting.LightAttack))
                 MyCharacter.BasicAttack();

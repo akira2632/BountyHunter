@@ -156,8 +156,8 @@ namespace Character.ActionProvider
             {
                 actionController.Animator.SetBool("IsMove", false);
 
-                IsometricUtility.GetVerticalAndHorizontal(
-                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterData.Direction.
+                    GetVerticalAndHorizontal(out var vertical, out var horizontal);
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
             }
@@ -204,8 +204,8 @@ namespace Character.ActionProvider
                 actionController.AudioSource.clip = actionProvider.MoveSound;
                 actionController.AudioSource.Play();
 
-                IsometricUtility.GetVerticalAndHorizontal(
-                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterData.Direction.
+                    GetVerticalAndHorizontal(out var vertical, out var horizontal);
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
                 actionController.Animator.SetBool("IsMove", true);
@@ -213,13 +213,14 @@ namespace Character.ActionProvider
 
             public override void Update()
             {
-                IsometricUtility.GetVerticalAndHorizontal(
-                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterData.Direction.
+                    GetVerticalAndHorizontal(out var vertical, out var horizontal);
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
 
-                actionController.MovementBody.MovePosition(actionController.MovementBody.position +
-                    IsometricUtility.ToVector2(actionController.CharacterData.Direction)
+                actionController.MovementBody.MovePosition(
+                    actionController.MovementBody.position
+                    + actionController.CharacterData.Direction.IsoNormalized()
                     * actionController.CharacterData.MoveSpeed * Time.deltaTime);
 
                 WarriorEventsManager.WarriorMove(Time.deltaTime);
@@ -277,8 +278,8 @@ namespace Character.ActionProvider
 
             public override void Update()
             {
-                IsometricUtility.GetVerticalAndHorizontal(
-                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterData.Direction.
+                    GetVerticalAndHorizontal(out var vertical, out var horizontal);
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
             }
@@ -370,8 +371,8 @@ namespace Character.ActionProvider
             {
                 isCharge = true;
 
-                IsometricUtility.GetVerticalAndHorizontal(
-                    actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                actionController.CharacterData.Direction.
+                    GetVerticalAndHorizontal(out var vertical, out var horizontal);
                 actionController.Animator.SetFloat("Vertical", vertical);
                 actionController.Animator.SetFloat("Horizontal", horizontal);
 
@@ -420,8 +421,9 @@ namespace Character.ActionProvider
             public override void Update()
             {
                 Vector2 dodgeVector =
-                    IsometricUtility.ToVector2(actionController.CharacterData.Direction)
-                    * actionController.CharacterData.DodgeSpeed * Time.deltaTime;
+                    actionController.CharacterData.Direction.IsoNormalized()
+                    * actionController.CharacterData.DodgeSpeed
+                    * Time.deltaTime;
 
                 dodgeDistance += dodgeVector.magnitude;
 
@@ -480,8 +482,9 @@ namespace Character.ActionProvider
                 if (dodgeDistance < targetDistance)
                 {
                     Vector2 dodgeVector =
-                        IsometricUtility.ToVector2(actionController.CharacterData.Direction)
-                        * actionController.CharacterData.DodgeSpeed * Time.deltaTime;
+                        actionController.CharacterData.Direction.IsoNormalized()
+                        * actionController.CharacterData.DodgeSpeed
+                        * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;
 
@@ -543,8 +546,8 @@ namespace Character.ActionProvider
                 {
                     ChargeTime += Time.deltaTime;
 
-                    IsometricUtility.GetVerticalAndHorizontal(
-                        actionController.CharacterData.Direction, out var vertical, out var horizontal);
+                    actionController.CharacterData.Direction.
+                        GetVerticalAndHorizontal(out var vertical, out var horizontal);
                     actionController.Animator.SetFloat("Vertical", vertical);
                     actionController.Animator.SetFloat("Horizontal", horizontal);
 
@@ -596,8 +599,9 @@ namespace Character.ActionProvider
                 if (dodgeDistance < targetDistance)
                 {
                     Vector2 dodgeVector =
-                        IsometricUtility.ToVector2(actionController.CharacterData.Direction)
-                        * actionController.CharacterData.DodgeSpeed * Time.deltaTime;
+                        actionController.CharacterData.Direction.IsoNormalized()
+                        * actionController.CharacterData.DodgeSpeed
+                        * Time.deltaTime;
 
                     dodgeDistance += dodgeVector.magnitude;
 
